@@ -1,0 +1,56 @@
+{
+  "Name": "test_model",
+  "Description": "simple test model",
+  "Steps": [
+    {
+      "Name": "run",
+      "Level": "Run",
+      "Model": {
+        "X": ["RT", "trial_type"]
+      },
+      "Transformations": [
+        {
+          "Name": "Scale",
+          "Input": "RT"
+        }
+      ],
+      "AutoContrasts": ["RT"],
+      "Contrasts": [
+        {
+          "Name": "RT-trial_type",
+          "ConditionList": [
+            "RT",
+            "trial_type"
+          ],
+          "Weights": [1, -1]
+        },
+        {
+          "Name": "crummy-F",
+          "ConditionList": [
+            "RT",
+            "trial_type"
+          ],
+          "Weights": [
+            [1, 0],
+            [0, 1]
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "session",
+      "Level": "Session",
+      "AutoContrasts": true
+    },
+    {
+      "Name": "participant",
+      "Level": "Subject",
+      "AutoContrasts": true
+    },
+    {
+      "Name": "group",
+      "Level": "Dataset",
+      "AutoContrasts": true
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+#!/home/bennyray/Projects/neuro-learn/env/bin/python3
+
+from __future__ import division, print_function
+
+from dipy.workflows.flow_runner import run_flow
+from dipy.workflows.segment import MedianOtsuFlow
+
+if __name__ == "__main__":
+    run_flow(MedianOtsuFlow())

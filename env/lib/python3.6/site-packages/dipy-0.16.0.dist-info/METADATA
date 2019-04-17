@@ -1,0 +1,79 @@
+Metadata-Version: 2.1
+Name: dipy
+Version: 0.16.0
+Summary: Diffusion MRI utilities in python
+Home-page: http://dipy.org
+Author: dipy developers
+Author-email: neuroimaging@python.org
+Maintainer: Eleftherios Garyfallidis
+Maintainer-email: neuroimaging@python.org
+License: BSD license
+Download-URL: http://github.com/nipy/dipy/archives/master
+Platform: OS Independent
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Topic :: Scientific/Engineering
+Requires: numpy (>=1.7.1)
+Requires: scipy (>=0.9)
+Requires: nibabel (>=2.3.0)
+Requires: h5py (>=2.4.0)
+Provides: dipy
+Provides-Extra: test
+Provides-Extra: doc
+Requires-Dist: scipy (>=0.9)
+Requires-Dist: nibabel (>=2.3.0)
+Requires-Dist: h5py (>=2.4.0)
+Provides-Extra: doc
+Requires-Dist: Sphinx (>=1.0); extra == 'doc'
+Provides-Extra: test
+Requires-Dist: pytest; extra == 'test'
+Requires-Dist: nose (>=0.10.1); extra == 'test'
+
+
+======
+ DIPY
+======
+
+DIPY is a python toolbox for analysis of MR diffusion imaging.
+
+DIPY is for research only; please do not use results from DIPY for
+clinical decisions.
+
+Website
+=======
+
+Current information can always be found from the DIPY website - http://dipy.org
+
+Mailing Lists
+=============
+
+Please see the developer's list at
+http://mail.scipy.org/mailman/listinfo/nipy-devel
+
+Code
+====
+
+You can find our sources and single-click downloads:
+
+* `Main repository`_ on Github.
+* Documentation_ for all releases and current development tree.
+* Download as a tar/zip file the `current trunk`_.
+
+.. _main repository: http://github.com/nipy/dipy
+.. _Documentation: http://dipy.org
+.. _current trunk: https://github.com/nipy/dipy/archive/master.zip
+
+License
+=======
+
+DIPY is licensed under the terms of the BSD license.
+Please see the LICENSE file in the dipy distribution.
+
+DIPY uses other libraries also licensed under the BSD or the
+MIT licenses.
+
+
