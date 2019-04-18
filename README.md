@@ -297,7 +297,13 @@ $ npm install --save-dev sass-loader style-loader css-loader
 ```
 - To change the theme colors in element-ui, refer to [this site](https://blog.csdn.net/youlinaixu/article/details/83447527) for help;
 - When defining the style of a page by css, name the class carefully or use a nested css since it is effective across files;
-
+- Use **this.$router.replace** to realize in-page redireting;
+```JavaScript
+this.$router.replace({
+  path: '/submissions',
+  component: resolve => require(['@/pages/submissions/submissions'], resolve)
+})
+```
 *References*  
 [Element-UI Documentation](http://element-cn.eleme.io/1.4/#/zh-CN/component/)  
 #### Data Transaction
@@ -308,6 +314,148 @@ $ npm install --save-dev sass-loader style-loader css-loader
 - The urls of functions in views are defined in **urls.py**， which is included in the **urls.py** in project folder;
 - The **urls.py** in project folder contains the urls when frontend sends request to http://127.0.0.1:8000/;
 - As $http in vue requires an out-of-date module named vue-resource, it is recommended to use [axios](https://ykloveyxk.github.io/2017/02/25/axios%E5%85%A8%E6%94%BB%E7%95%A5/) instead;
+- Using axios and django JsonResponse:
+  - Excecute POST request with axios to submit a task:
+  ```JavaScript
+  // import axios from 'axios'
+  axios.post('http://127.0.0.1:8000/api/new_task', JSON.stringify(this.newform))
+        .then(response => {
+          var res = response.data
+          if (res.error_num === 0) {
+            this.$router.replace({
+              path: '/submissions',
+              component: resolve => require(['@/pages/submissions/submissions'], resolve)
+            })
+            console.log(res)
+          } else {
+            this.$message.error('Failed submission!')
+            console.log(res['msg'])
+          }
+        })
+  ```
+  ```
+  Note: the 'newform' object defined in data object in vue can't be within any other object, as it may not satisfy two-way data-binding with v-model.
+  ```
+  - Excecute GET request with axios to get all submissions list:
+  ```JavaScript
+  // import axios from 'axios'
+  axios.get('http://127.0.0.1:8000/api/show_submissions')
+        .then(response => {
+          var res = response.data
+          if (res.error_num === 0) {
+            console.log(res)
+            this.submissions_table = res['list']
+            console.log(res['list'])
+          } else {
+            this.$message.error('Failed!')
+            console.log(res['msg'])
+          }
+        })
+  ```
+  ```
+  Note: axios support promise, which is the function().then.then ... structure.
+  ```
+  - Uniform Resource Locator is defined in urls in backend app, which is included in urls in neurolearn_dev project:
+  ```python
+  # neurolearn_dev/urls.py
+  from django.conf.urls import url, include
+  from django.contrib import admin
+  from django.views.generic import TemplateView
+  import backend.urls
+
+  urlpatterns = [
+      url(r'^admin/', admin.site.urls),
+      url(r'^api/', include(backend.urls)), # added
+      url(r'^$', TemplateView.as_view(template_name="index.html")),
+  ]
+
+  # backend/urls.py
+  from django.conf.urls import url, include
+  from . import views
+  
+  urlpatterns = [
+      url(r'add_book$', views.add_book, ),
+      url(r'show_books$', views.show_books, ),
+      url(r'new_task$', views.new_task, ),
+      url(r'show_submissions$', views.show_submissions, ),
+      ]
+  ```
+  - Receive request and generate response in views inside django:
+  ```python
+  @require_http_methods(["POST"])
+  def new_task(request):
+      response = {}
+      postBody = json.loads(request.body)
+      try:
+          task = Submissions_Demo(
+              task_name=postBody.get('task_name'),
+              task_type=postBody.get('task_type'),
+              train_data=postBody.get('train_data'),
+              test_data=postBody.get('test_data'),
+              label=postBody.get('label'),
+              feat_sel=postBody.get('feat_sel'),
+              estimator=postBody.get('estimator'),
+              cv_type=postBody.get('cv_type'),
+              note=postBody.get('note'),
+              verbose=postBody.get('verbose'),
+              task_status='Submitted',
+              task_result=''
+          )
+          task.save()
+          response['post_body'] = postBody
+          response['msg'] = 'success'
+          response['error_num'] = 0
+      except Exception as e:
+          response['post_body'] = postBody
+          response['msg'] = str(e)
+          response['error_num'] = 1
+
+      return JsonResponse(response)
+  
+  @require_http_methods(["GET"])
+  def show_submissions(request):
+      response = {}
+      try:
+          submissions = Submissions_Demo.objects.filter()
+          response['list']  = json.loads(serializers.serialize("json", submissions))
+          response['msg'] = 'success'
+          response['error_num'] = 0
+      except  Exception as e:
+          response['msg'] = str(e)
+          response['error_num'] = 1
+
+      return JsonResponse(response)
+  ```
+  - To initialize and manipulate databases, use models in django:
+  ```python
+  class Submissions_Demo(models.Model):
+      task_id = models.DateTimeField('Edit the date', auto_now=True)
+      task_name = models.CharField(max_length=64)
+      task_type = models.CharField(max_length=64)
+      train_data = models.CharField(max_length=64)
+      test_data = models.CharField(max_length=64)
+      label = models.CharField(max_length=64)
+      feat_sel = models.CharField(max_length=64)
+      estimator = models.CharField(max_length=64)
+      cv_type = models.CharField(max_length=64)
+      note = models.CharField(max_length=64)
+      verbose = models.BooleanField()
+      task_status = models.CharField(max_length=64)
+      task_result = models.CharField(max_length=1024)
+
+      def __unicode__(self):
+          return self.task_id
+  ```
+  ```
+  Note: after each altering of models, type 'python manage.py makemigrations' and 'python manage.py migrate' in commandline to alter databases.
+  ```
+- View databases and tables inside them:
+```mysql
+# mysql -u root -p
+# password: root
+mysql> use neurolearn_dev;
+mysql> select * from backend_submissions_demo
+```
 
 *references*  
 [Django模型Model自定义表名和字段列名](https://www.jianshu.com/p/dc71417c1dc2)  
