@@ -28,7 +28,7 @@
               <el-input type="textarea" v-model="diff_form.note"></el-input>
             </el-form-item>
             <el-form-item label="Verbose">
-              <el-switch on-text="On" off-text="Off" v-model="diff_form.verbose"></el-switch>
+              <el-switch active-text="On" inactive-text="Off" v-model="diff_form.verbose"></el-switch>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="onSubmit">Submit</el-button>
@@ -63,7 +63,7 @@
               <el-input type="textarea" v-model="corr_form.note"></el-input>
             </el-form-item>
             <el-form-item label="Verbose">
-              <el-switch on-text="On" off-text="Off" v-model="corr_form.verbose"></el-switch>
+              <el-switch active-text="On" inactive-text="Off" v-model="corr_form.verbose"></el-switch>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="onSubmit">Submit</el-button>

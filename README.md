@@ -26,9 +26,9 @@
 
 ### Environment
 
-- For Django: Python, Django, MySQL, etc. Use pip to install modules including Django and MySQL is recommended;
-- For Vue: Node.js. Use npm to install modules including Element-UI is recommended;
-- For celery: rabbitmq, celery, django-celery. Use apt-get to install rabbitmq-server, and pip to install celery and django-celery;
+- For Django: Python, Django, MySQL, etc. Using pip to install modules including Django and MySQL is recommended;
+- For Vue: Node.js. Using npm to install modules including Element-UI is recommended;
+- For celery: rabbitmq, celery, django-celery. Using apt-get to install rabbitmq-server, and pip to install celery and django-celery;
 
 ### Build Project
 
@@ -52,7 +52,7 @@ $ python manage.py startapp backend
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'djvuecelery',
+        'NAME': 'neurolearn',
         'USER': 'root',
         'PASSWORD': 'root',
         'HOST': '127.0.0.1',
@@ -304,6 +304,8 @@ this.$router.replace({
   component: resolve => require(['@/pages/submissions/submissions'], resolve)
 })
 ```
+- Use **this.$router.go(0)** to realize in-page refreshing;
+
 *References*  
 [Element-UI Documentation](http://element-cn.eleme.io/1.4/#/zh-CN/component/)  
 #### Data Transaction

@@ -78,6 +78,13 @@
 <script>
 import axios from 'axios'
 export default {
+  data () {
+    return {
+      search_input: '',
+      selected_status: '',
+      submissions_table: []
+    }
+  },
   mounted: function () {
     this.showSubmissions()
   },
@@ -95,13 +102,6 @@ export default {
             console.log(res['msg'])
           }
         })
-    }
-  },
-  data () {
-    return {
-      search_input: '',
-      selected_status: '',
-      submissions_table: []
     }
   }
 }

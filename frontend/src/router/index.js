@@ -7,39 +7,59 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: resolve => require(['@/pages/home/home'], resolve)
+      component: resolve => require(['@/pages/home'], resolve)
     },
     {
-      path: '/overview',
-      component: resolve => require(['@/pages/overview/overview'], resolve)
+      path: '/profile',
+      component: resolve => require(['@/pages/profile'], resolve)
     },
     {
-      path: '/newdl',
-      component: resolve => require(['@/pages/newtask/newdl'], resolve)
+      path: '/data/overview',
+      component: resolve => require(['@/pages/data/overview'], resolve)
     },
     {
-      path: '/newml',
-      component: resolve => require(['@/pages/newtask/newml'], resolve)
+      path: '/data/upload/ad_with_smri',
+      component: resolve => require(['@/pages/data/upload/ad_with_smri'], resolve)
     },
     {
-      path: '/newsa',
-      component: resolve => require(['@/pages/newtask/newsa'], resolve)
+      path: '/data/upload/sz_with_fmri',
+      component: resolve => require(['@/pages/data/upload/sz_with_fmri'], resolve)
     },
     {
-      path: '/submissions',
-      component: resolve => require(['@/pages/submissions/submissions'], resolve)
+      path: '/data/upload/sz_with_sfmri',
+      component: resolve => require(['@/pages/data/upload/sz_with_sfmri'], resolve)
     },
     {
-      path: '/viewer',
-      component: resolve => require(['@/pages/viewer/viewer'], resolve)
+      path: '/analysis/overview',
+      component: resolve => require(['@/pages/analysis/overview'], resolve)
+    },
+    {
+      path: '/analysis/newtask/newdl',
+      component: resolve => require(['@/pages/analysis/newtask/newdl'], resolve)
+    },
+    {
+      path: '/analysis/newtask/newml',
+      component: resolve => require(['@/pages/analysis/newtask/newml'], resolve)
+    },
+    {
+      path: '/analysis/newtask/newsa',
+      component: resolve => require(['@/pages/analysis/newtask/newsa'], resolve)
+    },
+    {
+      path: '/analysis/submissions',
+      component: resolve => require(['@/pages/analysis/submissions'], resolve)
+    },
+    {
+      path: '/analysis/viewer',
+      component: resolve => require(['@/pages/analysis/viewer'], resolve)
     },
     {
       path: '/help',
-      component: resolve => require(['@/pages/help/help'], resolve)
+      component: resolve => require(['@/pages/help'], resolve)
     },
     {
       path: '/test',
-      component: resolve => require(['@/pages/test/test'], resolve)
+      component: resolve => require(['@/pages/test'], resolve)
     }
   ]
 })

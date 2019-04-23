@@ -45,11 +45,11 @@
           <el-input type="textarea" v-model="newform.note"></el-input>
         </el-form-item>
         <el-form-item label="Verbose">
-          <el-switch on-text="On" off-text="Off" v-model="newform.verbose"></el-switch>
+          <el-switch active-text="On" inactive-text="Off" v-model="newform.verbose"></el-switch>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit">Submit</el-button>
-          <el-button>Cancel</el-button>
+          <el-button @click="onCancel">Cancel</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -113,11 +113,24 @@ export default {
     onSubmit () {
       this.newTask()
     },
+    onCancel () {
+      this.$router.go(0)
+    },
     newTask () {
       console.log(JSON.stringify(this.newform))
       axios.post('http://127.0.0.1:8000/api/new_task', JSON.stringify(this.newform))
         .then(response => {
-          console.log(response)
+          var res = response.data
+          if (res.error_num === 0) {
+            this.$router.replace({
+              path: '/submissions',
+              component: resolve => require(['@/pages/analysis/submissions'], resolve)
+            })
+            console.log(res)
+          } else {
+            this.$message.error('Failed submission!')
+            console.log(res['msg'])
+          }
         })
     }
   }

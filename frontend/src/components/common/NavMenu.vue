@@ -1,23 +1,57 @@
-<template lang="html">
-<div>
-  <el-menu default-active="1" id="nav-menu">
-    <div class="logo">
-      <router-link to="/" class="nav-title">
-        NEURO-LEARN
-      </router-link>
-    </div>
-    <el-menu-item index="1"><router-link to="/overview" class="nav-link"><i class="el-icon-menu"></i>Overview</router-link></el-menu-item>
-    <el-submenu index="2">
-      <template slot="title"><i class="el-icon-edit-outline"></i><span style="font-size: 16px; color: #dbdbdb">New Task</span></template>
-      <el-menu-item index="2-1"><router-link to="/newsa" class="nav-link"><i class="el-icon-edit"></i>Statistical Analysis</router-link></el-menu-item>
-      <el-menu-item index="2-2"><router-link to="/newml" class="nav-link"><i class="el-icon-edit"></i>Machine Learning</router-link></el-menu-item>
-      <el-menu-item index="2-3"><router-link to="/newdl" class="nav-link"><i class="el-icon-edit"></i>Deep Learning</router-link></el-menu-item>
-    </el-submenu>
-    <el-menu-item index="3"><router-link to="/submissions" class="nav-link"><i class="el-icon-tickets"></i>Submissions</router-link></el-menu-item>
-    <el-menu-item index="4"><router-link to="/viewer" class="nav-link"><i class="el-icon-view"></i>Viewer</router-link></el-menu-item>
-    <el-menu-item index="5"><router-link to="/help" class="nav-link"><i class="el-icon-question"></i>Help</router-link></el-menu-item>
-    <el-menu-item index="6"><router-link to="/test" class="nav-link"><i class="el-icon-loading"></i>Test</router-link></el-menu-item>
-  </el-menu>
+<template>
+  <div>
+    <el-menu default-active="1" id="nav-menu">
+      <div class="logo">
+        <router-link to="/" class="nav-title">
+          NEURO-LEARN
+        </router-link>
+      </div>
+      <el-menu-item index="1"><router-link to="/profile" class="nav-link"><i class="el-icon-tickets"></i> Profile</router-link></el-menu-item>
+      <el-submenu index="2">
+        <template slot="title">
+          <div>
+            <i class="el-icon-upload"></i>
+            <span style="font-size: 16px; color: #E8E8E8">Data</span>
+          </div>
+        </template>
+        <el-menu-item index="2-1"><router-link to="/data/overview" class="nav-link"><i class="el-icon-menu"></i>Overview</router-link></el-menu-item>
+        <el-submenu index="2-2">
+          <template slot="title">
+            <div>
+              <i class="el-icon-upload2"></i>
+              <span style="font-size: 16px; color: #E8E8E8">Upload</span>
+            </div>
+          </template>
+          <el-menu-item index="2-2-1"><router-link to="/data/upload/ad_with_smri" class="nav-link"><i class="el-icon-edit"></i>AD with sMRI</router-link></el-menu-item>
+          <el-menu-item index="2-2-2"><router-link to="/data/upload/sz_with_fmri" class="nav-link"><i class="el-icon-edit"></i>SZ with fMRI</router-link></el-menu-item>
+          <el-menu-item index="2-2-3"><router-link to="/data/upload/sz_with_sfmri" class="nav-link"><i class="el-icon-edit"></i>SZ with s/fMRI</router-link></el-menu-item>
+        </el-submenu>
+      </el-submenu>
+      <el-submenu index="3">
+        <template slot="title">
+          <div>
+            <i class="el-icon-loading"></i>
+            <span style="font-size: 16px; color: #E8E8E8">Analysis</span>
+          </div>
+        </template>
+        <el-menu-item index="3-1"><router-link to="/analysis/overview" class="nav-link"><i class="el-icon-menu"></i>Overview</router-link></el-menu-item>
+        <el-submenu index="3-2">
+          <template slot="title">
+            <div>
+              <i class="el-icon-edit-outline"></i>
+              <span style="font-size: 16px; color: #E8E8E8">New Task</span>
+            </div>
+          </template>
+          <el-menu-item index="3-2-1"><router-link to="/analysis/newtask/newsa" class="nav-link"><i class="el-icon-edit"></i>Statistical Analysis</router-link></el-menu-item>
+          <el-menu-item index="3-2-2"><router-link to="/analysis/newtask/newml" class="nav-link"><i class="el-icon-edit"></i>Machine Learning</router-link></el-menu-item>
+          <el-menu-item index="3-2-3"><router-link to="/analysis/newtask/newdl" class="nav-link"><i class="el-icon-edit"></i>Deep Learning</router-link></el-menu-item>
+        </el-submenu>
+        <el-menu-item index="3-3"><router-link to="/analysis/submissions" class="nav-link"><i class="el-icon-document"></i>Submissions</router-link></el-menu-item>
+        <el-menu-item index="3-4"><router-link to="/analysis/viewer" class="nav-link"><i class="el-icon-view"></i>Viewer</router-link></el-menu-item>
+      </el-submenu>
+      <el-menu-item index="4"><router-link to="/help" class="nav-link"><i class="el-icon-question"></i> Help</router-link></el-menu-item>
+      <el-menu-item index="5"><router-link to="/test" class="nav-link"><i class="el-icon-close"></i> Test</router-link></el-menu-item>
+    </el-menu>
   </div>
 </template>
 
