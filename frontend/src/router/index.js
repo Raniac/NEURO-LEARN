@@ -18,16 +18,16 @@ export default new Router({
       component: resolve => require(['@/pages/data/overview'], resolve)
     },
     {
-      path: '/data/upload/ad_with_smri',
-      component: resolve => require(['@/pages/data/upload/ad_with_smri'], resolve)
+      path: '/data/projects/ad_with_smri',
+      component: resolve => require(['@/pages/data/projects/ad_with_smri'], resolve)
     },
     {
-      path: '/data/upload/sz_with_fmri',
-      component: resolve => require(['@/pages/data/upload/sz_with_fmri'], resolve)
+      path: '/data/projects/sz_with_fmri',
+      component: resolve => require(['@/pages/data/projects/sz_with_fmri'], resolve)
     },
     {
-      path: '/data/upload/sz_with_sfmri',
-      component: resolve => require(['@/pages/data/upload/sz_with_sfmri'], resolve)
+      path: '/data/projects/sz_with_sfmri',
+      component: resolve => require(['@/pages/data/projects/sz_with_sfmri'], resolve)
     },
     {
       path: '/analysis/overview',
