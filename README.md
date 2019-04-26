@@ -1,4 +1,4 @@
-![neuro-learn](neurolearn.png?raw=true "neuro-learn")
+![neuro-learn](neurolearn_v0314.png?raw=true "neuro-learn")
 
 ---
 
