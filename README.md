@@ -1,4 +1,4 @@
-![neuro-learn](neurolearn_v0314.png?raw=true "neuro-learn")
+![neuro-learn](neurolearn.png?raw=true "neuro-learn")
 
 ---
 
@@ -301,7 +301,7 @@ $ npm install --save-dev sass-loader style-loader css-loader
 ```JavaScript
 this.$router.replace({
   path: '/submissions',
-  component: resolve => require(['@/pages/submissions/submissions'], resolve)
+  component: resolve => require(['@/pages/analysis/submissions'], resolve)
 })
 ```
 - Use **this.$router.go(0)** to realize in-page refreshing;
@@ -326,7 +326,7 @@ this.$router.replace({
           if (res.error_num === 0) {
             this.$router.replace({
               path: '/submissions',
-              component: resolve => require(['@/pages/submissions/submissions'], resolve)
+              component: resolve => require(['@/pages/analysis/submissions'], resolve)
             })
             console.log(res)
           } else {

@@ -33,10 +33,10 @@ export default {
 }
 a {
   text-decoration: none;
-  color: #C0CCDA;
+  color: #E8E8E8;
 }
 .router-link-active {
-  color: #20a0ff;
+  color: #00CCFF;
 }
 .slide-fade-enter-active {
   transition: all .3s ease;

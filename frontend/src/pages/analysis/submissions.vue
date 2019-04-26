@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="submissions-area">
-    <div style="padding: 14px">
+    <div style="margin: 14px">
       <el-input placeholder="Search" v-model="search_input" class="input-with-select">
         <el-select v-model="selected_status" slot="prepend" placeholder="Status">
         <el-option label="Submitted" value="1"></el-option>
@@ -12,7 +12,7 @@
         <el-button slot="append" icon="el-icon-search"></el-button>
       </el-input>
     </div>
-    <div style="padding: 14px">
+    <div style="margin: 14px">
       <el-table
         class="submissions-table"
         :data="submissions_table"
@@ -64,7 +64,7 @@
         </el-table-column>
       </el-table>
     </div>
-    <div style="padding: 14px">
+    <div style="margin: 14px">
       <el-pagination
       background
       layout="prev, pager, next"
@@ -110,6 +110,7 @@ export default {
 <style lang="scss">
 .submissions-area {
   margin: 14px;
+  padding: 14px;
   background-color: #FFFFFF;
 }
 .input-with-select .el-input-group__prepend {
