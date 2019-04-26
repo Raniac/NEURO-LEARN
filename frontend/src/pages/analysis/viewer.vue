@@ -1,6 +1,6 @@
 <template>
   <div class="viewer-area">
-    <el-tabs type="border-card">
+    <el-tabs type="border-card" style="box-shadow: 0px 0 0px #FFFFFF;">
       <el-tab-pane label="20190404161616">
         <div>
           <div style="padding: 14px">
