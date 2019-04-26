@@ -6,8 +6,8 @@
           <span class="avatar-img" :style="{ backgroundImage: 'url(' + avatar_url + ')' }"></span>
           <div class="avatar-drop-menu">
             <ul>
-              <li><i class="iconfont">&#xe603;</i>admin</li>
-              <li @click="signOut"><i class="iconfont">&#xe602;</i>logout</li>
+              <li @click="goToProfile"><i class="iconfont">&#xe603;</i>Raniac</li>
+              <li @click="signOut"><i class="iconfont">&#xe602;</i>Logout</li>
             </ul>
           </div>
         </div>
@@ -46,6 +46,12 @@ export default {
     }
   },
   methods: {
+    goToProfile () {
+      this.$router.replace({
+        path: '/profile',
+        component: resolve => require(['@/pages/profile'], resolve)
+      })
+    },
     signOut () {
       console.log('Signed out.')
     }
