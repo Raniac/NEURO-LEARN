@@ -23,7 +23,7 @@
       <div class="new-message-area pull-right">
         <div class="new-message-icon">
           <el-badge class="new-message-badge" is-dot>
-            <el-button class="new-message-button" size="small" type="primary" icon="el-icon-message" circle></el-button>
+            <el-button class="new-message-button" @click="goToAnalysis" size="small" type="primary" icon="el-icon-message" circle></el-button>
           </el-badge>
           <div class="new-message-drop-menu">
             <ul>
@@ -50,6 +50,12 @@ export default {
       this.$router.replace({
         path: '/profile',
         component: resolve => require(['@/pages/profile'], resolve)
+      })
+    },
+    goToAnalysis () {
+      this.$router.replace({
+        path: '/analysis/overview',
+        component: resolve => require(['@/pages/analysis/overview'], resolve)
       })
     },
     signOut () {
