@@ -45,7 +45,7 @@
             </el-col>
             <el-col :span="6">
               <div class="grid-content">
-                <router-link to="/analysis/overview">
+                <router-link to="/analysis/viewer">
                 <img class="feature-icon" src="@/assets/img/reports.png">
                 <a class="feature-title">REPORTS</a><br/>
                 <a class="feature-item">Abundant Plots</a><br/>
