@@ -8,7 +8,8 @@
           <span style="padding-left: 20px; font-family: Arial; font-weight: 100; font-size: 20px; color: #505050">Master of Science from SCUT</span><br/>
           <span style="padding-left: 20px; font-family: Arial; font-weight: 100; font-size: 20px; color: #505050">Interests:  Artificial Intelligence & Neuro-Informatics</span><br/>
         </div>
-        <div style="margin-top: 80px">
+        <div style="margin-top: 40px; line-height: 30px">
+          <a class="github-link" href="https://github.com/Raniac" target="_blank">Paper: NEURO-LEARN</a><br/>
           <a class="github-link" href="https://github.com/Raniac" target="_blank">GitHub/Raniac</a><br/>
         </div>
       </div>
