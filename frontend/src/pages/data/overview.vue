@@ -8,7 +8,7 @@
           <span style="font-size: 20px"><strong>Feature Types:</strong> Gray Matter Volume, Cortical Thickness, Cortical Area.</span><br/>
           <span style="font-size: 20px"><strong>Data Size:</strong> 1000</span><br/>
           <div style="text-align: center">
-            <img style="height: auto; width: 700px; margin: 10px" src="@/assets/img/sMRI_prep.png">
+            <img style="height: 640px; width: 700px; margin: 10px; border: solid" src="@/assets/img/sMRI_prep.png">
           </div>
         </div>
       </el-tab-pane>
@@ -19,7 +19,7 @@
           <span style="font-size: 20px"><strong>Feature Types:</strong> Functional Connectivity, Degree Centrality, Clustering Coefficient.</span><br/>
           <span style="font-size: 20px"><strong>Data Size:</strong> 954</span><br/>
           <div style="text-align: center">
-            <img style="height: auto; width: 700px; margin: 10px" src="@/assets/img/fMRI_prep.png">
+            <img style="height: 640px; width: 700px; margin: 10px" src="@/assets/img/fMRI_prep.png">
           </div>
         </div>
       </el-tab-pane>
@@ -30,8 +30,8 @@
           <span style="font-size: 20px"><strong>Feature Types:</strong> Gray Matter Volume, Functional Connectivity.</span><br/>
           <span style="font-size: 20px"><strong>Data Size:</strong> 675</span><br/>
           <div style="text-align: center">
-            <img style="height: auto; width: 700px; margin: 10px" src="@/assets/img/sMRI_prep.png">
-            <img style="height: auto; width: 700px; margin: 10px" src="@/assets/img/fMRI_prep.png">
+            <img style="height: 300px; width: 700px; margin: 10px" src="@/assets/img/sMRI_prep.png">
+            <img style="height: 300px; width: 700px; margin: 10px" src="@/assets/img/fMRI_prep.png">
           </div>
         </div>
       </el-tab-pane>
