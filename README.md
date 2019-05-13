@@ -490,10 +490,6 @@ class Data_Demo(models.Model):
 def upload_data(request):
     response = {}
     try:
-        # uf = DataForm(request.POST, request.FILES)
-        
-        # data_name = uf.get('data_name')
-        # data_path = uf.get('data_path')
         obj = request.FILES.get('test')
         data = Data_Demo()
         data.data_name = 'test'
