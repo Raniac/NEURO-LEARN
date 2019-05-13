@@ -28,3 +28,11 @@ class Submissions_Demo(models.Model):
 
     def __unicode__(self):
         return self.task_id
+
+class Data_Demo(models.Model):
+    data_id = models.DateTimeField('Edit the date', auto_now=True)
+    data_name = models.CharField(max_length=64)
+    data_path = models.CharField(max_length=128)
+
+    def __unicode__(self):
+        return self.task_id
