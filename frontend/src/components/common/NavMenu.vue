@@ -22,9 +22,9 @@
               <span style="font-size: 16px; color: #E8E8E8">Projects</span>
             </div>
           </template>
-          <el-menu-item index="2-2-1"><router-link to="/data/projects/ad_with_smri" class="nav-link"><i class="el-icon-document"></i>AD with sMRI</router-link></el-menu-item>
-          <el-menu-item index="2-2-2"><router-link to="/data/projects/sz_with_fmri" class="nav-link"><i class="el-icon-document"></i>SZ with fMRI</router-link></el-menu-item>
-          <el-menu-item index="2-2-3"><router-link to="/data/projects/sz_with_sfmri" class="nav-link"><i class="el-icon-document"></i>SZ with s/fMRI</router-link></el-menu-item>
+          <el-menu-item index="2-2-1"><router-link to="/data/projects/sz_with_sfmri" class="nav-link"><i class="el-icon-document"></i>SZ with s/fMRI</router-link></el-menu-item>
+          <el-menu-item index="2-2-2"><router-link to="/data/projects/ad_with_smri" class="nav-link"><i class="el-icon-document"></i>AD with sMRI</router-link></el-menu-item>
+          <el-menu-item index="2-2-3"><router-link to="/data/projects/sz_with_fmri" class="nav-link"><i class="el-icon-document"></i>SZ with fMRI</router-link></el-menu-item>
         </el-submenu>
       </el-submenu>
       <el-submenu index="3">
