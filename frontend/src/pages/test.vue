@@ -3,7 +3,7 @@
     <el-upload
       class="upload-demo"
       action="http://127.0.0.1:8000/api/upload_data"
-      name="test"
+      name="datafile"
       :on-change="handleChange"
       :on-success="uploadSuccess"
       :file-list="fileList">

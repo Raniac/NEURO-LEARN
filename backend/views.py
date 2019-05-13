@@ -87,26 +87,20 @@ def show_submissions(request):
 
     return JsonResponse(response)
 
-# class DataForm(forms.Form):
-#     data_name = forms.CharField()
-#     data_path = forms.FileField()
-
 @require_http_methods(['POST'])
 def upload_data(request):
     response = {}
     try:
-        # uf = DataForm(request.POST, request.FILES)
+        data_file = request.FILES.get('datafile')
+        if data_file.name not in os.listdir('data/'):
+            data = Data_Demo()
+            data.data_name = data_file.name[:-4]
+            data.data_path = handle_uploaded_file(data_file)
+            data.save()
+            response['msg'] = 'success'
+        else:
+            response['msg'] = 'existed'
         
-        # data_name = uf.get('data_name')
-        # data_path = uf.get('data_path')
-        obj = request.FILES.get('test')
-        data = Data_Demo()
-        data.data_name = 'test'
-        data.data_path = obj.name
-        data.save()
-        handle_uploaded_file(obj)
-        
-        response['msg'] = 'success'
         response['error_num'] = 0
     
     except Exception as e:
@@ -120,12 +114,27 @@ def handle_uploaded_file(f):
         path = 'data/'
         if not os.path.exists(path):
             os.makedirs(path)
-        else:
-            file_name = str(path + f.name)
-            destination = open(file_name, 'wb+')
-            for chunk in f.chunks():
-                destination.write(chunk)
-            destination.close()
+        
+        file_name = str(path + f.name)
+        destination = open(file_name, 'wb+')
+        for chunk in f.chunks():
+            destination.write(chunk)
+        destination.close()
+    
     except Exception as e:
         print(e)
-    return f.name, path
+    return file_name
+
+@require_http_methods(["GET"])
+def show_data(request):
+    response = {}
+    try:
+        data = Data_Demo.objects.filter()
+        response['list']  = json.loads(serializers.serialize("json", data))
+        response['msg'] = 'success'
+        response['error_num'] = 0
+    except  Exception as e:
+        response['msg'] = str(e)
+        response['error_num'] = 1
+
+    return JsonResponse(response)

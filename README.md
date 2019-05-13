@@ -15,6 +15,7 @@
   - [User Interface](#user-interface)
     - [Vue and Element-UI](#vue-and-element-ui)
     - [Data Transaction](#data-transaction)
+    - [File Uploading](#file-uploading)
     - [Visualization](#visualization)
   - [Service](#service)
     - [Celery and RabbitMQ](#celery-and-rabbitmq)
@@ -465,6 +466,106 @@ mysql> select * from backend_submissions_demo
 [vue $http请求服务](https://blog.csdn.net/qq_36947128/article/details/72832977)  
 [Vue:axios中的POST请求传参问题](https://www.cnblogs.com/WQLong/p/8316152.html)  
 [Vue + Django](https://www.jianshu.com/p/f271be791cce)
+
+#### File Uploading
+
+- Refer to [this blog](https://www.cnblogs.com/fnng/p/3740274.html) for the tutorial of using Django forms to realize file uploading;
+- First add an api redirecting to the view funciton upload_data;
+```python
+url(r'upload_data$', views.upload_data, ),
+```
+- Add a table in the database containing data information;
+```python
+class Data_Demo(models.Model):
+    data_id = models.DateTimeField('Edit the date', auto_now=True)
+    data_name = models.CharField(max_length=64)
+    data_path = models.CharField(max_length=128)
+
+    def __unicode__(self):
+        return self.task_id
+```
+- Add view funciton to process request and save uploaded file;
+```python
+@require_http_methods(['POST'])
+def upload_data(request):
+    response = {}
+    try:
+        # uf = DataForm(request.POST, request.FILES)
+        
+        # data_name = uf.get('data_name')
+        # data_path = uf.get('data_path')
+        obj = request.FILES.get('test')
+        data = Data_Demo()
+        data.data_name = 'test'
+        data.data_path = obj.name
+        data.save()
+        handle_uploaded_file(obj)
+        
+        response['msg'] = 'success'
+        response['error_num'] = 0
+    
+    except Exception as e:
+        response['msg'] = str(e)
+        response['error_num'] = 1
+
+    return JsonResponse(response)
+
+def handle_uploaded_file(f):
+    try:
+        path = 'data/'
+        if not os.path.exists(path):
+            os.makedirs(path)
+        else:
+            file_name = str(path + f.name)
+            destination = open(file_name, 'wb+')
+            for chunk in f.chunks():
+                destination.write(chunk)
+            destination.close()
+    except Exception as e:
+        print(e)
+    return f.name, path
+```
+- Create a front-end template to upload file;
+```
+<template>
+  <div style="background-color: #FFFFFF; margin: 14px; padding: 14px">
+    <el-upload
+      class="upload-demo"
+      action="http://127.0.0.1:8000/api/upload_data"
+      name="test"
+      :on-change="handleChange"
+      :on-success="uploadSuccess"
+      :file-list="fileList">
+      <el-button size="small" type="primary">点击上传</el-button>
+      <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+    </el-upload>
+  </div>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      fileList: []
+    }
+  },
+  methods: {
+    handleChange (file, fileList) {
+      this.fileList = fileList.slice(-4)
+    },
+    uploadSuccess (response) {
+      console.log(response.error_num, response.msg)
+    }
+  }
+}
+</script>
+```
+
+*references*  
+[Django快速实现文件上传](https://www.cnblogs.com/fnng/p/3740274.html)  
+[Element-UI Upload上传](https://element.eleme.cn/#/zh-CN/component/upload)  
+[Django多文件上传，只能保存最后一个文件](https://segmentfault.com/q/1010000011705007)  
+[Django文件上传到后台的三种方式](https://blog.csdn.net/u012762054/article/details/80930408)
 
 #### Visualization
 
