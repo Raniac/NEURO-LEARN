@@ -14,6 +14,8 @@ from .models import Book
 from .models import Submissions_Demo
 from .models import Data_Demo
 
+from .tasks import *
+
 # Create your views here.
 @require_http_methods(["GET"])
 def add_book(request):
@@ -63,6 +65,10 @@ def new_task(request):
             task_result=''
         )
         task.save()
+
+        # create new celery task
+        new_ml_task.delay()
+
         response['post_body'] = postBody
         response['msg'] = 'success'
         response['error_num'] = 0

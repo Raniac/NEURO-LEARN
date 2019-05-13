@@ -575,6 +575,46 @@ export default {
 
 #### Celery and RabbitMQ
 
+- Refer to [this site](https://blog.csdn.net/dipolar/article/details/22162863) as before to get the basic idea of celery workers;
+- Define own tasks;
+```python
+@task
+def new_ml_task():
+    test_task()
+    return
+```
+- Call the task in **views.py**;
+```python
+@require_http_methods(["POST"])
+def new_task(request):
+    response = {}
+    postBody = json.loads(request.body)
+    try:
+        task = Submissions_Demo(
+            task_name=postBody.get('task_name'),
+            task_type=postBody.get('task_type'),
+            train_data=postBody.get('train_data'),
+            test_data=postBody.get('test_data'),
+            label=postBody.get('label'),
+            feat_sel=postBody.get('feat_sel'),
+            estimator=postBody.get('estimator'),
+            cv_type=postBody.get('cv_type'),
+            note=postBody.get('note'),
+            verbose=postBody.get('verbose'),
+            task_status='Submitted',
+            task_result=''
+        )
+        task.save()
+
+        # create new celery task
+        new_ml_task.delay()
+        ...
+```
+- Initiate workers using the following command;
+```bash
+$ python manage.py celeryd -l info
+```
+
 #### Databases
 
 - To use Django-Model to manipulate databases, refer to [this site](https://www.cnblogs.com/yangmv/p/5327477.html);

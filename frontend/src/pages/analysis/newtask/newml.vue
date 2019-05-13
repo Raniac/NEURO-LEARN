@@ -123,7 +123,7 @@ export default {
           var res = response.data
           if (res.error_num === 0) {
             this.$router.replace({
-              path: '/submissions',
+              path: '/analysis/submissions',
               component: resolve => require(['@/pages/analysis/submissions'], resolve)
             })
             console.log(res)

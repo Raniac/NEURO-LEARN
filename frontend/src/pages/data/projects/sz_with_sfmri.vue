@@ -9,7 +9,7 @@
           :on-change="handleChange"
           :on-success="uploadSuccess"
           :file-list="fileList">
-          <el-button size="small" type="primary">Upload</el-button>
+          <el-button size="large" type="primary">Upload</el-button>
         </el-upload>
       </div>
       <div style="margin-top: 14px">
