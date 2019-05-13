@@ -12,7 +12,7 @@ class Book(models.Model):
         return self.book_name
 
 class Submissions_Demo(models.Model):
-    task_id = models.DateTimeField('Edit the date', auto_now=True)
+    task_id = models.CharField(max_length=64)
     task_name = models.CharField(max_length=64)
     task_type = models.CharField(max_length=64)
     train_data = models.CharField(max_length=64)
@@ -30,7 +30,7 @@ class Submissions_Demo(models.Model):
         return self.task_id
 
 class Data_Demo(models.Model):
-    data_id = models.DateTimeField('Edit the date', auto_now=True)
+    data_id = models.CharField(max_length=64)
     data_name = models.CharField(max_length=64)
     data_path = models.CharField(max_length=128)
 

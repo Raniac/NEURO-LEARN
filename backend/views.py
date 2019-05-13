@@ -9,6 +9,7 @@ from django import forms
 import requests
 import json
 import os
+import time
 
 from .models import Book
 from .models import Submissions_Demo
@@ -50,7 +51,9 @@ def new_task(request):
     response = {}
     postBody = json.loads(request.body)
     try:
+        task_id = time.strftime('%Y%m%d%H%M%S')
         task = Submissions_Demo(
+            task_id=task_id,
             task_name=postBody.get('task_name'),
             task_type=postBody.get('task_type'),
             train_data=postBody.get('train_data'),
@@ -67,7 +70,7 @@ def new_task(request):
         task.save()
 
         # create new celery task
-        new_ml_task.delay()
+        new_ml_task.delay(task_id)
 
         response['post_body'] = postBody
         response['msg'] = 'success'
@@ -100,6 +103,8 @@ def upload_data(request):
         data_file = request.FILES.get('datafile')
         if data_file.name not in os.listdir('data/'):
             data = Data_Demo()
+            data_id = time.strftime('%Y%m%d%H%M%S')
+            data.data_id = data_id
             data.data_name = data_file.name[:-4]
             data.data_path = handle_uploaded_file(data_file)
             data.save()
