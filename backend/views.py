@@ -52,25 +52,47 @@ def new_task(request):
     postBody = json.loads(request.body)
     try:
         task_id = time.strftime('%Y%m%d%H%M%S')
+        task_name=postBody.get('task_name')
+        task_type=postBody.get('task_type')
+        project_name=postBody.get('project_name')
+        train_data=postBody.get('train_data')
+        test_data=postBody.get('test_data')
+        label=postBody.get('label')
+        feat_sel=postBody.get('feat_sel')
+        estimator=postBody.get('estimator')
+        cv_type=postBody.get('cv_type')
+        note=postBody.get('note')
+        verbose=postBody.get('verbose')
+
         task = Submissions_Demo(
             task_id=task_id,
-            task_name=postBody.get('task_name'),
-            task_type=postBody.get('task_type'),
-            train_data=postBody.get('train_data'),
-            test_data=postBody.get('test_data'),
-            label=postBody.get('label'),
-            feat_sel=postBody.get('feat_sel'),
-            estimator=postBody.get('estimator'),
-            cv_type=postBody.get('cv_type'),
-            note=postBody.get('note'),
-            verbose=postBody.get('verbose'),
+            task_name=task_name,
+            task_type=task_type,
+            project_name=project_name,
+            train_data=train_data,
+            test_data=test_data,
+            label=label,
+            feat_sel=feat_sel,
+            estimator=estimator,
+            cv_type=cv_type,
+            note=note,
+            verbose=verbose,
             task_status='Submitted',
             task_result=''
         )
         task.save()
 
-        # create new celery task
-        new_ml_task.delay(task_id)
+        # # create new celery task
+        new_ml_task.delay(
+            task_id,
+            task_type,
+            train_data,
+            test_data,
+            label,
+            feat_sel,
+            estimator,
+            cv_type
+        )
 
         response['post_body'] = postBody
         response['msg'] = 'success'

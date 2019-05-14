@@ -5,7 +5,9 @@ from .acquisition import Data
 from .models import *
 from .integrated import *
 
-def test_task():
+def test_task(task_type, train_data, test_data, label, feat_sel, estimator, cv_type):
+    
+    
     X = pd.read_csv('data/fMRI_90.csv', encoding='gbk').drop(['ID', 'GROUP'], axis=1) # load data file
     y = pd.read_csv('data/fMRI_90.csv', encoding='gbk').GROUP # load label file
     my_data = Data(X, y) # instantiate data class

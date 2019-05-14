@@ -8,8 +8,11 @@ def add(x, y):
     return x + y
 
 @task
-def new_ml_task(id):
+def new_ml_task(task_id, task_type, train_data, test_data, label, feat_sel, estimator, cv_type):
     Submissions_Demo.objects.filter(task_id=id).update(task_status='Running')
-    test_task()
-    Submissions_Demo.objects.filter(task_id=id).update(task_status='Finished')
+    try:
+        test_task(task_type, train_data, test_data, label, feat_sel, estimator, cv_type)
+        Submissions_Demo.objects.filter(task_id=id).update(task_status='Finished')
+    except:
+        Submissions_Demo.objects.filter(task_id=id).update(task_status='Failed')
     return

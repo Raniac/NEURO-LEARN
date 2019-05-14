@@ -11,14 +11,19 @@
             <el-radio label="Regression">Regression</el-radio>
           </el-radio-group>
         </el-form-item>
+        <el-form-item label="Proj. Name">
+          <el-select class="select-label" v-model="newform.project_name" placeholder="Select Project">
+            <el-option v-for="(project_option, key) in form.project_options" :label="project_option.name" :value="project_option.value" :key="key"></el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item label="Train Data">
-          <el-select class="select-data" v-model="newform.train_data" placeholder="Select Train Data">
-            <el-option v-for="(data_option, key) in form.data_options" :label="data_option.name" :value="data_option.value" :key="key"></el-option>
+          <el-select class="select-data" v-model="newform.train_data" placeholder="Select Train Data" multiple>
+            <el-option v-for="(data_option, key) in data_table" :label="data_option.fields.data_name" :value="data_option.fields.data_path" :key="key"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="Test Data">
-          <el-select class="select-data" v-model="newform.test_data" placeholder="Select Test Data">
-            <el-option v-for="(data_option, key) in form.data_options" :label="data_option.name" :value="data_option.value" :key="key"></el-option>
+          <el-select class="select-data" v-model="newform.test_data" placeholder="Select Test Data" multiple>
+            <el-option v-for="(data_option, key) in data_table" :label="data_option.fields.data_name" :value="data_option.fields.data_path" :key="key"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="Label">
@@ -61,11 +66,13 @@ import axios from 'axios'
 export default {
   data () {
     return {
+      data_table: [],
       newform: {
+        project_name: '',
         task_name: '',
         task_type: '',
-        train_data: '',
-        test_data: '',
+        train_data: [],
+        test_data: [],
         label: '',
         feat_sel: '',
         estimator: '',
@@ -74,6 +81,11 @@ export default {
         verbose: false
       },
       form: {
+        project_options: [
+          {name: 'SZ with s/fMRI', value: 'sz_with_sfmri'},
+          {name: 'AD with sMRI', value: 'ad_with_smri'},
+          {name: 'SZ with fMRI', value: 'sz_with_fmri'}
+        ],
         data_options: [
           {name: '363_fMRI', value: '363_fMRI'},
           {name: '345_sMRI', value: '345_sMRI'},
@@ -81,10 +93,7 @@ export default {
           {name: '168_Gut', value: '168_Gut'}
         ],
         label_options: [
-          {name: 'Schizophrenia', value: 'Schizophrenia'},
-          {name: 'Anxiety', value: 'Anxiety'},
-          {name: 'Hallucination', value: 'Hallucination'},
-          {name: 'Hostility', value: 'hs'}
+          {name: 'Schizophrenia', value: 'Schizophrenia'}
         ],
         feat_sel_options: [
           {name: 'Principal Component Analysis', value: 'Principal Component Analysis'},
@@ -109,12 +118,29 @@ export default {
       }
     }
   },
+  mounted () {
+    this.updateData()
+  },
   methods: {
     onSubmit () {
       this.newTask()
     },
     onCancel () {
       this.$router.go(0)
+    },
+    updateData () {
+      axios.get('http://127.0.0.1:8000/api/show_data')
+        .then(response => {
+          var res = response.data
+          if (res.error_num === 0) {
+            console.log(res)
+            this.data_table = res['list']
+            console.log(this.data_table[0].fields.data_name)
+          } else {
+            this.$message.error('Failed!')
+            console.log(res['msg'])
+          }
+        })
     },
     newTask () {
       console.log(JSON.stringify(this.newform))

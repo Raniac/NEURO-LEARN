@@ -15,6 +15,7 @@ class Submissions_Demo(models.Model):
     task_id = models.CharField(max_length=64)
     task_name = models.CharField(max_length=64)
     task_type = models.CharField(max_length=64)
+    project_name = models.CharField(max_length=64)
     train_data = models.CharField(max_length=64)
     test_data = models.CharField(max_length=64)
     label = models.CharField(max_length=64)
