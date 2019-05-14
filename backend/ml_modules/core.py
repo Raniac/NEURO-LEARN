@@ -9,9 +9,9 @@ from .integrated import *
 def test_task(task_id, task_type, train_data, test_data, label, feat_sel, estimator, cv_type):
     print(task_id, task_type, train_data[0], test_data[0], label, feat_sel, estimator, cv_type)
     
-    RESULT_DIR = 'results/' + task_id
-    if not os.path.exists(RESULT_DIR):
-        os.makedirs(RESULT_DIR)
+    RESULT_PATH = 'results/' + task_id
+    if not os.path.exists(RESULT_PATH):
+        os.makedirs(RESULT_PATH)
 
     TRAIN_DATA_PATH = train_data[0]
     TEST_DATA_PATH = test_data[0]
@@ -22,6 +22,22 @@ def test_task(task_id, task_type, train_data, test_data, label, feat_sel, estima
     my_data.data_preprocessing()
     (n_samples, n_features) = X.shape
 
-    my_model = SVM_CLF()
-    my_feat_sel = PCA_Feat_Sel(n_samples, n_features)
-    integrated('', my_feat_sel, my_model, my_data, 10) # run integrated classification model
+    if feat_sel == "Principal Component Analysis":
+        my_feat_sel = PCA_Feat_Sel(n_samples, n_features)
+    elif feat_sel == "ANOVA":
+        my_feat_sel = ANOVA_Feat_Sel(n_samples, n_features)
+    elif feat_sel == "Recursive Feature Elimination":
+        my_feat_sel = RFE_Feat_Sel(n_samples, n_features)
+    
+    if estimator == "Support Vector Machine":
+        my_model = SVM_CLF()
+    elif estimator == "Random Forest":
+        my_model = RF_CLF()
+    elif estimator == "Linear Discriminative Analysis":
+        my_model = LDA_CLF()
+    elif estimator == "Logistic Regression":
+        my_model = LR_CLF()
+    elif estimator == "K Nearest Neighbor":
+        my_model = KNN_CLF()
+    
+    integrated(RESULT_PATH, my_feat_sel, my_model, my_data, 10) # run integrated classification model

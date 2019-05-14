@@ -97,10 +97,8 @@ export default {
         ],
         feat_sel_options: [
           {name: 'Principal Component Analysis', value: 'Principal Component Analysis'},
-          {name: 'Independent Component Analysis', value: 'Independent Component Analysis'},
           {name: 'ANOVA', value: 'ANOVA'},
-          {name: 'Recursive Feature Elimination', value: 'Recursive Feature Elimination'},
-          {name: 'Canonical Correlation Analysis', value: 'Canonical Correlation Analysis'}
+          {name: 'Recursive Feature Elimination', value: 'Recursive Feature Elimination'}
         ],
         estimator_options: [
           {name: 'Support Vector Machine', value: 'Support Vector Machine'},
