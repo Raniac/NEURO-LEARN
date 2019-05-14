@@ -81,17 +81,17 @@ def new_task(request):
             task_result=''
         )
         task.save()
-
-        # # create new celery task
+        
+        # create new celery task
         new_ml_task.delay(
-            task_id,
-            task_type,
-            train_data,
-            test_data,
-            label,
-            feat_sel,
-            estimator,
-            cv_type
+            taskid=task_id,
+            tasktype=task_type,
+            traindata=train_data,
+            testdata=test_data,
+            label=label,
+            featsel=feat_sel,
+            estimator=estimator,
+            cv=cv_type
         )
 
         response['post_body'] = postBody
