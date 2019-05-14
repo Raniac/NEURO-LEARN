@@ -7,7 +7,7 @@ from .models import *
 from .integrated import *
 
 def test_task(task_id, task_type, train_data, test_data, label, feat_sel, estimator, cv_type):
-    print(task_id, task_type, train_data, test_data, label, feat_sel, estimator, cv_type)
+    print(task_id, task_type, train_data[0], test_data[0], label, feat_sel, estimator, cv_type)
     
     RESULT_DIR = 'results/' + task_id
     if not os.path.exists(RESULT_DIR):
