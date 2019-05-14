@@ -11,7 +11,7 @@ def add(x, y):
 def new_ml_task(task_id, task_type, train_data, test_data, label, feat_sel, estimator, cv_type):
     Submissions_Demo.objects.filter(task_id=id).update(task_status='Running')
     try:
-        test_task(task_type, train_data, test_data, label, feat_sel, estimator, cv_type)
+        test_task(task_id, task_type, train_data, test_data, label, feat_sel, estimator, cv_type)
         Submissions_Demo.objects.filter(task_id=id).update(task_status='Finished')
     except:
         Submissions_Demo.objects.filter(task_id=id).update(task_status='Failed')

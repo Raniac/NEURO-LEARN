@@ -51,7 +51,7 @@ def new_task(request):
     response = {}
     postBody = json.loads(request.body)
     try:
-        task_id = time.strftime('%Y%m%d%H%M%S')
+        task_id = 'TASK' + time.strftime('%Y%m%d%H%M%S')
         task_name=postBody.get('task_name')
         task_type=postBody.get('task_type')
         project_name=postBody.get('project_name')
@@ -125,7 +125,7 @@ def upload_data(request):
         data_file = request.FILES.get('datafile')
         if data_file.name not in os.listdir('data/'):
             data = Data_Demo()
-            data_id = time.strftime('%Y%m%d%H%M%S')
+            data_id = 'DATA' + time.strftime('%Y%m%d%H%M%S')
             data.data_id = data_id
             data.data_name = data_file.name[:-4]
             data.data_path = handle_uploaded_file(data_file)
