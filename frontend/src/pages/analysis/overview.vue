@@ -71,6 +71,9 @@
               <el-form-item label="Task Type">
                 <span>{{ props.row.fields.task_type }}</span>
               </el-form-item>
+              <el-form-item label="Proj. Name">
+                <span>{{ props.row.fields.project_name }}</span>
+              </el-form-item>
               <el-form-item label="Train Data">
                 <span>{{ props.row.fields.train_data }}</span>
               </el-form-item>
