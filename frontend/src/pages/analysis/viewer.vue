@@ -33,8 +33,10 @@
 import axios from 'axios'
 export default {
   mounted () {
-    this.showResults()
-    this.showResultImages()
+    if (this.taskid) {
+      this.showResults()
+      this.showResultImages()
+    }
   },
   methods: {
     showResultImages () {
