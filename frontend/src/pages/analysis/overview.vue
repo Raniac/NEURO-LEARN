@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="padding: 14px; color: #282828">
+    <div style="padding: 14px 14px 14px 28px; color: #282828">
     <h3>Overview</h3>
     <el-row>
   <el-col :span="4" :offset=".5">
@@ -55,7 +55,7 @@
   </el-col>
 </el-row>
     </div>
-    <div style="padding: 14px">
+    <div style="padding: 28px">
       <h3>Recent</h3>
       <el-table
         class="submissions-table"
