@@ -49,6 +49,32 @@ def show_books(request):
 
     return JsonResponse(response)
 
+@require_http_methods(["GET"])
+def overview_submissions(request):
+    response = {}
+    try:
+        submissions = Submissions_Demo.objects.filter().order_by('-id')[:4]
+        response['list']  = json.loads(serializers.serialize("json", submissions))
+
+        total = Submissions_Demo.objects.filter()
+        response['total_num'] = len(total)
+        submitted = Submissions_Demo.objects.filter(task_status='Submitted')
+        response['submitted_num'] = len(submitted)
+        running = Submissions_Demo.objects.filter(task_status='Running')
+        response['running_num'] = len(running)
+        finished = Submissions_Demo.objects.filter(task_status='Finished')
+        response['finished_num'] = len(finished)
+        failed = Submissions_Demo.objects.filter(task_status='Failed')
+        response['failed_num'] = len(failed)
+
+        response['msg'] = 'success'
+        response['error_num'] = 0
+    except  Exception as e:
+        response['msg'] = str(e)
+        response['error_num'] = 1
+
+    return JsonResponse(response)
+
 @require_http_methods(["POST"])
 def new_task(request):
     response = {}

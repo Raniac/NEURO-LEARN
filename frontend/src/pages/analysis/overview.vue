@@ -4,51 +4,51 @@
     <h3>Overview</h3>
     <el-row>
   <el-col :span="4" :offset=".5">
-    <el-card :body-style="{ padding: '0px' }" style="background-color: #FFFFFF">
+    <el-card :body-style="{ padding: '0px' }" style="background-color: #FFFFFF; width: 90%">
       <div style="padding: 14px; color: #282828; text-align: center">
         <h4>Total</h4>
         <div>
-          <h1>45</h1>
+          <h1>{{ total_num }}</h1>
         </div>
       </div>
     </el-card>
   </el-col>
   <el-col :span="4" :offset="1">
-    <el-card :body-style="{ padding: '0px' }" style="background-color: #FFFFFF">
+    <el-card :body-style="{ padding: '0px' }" style="background-color: #FFFFFF; width: 90%">
       <div style="padding: 14px; color: #006699; text-align: center">
         <h4>Submitted</h4>
         <div>
-          <h1>5</h1>
+          <h1>{{ submitted_num }}</h1>
         </div>
       </div>
     </el-card>
   </el-col>
   <el-col :span="4" :offset="1">
-    <el-card :body-style="{ padding: '0px' }" style="background-color: #FFFFFF">
+    <el-card :body-style="{ padding: '0px' }" style="background-color: #FFFFFF; width: 90%">
       <div style="padding: 14px; color: #00CC99; text-align: center">
         <h4>Running</h4>
         <div>
-          <h1>5</h1>
+          <h1>{{ running_num }}</h1>
         </div>
       </div>
     </el-card>
   </el-col>
   <el-col :span="4" :offset="1">
-    <el-card :body-style="{ padding: '0px' }" style="background-color: #FFFFFF">
+    <el-card :body-style="{ padding: '0px' }" style="background-color: #FFFFFF; width: 90%">
       <div style="padding: 14px; color: #00CCFF; text-align: center">
         <h4>Finished</h4>
         <div>
-          <h1>25</h1>
+          <h1>{{ finished_num }}</h1>
         </div>
       </div>
     </el-card>
   </el-col>
   <el-col :span="4" :offset="1">
-    <el-card :body-style="{ padding: '0px' }" style="background-color: #FFFFFF">
+    <el-card :body-style="{ padding: '0px' }" style="background-color: #FFFFFF; width: 90%">
       <div style="padding: 14px; color: #FF3333; text-align: center">
         <h4>Failed</h4>
         <div>
-          <h1>10</h1>
+          <h1>{{ failed_num }}</h1>
         </div>
       </div>
     </el-card>
@@ -62,6 +62,7 @@
         :data="submissions_table"
         stripe
         border
+        @row-click="onRowClick"
         style="width: 100%; background-color: #E8E8E8; color: #282828"
         :default-sort = "{prop: 'fields.task_id', order: 'descending'}">
         <el-table-column type="expand">
@@ -140,6 +141,11 @@ import axios from 'axios'
 export default {
   data () {
     return {
+      total_num: 0,
+      submitted_num: 0,
+      running_num: 0,
+      finished_num: 0,
+      failed_num: 0,
       search_input: '',
       selected_status: '',
       submissions_table: []
@@ -150,18 +156,36 @@ export default {
   },
   methods: {
     showSubmissions () {
-      axios.get('http://127.0.0.1:8000/api/show_submissions')
+      axios.get('http://127.0.0.1:8000/api/overview_submissions')
         .then(response => {
           var res = response.data
           if (res.error_num === 0) {
-            console.log(res)
             this.submissions_table = res['list']
-            console.log(res['list'])
+            this.total_num = res['total_num']
+            this.submitted_num = res['submitted_num']
+            this.running_num = res['running_num']
+            this.finished_num = res['finished_num']
+            this.failed_num = res['failed_num']
+            this.submissions_table = res['list']
           } else {
             this.$message.error('Failed!')
             console.log(res['msg'])
           }
         })
+    },
+    updateStats () {
+      this.total_num = 0
+      console.log(this.submissions_table)
+      this.submitted_num = 0
+      this.running_num = 0
+      this.finished_num = 0
+      this.failed_num = 0
+    },
+    onRowClick (row) {
+      this.$router.push({
+        path: '/analysis/viewer',
+        query: {taskid: row.fields.task_id}
+      })
     }
   }
 }
