@@ -178,15 +178,6 @@ def show_data(request):
 def show_roc(request):
     response = {}
     task_id = request.GET.get('task_id')
-    print(task_id)
-    # try:
-    #     data = Data_Demo.objects.filter()
-    #     response['list']  = json.loads(serializers.serialize("json", data))
-    #     response['msg'] = 'success'
-    #     response['error_num'] = 0
-    # except  Exception as e:
-    #     response['msg'] = str(e)
-    #     response['error_num'] = 1
 
     buf = io.BytesIO()
     img = Image.open('results/' + task_id + '/190514_ROC_curve_rfe_svm_test_data.png')
@@ -198,15 +189,6 @@ def show_roc(request):
 def show_opt(request):
     response = {}
     task_id = request.GET.get('task_id')
-    print(task_id)
-    # try:
-    #     data = Data_Demo.objects.filter()
-    #     response['list']  = json.loads(serializers.serialize("json", data))
-    #     response['msg'] = 'success'
-    #     response['error_num'] = 0
-    # except  Exception as e:
-    #     response['msg'] = str(e)
-    #     response['error_num'] = 1
 
     buf = io.BytesIO()
     img = Image.open('results/' + task_id + '/190514_optimization_curve_rfe_svm_test_data.png')

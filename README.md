@@ -565,7 +565,38 @@ export default {
 
 #### Visualization
 
-- Refer to [ECharts](https://echarts.baidu.com/echarts2/index.html) for a JavaScript-based data visualization solution;
+- Refer to [this site](https://blog.csdn.net/ding_312/article/details/82258442) for the implementation of image transaction, to be specific,
+```python
+import io
+from PIL import Image
+
+@require_http_methods(["GET"])
+def show_roc(request):
+    response = {}
+    task_id = request.GET.get('task_id')
+
+    buf = io.BytesIO()
+    img = Image.open('results/' + task_id + '/190514_ROC_curve_rfe_svm_test_data.png')
+    img.save(buf, 'png')
+
+    return HttpResponse(buf.getvalue(), 'image/png')
+```
+```HTML
+<img :src="'http://127.0.0.1:8000/api/show_roc?task_id=' + this.taskid" style="width: 700px">
+```
+- To use this taskid, we have to realize parameter passing between modules (in this case, submissions and viewer) using v-router;
+```JavaScript
+// Source module
+onRowClick (row) {
+      this.$router.push({
+        path: '/analysis/viewer',
+        query: {taskid: row.fields.task_id}
+      })
+    }
+
+// Destination module
+taskid: this.$route.query.taskid,
+```
 
 ### Service
 
