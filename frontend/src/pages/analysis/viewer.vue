@@ -4,25 +4,72 @@
       <el-tab-pane :label="taskid">
         <div>
           <div style="padding: 14px">
+          <div style="padding-bottom: 28px">
+            <el-table
+              class="taskinfo-table"
+              :data="taskinfo"
+              stripe
+              border
+              style="width: 100%; background-color: #E8E8E8; color: #282828">
+              <el-table-column type="expand">
+                <template slot-scope="props">
+                  <el-form label-position="left" inline class="demo-table-expand">
+                    <el-form-item label="Task Type">
+                      <span>{{ props.row.fields.task_type }}</span>
+                    </el-form-item>
+                    <el-form-item label="Label">
+                      <span>{{ props.row.fields.label }}</span>
+                    </el-form-item>
+                    <el-form-item label="Train Data">
+                      <span>{{ props.row.fields.train_data }}</span>
+                    </el-form-item>
+                    <el-form-item label="Test Data">
+                      <span>{{ props.row.fields.test_data }}</span>
+                    </el-form-item>
+                    <el-form-item label="Feat. Sel.">
+                      <span>{{ props.row.fields.feat_sel }}</span>
+                    </el-form-item>
+                    <el-form-item label="Estimator">
+                      <span>{{ props.row.fields.estimator }}</span>
+                    </el-form-item>
+                    <el-form-item label="CV Type">
+                      <span>{{ props.row.fields.cv_type }}</span>
+                    </el-form-item>
+                    <el-form-item label="Note">
+                      <span>{{ props.row.fields.note }}</span>
+                    </el-form-item>
+                  </el-form>
+                </template>
+              </el-table-column>
+              <el-table-column
+              label="Task Name"
+              prop="fields.task_name">
+              </el-table-column>
+              <el-table-column
+              label="Project Name"
+              prop="fields.project_name">
+              </el-table-column>
+            </el-table>
+            </div>
             <el-table
               :data="resultData"
               stripe
               border
               style="width: 100%; color: #282828">
-            <el-table-column
-              label="Item"
-              prop="Item"
-              fixed
-              width="180">
-            </el-table-column>
-            <el-table-column
-              label="Value"
-              prop="Value">
-            </el-table-column>
-          </el-table>
-          <img :src="rocimgurl" style="width: 700px">
-          <img :src="optimgurl" style="width: 700px">
-        </div>
+              <el-table-column
+                label="Item"
+                prop="Item"
+                fixed
+                width="180">
+              </el-table-column>
+              <el-table-column
+                label="Value"
+                prop="Value">
+              </el-table-column>
+            </el-table>
+            <img :src="rocimgurl" style="width: 700px">
+            <img :src="optimgurl" style="width: 700px">
+          </div>
         </div>
       </el-tab-pane>
     </el-tabs>
@@ -50,7 +97,9 @@ export default {
           console.log(res)
           if (res.error_num === 0) {
             console.log(res)
+            this.taskinfo = res['info']
             this.resultData = res['list']
+            console.log(this.taskinfo)
             console.log(this.resultData)
           } else {
             this.$alert(res['msg'], 'Task Failed!', {
@@ -71,6 +120,7 @@ export default {
       taskid: this.$route.query.taskid,
       rocimgurl: '',
       optimgurl: '',
+      taskinfo: [],
       resultData: []
     }
   }

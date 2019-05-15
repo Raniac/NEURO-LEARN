@@ -209,8 +209,11 @@ def show_results(request):
         
         result_table = pd.read_csv('results/' + task_id + '/results.csv', encoding='gbk')
         result_json = result_table.to_json(orient='records')
-
         response['list']  = json.loads(result_json)
+
+        task_info = Submissions_Demo.objects.filter(task_id=task_id)
+        response['info']  = json.loads(serializers.serialize("json", task_info))
+
         response['msg'] = 'success'
         response['error_num'] = 0
     except  Exception as e:
