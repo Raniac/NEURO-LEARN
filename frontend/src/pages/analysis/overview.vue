@@ -55,7 +55,7 @@
   </el-col>
 </el-row>
     </div>
-    <div style="padding: 28px">
+    <div style="padding: 0px 28px 14px 28px">
       <h3>Recent</h3>
       <el-table
         class="submissions-table"
