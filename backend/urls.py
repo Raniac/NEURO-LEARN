@@ -8,4 +8,6 @@ urlpatterns = [
     url(r'show_submissions$', views.show_submissions, ),
     url(r'upload_data$', views.upload_data, ),
     url(r'show_data$', views.show_data, ),
+    url(r'show_roc$', views.show_roc, ),
+    url(r'show_opt$', views.show_opt, ),
     ]

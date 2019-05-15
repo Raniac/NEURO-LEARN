@@ -2,13 +2,15 @@ from django.shortcuts import render
 
 # Create your views here.
 # -*- coding: utf-8 -*-
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views.decorators.http import require_http_methods
 from django.core import serializers
 from django import forms
+from PIL import Image
 import requests
 import json
 import os
+import io
 import time
 
 from .models import Book
@@ -81,7 +83,7 @@ def new_task(request):
             task_result=''
         )
         task.save()
-        
+
         # create new celery task
         new_ml_task.delay(
             taskid=task_id,
@@ -171,3 +173,43 @@ def show_data(request):
         response['error_num'] = 1
 
     return JsonResponse(response)
+
+@require_http_methods(["GET"])
+def show_roc(request):
+    response = {}
+    task_id = request.GET.get('task_id')
+    print(task_id)
+    # try:
+    #     data = Data_Demo.objects.filter()
+    #     response['list']  = json.loads(serializers.serialize("json", data))
+    #     response['msg'] = 'success'
+    #     response['error_num'] = 0
+    # except  Exception as e:
+    #     response['msg'] = str(e)
+    #     response['error_num'] = 1
+
+    buf = io.BytesIO()
+    img = Image.open('results/' + task_id + '/190514_ROC_curve_rfe_svm_test_data.png')
+    img.save(buf, 'png')
+
+    return HttpResponse(buf.getvalue(), 'image/png')
+
+@require_http_methods(["GET"])
+def show_opt(request):
+    response = {}
+    task_id = request.GET.get('task_id')
+    print(task_id)
+    # try:
+    #     data = Data_Demo.objects.filter()
+    #     response['list']  = json.loads(serializers.serialize("json", data))
+    #     response['msg'] = 'success'
+    #     response['error_num'] = 0
+    # except  Exception as e:
+    #     response['msg'] = str(e)
+    #     response['error_num'] = 1
+
+    buf = io.BytesIO()
+    img = Image.open('results/' + task_id + '/190514_optimization_curve_rfe_svm_test_data.png')
+    img.save(buf, 'png')
+
+    return HttpResponse(buf.getvalue(), 'image/png')
