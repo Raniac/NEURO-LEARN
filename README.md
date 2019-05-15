@@ -645,6 +645,7 @@ $ python manage.py celeryd -l info
 #### Databases
 
 - To use Django-Model to manipulate databases, refer to [this site](https://www.cnblogs.com/yangmv/p/5327477.html);
+- To visualize the database in a descending order, which means the frontmost item being the most recent one, refer to [this site](https://blog.csdn.net/qq_42402381/article/details/84105711)
 
 ### Deployment
 

@@ -137,7 +137,7 @@ def new_task(request):
 def show_submissions(request):
     response = {}
     try:
-        submissions = Submissions_Demo.objects.filter()
+        submissions = Submissions_Demo.objects.filter().order_by('-id')
         response['list']  = json.loads(serializers.serialize("json", submissions))
         response['msg'] = 'success'
         response['error_num'] = 0
@@ -191,7 +191,7 @@ def handle_uploaded_file(f):
 def show_data(request):
     response = {}
     try:
-        data = Data_Demo.objects.filter()
+        data = Data_Demo.objects.filter().order_by('-id')
         response['list']  = json.loads(serializers.serialize("json", data))
         response['msg'] = 'success'
         response['error_num'] = 0

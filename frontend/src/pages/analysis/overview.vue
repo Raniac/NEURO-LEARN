@@ -173,14 +173,6 @@ export default {
           }
         })
     },
-    updateStats () {
-      this.total_num = 0
-      console.log(this.submissions_table)
-      this.submitted_num = 0
-      this.running_num = 0
-      this.finished_num = 0
-      this.failed_num = 0
-    },
     onRowClick (row) {
       this.$router.push({
         path: '/analysis/viewer',

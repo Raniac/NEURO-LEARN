@@ -15,12 +15,12 @@
     <div style="margin: 14px">
       <el-table
         class="submissions-table"
-        :data="submissions_table"
+        :data="submissions_table.slice((currpage - 1) * pagesize, currpage * pagesize)"
+        @selection-change="handleSelectionChange"
         stripe
         border
         @row-click="onRowClick"
-        style="width: 100%; background-color: #E8E8E8; color: #282828"
-        :default-sort = "{prop: 'fields.task_id', order: 'descending'}">
+        style="width: 100%; background-color: #E8E8E8; color: #282828">
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
@@ -70,10 +70,13 @@
     </div>
     <div style="margin: 14px">
       <el-pagination
-      background
-      layout="prev, pager, next"
-      :total="1000">
-      </el-pagination>
+        background
+        layout="prev, pager, next"
+        :page-size="pagesize"
+        :total="submissions_table.length"
+        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange">
+        </el-pagination>
     </div>
     </div>
   </div>
@@ -86,7 +89,9 @@ export default {
     return {
       search_input: '',
       selected_status: '',
-      submissions_table: []
+      submissions_table: [],
+      pagesize: 10,
+      currpage: 1
     }
   },
   mounted: function () {
@@ -112,6 +117,15 @@ export default {
         path: '/analysis/viewer',
         query: {taskid: row.fields.task_id}
       })
+    },
+    handleCurrentChange (cpage) {
+      this.currpage = cpage
+    },
+    handleSizeChange (psize) {
+      this.pagesize = psize
+    },
+    handleSelectionChange (val) {
+      console.log(val)
     }
   }
 }
