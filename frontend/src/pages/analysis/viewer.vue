@@ -32,8 +32,12 @@
 
 <script>
 export default {
+  mounted () {
+    console.log(this.taskid)
+  },
   data () {
     return {
+      taskid: this.$route.query.taskid,
       tableData3: [{
         item: 'Optimal Accuracy',
         value: '0.71'

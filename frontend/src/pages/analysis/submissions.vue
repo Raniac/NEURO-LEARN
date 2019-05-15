@@ -18,6 +18,7 @@
         :data="submissions_table"
         stripe
         border
+        @row-click="onRowClick"
         style="width: 100%; background-color: #E8E8E8; color: #282828"
         :default-sort = "{prop: 'fields.task_id', order: 'descending'}">
         <el-table-column type="expand">
@@ -105,6 +106,12 @@ export default {
             console.log(res['msg'])
           }
         })
+    },
+    onRowClick (row) {
+      this.$router.push({
+        path: '/analysis/viewer',
+        query: {taskid: row.fields.task_id}
+      })
     }
   }
 }
