@@ -1,0 +1,6 @@
+Item,Value
+Optimal Accuracy,0.7779831932773108
+Optimal Sensitivity,0.7428571428571428
+Optimal Specificity,0.8011904761904761
+Optimal Parameters,"{'lda__solver': 'svd', 'pca__n_components': 76}"
+Optimal AUC,0.8274170274170274

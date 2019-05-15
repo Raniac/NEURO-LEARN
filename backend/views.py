@@ -7,6 +7,7 @@ from django.views.decorators.http import require_http_methods
 from django.core import serializers
 from django import forms
 from PIL import Image
+import pandas as pd
 import requests
 import json
 import os
@@ -175,12 +176,30 @@ def show_data(request):
     return JsonResponse(response)
 
 @require_http_methods(["GET"])
+def show_results(request):
+    response = {}
+    try:
+        task_id = request.GET.get('task_id')
+        result_table = pd.read_csv('results/' + task_id + '/results.csv', encoding='gbk')
+        
+        result_json = result_table.to_json(orient='records')
+
+        response['list']  = json.loads(result_json)
+        response['msg'] = 'success'
+        response['error_num'] = 0
+    except  Exception as e:
+        response['msg'] = str(e)
+        response['error_num'] = 1
+
+    return JsonResponse(response)
+
+@require_http_methods(["GET"])
 def show_roc(request):
     response = {}
     task_id = request.GET.get('task_id')
 
     buf = io.BytesIO()
-    img = Image.open('results/' + task_id + '/190514_ROC_curve_rfe_svm_test_data.png')
+    img = Image.open('results/' + task_id + '/ROC_curve.png')
     img.save(buf, 'png')
 
     return HttpResponse(buf.getvalue(), 'image/png')
@@ -191,7 +210,7 @@ def show_opt(request):
     task_id = request.GET.get('task_id')
 
     buf = io.BytesIO()
-    img = Image.open('results/' + task_id + '/190514_optimization_curve_rfe_svm_test_data.png')
+    img = Image.open('results/' + task_id + '/optimization_curve.png')
     img.save(buf, 'png')
 
     return HttpResponse(buf.getvalue(), 'image/png')

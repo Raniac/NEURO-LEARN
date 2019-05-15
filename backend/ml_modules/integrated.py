@@ -3,6 +3,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 
+import codecs
+import csv
+
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import roc_auc_score, auc
@@ -18,8 +21,11 @@ def integrated(result_path, feat_sel, model, data, k):
     search = GridSearchCV(pipe, pipe_param_grid, iid=False, cv=k, return_train_score=False, scoring='accuracy')
     search.fit(data.X, data.y)
 
-    print('The best score is', search.best_score_)
-    print('The corresponding parameter setting is', search.best_params_)
+    optimal_score = search.best_score_
+    optimal_params = search.best_params_
+
+    print('The best score is', optimal_score)
+    print('The corresponding parameter setting is', optimal_params)
 
     # ========================================
     # Evaluation and Visualization
@@ -38,7 +44,7 @@ def integrated(result_path, feat_sel, model, data, k):
         plt.xlabel('n_components')
         plt.title('Optimization Curve')
 
-        plt.savefig(result_path + '/' + time.strftime('%y%m%d') + '_optimization_curve_' + feat_sel.name + '_' + model.name + '_' + data.name + '.png', dpi=300)
+        plt.savefig(result_path + '/' + 'optimization_curve.png', dpi=300)
 
     elif feat_sel.name == 'anova':
         plt.figure()
@@ -52,7 +58,7 @@ def integrated(result_path, feat_sel, model, data, k):
         plt.xlabel('percentile')
         plt.title('Optimization Curve')
 
-        plt.savefig(result_path + '/' + time.strftime('%y%m%d') + '_optimization_curve_' + feat_sel.name + '_' + model.name + '_' + data.name + '.png', dpi=300)
+        plt.savefig(result_path + '/' + 'optimization_curve.png', dpi=300)
 
     elif feat_sel.name == 'rfe':
         plt.figure()
@@ -66,7 +72,7 @@ def integrated(result_path, feat_sel, model, data, k):
         plt.xlabel('n_features_to_select')
         plt.title('Optimization Curve')
 
-        plt.savefig(result_path + '/' + time.strftime('%y%m%d') + '_optimization_curve_' + feat_sel.name + '_' + model.name + '_' + data.name + '.png', dpi=300)
+        plt.savefig(result_path + '/' + 'optimization_curve.png', dpi=300)
 
         selector = search.best_estimator_.named_steps['rfe'].fit(data.X, data.y)
         list_selected_features = []
@@ -127,14 +133,12 @@ def integrated(result_path, feat_sel, model, data, k):
 
     mean_tpr = np.mean(tprs, axis=0)
     mean_tpr[-1] = 1.0
-
-    import codecs
-    import csv
-    roc_to_csv = codecs.open(result_path + '/' + time.strftime('%y%m%d') + '_fpr_tpr_' + feat_sel.name + '_' + model.name + '_' + data.name + '.csv', 'w+', encoding='gbk')
-    writer = csv.writer(roc_to_csv, delimiter=',', quotechar=' ', quoting=csv.QUOTE_MINIMAL)
-    writer.writerow(mean_fpr)
-    writer.writerow(mean_tpr)
-    roc_to_csv.close()
+    
+    # roc_to_csv = codecs.open(result_path + '/' + 'fpr_tpr.csv', 'w+', encoding='gbk')
+    # writer = csv.writer(roc_to_csv, delimiter=',', quotechar=' ', quoting=csv.QUOTE_MINIMAL)
+    # writer.writerow(mean_fpr)
+    # writer.writerow(mean_tpr)
+    # roc_to_csv.close()
 
     mean_auc = auc(mean_fpr, mean_tpr)
     std_auc = np.std(aucs)
@@ -156,7 +160,7 @@ def integrated(result_path, feat_sel, model, data, k):
     plt.ylabel('True Positive Rate')
     plt.title('Receiver Operating Characteristic')
     plt.legend(loc="lower right")
-    plt.savefig(result_path + '/' + time.strftime('%y%m%d') + '_ROC_curve_' + feat_sel.name + '_' + model.name + '_' + data.name + '.png', dpi=300)
+    plt.savefig(result_path + '/' + 'ROC_curve.png', dpi=300)
 
     mean_accuracy = sum(accuracy) / len(accuracy)
     print('The mean accuracy is %.2f' % mean_accuracy)
@@ -164,3 +168,13 @@ def integrated(result_path, feat_sel, model, data, k):
     print('The mean sensitivity is %.2f' % mean_sensitivity)
     mean_specificity = sum(specificity) / len(specificity)
     print('The mean specificity is %.2f' % mean_specificity)
+
+    results_csv = codecs.open(result_path + '/' + 'results.csv', 'w+', encoding='gbk')
+    writer = csv.writer(results_csv, delimiter=',')
+    writer.writerow(['Item', 'Value'])
+    writer.writerow(['Optimal Accuracy', mean_accuracy])
+    writer.writerow(['Optimal Sensitivity', mean_sensitivity])
+    writer.writerow(['Optimal Specificity', mean_specificity])
+    writer.writerow(['Optimal Parameters', optimal_params])
+    writer.writerow(['Optimal AUC', mean_auc])
+    results_csv.close()
