@@ -13,6 +13,7 @@ def new_ml_task(taskid, tasktype, traindata, testdata, label, featsel, estimator
     try:
         test_task(taskid, tasktype, traindata, testdata, label, featsel, estimator, cv)
         Submissions_Demo.objects.filter(task_id=taskid).update(task_status='Finished')
-    except:
+    except Exception as e:
         Submissions_Demo.objects.filter(task_id=taskid).update(task_status='Failed')
+        Submissions_Demo.objects.filter(task_id=taskid).update(task_result=e)
     return

@@ -206,15 +206,15 @@ def show_results(request):
     response = {}
     try:
         task_id = request.GET.get('task_id')
-        result_table = pd.read_csv('results/' + task_id + '/results.csv', encoding='gbk')
         
+        result_table = pd.read_csv('results/' + task_id + '/results.csv', encoding='gbk')
         result_json = result_table.to_json(orient='records')
 
         response['list']  = json.loads(result_json)
         response['msg'] = 'success'
         response['error_num'] = 0
     except  Exception as e:
-        response['msg'] = str(e)
+        response['msg'] = json.dumps(Submissions_Demo.objects.get(task_id=task_id).task_result)
         response['error_num'] = 1
 
     return JsonResponse(response)

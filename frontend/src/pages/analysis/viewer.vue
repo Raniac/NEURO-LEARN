@@ -51,8 +51,15 @@ export default {
             this.resultData = res['list']
             console.log(this.resultData)
           } else {
-            this.$message.error('Failed!')
-            console.log(res['msg'])
+            this.$alert(res['msg'], 'Task Failed!', {
+              confirmButtonText: 'Confirm',
+              callback: action => {
+                this.$router.replace({
+                  path: '/analysis/submissions',
+                  component: resolve => require(['@/pages/analysis/submissions'], resolve)
+                })
+              }
+            })
           }
         })
     }

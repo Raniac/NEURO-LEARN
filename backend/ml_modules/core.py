@@ -15,9 +15,18 @@ def test_task(task_id, task_type, train_data, test_data, label, feat_sel, estima
 
     TRAIN_DATA_PATH = train_data[0]
     TEST_DATA_PATH = test_data[0]
+
     
-    X = pd.read_csv(TRAIN_DATA_PATH, encoding='gbk').drop(['ID', 'GROUP'], axis=1) # load data file
-    y = pd.read_csv(TRAIN_DATA_PATH, encoding='gbk').GROUP # load label file
+    X = pd.read_csv(TRAIN_DATA_PATH, encoding='gbk').drop(['ID', 'LABEL'], axis=1) # load data file
+    y = pd.read_csv(TRAIN_DATA_PATH, encoding='gbk').LABEL # load label file
+    
+    if len(train_data) > 0:
+        for i in range(1, len(train_data)):
+            X_temp = pd.read_csv(train_data[i], encoding='gbk').drop(['ID', 'LABEL'], axis=1) # load data file
+            y_temp = pd.read_csv(train_data[i], encoding='gbk').LABEL # load label file
+            X = pd.concat([X, X_temp], axis=0)
+            y = pd.concat([y, y_temp], axis=0)
+    
     my_data = Data(X, y) # instantiate data class
     my_data.data_preprocessing()
     (n_samples, n_features) = X.shape

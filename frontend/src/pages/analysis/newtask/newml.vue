@@ -124,7 +124,10 @@ export default {
       this.newTask()
     },
     onCancel () {
-      this.$router.go(0)
+      this.$router.replace({
+        path: '/analysis/overview',
+        component: resolve => require(['@/pages/analysis/overview'], resolve)
+      })
     },
     updateData () {
       axios.get('http://127.0.0.1:8000/api/show_data')
