@@ -28,7 +28,7 @@
           <div class="new-message-drop-menu">
             <ul>
               <li @click="goToAnalysis" v-for="submission in submissions_table" :key="submission.fields.task_id">{{ submission.fields.task_id }} {{ submission.fields.task_status }}!</li>
-              <li @click="goToSubmissions" style="text-align: center">- SHOW ALL -</li>
+              <li @click="goToSubmissions" style="text-align: center; color: #00CCFF">- SHOW ALL -</li>
             </ul>
           </div>
         </div>
