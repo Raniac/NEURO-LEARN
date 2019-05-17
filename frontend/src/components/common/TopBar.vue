@@ -22,13 +22,13 @@
       </el-col>
       <div class="new-message-area pull-right">
         <div class="new-message-icon">
-          <el-badge class="new-message-badge" is-dot>
+          <el-badge class="new-message-badge">
             <el-button class="new-message-button" @click="goToAnalysis" size="small" type="primary" icon="el-icon-message" circle></el-button>
           </el-badge>
           <div class="new-message-drop-menu">
             <ul>
-              <li>Task 20190404161616 finished!</li>
-              <li>Task 20190226121339 failed!</li>
+              <li @click="goToAnalysis" v-for="submission in submissions_table" :key="submission.fields.task_id">{{ submission.fields.task_id }} {{ submission.fields.task_status }}!</li>
+              <li @click="goToSubmissions" style="text-align: center">- SHOW ALL -</li>
             </ul>
           </div>
         </div>
@@ -38,14 +38,31 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data () {
     return {
       avatar_url: 'https://avatars2.githubusercontent.com/u/17725948?s=460&v=4',
-      search: ''
+      search: '',
+      submissions_table: []
     }
   },
+  mounted () {
+    this.showSubmissions()
+  },
   methods: {
+    showSubmissions () {
+      axios.get('http://127.0.0.1:8000/api/overview_submissions')
+        .then(response => {
+          var res = response.data
+          if (res.error_num === 0) {
+            this.submissions_table = res['list']
+          } else {
+            this.$message.error('Failed!')
+            console.log(res['msg'])
+          }
+        })
+    },
     goToProfile () {
       this.$router.replace({
         path: '/profile',
@@ -56,6 +73,12 @@ export default {
       this.$router.replace({
         path: '/analysis/overview',
         component: resolve => require(['@/pages/analysis/overview'], resolve)
+      })
+    },
+    goToSubmissions () {
+      this.$router.replace({
+        path: '/analysis/submissions',
+        component: resolve => require(['@/pages/analysis/submissions'], resolve)
       })
     },
     signOut () {

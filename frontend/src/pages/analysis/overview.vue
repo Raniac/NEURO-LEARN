@@ -169,7 +169,6 @@ export default {
             this.running_num = res['running_num']
             this.finished_num = res['finished_num']
             this.failed_num = res['failed_num']
-            this.submissions_table = res['list']
           } else {
             this.$message.error('Failed!')
             console.log(res['msg'])
