@@ -27,7 +27,7 @@
           </el-badge>
           <div class="new-message-drop-menu">
             <ul>
-              <li @click="goToAnalysis" v-for="submission in submissions_table" :key="submission.fields.task_id">{{ submission.fields.task_id }} {{ submission.fields.task_status }}!</li>
+              <li @click="onTaskClick(submission.fields.task_id)" v-for="submission in submissions_table" :key="submission.fields.task_id">{{ submission.fields.task_id }} {{ submission.fields.task_status }}!</li>
               <li @click="goToSubmissions" style="text-align: center; color: #00CCFF">- SHOW ALL -</li>
             </ul>
           </div>
@@ -73,6 +73,12 @@ export default {
       this.$router.replace({
         path: '/analysis/overview',
         component: resolve => require(['@/pages/analysis/overview'], resolve)
+      })
+    },
+    onTaskClick (taskId) {
+      this.$router.push({
+        path: '/analysis/viewer',
+        query: {taskid: taskId}
       })
     },
     goToSubmissions () {
