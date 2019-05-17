@@ -1,0 +1,6 @@
+Item,Value
+Optimal Accuracy,0.7583333333333335
+Optimal Sensitivity,0.8666666666666666
+Optimal Specificity,0.6499999999999999
+Optimal Parameters,"{'pca__n_components': 39, 'rf__bootstrap': True, 'rf__criterion': 'entropy', 'rf__max_depth': 2, 'rf__min_samples_leaf': 10, 'rf__min_samples_split': 5, 'rf__n_estimators': 50}"
+Optimal AUC,0.7821548821548822

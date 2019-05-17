@@ -150,8 +150,8 @@ export default {
           var res = response.data
           if (res.error_num === 0) {
             this.$router.replace({
-              path: '/analysis/submissions',
-              component: resolve => require(['@/pages/analysis/submissions'], resolve)
+              path: '/analysis/overview',
+              component: resolve => require(['@/pages/analysis/overview'], resolve)
             })
             console.log(res)
           } else {

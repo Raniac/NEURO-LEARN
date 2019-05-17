@@ -1,0 +1,6 @@
+Item,Value
+Optimal Accuracy,0.7416666666666666
+Optimal Sensitivity,0.6666666666666667
+Optimal Specificity,0.8166666666666668
+Optimal Parameters,"{'pca__n_components': 21, 'svm__C': 1}"
+Optimal AUC,0.7792929292929291
