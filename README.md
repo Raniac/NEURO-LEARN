@@ -16,6 +16,7 @@
     - [Vue and Element-UI](#vue-and-element-ui)
     - [Data Transaction](#data-transaction)
     - [File Uploading](#file-uploading)
+    - [File Downloading](#file-downloading)
     - [Visualization](#visualization)
   - [Service](#service)
     - [Celery and RabbitMQ](#celery-and-rabbitmq)
@@ -562,6 +563,25 @@ export default {
 [Element-UI Upload上传](https://element.eleme.cn/#/zh-CN/component/upload)  
 [Django多文件上传，只能保存最后一个文件](https://segmentfault.com/q/1010000011705007)  
 [Django文件上传到后台的三种方式](https://blog.csdn.net/u012762054/article/details/80930408)
+
+#### File Downloading
+
+- Refer to [this site](https://www.jb51.net/article/137790.htm) for three ways of realizing file downloading in Django;
+```python
+@require_http_methods(["GET"])
+def download_templates(request):
+    response = {}
+    template_type = request.GET.get('template_type')
+
+    template_file=open('templates/' + template_type + '.zip', 'rb')
+    response =FileResponse(template_file)
+    response['Content-Type']='application/octet-stream'
+    response['Content-Disposition']='attachment;filename=\"' + template_type + '.zip\"'
+    return response
+```
+```JavaScript
+<a href="http://127.0.0.1:8000/api/download_templates?template_type=dataset_templates"></a>
+```
 
 #### Visualization
 

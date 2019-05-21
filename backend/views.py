@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 # -*- coding: utf-8 -*-
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, FileResponse
 from django.views.decorators.http import require_http_methods
 from django.core import serializers
 from django import forms
@@ -243,3 +243,14 @@ def show_opt(request):
     img.save(buf, 'png')
 
     return HttpResponse(buf.getvalue(), 'image/png')
+
+@require_http_methods(["GET"])
+def download_templates(request):
+    response = {}
+    template_type = request.GET.get('template_type')
+
+    template_file=open('templates/' + template_type + '.zip', 'rb')
+    response =FileResponse(template_file)
+    response['Content-Type']='application/octet-stream'
+    response['Content-Disposition']='attachment;filename=\"' + template_type + '.zip\"'
+    return response
