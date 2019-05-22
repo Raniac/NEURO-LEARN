@@ -13,6 +13,7 @@
               <a href="http://127.0.0.1:8000/api/download_templates?template_type=workflow_templates" style="color: #00CCFF">workflow templates</a>.
               The format and feature data arrangement of the dataset should be strictly the same as the
               <a href="http://127.0.0.1:8000/api/download_templates?template_type=dataset_templates" style="color: #00CCFF">dataset templates</a>.</p>
+            <p>If you have a dataset prepared, you can <router-link to="/projects/data/sz_with_sfmri" style="color: #00CCFF">upload</router-link> it for analysis.</p>
           </div>
           <div style="text-align: center">
             <img style="height: 300px; width: 700px; margin: 10px" src="@/assets/img/sMRI_prep.png">

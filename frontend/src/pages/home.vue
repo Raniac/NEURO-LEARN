@@ -12,7 +12,7 @@
           <el-row>
             <el-col :span="6">
               <div class="grid-content">
-                <router-link to="/profile">
+                <router-link to="/projects/overview">
                 <img class="feature-icon" src="@/assets/img/projects.png">
                 <a class="feature-title">PROJECTS</a><br/>
                 <a class="feature-item">Multi-Modality Data</a><br/>
@@ -23,7 +23,7 @@
             </el-col>
             <el-col :span="6">
               <div class="grid-content">
-                <router-link to="/data/overview">
+                <router-link to="/projects/overview">
                 <img class="feature-icon" src="@/assets/img/data.png">
                 <a class="feature-title">DATA</a><br/>
                 <a class="feature-item">Share & Collaboration</a><br/>

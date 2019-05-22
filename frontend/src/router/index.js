@@ -14,20 +14,20 @@ export default new Router({
       component: resolve => require(['@/pages/profile'], resolve)
     },
     {
-      path: '/data/overview',
-      component: resolve => require(['@/pages/data/overview'], resolve)
+      path: '/projects/overview',
+      component: resolve => require(['@/pages/projects/overview'], resolve)
     },
     {
-      path: '/data/projects/ad_with_smri',
-      component: resolve => require(['@/pages/data/projects/ad_with_smri'], resolve)
+      path: '/projects/data/ad_with_smri',
+      component: resolve => require(['@/pages/projects/data/ad_with_smri'], resolve)
     },
     {
-      path: '/data/projects/sz_with_fmri',
-      component: resolve => require(['@/pages/data/projects/sz_with_fmri'], resolve)
+      path: '/projects/data/sz_with_fmri',
+      component: resolve => require(['@/pages/projects/data/sz_with_fmri'], resolve)
     },
     {
-      path: '/data/projects/sz_with_sfmri',
-      component: resolve => require(['@/pages/data/projects/sz_with_sfmri'], resolve)
+      path: '/projects/data/sz_with_sfmri',
+      component: resolve => require(['@/pages/projects/data/sz_with_sfmri'], resolve)
     },
     {
       path: '/analysis/overview',

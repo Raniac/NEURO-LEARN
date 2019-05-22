@@ -10,21 +10,21 @@
       <el-submenu index="2">
         <template slot="title">
           <div>
-            <i class="el-icon-upload"></i>
-            <span style="font-size: 16px; color: #E8E8E8">Data</span>
+            <i class="el-icon-folder-opened"></i>
+            <span style="font-size: 16px; color: #E8E8E8">Projects</span>
           </div>
         </template>
-        <el-menu-item index="2-1"><router-link to="/data/overview" class="nav-link"><i class="el-icon-files"></i>Overview</router-link></el-menu-item>
+        <el-menu-item index="2-1"><router-link to="/projects/overview" class="nav-link"><i class="el-icon-files"></i> Overview</router-link></el-menu-item>
         <el-submenu index="2-2">
           <template slot="title">
             <div>
-              <i class="el-icon-folder-opened"></i>
-              <span style="font-size: 16px; color: #E8E8E8">Projects</span>
+              <i class="el-icon-upload"></i>
+              <span style="font-size: 16px; color: #E8E8E8">Data</span>
             </div>
           </template>
-          <el-menu-item index="2-2-1"><router-link to="/data/projects/sz_with_sfmri" class="nav-link"><i class="el-icon-document"></i>SZ with s/fMRI</router-link></el-menu-item>
-          <el-menu-item index="2-2-2"><router-link to="/data/projects/ad_with_smri" class="nav-link"><i class="el-icon-document"></i>AD with sMRI</router-link></el-menu-item>
-          <el-menu-item index="2-2-3"><router-link to="/data/projects/sz_with_fmri" class="nav-link"><i class="el-icon-document"></i>SZ with fMRI</router-link></el-menu-item>
+          <el-menu-item index="2-2-1"><router-link to="/projects/data/sz_with_sfmri" class="nav-link"><i class="el-icon-document"></i>SZ with s/fMRI</router-link></el-menu-item>
+          <el-menu-item index="2-2-2"><router-link to="/projects/data/ad_with_smri" class="nav-link"><i class="el-icon-document"></i>AD with sMRI</router-link></el-menu-item>
+          <el-menu-item index="2-2-3"><router-link to="/projects/data/sz_with_fmri" class="nav-link"><i class="el-icon-document"></i>SZ with fMRI</router-link></el-menu-item>
         </el-submenu>
       </el-submenu>
       <el-submenu index="3">
@@ -34,7 +34,7 @@
             <span style="font-size: 16px; color: #E8E8E8">Analysis</span>
           </div>
         </template>
-        <el-menu-item index="3-1"><router-link to="/analysis/overview" class="nav-link"><i class="el-icon-menu"></i>Overview</router-link></el-menu-item>
+        <el-menu-item index="3-1"><router-link to="/analysis/overview" class="nav-link"><i class="el-icon-menu"></i> Overview</router-link></el-menu-item>
         <el-submenu index="3-2">
           <template slot="title">
             <div>
@@ -46,8 +46,8 @@
           <el-menu-item index="3-2-2"><router-link to="/analysis/newtask/newml" class="nav-link"><i class="el-icon-edit-outline"></i>Machine Learning</router-link></el-menu-item>
           <el-menu-item index="3-2-3"><router-link to="/analysis/newtask/newdl" class="nav-link"><i class="el-icon-edit-outline"></i>Deep Learning</router-link></el-menu-item>
         </el-submenu>
-        <el-menu-item index="3-3"><router-link to="/analysis/submissions" class="nav-link"><i class="el-icon-document-copy"></i>Submissions</router-link></el-menu-item>
-        <el-menu-item index="3-4"><router-link to="/analysis/viewer" class="nav-link"><i class="el-icon-view"></i>Viewer</router-link></el-menu-item>
+        <el-menu-item index="3-3"><router-link to="/analysis/submissions" class="nav-link"><i class="el-icon-document-copy"></i> Submissions</router-link></el-menu-item>
+        <el-menu-item index="3-4"><router-link to="/analysis/viewer" class="nav-link"><i class="el-icon-view"></i> Viewer</router-link></el-menu-item>
       </el-submenu>
       <el-menu-item index="4"><router-link to="/help" class="nav-link"><i class="el-icon-question"></i> Help</router-link></el-menu-item>
       <el-menu-item index="5"><router-link to="/test" class="nav-link"><i class="el-icon-loading"></i> Test</router-link></el-menu-item>
