@@ -6,7 +6,7 @@
           <el-input v-model="newform.task_name"></el-input>
         </el-form-item>
         <el-form-item label="Task Type">
-          <el-radio-group v-model="newform.task_type">
+          <el-radio-group v-model="newform.task_type" @change="onRadioChange">
             <el-radio label="Classification">Classification</el-radio>
             <el-radio label="Regression">Regression</el-radio>
           </el-radio-group>
@@ -100,13 +100,7 @@ export default {
           {name: 'ANOVA', value: 'ANOVA'},
           {name: 'Recursive Feature Elimination', value: 'Recursive Feature Elimination'}
         ],
-        estimator_options: [
-          {name: 'Support Vector Machine', value: 'Support Vector Machine'},
-          {name: 'Random Forest', value: 'Random Forest'},
-          {name: 'Linear Discriminative Analysis', value: 'Linear Discriminative Analysis'},
-          {name: 'Logistic Regression', value: 'Logistic Regression'},
-          {name: 'K Nearest Neighbor', value: 'K Nearest Neighbor'}
-        ],
+        estimator_options: [],
         cv_type_options: [
           {name: '10-fold', value: '10-fold'},
           {name: '5-fold', value: '5-fold'},
@@ -120,6 +114,25 @@ export default {
     this.updateData()
   },
   methods: {
+    onRadioChange () {
+      if (this.newform.task_type === 'Classification') {
+        this.form.estimator_options = [
+          {name: 'Support Vector Machine', value: 'Support Vector Machine'},
+          {name: 'Random Forest', value: 'Random Forest'},
+          {name: 'Linear Discriminative Analysis', value: 'Linear Discriminative Analysis'},
+          {name: 'Logistic Regression', value: 'Logistic Regression'},
+          {name: 'K Nearest Neighbor', value: 'K Nearest Neighbor'}
+        ]
+      } else if (this.newform.task_type === 'Regression') {
+        this.form.estimator_options = [
+          {name: 'Support Vector Regression', value: 'Support Vector Regression'},
+          {name: 'Elastic Net', value: 'Elastic Net'},
+          {name: 'Ordinary Least Square', value: 'Ordinary Least Square'},
+          {name: 'Lasso Regression', value: 'Lasso Regression'},
+          {name: 'Ridge Regression', value: 'Ridge Regression'}
+        ]
+      }
+    },
     onSubmit () {
       this.newTask()
     },
