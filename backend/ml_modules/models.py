@@ -16,7 +16,7 @@ class PCA_Feat_Sel():
         self.name = 'pca'
         step = min(n_samples, n_features) // 20
         self.param_grid = {
-            'pca__n_components': list(range(11, min(n_samples, n_features)-10, step))
+            'pca__n_components': list(range(11, min(n_samples, n_features)-50, step))
         }
 
 class ANOVA_Feat_Sel():

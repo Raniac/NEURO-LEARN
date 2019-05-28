@@ -15,28 +15,43 @@ def test_task(task_id, task_type, train_data, test_data, label, feat_sel, estima
 
     TRAIN_DATA_PATH = train_data[0]
     TEST_DATA_PATH = test_data[0]
-
     
-    X = pd.read_csv(TRAIN_DATA_PATH, encoding='gbk').drop(['ID', 'LABEL'], axis=1) # load data file
-    y = pd.read_csv(TRAIN_DATA_PATH, encoding='gbk').LABEL # load label file
+    # Instantiate training dataset
+    train_X = pd.read_csv(TRAIN_DATA_PATH, encoding='gbk').drop(['ID', 'LABEL'], axis=1) # load data file
+    train_y = pd.read_csv(TRAIN_DATA_PATH, encoding='gbk').LABEL # load label file
     
     if len(train_data) > 0:
         for i in range(1, len(train_data)):
-            X_temp = pd.read_csv(train_data[i], encoding='gbk').drop(['ID', 'LABEL'], axis=1) # load data file
-            y_temp = pd.read_csv(train_data[i], encoding='gbk').LABEL # load label file
-            X = pd.concat([X, X_temp], axis=0)
-            y = pd.concat([y, y_temp], axis=0)
+            train_X_temp = pd.read_csv(train_data[i], encoding='gbk').drop(['ID', 'LABEL'], axis=1) # load data file
+            train_y_temp = pd.read_csv(train_data[i], encoding='gbk').LABEL # load label file
+            train_X = pd.concat([train_X, train_X_temp], axis=0)
+            train_y = pd.concat([train_y, train_y_temp], axis=0)
     
-    my_data = Data(X, y) # instantiate data class
-    my_data.data_preprocessing()
-    (n_samples, n_features) = X.shape
+    my_train_data = Data(train_X, train_y) # instantiate data class
+    my_train_data.data_preprocessing()
+    (train_n_samples, train_n_features) = train_X.shape
+
+    # Instantiate testing dataset
+    test_X = pd.read_csv(TEST_DATA_PATH, encoding='gbk').drop(['ID', 'LABEL'], axis=1) # load data file
+    test_y = pd.read_csv(TEST_DATA_PATH, encoding='gbk').LABEL # load label file
+    
+    if len(test_data) > 0:
+        for i in range(1, len(test_data)):
+            test_X_temp = pd.read_csv(test_data[i], encoding='gbk').drop(['ID', 'LABEL'], axis=1) # load data file
+            test_y_temp = pd.read_csv(test_data[i], encoding='gbk').LABEL # load label file
+            test_X = pd.concat([test_X, test_X_temp], axis=0)
+            test_y = pd.concat([test_y, test_y_temp], axis=0)
+    
+    my_test_data = Data(test_X, test_y) # instantiate data class
+    my_test_data.data_preprocessing()
+    (test_n_samples, test_n_features) = test_X.shape
 
     if feat_sel == "Principal Component Analysis":
-        my_feat_sel = PCA_Feat_Sel(n_samples, n_features)
+        my_feat_sel = PCA_Feat_Sel(train_n_samples, train_n_features)
     elif feat_sel == "ANOVA":
-        my_feat_sel = ANOVA_Feat_Sel(n_samples, n_features)
+        my_feat_sel = ANOVA_Feat_Sel(train_n_samples, train_n_features)
     elif feat_sel == "Recursive Feature Elimination":
-        my_feat_sel = RFE_Feat_Sel(n_samples, n_features)
+        my_feat_sel = RFE_Feat_Sel(train_n_samples, train_n_features)
     
     if estimator == "Support Vector Machine":
         my_model = SVM_CLF()
@@ -49,4 +64,4 @@ def test_task(task_id, task_type, train_data, test_data, label, feat_sel, estima
     elif estimator == "K Nearest Neighbor":
         my_model = KNN_CLF()
     
-    integrated(RESULT_PATH, my_feat_sel, my_model, my_data, 10) # run integrated classification model
+    integrated(RESULT_PATH, my_feat_sel, my_model, my_train_data, my_test_data, 10) # run integrated classification model

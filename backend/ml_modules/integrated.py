@@ -10,7 +10,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import roc_auc_score, auc
 
-def integrated(result_path, feat_sel, model, data, k):
+def integrated(result_path, feat_sel, model, train_data, test_data, k):
     
     pipe = Pipeline(steps=[
         (feat_sel.name, feat_sel.model),
@@ -19,10 +19,11 @@ def integrated(result_path, feat_sel, model, data, k):
     pipe_param_grid = dict(feat_sel.param_grid, **model.param_grid)
 
     search = GridSearchCV(pipe, pipe_param_grid, iid=False, cv=k, return_train_score=False, scoring='accuracy')
-    search.fit(data.X, data.y)
+    search.fit(train_data.X, train_data.y)
 
     optimal_score = search.best_score_
     optimal_params = search.best_params_
+    optimal_model = search.best_estimator_
 
     print('The best score is', optimal_score)
     print('The corresponding parameter setting is', optimal_params)
@@ -74,86 +75,39 @@ def integrated(result_path, feat_sel, model, data, k):
 
         plt.savefig(result_path + '/' + 'optimization_curve.png', dpi=300)
 
-        selector = search.best_estimator_.named_steps['rfe'].fit(data.X, data.y)
+        selector = search.best_estimator_.named_steps['rfe'].fit(train_data.X, train_data.y)
         list_selected_features = []
         for i, feat in enumerate(selector.support_):
             if feat == True:
-                list_selected_features.append(data.list_features[i])
+                list_selected_features.append(train_data.list_features[i])
         print(list_selected_features[:50])
     
     # ROC Curve and Confusion Matrix
-    optimal_model = search.best_estimator_
 
     from scipy import interp
     from sklearn.metrics import roc_curve, auc
 
-    list_weight_vectors = []
-    accuracy = []
-    sensitivity = []
-    specificity = []
-    tprs = []
-    aucs = []
-    mean_fpr = np.linspace(0, 1, 100)
-    dict_split_data = data.data_k_split(k)
     optimal_model.probability = True
-    c = 0
+    predictions = optimal_model.predict(test_data.X)
+    probas_ = optimal_model.predict_proba(test_data.X)
+
+    from sklearn.metrics import confusion_matrix
+    tn, fp, fn, tp = confusion_matrix(test_data.y, predictions).ravel()
+    cnf_accuracy = (tn + tp) / (tn + fp + fn + tp)
+    test_accuracy = cnf_accuracy
+    cnf_sensitivity = tp / (tp + fn)
+    test_sensitivity = cnf_sensitivity
+    cnf_specificity = tn / (tn + fp)
+    test_specificity = cnf_specificity
+    
     plt.figure()
-    for i in range(1, k+1):
-        train_X = dict_split_data['train_X_'+str(i)]
-        train_y = dict_split_data['train_y_'+str(i)]
-        test_X = dict_split_data['test_X_'+str(i)]
-        test_y = dict_split_data['test_y_'+str(i)]
-
-        optimal_model.fit(train_X, train_y)
-        predictions = optimal_model.predict(test_X)
-
-        probas_ = optimal_model.predict_proba(test_X)
-
-        from sklearn.metrics import confusion_matrix
-        tn, fp, fn, tp = confusion_matrix(test_y, predictions).ravel()
-        cnf_accuracy = (tn + tp) / (tn + fp + fn + tp)
-        accuracy.append(cnf_accuracy)
-        cnf_sensitivity = tp / (tp + fn)
-        sensitivity.append(cnf_sensitivity)
-        cnf_specificity = tn / (tn + fp)
-        specificity.append(cnf_specificity)
-
-        fpr, tpr, _ = roc_curve(test_y, probas_[:, 1])
-        tprs.append(interp(mean_fpr, fpr, tpr))
-        tprs[-1][0] = 0.0
-        roc_auc = auc(fpr, tpr)
-        aucs.append(roc_auc)
-        plt.plot(fpr, tpr, lw=1, alpha=0.3,
-                label='ROC fold %d (AUC = %0.2f)' % (c, roc_auc))
-
-        c += 1
-
+    mean_fpr = np.linspace(0, 1, 100)
+    fpr, tpr, _ = roc_curve(test_data.y, probas_[:, 1])
+    roc_auc = auc(fpr, tpr)
+    plt.plot(fpr, tpr, lw=1, alpha=0.3, color='b',
+            label='AUC = %0.2f' % (roc_auc))
     plt.plot([0, 1], [0, 1], linestyle='--', lw=2, color='r',
             label='Chance', alpha=.8)
-
-    mean_tpr = np.mean(tprs, axis=0)
-    mean_tpr[-1] = 1.0
-    
-    # roc_to_csv = codecs.open(result_path + '/' + 'fpr_tpr.csv', 'w+', encoding='gbk')
-    # writer = csv.writer(roc_to_csv, delimiter=',', quotechar=' ', quoting=csv.QUOTE_MINIMAL)
-    # writer.writerow(mean_fpr)
-    # writer.writerow(mean_tpr)
-    # roc_to_csv.close()
-
-    mean_auc = auc(mean_fpr, mean_tpr)
-    std_auc = np.std(aucs)
-    print('The mean auc is:', mean_auc)
-    print('The std auc is:', std_auc)
-    plt.plot(mean_fpr, mean_tpr, color='b',
-            label=r'Mean ROC (AUC = %0.2f $\pm$ %0.2f)' % (mean_auc, std_auc),
-            lw=2, alpha=.8)
-
-    std_tpr = np.std(tprs, axis=0)
-    tprs_upper = np.minimum(mean_tpr + std_tpr, 1)
-    tprs_lower = np.maximum(mean_tpr - std_tpr, 0)
-    plt.fill_between(mean_fpr, tprs_lower, tprs_upper, color='grey', alpha=.2,
-                    label=r'$\pm$ 1 std. dev.')
-
     plt.xlim([-0.05, 1.05])
     plt.ylim([-0.05, 1.05])
     plt.xlabel('False Positive Rate')
@@ -162,19 +116,13 @@ def integrated(result_path, feat_sel, model, data, k):
     plt.legend(loc="lower right")
     plt.savefig(result_path + '/' + 'ROC_curve.png', dpi=300)
 
-    mean_accuracy = sum(accuracy) / len(accuracy)
-    print('The mean accuracy is %.2f' % mean_accuracy)
-    mean_sensitivity = sum(sensitivity) / len(sensitivity)
-    print('The mean sensitivity is %.2f' % mean_sensitivity)
-    mean_specificity = sum(specificity) / len(specificity)
-    print('The mean specificity is %.2f' % mean_specificity)
-
     results_csv = codecs.open(result_path + '/' + 'results.csv', 'w+', encoding='gbk')
     writer = csv.writer(results_csv, delimiter=',')
     writer.writerow(['Item', 'Value'])
-    writer.writerow(['Optimal Accuracy', mean_accuracy])
-    writer.writerow(['Optimal Sensitivity', mean_sensitivity])
-    writer.writerow(['Optimal Specificity', mean_specificity])
+    writer.writerow(['Optimal CV Accuracy', optimal_score])
     writer.writerow(['Optimal Parameters', optimal_params])
-    writer.writerow(['Optimal AUC', mean_auc])
+    writer.writerow(['Test Accuracy', test_accuracy])
+    writer.writerow(['Test Sensitivity', test_sensitivity])
+    writer.writerow(['Test Specificity', test_specificity])
+    writer.writerow(['Area Under Curve', roc_auc])
     results_csv.close()
