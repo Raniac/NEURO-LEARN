@@ -4,7 +4,7 @@
 
 ## Contents
 - [Contents](#contents)
-- [Django+VueJS+Celery](#djangovuejscelery)
+- [Django+Vue+Celery](#djangovuecelery)
   - [Environment](#environment)
   - [Build Project](#build-project)
   - [Architecture Design](#architecture-design)
@@ -24,7 +24,7 @@
   - [Deployment](#deployment)
     - [GitHub](#github)
 
-## Django+VueJS+Celery
+## Django+Vue+Celery
 
 ### Environment
 
