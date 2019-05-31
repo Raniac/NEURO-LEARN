@@ -49,7 +49,7 @@
         <el-menu-item index="3-3"><router-link to="/analysis/submissions" class="nav-link"><i class="el-icon-document-copy"></i> Submissions</router-link></el-menu-item>
         <el-menu-item index="3-4"><router-link to="/analysis/viewer" class="nav-link"><i class="el-icon-view"></i> Viewer</router-link></el-menu-item>
       </el-submenu>
-      <el-menu-item index="4"><router-link to="/help" class="nav-link"><i class="el-icon-question"></i> Help</router-link></el-menu-item>
+      <el-menu-item index="4"><router-link to="/about" class="nav-link"><i class="el-icon-info"></i> About</router-link></el-menu-item>
       <!-- <el-menu-item index="5"><router-link to="/test" class="nav-link"><i class="el-icon-loading"></i> Test</router-link></el-menu-item> -->
     </el-menu>
   </div>

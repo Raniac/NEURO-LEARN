@@ -54,8 +54,8 @@ export default new Router({
       component: resolve => require(['@/pages/analysis/viewer'], resolve)
     },
     {
-      path: '/help',
-      component: resolve => require(['@/pages/help'], resolve)
+      path: '/about',
+      component: resolve => require(['@/pages/about'], resolve)
     },
     {
       path: '/test',
