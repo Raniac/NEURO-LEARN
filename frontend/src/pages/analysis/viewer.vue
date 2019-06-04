@@ -67,8 +67,8 @@
                 prop="Value">
               </el-table-column>
             </el-table>
-            <img :src="rocimgurl" style="width: 700px">
-            <img :src="optimgurl" style="width: 700px">
+            <img class="result-image" :src="optimgurl">
+            <img class="result-image" :src="pfmimgurl">
           </div>
         </div>
       </el-tab-pane>
@@ -87,7 +87,9 @@ export default {
   },
   methods: {
     showResultImages () {
-      this.rocimgurl = 'http://127.0.0.1:8000/api/show_roc?task_id=' + this.taskid
+      if (this.tasktype === 'Classification') {
+        this.pfmimgurl = 'http://127.0.0.1:8000/api/show_roc?task_id=' + this.taskid
+      }
       this.optimgurl = 'http://127.0.0.1:8000/api/show_opt?task_id=' + this.taskid
     },
     showResults () {
@@ -118,6 +120,7 @@ export default {
   data () {
     return {
       taskid: this.$route.query.taskid,
+      tasktype: this.$route.query.tasktype,
       rocimgurl: '',
       optimgurl: '',
       taskinfo: [],
@@ -130,5 +133,8 @@ export default {
 <style lang="scss">
 .viewer-area {
     padding: 14px;
+    .result-image {
+      width: 700px;
+    }
 }
 </style>
