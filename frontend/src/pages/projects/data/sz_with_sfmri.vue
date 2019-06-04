@@ -79,7 +79,7 @@ export default {
     },
     uploadSuccess (response) {
       if (response.msg === 'success') {
-        this.$message({showClose: true, message: 'Successfully uploaded!', type: 'success'})
+        this.$message({showClose: true, message: 'Successfully uploaded! Data ID: ' + response.dataid, type: 'success'})
       } else if (response.msg === 'existed') {
         this.$message({showClose: true, message: 'File existed!', type: 'warning'})
       }

@@ -160,6 +160,7 @@ def upload_data(request):
             data.data_path = handle_uploaded_file(data_file)
             data.save()
             response['msg'] = 'success'
+            response['dataid'] = data_id
         else:
             response['msg'] = 'existed'
         
