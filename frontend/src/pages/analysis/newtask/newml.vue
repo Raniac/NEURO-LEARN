@@ -17,12 +17,12 @@
           </el-select>
         </el-form-item>
         <el-form-item label="Train Data">
-          <el-select class="select-data" v-model="newform.train_data" placeholder="Select Train Data" multiple>
+          <el-select class="select-data" v-model="newform.train_data" placeholder="Select Train Data" filterable multiple>
             <el-option v-for="(data_option, key) in data_table" :label="data_option.fields.data_name" :value="data_option.fields.data_path" :key="key"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="Test Data">
-          <el-select class="select-data" v-model="newform.test_data" placeholder="Select Test Data" multiple>
+          <el-select class="select-data" v-model="newform.test_data" placeholder="Select Test Data" filterable multiple>
             <el-option v-for="(data_option, key) in data_table" :label="data_option.fields.data_name" :value="data_option.fields.data_path" :key="key"></el-option>
           </el-select>
         </el-form-item>
