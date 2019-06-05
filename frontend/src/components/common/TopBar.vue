@@ -6,7 +6,7 @@
           <span class="avatar-img" :style="{ backgroundImage: 'url(' + avatar_url + ')' }"></span>
           <div class="avatar-drop-menu">
             <ul>
-              <li @click="goToProfile"><i class="iconfont">&#xe603;</i>Raniac</li>
+              <li @click="goToProfile"><i class="iconfont">&#xe603;</i>{{ username }}</li>
               <li @click="signOut"><i class="iconfont">&#xe602;</i>Logout</li>
             </ul>
           </div>
@@ -44,10 +44,13 @@ export default {
     return {
       avatar_url: 'https://avatars2.githubusercontent.com/u/17725948?s=460&v=4',
       search: '',
-      submissions_table: []
+      submissions_table: [],
+      username: ''
     }
   },
   mounted () {
+    this.username = localStorage.getItem('Username')
+    console.log(this.username)
     this.showSubmissions()
     // setInterval(this.showSubmissions, 10000)
   },

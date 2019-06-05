@@ -86,6 +86,7 @@ def user_login(request):
 
         if password == User_Demo.objects.get(username=username).password:
             response['msg'] = 'Correct password!'
+            response['data'] = username
             get_token(request)
         else:
             response['msg'] = 'Wrong password!'

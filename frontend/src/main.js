@@ -7,6 +7,7 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import locale from 'element-ui/lib/locale/lang/en'
 import '../theme/index.css'
+import store from './store'
 
 Vue.config.productionTip = false
 
@@ -17,6 +18,7 @@ Vue.use(ElementUI, { locale })
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  store,
   router,
   components: { App },
   template: '<App/>'
