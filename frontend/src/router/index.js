@@ -1,89 +1,96 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import home from '@/pages/home'
+import login from '@/pages/login'
+import profile from '@/pages/profile'
+import projectsOverview from '@/pages/projects/overview'
+import projectsDataSZWithSfmri from '@/pages/projects/data/sz_with_sfmri'
+import analysisOverview from '@/pages/analysis/overview'
+import analysisNewtaskNewDL from '@/pages/analysis/newtask/newdl'
+import analysisNewtaskNewML from '@/pages/analysis/newtask/newml'
+import analysisNewtaskNewSA from '@/pages/analysis/newtask/newsa'
+import analysisSubmissions from '@/pages/analysis/submissions'
+import analysisViewer from '@/pages/analysis/viewer'
+import about from '@/pages/about'
+import test from '@/pages/test'
+
 Vue.use(Router)
 
 const router = new Router({
   routes: [
     {
       path: '/',
-      component: resolve => require(['@/pages/login'], resolve)
+      component: home
     },
     {
       path: '/login',
-      component: resolve => require(['@/pages/login'], resolve)
+      component: login
     },
     {
       path: '/home',
-      component: resolve => require(['@/pages/home'], resolve)
+      component: home
     },
     {
       path: '/profile',
-      component: resolve => require(['@/pages/profile'], resolve)
+      component: profile
     },
     {
       path: '/projects/overview',
-      component: resolve => require(['@/pages/projects/overview'], resolve)
-    },
-    {
-      path: '/projects/data/ad_with_smri',
-      component: resolve => require(['@/pages/projects/data/ad_with_smri'], resolve)
-    },
-    {
-      path: '/projects/data/sz_with_fmri',
-      component: resolve => require(['@/pages/projects/data/sz_with_fmri'], resolve)
+      component: projectsOverview
     },
     {
       path: '/projects/data/sz_with_sfmri',
-      component: resolve => require(['@/pages/projects/data/sz_with_sfmri'], resolve)
+      component: projectsDataSZWithSfmri
     },
     {
       path: '/analysis/overview',
-      component: resolve => require(['@/pages/analysis/overview'], resolve)
+      component: analysisOverview
     },
     {
       path: '/analysis/newtask/newdl',
-      component: resolve => require(['@/pages/analysis/newtask/newdl'], resolve)
+      component: analysisNewtaskNewDL
     },
     {
       path: '/analysis/newtask/newml',
-      component: resolve => require(['@/pages/analysis/newtask/newml'], resolve)
+      component: analysisNewtaskNewML
     },
     {
       path: '/analysis/newtask/newsa',
-      component: resolve => require(['@/pages/analysis/newtask/newsa'], resolve)
+      component: analysisNewtaskNewSA
     },
     {
       path: '/analysis/submissions',
-      component: resolve => require(['@/pages/analysis/submissions'], resolve)
+      component: analysisSubmissions
     },
     {
       path: '/analysis/viewer',
-      component: resolve => require(['@/pages/analysis/viewer'], resolve)
+      component: analysisViewer
     },
     {
       path: '/about',
-      component: resolve => require(['@/pages/about'], resolve)
+      component: about
     },
     {
       path: '/test',
-      component: resolve => require(['@/pages/test'], resolve)
+      component: test
     }
   ]
 })
 
-// router.beforeEach((to, from, next) => {
-//   if (to.path === '/login') {
-//     next()
-//   } else {
-//     let token = sessionStorage.getItem('Authorization')
+router.beforeEach((to, from, next) => {
+  if (to.path === '/login') {
+    next()
+  } else {
+    let token = sessionStorage.getItem('Authorization')
+    console.log(token)
 
-//     if (token === 'null' || token === '') {
-//       next('/login')
-//     } else {
-//       next()
-//     }
-//   }
-// })
+    if (token === null || token === '') {
+      next('/login')
+    } else {
+      next()
+    }
+  }
+})
 
 export default router

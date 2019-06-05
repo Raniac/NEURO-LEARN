@@ -7,7 +7,6 @@
     </div>
     <div class="home-content-area">
       <div style="padding: 20px">
-        <h1 style="text-align: center; font-family: Arial; font-weight: 200; font-size: 40px; color: #282828">Welcome to <strong id="blue-title">NEURO-LEARN-WEB</strong>!:-)</h1>
         <div style="padding: 10px; font-size: 20px">
           <el-row>
             <el-col :span="6">
