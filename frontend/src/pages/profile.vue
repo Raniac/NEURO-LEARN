@@ -4,7 +4,7 @@
       <div class="profile-detail">
         <img style="float: left; height: auto; width: 200px" src="https://avatars2.githubusercontent.com/u/17725948?s=460&v=4">
         <div style="line-height: 30px">
-          <span style="padding-left: 20px; font-family: Arial; font-weight: 200; font-size: 40px; color: #282828">Raniac</span><br/>
+          <span style="padding-left: 20px; font-family: Arial; font-weight: 200; font-size: 40px; color: #282828">{{ username }}</span><br/>
           <span style="padding-left: 20px; font-family: Arial; font-weight: 100; font-size: 20px; color: #505050">Master of Science from SCUT</span><br/>
           <span style="padding-left: 20px; font-family: Arial; font-weight: 100; font-size: 20px; color: #505050">Interests:  Artificial Intelligence & Neuro-Informatics</span><br/>
         </div>
@@ -24,6 +24,7 @@
         :data="projects_table"
         stripe
         border
+        default-expand-all
         style="width: 100%; background-color: #E8E8E8; color: #282828; ">
         <el-table-column type="expand">
           <template slot-scope="props">
@@ -33,9 +34,6 @@
               </el-form-item>
               <el-form-item label="Feature Types">
                 <span>{{ props.row.feat_types }}</span>
-              </el-form-item>
-              <el-form-item label="Data Size">
-                <span>{{ props.row.data_size }}</span>
               </el-form-item>
             </el-form>
           </template>
@@ -60,31 +58,20 @@
 
 <script>
 export default {
+  mounted () {
+    this.username = sessionStorage.getItem('Username')
+  },
   data () {
     return {
       search_input: '',
       selected_status: '',
+      username: '',
       projects_table: [{
-        project_id: '2019050501',
-        project_name: 'AD_with_sMRI',
-        project_status: 'active',
-        research_content: 'Using NiPype to calculate GMV, CT and CA, predict AD.',
-        feat_types: 'Gray Matter Volume, Cortical Thickness, Cortical Area.',
-        data_size: '1000'
-      }, {
-        project_id: '2019050502',
-        project_name: 'SZ_with_fMRI',
-        project_status: 'active',
-        research_content: 'Using NiLearn to calculate FC, DC and CC, predict SZ.',
-        feat_types: 'Functional Connectivity, Degree Centrality, Clustering Coefficient.',
-        data_size: '954'
-      }, {
         project_id: '2019050503',
-        project_name: 'SZ_with_s/fMRI',
+        project_name: 'Demo',
         project_status: 'active',
-        research_content: 'Fusing multi-modal data, using NiLearn to calculate GMV and FC, predict SZ.',
-        feat_types: 'Gray Matter Volume, Functional Connectivity.',
-        data_size: '675'
+        research_content: 'Fusing structural and functional MRI data, use DPABI on matlab to compute the features, and analyze SZ.',
+        feat_types: 'Gray matter volume, regional homogeneity, amplitude of low frequency fluctuations and degree centrality.'
       }]
     }
   }
