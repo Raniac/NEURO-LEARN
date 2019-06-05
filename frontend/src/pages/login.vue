@@ -98,9 +98,10 @@ export default {
         username: [],
         password: []
       },
-      loginRules: {
+      registerRules: {
         username: [],
-        password: []
+        password: [],
+        confirm_password: []
       },
       loginLoading: false,
       registerLoading: false,
