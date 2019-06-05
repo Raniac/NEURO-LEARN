@@ -20,6 +20,7 @@ export default {
 <style lang='scss'>
 #container {
   min-height: 100vh;
+  margin-left: 250px;
   flex: 1 auto;
 }
 .pull-left {

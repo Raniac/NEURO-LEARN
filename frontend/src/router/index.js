@@ -3,10 +3,18 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
+      component: resolve => require(['@/pages/login'], resolve)
+    },
+    {
+      path: '/login',
+      component: resolve => require(['@/pages/login'], resolve)
+    },
+    {
+      path: '/home',
       component: resolve => require(['@/pages/home'], resolve)
     },
     {
@@ -63,3 +71,19 @@ export default new Router({
     }
   ]
 })
+
+// router.beforeEach((to, from, next) => {
+//   if (to.path === '/login') {
+//     next()
+//   } else {
+//     let token = sessionStorage.getItem('Authorization')
+
+//     if (token === 'null' || token === '') {
+//       next('/login')
+//     } else {
+//       next()
+//     }
+//   }
+// })
+
+export default router

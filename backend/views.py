@@ -6,6 +6,8 @@ from django.http import JsonResponse, HttpResponse, FileResponse
 from django.views.decorators.http import require_http_methods
 from django.core import serializers
 from django import forms
+from django.middleware.csrf import get_token, rotate_token
+
 from PIL import Image
 import pandas as pd
 import requests
@@ -75,59 +77,61 @@ def overview_submissions(request):
 
     return JsonResponse(response)
 
-@require_http_methods(["POST"])
+@require_http_methods(["GET", "POST"])
 def new_task(request):
     response = {}
-    postBody = json.loads(request.body)
     try:
-        task_id = 'TASK' + time.strftime('%Y%m%d%H%M%S')
-        task_name=postBody.get('task_name')
-        task_type=postBody.get('task_type')
-        project_name=postBody.get('project_name')
-        train_data=postBody.get('train_data')
-        test_data=postBody.get('test_data')
-        label=postBody.get('label')
-        feat_sel=postBody.get('feat_sel')
-        estimator=postBody.get('estimator')
-        cv_type=postBody.get('cv_type')
-        note=postBody.get('note')
-        verbose=postBody.get('verbose')
+        if request.method == 'GET':
+            get_token(request)
+        if request.method == 'POST':
+            postBody = json.loads(request.body.data)
+            task_id = 'TASK' + time.strftime('%Y%m%d%H%M%S')
+            task_name=postBody.get('task_name')
+            task_type=postBody.get('task_type')
+            project_name=postBody.get('project_name')
+            train_data=postBody.get('train_data')
+            test_data=postBody.get('test_data')
+            label=postBody.get('label')
+            feat_sel=postBody.get('feat_sel')
+            estimator=postBody.get('estimator')
+            cv_type=postBody.get('cv_type')
+            note=postBody.get('note')
+            verbose=postBody.get('verbose')
 
-        task = Submissions_Demo(
-            task_id=task_id,
-            task_name=task_name,
-            task_type=task_type,
-            project_name=project_name,
-            train_data=train_data,
-            test_data=test_data,
-            label=label,
-            feat_sel=feat_sel,
-            estimator=estimator,
-            cv_type=cv_type,
-            note=note,
-            verbose=verbose,
-            task_status='Submitted',
-            task_result=''
-        )
-        task.save()
+            task = Submissions_Demo(
+                task_id=task_id,
+                task_name=task_name,
+                task_type=task_type,
+                project_name=project_name,
+                train_data=train_data,
+                test_data=test_data,
+                label=label,
+                feat_sel=feat_sel,
+                estimator=estimator,
+                cv_type=cv_type,
+                note=note,
+                verbose=verbose,
+                task_status='Submitted',
+                task_result=''
+            )
+            task.save()
 
-        # create new celery task
-        new_ml_task.delay(
-            taskid=task_id,
-            tasktype=task_type,
-            traindata=train_data,
-            testdata=test_data,
-            label=label,
-            featsel=feat_sel,
-            estimator=estimator,
-            cv=cv_type
-        )
+            # create new celery task
+            new_ml_task.delay(
+                taskid=task_id,
+                tasktype=task_type,
+                traindata=train_data,
+                testdata=test_data,
+                label=label,
+                featsel=feat_sel,
+                estimator=estimator,
+                cv=cv_type
+            )
 
-        response['post_body'] = postBody
-        response['msg'] = 'success'
-        response['error_num'] = 0
+            response['post_body'] = postBody
+            response['msg'] = 'success'
+            response['error_num'] = 0
     except Exception as e:
-        response['post_body'] = postBody
         response['msg'] = str(e)
         response['error_num'] = 1
 

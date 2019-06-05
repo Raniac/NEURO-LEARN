@@ -2,7 +2,7 @@
   <div>
     <el-menu default-active="1" id="nav-menu">
       <div class="logo">
-        <router-link to="/" class="nav-title">
+        <router-link to="/home" class="nav-title">
           NEURO-LEARN
         </router-link>
       </div>
@@ -63,6 +63,7 @@
   background-color: #282828;
   border-right-color: #282828;
   box-shadow: 5px 0 20px rgba(0,0,0,.3);
+  position: fixed;
   .logo {
     width: 250px;
     height: 65px;
@@ -74,7 +75,7 @@
     padding-top: 20px;
     font-size: 25px;
     font-weight: 600;
-    color: #E8E8E8;
+    color: #00CCFF;
   }
   .nav-link {
     display: block;
