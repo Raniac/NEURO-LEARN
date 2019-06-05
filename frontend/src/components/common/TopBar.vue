@@ -49,7 +49,7 @@ export default {
     }
   },
   mounted () {
-    this.username = localStorage.getItem('Username')
+    this.username = sessionStorage.getItem('Username')
     console.log(this.username)
     this.showSubmissions()
     // setInterval(this.showSubmissions, 10000)

@@ -8,6 +8,10 @@ from django.core import serializers
 from django import forms
 from django.middleware.csrf import get_token, rotate_token
 
+from rest_framework.authtoken.models import Token
+from django.contrib.auth.models import User
+from rest_framework import permissions
+
 from PIL import Image
 import pandas as pd
 import requests
@@ -88,10 +92,11 @@ def user_login(request):
             response['msg'] = 'Correct password!'
             response['data'] = username
             get_token(request)
+            print('Generate token.')
+            response['error_num'] = 0
         else:
             response['msg'] = 'Wrong password!'
-        
-        response['error_num'] = 0
+            response['error_num'] = 1
     except  Exception as e:
         response['msg'] = str(e)
         response['error_num'] = 1

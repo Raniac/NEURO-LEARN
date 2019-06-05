@@ -129,9 +129,9 @@ export default {
         var DjangoToken = this.getCookie('csrftoken')
         var res = response.data
         if (res.error_num === 0) {
-          console.log(res.data)
-          localStorage.setItem('Authorization', DjangoToken)
-          localStorage.setItem('Username', res.data)
+          console.log(res.msg)
+          sessionStorage.setItem('Authorization', DjangoToken)
+          sessionStorage.setItem('Username', res.data)
           this.$router.push('/profile')
         } else {
           this.$message.error('Wrong password!')
