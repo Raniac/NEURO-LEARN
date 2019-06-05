@@ -1,56 +1,154 @@
 <template>
-  <div style="background-color: #FFFFFF; margin: 14px; padding: 14px">
-    <el-form :model="loginForm">
-      <el-form-item label="UserName">
-        <el-input v-model="loginForm.username"></el-input>
-      </el-form-item>
-      <el-form-item label="PassWord">
-        <el-input v-model="loginForm.password"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="handleLogin('loginForm')">Login</el-button>
-      </el-form-item>
-    </el-form>
+  <div class="login-area">
+      <div class="login-container">
+        <el-tabs v-model="operation" stretch style="margin: 40px">
+          <el-tab-pane label="Login" name="login">
+            <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
+              <el-form-item prop="username">
+                <el-input
+                  ref="username"
+                  v-model="loginForm.username"
+                  placeholder="Username"
+                  name="username"
+                  type="text"
+                  tabindex="1"
+                  auto-complete="on"
+                  style="margin-top: 10px"
+                  />
+                </el-form-item>
+                <el-form-item prop="password">
+                  <el-input
+                    :key="passwordType"
+                    ref="password"
+                    v-model="loginForm.password"
+                    :type="passwordType"
+                    placeholder="Password"
+                    name="password"
+                    tabindex="2"
+                    auto-complete="on"
+                    @keyup.enter.native="handleLogin"
+                  />
+                </el-form-item>
+              <el-button :loading="loading" type="primary" style="width:100%" @click.native.prevent="handleLogin">Login</el-button>
+            </el-form>
+          </el-tab-pane>
+          <el-tab-pane label="Register" name="register">
+            <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
+              <el-form-item prop="username">
+                <el-input
+                  ref="username"
+                  v-model="loginForm.username"
+                  placeholder="Username"
+                  name="username"
+                  type="text"
+                  tabindex="1"
+                  auto-complete="on"
+                  style="margin-top: 10px"
+                  />
+                </el-form-item>
+                <el-form-item prop="password">
+                  <el-input
+                    :key="passwordType"
+                    ref="password"
+                    v-model="loginForm.password"
+                    :type="passwordType"
+                    placeholder="Password"
+                    name="password"
+                    tabindex="2"
+                    auto-complete="on"
+                    @keyup.enter.native="handleLogin"
+                  />
+                </el-form-item>
+                <el-form-item prop="password">
+                  <el-input
+                    :key="passwordType"
+                    ref="password"
+                    v-model="loginForm.password"
+                    :type="passwordType"
+                    placeholder="Confirm Password"
+                    name="password"
+                    tabindex="2"
+                    auto-complete="on"
+                    @keyup.enter.native="handleLogin"
+                  />
+                </el-form-item>
+              <el-button :loading="loading" type="primary" style="width:100%" @click.native.prevent="handleRegister">Register</el-button>
+            </el-form>
+          </el-tab-pane>
+        </el-tabs>
+      </div>
   </div>
 </template>
 
 <script>
 export default {
+  name: 'Login',
   data () {
     return {
       loginForm: {
-        csfmiddlewaretoken: '',
         username: '',
         password: ''
-      }
+      },
+      loginRules: {
+        username: [],
+        password: []
+      },
+      loading: false,
+      operation: 'login',
+      passwordType: 'password',
+      redirect: undefined
+    }
+  },
+  watch: {
+    $route: {
+      handler: function (route) {
+        this.redirect = route.query && route.query.redirect
+      },
+      immediate: true
     }
   },
   methods: {
-    handleChange (file, fileList) {
-      this.fileList = fileList.slice(-4)
-    },
-    uploadSuccess (response) {
-      console.log(response.error_num, response.msg)
-    }
-  },
-  mounted () {
-    var vm = this
-    vm.$axios({
-      method: 'get',
-      baseURL: '/api',
-      url: '/accounts/login/'
-    })
-      .then(function (response) {
-        // const regex = /csrfmiddlewaretoken' value='(.*)'/gm
-        var arr
-        var reg = new RegExp("csrfmiddlewaretoken' value='(.*)'")
-
-        if (arr === response.data.match(reg)) {
-          vm.form.csrfmiddlewaretoken = unescape(arr[1])
+    handleLogin () {
+      this.$refs.loginForm.validate(valid => {
+        if (valid) {
+          this.$router.replace({
+            path: '/profile',
+            component: resolve => require(['@/pages/profile'], resolve)
+          })
         } else {
-          console.log('not found crsf value')
+          console.log('error submit!!')
+          return false
         }
       })
+    },
+    handleRegister () {
+      this.$refs.loginForm.validate(valid => {
+        if (valid) {
+          this.operation = 'login'
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    }
   }
 }
 </script>
+
+<style lang="scss">
+.login-area{
+  padding: 150px 0px 0px 150px;
+  text-align: center;
+  .login-container {
+    width: 500px;
+    background-color: #FFFFFF;
+    overflow: hidden;
+
+    .login-form {
+      width: 400px;
+      padding: 20px 20px 0;
+      overflow: hidden;
+    }
+  }
+}
+</style>

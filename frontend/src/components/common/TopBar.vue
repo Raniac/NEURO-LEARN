@@ -89,7 +89,10 @@ export default {
       })
     },
     signOut () {
-      console.log('Signed out.')
+      this.$router.replace({
+        path: '/login',
+        component: resolve => require(['@/pages/login'], resolve)
+      })
     }
   }
 }
