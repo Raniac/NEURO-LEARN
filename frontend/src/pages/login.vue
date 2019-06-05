@@ -81,6 +81,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'Login',
   data () {
@@ -110,43 +111,62 @@ export default {
       redirect: undefined
     }
   },
-  watch: {
-    $route: {
-      handler: function (route) {
-        this.redirect = route.query && route.query.redirect
-      },
-      immediate: true
-    }
-  },
   methods: {
     handleLogin () {
-      this.$refs.loginForm.validate(valid => {
-        if (valid) {
-          this.loginLoading = true
-          this.$router.replace({
-            path: '/profile',
-            component: resolve => require(['@/pages/profile'], resolve)
-          })
+    //   this.$refs.loginForm.validate(valid => {
+    //     if (valid) {
+    //       this.loginLoading = true
+    //       this.$router.replace({
+    //         path: '/profile',
+    //         component: resolve => require(['@/pages/profile'], resolve)
+    //       })
+    //     } else {
+    //       console.log('error submit!!')
+    //       return false
+    //     }
+    //   })
+      axios.get('http://127.0.0.1:8000/api/login?username=' + this.loginForm.username + '&password=' + this.loginForm.password).then(response => {
+        var DjangoToken = this.getCookie('csrftoken')
+        var res = response.data
+        if (res.error_num === 0) {
+          console.log(res.msg)
+          sessionStorage.setItem('Authorization', DjangoToken)
         } else {
-          console.log('error submit!!')
-          return false
+          this.$message.error('Wrong password!')
+          console.log(res.msg)
         }
       })
     },
     handleRegister () {
-      this.$refs.registerForm.validate(valid => {
-        if (valid) {
-          this.registerLoading = true
-          this.$message({
-            type: 'success',
-            message: 'Registered successfully!'
-          })
-          this.operation = 'login'
-        } else {
-          console.log('error submit!!')
-          return false
+      console.log(JSON.stringify(this.registerForm))
+
+      axios.post(
+        'http://127.0.0.1:8000/api/register',
+        JSON.stringify(this.registerForm)
+      )
+        .then(response => {
+          var res = response.data
+          console.log(res.error_num)
+          if (res.error_num === 0) {
+            console.log(res)
+          } else {
+            this.$message.error('Failed to register!')
+            console.log(res['msg'])
+          }
+        })
+    },
+    getCookie (name) {
+      name = name + '='
+      let start = document.cookie.indexOf(name)
+      let value = null
+      if (start > -1) {
+        let end = document.cookie.indexOf(';', start)
+        if (end === -1) {
+          end = document.cookie.length
         }
-      })
+        value = document.cookie.substring(start + name.length, end)
+      }
+      return value
     }
   }
 }

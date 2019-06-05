@@ -89,6 +89,7 @@ export default {
       })
     },
     signOut () {
+      sessionStorage.removeItem('Authorization')
       this.$router.replace({
         path: '/login',
         component: resolve => require(['@/pages/login'], resolve)

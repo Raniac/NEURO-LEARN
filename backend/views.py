@@ -19,6 +19,7 @@ import time
 from .models import Book
 from .models import Submissions_Demo
 from .models import Data_Demo
+from .models import User_Demo
 
 from .tasks import *
 
@@ -50,6 +51,52 @@ def show_books(request):
         response['error_num'] = 1
 
     return JsonResponse(response)
+
+@require_http_methods(["GET", "POST"])
+def user_register(request):
+    response = {}
+    try:
+        postBody = json.loads(request.body)
+        user_id = 'USER' + time.strftime('%Y%m%d%H%M%S')
+        username=postBody.get('username')
+        password=postBody.get('password')
+
+        user = User_Demo(
+            user_id=user_id,
+            username=username,
+            password=password
+        )
+        user.save()
+
+        response['post_body'] = postBody
+        response['msg'] = 'success'
+        response['error_num'] = 0
+    except Exception as e:
+        response['msg'] = str(e)
+        response['error_num'] = 1
+
+    return JsonResponse(response)
+
+@require_http_methods(["GET"])
+def user_login(request):
+    response = {}
+    try:
+        username = request.GET.get('username')
+        password = request.GET.get('password')
+
+        if password == User_Demo.objects.get(username=username).password:
+            response['msg'] = 'Correct password!'
+            get_token(request)
+        else:
+            response['msg'] = 'Wrong password!'
+        
+        response['error_num'] = 0
+    except  Exception as e:
+        response['msg'] = str(e)
+        response['error_num'] = 1
+
+    return JsonResponse(response)
+    
 
 @require_http_methods(["GET"])
 def overview_submissions(request):
@@ -84,7 +131,7 @@ def new_task(request):
         if request.method == 'GET':
             get_token(request)
         if request.method == 'POST':
-            postBody = json.loads(request.body.data)
+            postBody = json.loads(request.body)
             task_id = 'TASK' + time.strftime('%Y%m%d%H%M%S')
             task_name=postBody.get('task_name')
             task_type=postBody.get('task_type')

@@ -158,11 +158,7 @@ export default {
     },
     newTask () {
       console.log(JSON.stringify(this.newform))
-      axios.get('http://127.0.0.1:8000/api/new_task')
-      var DjangoCookie = getCookie('csrftoken')
-      console.log(DjangoCookie)
-
-      axios.post('http://127.0.0.1:8000/api/new_task', JSON.stringify(this.newform), {headers: {'X-CSRFToken': DjangoCookie}})
+      axios.post('http://127.0.0.1:8000/api/new_task', JSON.stringify(this.newform))
         .then(response => {
           var res = response.data
           if (res.error_num === 0) {
@@ -178,19 +174,6 @@ export default {
         })
     }
   }
-}
-function getCookie (name) {
-  name = name + '='
-  let start = document.cookie.indexOf(name)
-  let value = null
-  if (start > -1) {
-    let end = document.cookie.indexOf(';', start)
-    if (end === -1) {
-      end = document.cookie.length
-    }
-    value = document.cookie.substring(start + name.length, end)
-  }
-  return value
 }
 </script>
 
