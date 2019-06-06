@@ -113,25 +113,18 @@ export default {
   },
   methods: {
     handleLogin () {
-    //   this.$refs.loginForm.validate(valid => {
-    //     if (valid) {
-    //       this.loginLoading = true
-    //       this.$router.replace({
-    //         path: '/profile',
-    //         component: resolve => require(['@/pages/profile'], resolve)
-    //       })
-    //     } else {
-    //       console.log('error submit!!')
-    //       return false
-    //     }
-    //   })
       axios.get('http://127.0.0.1:8000/api/login?username=' + this.loginForm.username + '&password=' + this.loginForm.password).then(response => {
-        var DjangoToken = this.getCookie('csrftoken')
+        var DjangoToken = this.getCookie('sessionid')
+        var username = this.getCookie('username')
         var res = response.data
+        // var DjangoToken = res.sessionid
+        console.log(DjangoToken)
+        console.log(username)
+        console.log(res)
         if (res.error_num === 0) {
           console.log(res.msg)
           sessionStorage.setItem('Authorization', DjangoToken)
-          sessionStorage.setItem('Username', res.data)
+          sessionStorage.setItem('Username', res.username)
           this.$router.push('/profile')
         } else {
           this.$message.error('Wrong password!')

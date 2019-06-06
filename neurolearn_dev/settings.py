@@ -147,3 +147,27 @@ BROKER_PORT = 5672
 BROKER_USER = "guest"
 BROKER_PASSWORD = "guest"
 BROKER_VHOST = "/"
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        # "LOCATION": "redis://192.168.27.96:6379/1", # 远程服务端配置
+        "LOCATION": "redis://127.0.0.1:6379/1",  # 本地redis的配置
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+
+SESSION_ENGINE = 'redis_sessions.session'
+SESSION_REDIS_HOST = 'localhost'
+SESSION_REDIS_PORT = 6379
+SESSION_REDIS_DB = 1
+SESSION_REDIS_PASSWORD = ''
+SESSION_REDIS_PREFIX = 'session'
+
+# SESSION_COOKIE_NAME = 'sessionid'
+# SESSION_COOKIE_PATH = '/'
+# SESSION_COOKIE_DOMAIN = None
+# SESSION_COOKIE_SECURE = False
+# SESSION_COOKIE_HTTPONLY = False

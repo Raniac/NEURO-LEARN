@@ -12,6 +12,8 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
 from rest_framework import permissions
 
+import uuid
+
 from PIL import Image
 import pandas as pd
 import requests
@@ -83,31 +85,42 @@ def user_register(request):
 
 @require_http_methods(["GET"])
 def user_login(request):
-    response = {}
+    response_content = {}
+    response = HttpResponse()
     try:
         username = request.GET.get('username')
         password = request.GET.get('password')
+        userobj = User_Demo.objects.filter(username=username, password=password).first()
 
-        if password == User_Demo.objects.get(username=username).password:
-            response['msg'] = 'Correct password!'
-            response['data'] = username
-            get_token(request)
-            print('Generate token.')
-            response['error_num'] = 0
+        if userobj:
+            response_content['msg'] = 'Correct password!'
+            response_content['username'] = username
+
+            sessionid = str(uuid.uuid3(uuid.NAMESPACE_URL, username))
+            response.set_cookie('sessionid', sessionid, expires=60000, path='/', httponly=False)
+            response.set_cookie('username', username, expires=60000, path='/', httponly=False)
+            # response_content['sessionid'] = sessionid
+
+            print(sessionid)
+            
+            response_content['error_num'] = 0
         else:
-            response['msg'] = 'Wrong password!'
-            response['error_num'] = 1
+            response_content['msg'] = 'Wrong password!'
+            response_content['error_num'] = 1
     except  Exception as e:
-        response['msg'] = str(e)
-        response['error_num'] = 1
+        response_content['msg'] = str(e)
+        response_content['error_num'] = 1
 
-    return JsonResponse(response)
+    response.write(json.dumps(response_content))
+
+    return response
     
 
 @require_http_methods(["GET"])
 def overview_submissions(request):
     response = {}
     try:
+        print(request.COOKIES.get('sessionid'))
         submissions = Submissions_Demo.objects.filter().order_by('-id')[:4]
         response['list']  = json.loads(serializers.serialize("json", submissions))
 
