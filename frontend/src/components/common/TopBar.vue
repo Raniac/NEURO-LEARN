@@ -97,6 +97,30 @@ export default {
         path: '/login',
         component: resolve => require(['@/pages/login'], resolve)
       })
+      this.delCookie('sessionid')
+      this.delCookie('username')
+      console.log('Logout!')
+    },
+    getCookie (name) {
+      name = name + '='
+      let start = document.cookie.indexOf(name)
+      let value = null
+      if (start > -1) {
+        let end = document.cookie.indexOf(';', start)
+        if (end === -1) {
+          end = document.cookie.length
+        }
+        value = document.cookie.substring(start + name.length, end)
+      }
+      return value
+    },
+    delCookie (name) {
+      var exp = new Date()
+      exp.setTime(exp.getTime() - 1)
+      var cval = this.getCookie(name)
+      if (cval != null) {
+        document.cookie = name + '=' + cval + ';expires=' + exp.toGMTString()
+      }
     }
   }
 }

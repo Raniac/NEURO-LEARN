@@ -60,7 +60,8 @@ def show_books(request):
 
 @require_http_methods(["GET", "POST"])
 def user_register(request):
-    response = {}
+    response_content = {}
+    response = HttpResponse()
     try:
         postBody = json.loads(request.body)
         user_id = 'USER' + time.strftime('%Y%m%d%H%M%S')
@@ -73,15 +74,21 @@ def user_register(request):
             password=password
         )
         user.save()
-
-        response['post_body'] = postBody
-        response['msg'] = 'success'
-        response['error_num'] = 0
+        
+        response_content['post_body'] = postBody
+        response_content['msg'] = 'success'
+        response_content['error_num'] = 0
     except Exception as e:
-        response['msg'] = str(e)
-        response['error_num'] = 1
+        response_content['msg'] = str(e)
+        response_content['error_num'] = 1
+    
+    response["Access-Control-Allow-Origin"] = "http://localhost:8080"
+    response["Access-Control-Allow-Credentials"] = "true"
+    response["Access-Control-Allow-Methods"] = "GET,POST"
+    response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"
+    response.write(json.dumps(response_content))
 
-    return JsonResponse(response)
+    return response
 
 @require_http_methods(["GET"])
 def user_login(request):
@@ -99,7 +106,8 @@ def user_login(request):
             sessionid = str(uuid.uuid3(uuid.NAMESPACE_URL, username))
             response.set_cookie('sessionid', sessionid, expires=60000, path='/', httponly=False)
             response.set_cookie('username', username, expires=60000, path='/', httponly=False)
-            # response_content['sessionid'] = sessionid
+            response.set_cookie('user_id', userobj.user_id, expires=60000, path='/', httponly=False)
+            response_content['sessionid'] = sessionid
 
             print(sessionid)
             
@@ -111,6 +119,10 @@ def user_login(request):
         response_content['msg'] = str(e)
         response_content['error_num'] = 1
 
+    response["Access-Control-Allow-Origin"] = "http://localhost:8080"
+    response["Access-Control-Allow-Credentials"] = "true"
+    response["Access-Control-Allow-Methods"] = "GET,POST"
+    response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"
     response.write(json.dumps(response_content))
 
     return response
@@ -118,34 +130,44 @@ def user_login(request):
 
 @require_http_methods(["GET"])
 def overview_submissions(request):
-    response = {}
+    response_content = {}
+    response = HttpResponse()
     try:
         print(request.COOKIES.get('sessionid'))
+        print(request.COOKIES.get('username'))
+        print(request.COOKIES.get('user_id'))
         submissions = Submissions_Demo.objects.filter().order_by('-id')[:4]
-        response['list']  = json.loads(serializers.serialize("json", submissions))
+        response_content['list']  = json.loads(serializers.serialize("json", submissions))
 
         total = Submissions_Demo.objects.filter()
-        response['total_num'] = len(total)
+        response_content['total_num'] = len(total)
         submitted = Submissions_Demo.objects.filter(task_status='Submitted')
-        response['submitted_num'] = len(submitted)
+        response_content['submitted_num'] = len(submitted)
         running = Submissions_Demo.objects.filter(task_status='Running')
-        response['running_num'] = len(running)
+        response_content['running_num'] = len(running)
         finished = Submissions_Demo.objects.filter(task_status='Finished')
-        response['finished_num'] = len(finished)
+        response_content['finished_num'] = len(finished)
         failed = Submissions_Demo.objects.filter(task_status='Failed')
-        response['failed_num'] = len(failed)
+        response_content['failed_num'] = len(failed)
 
-        response['msg'] = 'success'
-        response['error_num'] = 0
+        response_content['msg'] = 'success'
+        response_content['error_num'] = 0
     except  Exception as e:
-        response['msg'] = str(e)
-        response['error_num'] = 1
+        response_content['msg'] = str(e)
+        response_content['error_num'] = 1
 
-    return JsonResponse(response)
+    response["Access-Control-Allow-Origin"] = "http://localhost:8080"
+    response["Access-Control-Allow-Credentials"] = "true"
+    response["Access-Control-Allow-Methods"] = "GET,POST"
+    response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"
+    response.write(json.dumps(response_content))
+
+    return response
 
 @require_http_methods(["GET", "POST"])
 def new_task(request):
-    response = {}
+    response = HttpResponse()
+    response_content = {}
     try:
         if request.method == 'GET':
             get_token(request)
@@ -194,32 +216,46 @@ def new_task(request):
                 cv=cv_type
             )
 
-            response['post_body'] = postBody
-            response['msg'] = 'success'
-            response['error_num'] = 0
+            response_content['post_body'] = postBody
+            response_content['msg'] = 'success'
+            response_content['error_num'] = 0
     except Exception as e:
-        response['msg'] = str(e)
-        response['error_num'] = 1
+        response_content['msg'] = str(e)
+        response_content['error_num'] = 1
 
-    return JsonResponse(response)
+    response["Access-Control-Allow-Origin"] = "http://localhost:8080"
+    response["Access-Control-Allow-Credentials"] = "true"
+    response["Access-Control-Allow-Methods"] = "GET,POST"
+    response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"
+    response.write(json.dumps(response_content))
+
+    return response
 
 @require_http_methods(["GET"])
 def show_submissions(request):
-    response = {}
+    response_content = {}
+    response = HttpResponse()
     try:
         submissions = Submissions_Demo.objects.filter().order_by('-id')
-        response['list']  = json.loads(serializers.serialize("json", submissions))
-        response['msg'] = 'success'
-        response['error_num'] = 0
+        response_content['list']  = json.loads(serializers.serialize("json", submissions))
+        response_content['msg'] = 'success'
+        response_content['error_num'] = 0
     except  Exception as e:
-        response['msg'] = str(e)
-        response['error_num'] = 1
+        response_content['msg'] = str(e)
+        response_content['error_num'] = 1
 
-    return JsonResponse(response)
+    response["Access-Control-Allow-Origin"] = "http://localhost:8080"
+    response["Access-Control-Allow-Credentials"] = "true"
+    response["Access-Control-Allow-Methods"] = "GET,POST"
+    response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"
+    response.write(json.dumps(response_content))
+
+    return response
 
 @require_http_methods(['POST'])
 def upload_data(request):
-    response = {}
+    response_content = {}
+    response = HttpResponse()
     try:
         data_file = request.FILES.get('datafile')
         if data_file.name not in os.listdir('data/'):
@@ -229,18 +265,24 @@ def upload_data(request):
             data.data_name = data_file.name[:-4]
             data.data_path = handle_uploaded_file(data_file)
             data.save()
-            response['msg'] = 'success'
-            response['dataid'] = data_id
+            response_content['msg'] = 'success'
+            response_content['dataid'] = data_id
         else:
-            response['msg'] = 'existed'
+            response_content['msg'] = 'existed'
         
-        response['error_num'] = 0
+        response_content['error_num'] = 0
     
     except Exception as e:
-        response['msg'] = str(e)
-        response['error_num'] = 1
+        response_content['msg'] = str(e)
+        response_content['error_num'] = 1
 
-    return JsonResponse(response)
+    response["Access-Control-Allow-Origin"] = "http://localhost:8080"
+    response["Access-Control-Allow-Credentials"] = "true"
+    response["Access-Control-Allow-Methods"] = "GET,POST"
+    response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"
+    response.write(json.dumps(response_content))
+
+    return response
 
 def handle_uploaded_file(f):
     try:
@@ -260,38 +302,52 @@ def handle_uploaded_file(f):
 
 @require_http_methods(["GET"])
 def show_data(request):
-    response = {}
+    response_content = {}
+    response = HttpResponse()
     try:
         data = Data_Demo.objects.filter().order_by('-id')
-        response['list']  = json.loads(serializers.serialize("json", data))
-        response['msg'] = 'success'
-        response['error_num'] = 0
+        response_content['list']  = json.loads(serializers.serialize("json", data))
+        response_content['msg'] = 'success'
+        response_content['error_num'] = 0
     except  Exception as e:
-        response['msg'] = str(e)
-        response['error_num'] = 1
+        response_content['msg'] = str(e)
+        response_content['error_num'] = 1
 
-    return JsonResponse(response)
+    response["Access-Control-Allow-Origin"] = "http://localhost:8080"
+    response["Access-Control-Allow-Credentials"] = "true"
+    response["Access-Control-Allow-Methods"] = "GET,POST"
+    response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"
+    response.write(json.dumps(response_content))
+
+    return response
 
 @require_http_methods(["GET"])
 def show_results(request):
-    response = {}
+    response_content = {}
+    response = HttpResponse()
     try:
         task_id = request.GET.get('task_id')
         
         result_table = pd.read_csv('results/' + task_id + '/results.csv', encoding='gbk')
         result_json = result_table.to_json(orient='records')
-        response['list']  = json.loads(result_json)
+        response_content['list']  = json.loads(result_json)
 
         task_info = Submissions_Demo.objects.filter(task_id=task_id)
-        response['info']  = json.loads(serializers.serialize("json", task_info))
+        response_content['info']  = json.loads(serializers.serialize("json", task_info))
 
-        response['msg'] = 'success'
-        response['error_num'] = 0
+        response_content['msg'] = 'success'
+        response_content['error_num'] = 0
     except  Exception as e:
-        response['msg'] = json.dumps(Submissions_Demo.objects.get(task_id=task_id).task_result)
-        response['error_num'] = 1
+        response_content['msg'] = json.dumps(Submissions_Demo.objects.get(task_id=task_id).task_result)
+        response_content['error_num'] = 1
 
-    return JsonResponse(response)
+    response["Access-Control-Allow-Origin"] = "http://localhost:8080"
+    response["Access-Control-Allow-Credentials"] = "true"
+    response["Access-Control-Allow-Methods"] = "GET,POST"
+    response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"
+    response.write(json.dumps(response_content))
+
+    return response
 
 @require_http_methods(["GET"])
 def show_roc(request):

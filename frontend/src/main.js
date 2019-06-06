@@ -8,6 +8,10 @@ import 'element-ui/lib/theme-chalk/index.css'
 import locale from 'element-ui/lib/locale/lang/en'
 import '../theme/index.css'
 import store from './store'
+import axios from 'axios'
+
+axios.defaults.withCredentials = true
+axios.defaults.credentials = 'include'
 
 Vue.config.productionTip = false
 

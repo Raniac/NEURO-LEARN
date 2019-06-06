@@ -114,17 +114,18 @@ export default {
   methods: {
     handleLogin () {
       axios.get('http://127.0.0.1:8000/api/login?username=' + this.loginForm.username + '&password=' + this.loginForm.password).then(response => {
-        var DjangoToken = this.getCookie('sessionid')
-        var username = this.getCookie('username')
+        // var DjangoToken = this.getCookie('sessionid')
+        // var username = this.getCookie('username')
         var res = response.data
-        // var DjangoToken = res.sessionid
+        var DjangoToken = res.sessionid
+        var username = res.username
         console.log(DjangoToken)
         console.log(username)
         console.log(res)
         if (res.error_num === 0) {
           console.log(res.msg)
           sessionStorage.setItem('Authorization', DjangoToken)
-          sessionStorage.setItem('Username', res.username)
+          sessionStorage.setItem('Username', username)
           this.$router.push('/profile')
         } else {
           this.$message.error('Wrong password!')
@@ -162,6 +163,14 @@ export default {
         value = document.cookie.substring(start + name.length, end)
       }
       return value
+    },
+    delCookie (name) {
+      var exp = new Date()
+      exp.setTime(exp.getTime() - 1)
+      var cval = this.getCookie(name)
+      if (cval != null) {
+        document.cookie = name + '=' + cval + ';expires=' + exp.toGMTString()
+      }
     }
   }
 }

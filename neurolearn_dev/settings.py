@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'backend',
     'djcelery',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -51,6 +52,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'neurolearn_dev.urls'
@@ -171,3 +174,7 @@ SESSION_REDIS_PREFIX = 'session'
 # SESSION_COOKIE_DOMAIN = None
 # SESSION_COOKIE_SECURE = False
 # SESSION_COOKIE_HTTPONLY = False
+
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = ('http://127.0.0.1:8080', 'http://localhost:8080')
