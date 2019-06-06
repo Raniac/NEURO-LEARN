@@ -121,7 +121,7 @@ export default {
     return {
       taskid: this.$route.query.taskid,
       tasktype: this.$route.query.tasktype,
-      rocimgurl: '',
+      pfmimgurl: '',
       optimgurl: '',
       taskinfo: [],
       resultData: []

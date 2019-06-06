@@ -27,7 +27,7 @@
           </el-badge>
           <div class="new-message-drop-menu">
             <ul>
-              <li @click="onTaskClick(submission.fields.task_id)" v-for="submission in submissions_table" :key="submission.fields.task_id">{{ submission.fields.task_id }} {{ submission.fields.task_status }}!</li>
+              <li @click="onTaskClick(submission.fields.task_id, submission.fields.task_type)" v-for="submission in submissions_table" :key="submission.fields.task_id">{{ submission.fields.task_id }} {{ submission.fields.task_status }}!</li>
               <li @click="goToSubmissions" style="text-align: center; color: #00CCFF">- SHOW ALL -</li>
             </ul>
           </div>
@@ -45,12 +45,10 @@ export default {
       avatar_url: 'https://avatars2.githubusercontent.com/u/17725948?s=460&v=4',
       search: '',
       submissions_table: [],
-      username: ''
+      username: 'Profile'
     }
   },
   mounted () {
-    this.username = sessionStorage.getItem('Username')
-    console.log(this.username)
     this.showSubmissions()
     // setInterval(this.showSubmissions, 10000)
   },
@@ -79,10 +77,10 @@ export default {
         component: resolve => require(['@/pages/analysis/overview'], resolve)
       })
     },
-    onTaskClick (taskId) {
+    onTaskClick (taskId, taskType) {
       this.$router.push({
         path: '/analysis/viewer',
-        query: {taskid: taskId}
+        query: {taskid: taskId, tasktype: taskType}
       })
     },
     goToSubmissions () {
