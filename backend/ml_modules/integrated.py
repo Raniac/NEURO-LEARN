@@ -10,7 +10,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import roc_auc_score, auc
 
-def integrated(result_path, feat_sel, model, train_data, test_data, k):
+def integrated_clf_model(result_path, feat_sel, model, train_data, test_data, k):
     
     pipe = Pipeline(steps=[
         (feat_sel.name, feat_sel.model),
@@ -125,4 +125,56 @@ def integrated(result_path, feat_sel, model, train_data, test_data, k):
     writer.writerow(['Test Sensitivity', test_sensitivity])
     writer.writerow(['Test Specificity', test_specificity])
     writer.writerow(['Area Under Curve', roc_auc])
+    results_csv.close()
+
+def integrated_rgs_model(result_path, feat_sel, model, train_data, test_data, k):
+    
+    pipe = Pipeline(steps=[
+        # (feat_sel.name, feat_sel.model),
+        (model.name, model.model)
+    ])
+    # pipe_param_grid = dict(feat_sel.param_grid, **model.param_grid)
+    pipe_param_grid = model.param_grid
+
+    search = GridSearchCV(pipe, pipe_param_grid, iid=False, cv=k, return_train_score=False, scoring='neg_mean_absolute_error')
+    search.fit(train_data.X, train_data.y)
+
+    optimal_score = search.best_score_
+    optimal_params = search.best_params_
+    optimal_model = search.best_estimator_
+    
+    print('The best score is', search.best_score_)
+    print('The corresponding parameter setting is', search.best_params_)
+
+    # weight_vector = optimal_model.coef_
+    # abs_weight_vector = np.abs(weight_vector)
+    # feature_weight_dataframe = pd.DataFrame({'Feature': data.list_features, 'Weight': abs_weight_vector[0]})
+    # feature_ranking = feature_weight_dataframe.sort_values('Weight', axis=0, ascending=False)
+    # print('The feature ranking sorted by weight is:')
+    # print(feature_ranking[:20])
+    
+    # from sklearn.model_selection import cross_val_predict
+    # predictions = cross_val_predict(optimal_model, data.X, data.y, cv=10)
+    # original_predicted = pd.DataFrame({'Original': data.y, 'Predicted': predictions})
+
+    predictions = optimal_model.predict(test_data.X)
+    original = test_data.y
+    original_predicted = pd.DataFrame({'Original': original, 'Predicted': predictions})
+
+    import seaborn as sns
+    import matplotlib.pyplot as plt
+    import scipy
+    pearson_r, pearson_p = scipy.stats.pearsonr(original, predictions)
+    print('The pearsonr and pearsonp are:', pearson_r, 'and', pearson_p)
+    g = sns.jointplot(x='Original', y='Predicted', data=original_predicted, kind='reg', label='pearson_r = %.2f, pearson_p = %.4f' % (pearson_r, pearson_p))
+    plt.legend(loc='upper right')
+    g.savefig(result_path + '/' + 'Original_Predicted_Correlation.png', dpi=300)
+
+    results_csv = codecs.open(result_path + '/' + 'results.csv', 'w+', encoding='gbk')
+    writer = csv.writer(results_csv, delimiter=',')
+    writer.writerow(['Item', 'Value'])
+    writer.writerow(['Optimal CV MAE', optimal_score])
+    writer.writerow(['Optimal Parameters', optimal_params])
+    writer.writerow(['Test Pearson r', pearson_r])
+    writer.writerow(['Test Pearson p', pearson_p])
     results_csv.close()

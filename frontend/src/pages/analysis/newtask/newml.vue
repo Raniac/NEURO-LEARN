@@ -3,7 +3,7 @@
     <div class="ml-task-form">
       <el-form ref="form" :model="form" label-width="90px" label-position="middle">
         <el-form-item label="Task Name">
-          <el-input v-model="newform.task_name"></el-input>
+          <el-input v-model="newform.task_name" placeholder="Specify Task Name. (e.g. 'Classify SZ with ANOVA SVM on 246-template sfMRI data')"></el-input>
         </el-form-item>
         <el-form-item label="Task Type">
           <el-radio-group v-model="newform.task_type" @change="onRadioChange">
@@ -137,7 +137,7 @@ export default {
           {name: 'PANSS_P', value: 'PANSS_P'},
           {name: 'PANSS_N', value: 'PANSS_N'},
           {name: 'PANSS_G', value: 'PANSS_G'},
-          {name: 'PANSS_T', value: 'PANSS_T'},
+          {name: 'PANSS_T', value: 'PANSS_T'}
         ]
       }
     },

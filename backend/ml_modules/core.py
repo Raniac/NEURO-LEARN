@@ -46,22 +46,43 @@ def test_task(task_id, task_type, train_data, test_data, label, feat_sel, estima
     my_test_data.data_preprocessing()
     (test_n_samples, test_n_features) = test_X.shape
 
-    if feat_sel == "Principal Component Analysis":
-        my_feat_sel = PCA_Feat_Sel(train_n_samples, train_n_features)
-    elif feat_sel == "ANOVA":
-        my_feat_sel = ANOVA_Feat_Sel(train_n_samples, train_n_features)
-    elif feat_sel == "Recursive Feature Elimination":
-        my_feat_sel = RFE_Feat_Sel(train_n_samples, train_n_features)
+    if task_type == "Classification":
+        if feat_sel == "Principal Component Analysis":
+            my_feat_sel = PCA_Feat_Sel(train_n_samples, train_n_features)
+        elif feat_sel == "ANOVA":
+            my_feat_sel = ANOVA_Feat_Sel(train_n_samples, train_n_features)
+        elif feat_sel == "Recursive Feature Elimination":
+            my_feat_sel = RFE_Feat_Sel(train_n_samples, train_n_features)
+        
+        if estimator == "Support Vector Machine":
+            my_model = SVM_CLF()
+        elif estimator == "Random Forest":
+            my_model = RF_CLF()
+        elif estimator == "Linear Discriminative Analysis":
+            my_model = LDA_CLF()
+        elif estimator == "Logistic Regression":
+            my_model = LR_CLF()
+        elif estimator == "K Nearest Neighbor":
+            my_model = KNN_CLF()
+
+        integrated_clf_model(RESULT_PATH, my_feat_sel, my_model, my_train_data, my_test_data, 10) # run integrated classification model
+    elif task_type == "Regression":
+        if feat_sel == "Principal Component Analysis":
+            my_feat_sel = PCA_Feat_Sel(train_n_samples, train_n_features)
+        elif feat_sel == "ANOVA":
+            my_feat_sel = ANOVA_Feat_Sel(train_n_samples, train_n_features)
+        elif feat_sel == "Recursive Feature Elimination":
+            my_feat_sel = RFE_Feat_Sel(train_n_samples, train_n_features)
+        
+        if estimator == "Support Vector Regression":
+            my_model = SVR_RGS()
+        elif estimator == "Elastic Net":
+            my_model = EN_RGS()
+        elif estimator == "Ordinary Least Square":
+            my_model = OLS_RGS()
+        elif estimator == "Lasso Regression":
+            my_model = L1_RGS()
+        elif estimator == "Ridge Regression":
+            my_model = L2_RGS()
     
-    if estimator == "Support Vector Machine":
-        my_model = SVM_CLF()
-    elif estimator == "Random Forest":
-        my_model = RF_CLF()
-    elif estimator == "Linear Discriminative Analysis":
-        my_model = LDA_CLF()
-    elif estimator == "Logistic Regression":
-        my_model = LR_CLF()
-    elif estimator == "K Nearest Neighbor":
-        my_model = KNN_CLF()
-    
-    integrated(RESULT_PATH, my_feat_sel, my_model, my_train_data, my_test_data, 10) # run integrated classification model
+        integrated_rgs_model(RESULT_PATH, my_feat_sel, my_model, my_train_data, my_test_data, 10) # run integrated classification model
