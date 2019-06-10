@@ -92,9 +92,7 @@ export default {
           {name: '110_DTI', value: '110_DTI'},
           {name: '168_Gut', value: '168_Gut'}
         ],
-        label_options: [
-          {name: 'Schizophrenia', value: 'Schizophrenia'}
-        ],
+        label_options: [],
         feat_sel_options: [
           {name: 'Principal Component Analysis', value: 'Principal Component Analysis'},
           {name: 'ANOVA', value: 'ANOVA'},
@@ -123,6 +121,10 @@ export default {
           {name: 'Logistic Regression', value: 'Logistic Regression'},
           {name: 'K Nearest Neighbor', value: 'K Nearest Neighbor'}
         ]
+        this.form.label_options = [
+          {name: 'Group', value: 'Group'},
+          {name: 'Gender', value: 'Gender'}
+        ]
       } else if (this.newform.task_type === 'Regression') {
         this.form.estimator_options = [
           {name: 'Support Vector Regression', value: 'Support Vector Regression'},
@@ -130,6 +132,12 @@ export default {
           {name: 'Ordinary Least Square', value: 'Ordinary Least Square'},
           {name: 'Lasso Regression', value: 'Lasso Regression'},
           {name: 'Ridge Regression', value: 'Ridge Regression'}
+        ]
+        this.form.label_options = [
+          {name: 'PANSS_P', value: 'PANSS_P'},
+          {name: 'PANSS_N', value: 'PANSS_N'},
+          {name: 'PANSS_G', value: 'PANSS_G'},
+          {name: 'PANSS_T', value: 'PANSS_T'},
         ]
       }
     },
