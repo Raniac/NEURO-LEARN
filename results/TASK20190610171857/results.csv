@@ -1,0 +1,7 @@
+Item,Value
+Optimal CV Accuracy,0.6931932773109244
+Optimal Parameters,"{'anova__percentile': 75, 'rf__bootstrap': True, 'rf__criterion': 'entropy', 'rf__max_depth': 4, 'rf__min_samples_leaf': 10, 'rf__min_samples_split': 5, 'rf__n_estimators': 50}"
+Test Accuracy,0.5517241379310345
+Test Sensitivity,0.13793103448275862
+Test Specificity,0.9655172413793104
+Area Under Curve,0.901307966706302

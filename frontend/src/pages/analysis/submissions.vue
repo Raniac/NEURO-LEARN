@@ -16,10 +16,11 @@
       <el-table
         class="submissions-table"
         :data="submissions_table.slice((currpage - 1) * pagesize, currpage * pagesize)"
-        @selection-change="handleSelectionChange"
         stripe
         border
-        @row-click="onRowClick"
+        @selection-change="onSelectionChange"
+        ref="multipleTable"
+        type="selection"
         style="width: 100%; background-color: #E8E8E8; color: #282828">
         <el-table-column type="expand">
           <template slot-scope="props">
@@ -66,17 +67,25 @@
         label="Status"
         prop="fields.task_status">
         </el-table-column>
+        <el-table-column
+          type="selection"
+          width="40">
+        </el-table-column>
       </el-table>
     </div>
-    <div style="margin: 14px">
+    <div style="margin: 14px; padding-bottom: 30px">
       <el-pagination
         background
         layout="prev, pager, next"
         :page-size="pagesize"
         :total="submissions_table.length"
         @current-change="handleCurrentChange"
-        @size-change="handleSizeChange">
-        </el-pagination>
+        @size-change="handleSizeChange"
+        style="float: left">
+      </el-pagination>
+      <el-tooltip content="View the report(s) of selected submission(s)" placement="top">
+        <el-button style="float: right" size="large" type="primary" @click="clickToView">View</el-button>
+      </el-tooltip>
     </div>
     </div>
   </div>
@@ -91,7 +100,8 @@ export default {
       selected_status: '',
       submissions_table: [],
       pagesize: 10,
-      currpage: 1
+      currpage: 1,
+      multipleSelections: []
     }
   },
   mounted: function () {
@@ -112,20 +122,30 @@ export default {
           }
         })
     },
-    onRowClick (row) {
-      this.$router.push({
-        path: '/analysis/viewer',
-        query: {taskid: row.fields.task_id, tasktype: row.fields.task_type}
-      })
+    onSelectionChange (val) {
+      this.multipleSelections = val
+    },
+    clickToView () {
+      console.log(this.multipleSelections.length)
+      if (this.multipleSelections.length > 4) {
+        this.$alert('You can only view 4 or less reports at the same time!', 'Error!', {
+          confirmButtonText: 'Confirm',
+          callback: action => {
+            this.$refs.multipleTable.clearSelection()
+          }
+        })
+      } else {
+        this.$router.push({
+          path: '/analysis/viewer',
+          query: {taskSelections: this.multipleSelections}
+        })
+      }
     },
     handleCurrentChange (cpage) {
       this.currpage = cpage
     },
     handleSizeChange (psize) {
       this.pagesize = psize
-    },
-    handleSelectionChange (val) {
-      console.log(val)
     }
   }
 }

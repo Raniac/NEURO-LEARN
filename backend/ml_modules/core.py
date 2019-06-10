@@ -49,7 +49,7 @@ def test_task(task_id, task_type, train_data, test_data, label, feat_sel, estima
     if task_type == "Classification":
         if feat_sel == "Principal Component Analysis":
             my_feat_sel = PCA_Feat_Sel(train_n_samples, train_n_features)
-        elif feat_sel == "ANOVA":
+        elif feat_sel == "Analysis of Variance":
             my_feat_sel = ANOVA_Feat_Sel(train_n_samples, train_n_features)
         elif feat_sel == "Recursive Feature Elimination":
             my_feat_sel = RFE_Feat_Sel(train_n_samples, train_n_features)
@@ -69,7 +69,7 @@ def test_task(task_id, task_type, train_data, test_data, label, feat_sel, estima
     elif task_type == "Regression":
         if feat_sel == "Principal Component Analysis":
             my_feat_sel = PCA_Feat_Sel(train_n_samples, train_n_features)
-        elif feat_sel == "ANOVA":
+        elif feat_sel == "Analysis of Variance":
             my_feat_sel = ANOVA_Feat_Sel(train_n_samples, train_n_features)
         elif feat_sel == "Recursive Feature Elimination":
             my_feat_sel = RFE_Feat_Sel(train_n_samples, train_n_features)

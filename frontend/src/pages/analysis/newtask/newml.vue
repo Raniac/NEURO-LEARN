@@ -95,7 +95,7 @@ export default {
         label_options: [],
         feat_sel_options: [
           {name: 'Principal Component Analysis', value: 'Principal Component Analysis'},
-          {name: 'ANOVA', value: 'ANOVA'},
+          {name: 'Analysis of Variance', value: 'Analysis of Variance'},
           {name: 'Recursive Feature Elimination', value: 'Recursive Feature Elimination'}
         ],
         estimator_options: [],

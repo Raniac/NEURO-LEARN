@@ -1,0 +1,7 @@
+Item,Value
+Optimal CV Accuracy,0.7863865546218486
+Optimal Parameters,"{'anova__percentile': 100, 'lda__solver': 'svd'}"
+Test Accuracy,0.7241379310344828
+Test Sensitivity,0.6206896551724138
+Test Specificity,0.8275862068965517
+Area Under Curve,0.7812128418549346

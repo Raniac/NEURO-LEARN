@@ -80,10 +80,11 @@
 import axios from 'axios'
 export default {
   mounted () {
-    if (this.taskid) {
-      this.showResults()
-      this.showResultImages()
-    }
+    console.log(this.taskSelections)
+    // if (this.taskSelections) {
+    //   this.showResults()
+    //   this.showResultImages()
+    // }
   },
   methods: {
     showResultImages () {
@@ -119,8 +120,9 @@ export default {
   },
   data () {
     return {
-      taskid: this.$route.query.taskid,
-      tasktype: this.$route.query.tasktype,
+      taskSelections: this.$route.query.taskSelections,
+      // taskid: this.$route.query.taskid,
+      // tasktype: this.$route.query.tasktype,
       pfmimgurl: '',
       optimgurl: '',
       taskinfo: [],

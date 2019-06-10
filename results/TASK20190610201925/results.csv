@@ -1,0 +1,7 @@
+Item,Value
+Optimal CV Accuracy,0.7863865546218486
+Optimal Parameters,"{'lda__solver': 'svd', 'pca__n_components': 147}"
+Test Accuracy,0.7413793103448276
+Test Sensitivity,0.5862068965517241
+Test Specificity,0.896551724137931
+Area Under Curve,0.8168846611177171
