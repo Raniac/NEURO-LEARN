@@ -69,6 +69,13 @@
         label="Status"
         prop="fields.task_status"
         width="90">
+          <template slot-scope="scope">
+            <el-tag
+              size="small"
+              :type="scope.row.fields.task_status === 'Finished' ? 'primary' : (scope.row.fields.task_status === 'Failed' ? 'danger' : 'success')">
+              {{ scope.row.fields.task_status }}
+            </el-tag>
+          </template>
         </el-table-column>
         <el-table-column
           type="selection"
