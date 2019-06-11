@@ -62,7 +62,7 @@
         :data="submissions_table"
         stripe
         border
-        @row-click="onRowClick"
+        @row-dblclick="onRowClick"
         style="width: 100%; background-color: #E8E8E8; color: #282828"
         :default-sort = "{prop: 'fields.task_id', order: 'descending'}">
         <el-table-column type="expand">
