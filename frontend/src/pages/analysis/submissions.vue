@@ -16,7 +16,7 @@
     <div style="margin: 14px">
       <el-table
         class="submissions-table"
-        :data="submissions_table.slice((currpage - 1) * pagesize, currpage * pagesize).filter(data => (!search_input || data.fields.task_name.toLowerCase().includes(search_input.toLowerCase())) && data.fields.task_status.includes(selected_status))"
+        :data="submissions_table.filter(data => (!search_input || data.fields.task_name.toLowerCase().includes(search_input.toLowerCase())) && data.fields.task_status.includes(selected_status)).slice((currpage - 1) * pagesize, currpage * pagesize)"
         stripe
         border
         @selection-change="onSelectionChange"
