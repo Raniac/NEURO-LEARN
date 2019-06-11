@@ -2,12 +2,13 @@
   <div>
     <div class="submissions-area">
     <div style="margin: 14px">
-      <el-input placeholder="Search" v-model="search_input" class="input-with-select">
+      <el-input placeholder="Search tasks by name" v-model="search_input" class="input-with-select">
         <el-select v-model="selected_status" slot="prepend" placeholder="Status">
-        <el-option label="Submitted" value="1"></el-option>
-        <el-option label="Running" value="2"></el-option>
-        <el-option label="Finished" value="3"></el-option>
-        <el-option label="Failed" value="4"></el-option>
+        <el-option label="Total" value=""></el-option>
+        <el-option label="Submitted" value="Submitted"></el-option>
+        <el-option label="Running" value="Running"></el-option>
+        <el-option label="Finished" value="Finished"></el-option>
+        <el-option label="Failed" value="Failed"></el-option>
         </el-select>
         <el-button slot="append" icon="el-icon-search"></el-button>
       </el-input>
@@ -15,7 +16,7 @@
     <div style="margin: 14px">
       <el-table
         class="submissions-table"
-        :data="submissions_table.slice((currpage - 1) * pagesize, currpage * pagesize)"
+        :data="submissions_table.slice((currpage - 1) * pagesize, currpage * pagesize).filter(data => (!search_input || data.fields.task_name.toLowerCase().includes(search_input.toLowerCase())) && data.fields.task_status.includes(selected_status))"
         stripe
         border
         @selection-change="onSelectionChange"
@@ -57,7 +58,8 @@
         </el-table-column>
         <el-table-column
         label="Task ID"
-        prop="fields.task_id">
+        prop="fields.task_id"
+        width="170">
         </el-table-column>
         <el-table-column
         label="Task Name"
@@ -65,7 +67,8 @@
         </el-table-column>
         <el-table-column
         label="Status"
-        prop="fields.task_status">
+        prop="fields.task_status"
+        width="90">
         </el-table-column>
         <el-table-column
           type="selection"

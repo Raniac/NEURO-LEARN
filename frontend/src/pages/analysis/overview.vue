@@ -100,7 +100,8 @@
         </el-table-column>
         <el-table-column
         label="Task ID"
-        prop="fields.task_id">
+        prop="fields.task_id"
+        width="170">
         </el-table-column>
         <el-table-column
         label="Task Name"
@@ -108,7 +109,8 @@
         </el-table-column>
         <el-table-column
         label="Status"
-        prop="fields.task_status">
+        prop="fields.task_status"
+        width="90">
         </el-table-column>
       </el-table>
     </div>

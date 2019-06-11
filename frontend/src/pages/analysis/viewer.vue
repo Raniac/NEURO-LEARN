@@ -88,6 +88,14 @@ export default {
       this.tabsValue = this.taskid
       this.showResults()
       this.showResultImages()
+    } else if (this.$route.query.taskid) {
+      this.taskid = this.$route.query.taskid
+      this.tasktype = this.$route.query.tasktype
+      this.taskSelections = {0: {fields: {task_id: this.taskid}}}
+      this.taskSelection = this.taskSelections[0]
+      this.tabsValue = this.taskid
+      this.showResults()
+      this.showResultImages()
     } else {
       this.$alert('Select some reports to view!', 'Error!', {
         confirmButtonText: 'Confirm',

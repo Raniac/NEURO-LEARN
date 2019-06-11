@@ -12,7 +12,7 @@ class Book(models.Model):
         return self.book_name
 
 class Submissions_Demo(models.Model):
-    task_id = models.CharField(max_length=64)
+    task_id = models.CharField(max_length=64, unique=True)
     task_name = models.CharField(max_length=64)
     task_type = models.CharField(max_length=64)
     project_name = models.CharField(max_length=64)
@@ -31,7 +31,7 @@ class Submissions_Demo(models.Model):
         return self.task_id
 
 class Data_Demo(models.Model):
-    data_id = models.CharField(max_length=64)
+    data_id = models.CharField(max_length=64, unique=True)
     data_name = models.CharField(max_length=64)
     data_path = models.CharField(max_length=128)
     uploader = models.CharField(max_length=32)
