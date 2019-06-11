@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import time
+import decimal
 
 import codecs
 import csv
@@ -11,6 +12,7 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import roc_auc_score, auc
 
 def integrated_clf_model(result_path, feat_sel, model, train_data, test_data, k):
+    starttime = time.time()
     
     pipe = Pipeline(steps=[
         (feat_sel.name, feat_sel.model),
@@ -115,6 +117,11 @@ def integrated_clf_model(result_path, feat_sel, model, train_data, test_data, k)
     plt.title('Receiver Operating Characteristic')
     plt.legend(loc="lower right")
     plt.savefig(result_path + '/' + 'ROC_curve.png', dpi=300)
+    
+    endtime = time.time()
+    runtime = str(endtime - starttime)
+    runtime = str(decimal.Decimal(runtime).quantize(decimal.Decimal('0.00'))) + 's'
+    print(runtime)
 
     results_csv = codecs.open(result_path + '/' + 'results.csv', 'w+', encoding='gbk')
     writer = csv.writer(results_csv, delimiter=',')
@@ -125,6 +132,7 @@ def integrated_clf_model(result_path, feat_sel, model, train_data, test_data, k)
     writer.writerow(['Test Sensitivity', test_sensitivity])
     writer.writerow(['Test Specificity', test_specificity])
     writer.writerow(['Area Under Curve', roc_auc])
+    writer.writerow(['Run Time', runtime])
     results_csv.close()
 
 def integrated_rgs_model(result_path, feat_sel, model, train_data, test_data, k):
