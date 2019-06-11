@@ -68,7 +68,7 @@ export default {
       username: '',
       projects_table: [{
         project_id: '2019050503',
-        project_name: 'Demo',
+        project_name: 'SZ with sfMRI',
         project_status: 'active',
         research_content: 'Fusing structural and functional MRI data, use DPABI on matlab to compute the features, and analyze SZ.',
         feat_types: 'Gray matter volume, regional homogeneity, amplitude of low frequency fluctuations and degree centrality.'

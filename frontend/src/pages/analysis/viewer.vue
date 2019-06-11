@@ -110,8 +110,8 @@ export default {
     showResultImages () {
       if (this.tasktype === 'Classification') {
         this.pfmimgurl = 'http://127.0.0.1:8000/api/show_roc?task_id=' + this.taskid
+        this.optimgurl = 'http://127.0.0.1:8000/api/show_opt?task_id=' + this.taskid
       }
-      this.optimgurl = 'http://127.0.0.1:8000/api/show_opt?task_id=' + this.taskid
     },
     showResults () {
       axios.get('http://127.0.0.1:8000/api/show_results?task_id=' + this.taskid)
