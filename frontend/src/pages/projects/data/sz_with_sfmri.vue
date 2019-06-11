@@ -16,7 +16,6 @@
         <el-table
           class="data-table"
           :data="data_table.slice((currpage - 1) * pagesize, currpage * pagesize)"
-          @selection-change="handleSelectionChange"
           stripe
           border
           style="width: 100%; background-color: #E8E8E8; color: #282828"
@@ -95,9 +94,6 @@ export default {
     },
     handleSizeChange (psize) {
       this.pagesize = psize
-    },
-    handleSelectionChange (val) {
-      console.log(val)
     }
   }
 }

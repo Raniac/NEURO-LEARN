@@ -25,7 +25,7 @@ SECRET_KEY = 'z%$er)h@_(%@a2=_5d592cl@ps0s8h2nx-4l31zrelfbvo7)3o'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -140,7 +140,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "frontend/dist/static")
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True # added
+# CORS_ORIGIN_ALLOW_ALL = True # added
 
 import djcelery
 djcelery.setup_loader()
@@ -177,4 +177,6 @@ SESSION_REDIS_PREFIX = 'session'
 
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_WHITELIST = ('http://127.0.0.1:8080', 'http://localhost:8080')
+CORS_ORIGIN_WHITELIST = ('http://127.0.0.1:8000', 'http://localhost:8000')
+CORS_ALLOW_METHODS = ('DELETE', 'GET', 'OPTIONS', 'PATCH', 'POST', 'PUT', 'VIEW',)
+default_headers = ('accept', 'accept-encoding', 'authorization', 'content-type', 'dnt', 'origin', 'user-agent', 'x-csrftoken', 'x-requested-with',)

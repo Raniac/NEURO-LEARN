@@ -252,11 +252,14 @@ def show_submissions(request):
 
     return response
 
-@require_http_methods(['POST'])
+@require_http_methods(['POST', 'OPTIONS'])
 def upload_data(request):
     response_content = {}
     response = HttpResponse()
     try:
+        print(request.COOKIES.get('sessionid'))
+        print(request.COOKIES.get('username'))
+        print(request.COOKIES.get('user_id'))
         data_file = request.FILES.get('datafile')
         if data_file.name not in os.listdir('data/'):
             data = Data_Demo()
@@ -278,8 +281,8 @@ def upload_data(request):
 
     response["Access-Control-Allow-Origin"] = "http://localhost:8080"
     response["Access-Control-Allow-Credentials"] = "true"
-    response["Access-Control-Allow-Methods"] = "GET,POST"
-    response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"
+    response["Access-Control-Allow-Methods"] = "PUT,POST,GET,DELETE,OPTIONS"
+    response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token,X-Requested-With"
     response.write(json.dumps(response_content))
 
     return response
