@@ -1,7 +1,7 @@
 <template>
   <div class="viewer-area">
-    <el-tabs type="border-card" style="box-shadow: 0px 0 0px #FFFFFF;">
-      <el-tab-pane :label="taskid">
+    <el-tabs type="border-card" style="box-shadow: 0px 0 0px #FFFFFF;" @tab-click="handleTabClick" stretch v-model="tabsValue">
+      <el-tab-pane v-for="(taskSelection, key) in taskSelections" :label="taskSelection.fields.task_id" :name="taskSelection.fields.task_id" :key="key">
         <div>
           <div style="padding: 14px">
           <div style="padding-bottom: 28px">
@@ -80,13 +80,33 @@
 import axios from 'axios'
 export default {
   mounted () {
-    console.log(this.taskSelections)
-    // if (this.taskSelections) {
-    //   this.showResults()
-    //   this.showResultImages()
-    // }
+    if (this.$route.query.taskSelections) {
+      this.taskSelections = this.$route.query.taskSelections
+      this.taskSelection = this.taskSelections[0]
+      this.taskid = this.taskSelection.fields.task_id
+      this.tasktype = this.taskSelection.fields.task_type
+      this.tabsValue = this.taskid
+      this.showResults()
+      this.showResultImages()
+    } else {
+      this.$alert('Select some reports to view!', 'Error!', {
+        confirmButtonText: 'Confirm',
+        callback: action => {
+          this.$router.replace({
+            path: '/analysis/submissions',
+            component: resolve => require(['@/pages/analysis/submissions'], resolve)
+          })
+        }
+      })
+    }
   },
   methods: {
+    handleTabClick () {
+      this.taskid = this.tabsValue
+      // console.log(this.taskid)
+      this.showResults()
+      this.showResultImages()
+    },
     showResultImages () {
       if (this.tasktype === 'Classification') {
         this.pfmimgurl = 'http://127.0.0.1:8000/api/show_roc?task_id=' + this.taskid
@@ -120,13 +140,13 @@ export default {
   },
   data () {
     return {
-      taskSelections: this.$route.query.taskSelections,
-      // taskid: this.$route.query.taskid,
-      // tasktype: this.$route.query.tasktype,
+      taskSelections: [],
+      taskSelection: {},
       pfmimgurl: '',
       optimgurl: '',
       taskinfo: [],
-      resultData: []
+      resultData: [],
+      tabsValue: ''
     }
   }
 }
