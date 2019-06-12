@@ -14,8 +14,8 @@
               <el-table-column type="expand">
                 <template slot-scope="props">
                   <el-form label-position="left" inline class="demo-table-expand">
-                    <el-form-item label="Task Type">
-                      <span>{{ props.row.fields.task_type }}</span>
+                    <el-form-item label="Project Name">
+                      <span>{{ props.row.fields.project_name }}</span>
                     </el-form-item>
                     <el-form-item label="Label">
                       <span>{{ props.row.fields.label }}</span>
@@ -46,8 +46,9 @@
               prop="fields.task_name">
               </el-table-column>
               <el-table-column
-              label="Project Name"
-              prop="fields.project_name">
+              label="Task Type"
+              prop="fields.task_type"
+              width="120">
               </el-table-column>
             </el-table>
             </div>
