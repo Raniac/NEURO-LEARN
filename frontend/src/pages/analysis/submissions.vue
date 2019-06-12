@@ -72,7 +72,7 @@
           <template slot-scope="scope">
             <el-tag
               size="small"
-              :type="scope.row.fields.task_status === 'Finished' ? 'primary' : (scope.row.fields.task_status === 'Failed' ? 'danger' : 'success')">
+              :type="scope.row.fields.task_status === 'Finished' ? 'success' : (scope.row.fields.task_status === 'Failed' ? 'danger' : (scope.row.fields.task_status === 'Running' ? 'primary' : 'info'))">
               {{ scope.row.fields.task_status }}
             </el-tag>
           </template>

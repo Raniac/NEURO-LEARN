@@ -25,7 +25,7 @@
   </el-col>
   <el-col :span="4" :offset="1">
     <el-card :body-style="{ padding: '0px' }" style="background-color: #FFFFFF; width: 90%">
-      <div style="padding: 14px; color: #00CC99; text-align: center">
+      <div style="padding: 14px; color: #00CCFF; text-align: center">
         <h4>Running</h4>
         <div>
           <h1>{{ running_num }}</h1>
@@ -35,7 +35,7 @@
   </el-col>
   <el-col :span="4" :offset="1">
     <el-card :body-style="{ padding: '0px' }" style="background-color: #FFFFFF; width: 90%">
-      <div style="padding: 14px; color: #00CCFF; text-align: center">
+      <div style="padding: 14px; color: #00CC99; text-align: center">
         <h4>Finished</h4>
         <div>
           <h1>{{ finished_num }}</h1>
@@ -114,7 +114,7 @@
           <template slot-scope="scope">
             <el-tag
               size="small"
-              :type="scope.row.fields.task_status === 'Finished' ? 'primary' : (scope.row.fields.task_status === 'Failed' ? 'danger' : 'success')">
+              :type="scope.row.fields.task_status === 'Finished' ? 'success' : (scope.row.fields.task_status === 'Failed' ? 'danger' : (scope.row.fields.task_status === 'Running' ? 'primary' : 'info'))">
               {{ scope.row.fields.task_status }}
             </el-tag>
           </template>
