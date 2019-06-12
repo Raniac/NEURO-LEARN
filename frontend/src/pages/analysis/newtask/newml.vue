@@ -141,7 +141,12 @@ export default {
       }
     },
     onSubmit () {
-      this.newTask()
+      this.$confirm('Submit this task now?', 'Attention!', {
+        confirmButtonText: 'Confirm',
+        cancelButtonText: 'Cancel'
+      }).then(() => {
+        this.newTask()
+      }).catch(() => {})
     },
     onCancel () {
       this.$router.replace({

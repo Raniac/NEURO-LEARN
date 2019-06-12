@@ -93,7 +93,7 @@
         @size-change="handleSizeChange"
         style="float: left">
       </el-pagination>
-      <el-tooltip content="View the report(s) of selected submission(s)" placement="top">
+      <el-tooltip content="View the report(s) of selected task(s)" placement="top">
         <el-button style="float: right" size="large" type="primary" @click="clickToView">View</el-button>
       </el-tooltip>
     </div>
@@ -143,6 +143,11 @@ export default {
           callback: action => {
             this.$refs.multipleTable.clearSelection()
           }
+        })
+      } else if (this.multipleSelections.length === 0) {
+        this.$alert('There is no report to view!', 'Error!', {
+          confirmButtonText: 'Confirm',
+          callback: action => {}
         })
       } else {
         this.$router.push({

@@ -97,7 +97,7 @@ export default {
       this.showResults()
       this.showResultImages()
     } else {
-      this.$alert('Select some reports to view!', 'Error!', {
+      this.$alert('There is no report to view!', 'Error!', {
         confirmButtonText: 'Confirm',
         callback: action => {
           this.$router.replace({
