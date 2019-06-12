@@ -133,7 +133,7 @@ export default {
             console.log(this.taskinfo)
             console.log(this.resultData)
           } else {
-            this.$alert('Error: ' + res['msg'], 'Task Failed!', {
+            this.$alert(res['msg'].slice(1, -1), 'Error!', {
               confirmButtonText: 'Confirm',
               callback: action => {
                 this.$router.replace({

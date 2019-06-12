@@ -29,11 +29,6 @@
           label="Data Name"
           prop="fields.data_name">
           </el-table-column>
-          <el-table-column
-          label="Uploader"
-          prop="fields.uploader"
-          width="150px">
-          </el-table-column>
         </el-table>
       </div>
       <div style="margin: 14px">
@@ -85,8 +80,10 @@ export default {
     uploadSuccess (response) {
       if (response.msg === 'success') {
         this.$message({showClose: true, message: 'Successfully uploaded! Data ID: ' + response.dataid, type: 'success'})
+        console.log(response)
       } else if (response.msg === 'existed') {
         this.$message({showClose: true, message: 'File existed!', type: 'warning'})
+        console.log(response)
       }
     },
     handleCurrentChange (cpage) {

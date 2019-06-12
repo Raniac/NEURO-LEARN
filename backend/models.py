@@ -34,7 +34,6 @@ class Data_Demo(models.Model):
     data_id = models.CharField(max_length=64, unique=True)
     data_name = models.CharField(max_length=64)
     data_path = models.CharField(max_length=128)
-    uploader = models.CharField(max_length=32)
 
     def __unicode__(self):
         return self.task_id

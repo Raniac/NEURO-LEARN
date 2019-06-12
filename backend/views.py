@@ -252,15 +252,11 @@ def show_submissions(request):
 
     return response
 
-@require_http_methods(['POST', 'OPTIONS'])
+@require_http_methods(['POST'])
 def upload_data(request):
     response_content = {}
     response = HttpResponse()
     try:
-        print(request.COOKIES.get('sessionid'))
-        print(request.COOKIES.get('username'))
-        print(request.COOKIES.get('user_id'))
-        uploader = request.COOKIES.get('username')
         data_file = request.FILES.get('datafile')
         if data_file.name not in os.listdir('data/'):
             data = Data_Demo()
@@ -268,7 +264,6 @@ def upload_data(request):
             data.data_id = data_id
             data.data_name = data_file.name[:-4]
             data.data_path = handle_uploaded_file(data_file)
-            data.uploader = uploader
             data.save()
             response_content['msg'] = 'success'
             response_content['dataid'] = data_id
