@@ -122,8 +122,7 @@ export default {
           {name: 'K Nearest Neighbor', value: 'K Nearest Neighbor'}
         ]
         this.form.label_options = [
-          {name: 'Group', value: 'Group'},
-          {name: 'Gender', value: 'Gender'}
+          {name: 'GROUP', value: 'GROUP'}
         ]
       } else if (this.newform.task_type === 'Regression') {
         this.form.estimator_options = [

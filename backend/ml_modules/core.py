@@ -15,15 +15,26 @@ def test_task(task_id, task_type, train_data, test_data, label, feat_sel, estima
 
     TRAIN_DATA_PATH = train_data[0]
     TEST_DATA_PATH = test_data[0]
+
+    data_columns = pd.read_csv(TRAIN_DATA_PATH, encoding='gbk').columns
+    columns_to_drop = []
+
+    for column in data_columns:
+        if column == 'ID':
+            columns_to_drop.append(column)
+        elif column[:6] == 'LABEL_':
+            columns_to_drop.append(column)
+        else:
+            break
     
     # Instantiate training dataset
-    train_X = pd.read_csv(TRAIN_DATA_PATH, encoding='gbk').drop(['ID', 'LABEL'], axis=1) # load data file
-    train_y = pd.read_csv(TRAIN_DATA_PATH, encoding='gbk').LABEL # load label file
+    train_X = pd.read_csv(TRAIN_DATA_PATH, encoding='gbk').drop(columns_to_drop, axis=1) # load data file
+    train_y = pd.read_csv(TRAIN_DATA_PATH, encoding='gbk')['LABEL_' + label] # load label file
     
     if len(train_data) > 0:
         for i in range(1, len(train_data)):
-            train_X_temp = pd.read_csv(train_data[i], encoding='gbk').drop(['ID', 'LABEL'], axis=1) # load data file
-            train_y_temp = pd.read_csv(train_data[i], encoding='gbk').LABEL # load label file
+            train_X_temp = pd.read_csv(train_data[i], encoding='gbk').drop(columns_to_drop, axis=1) # load data file
+            train_y_temp = pd.read_csv(train_data[i], encoding='gbk')['LABEL_' + label] # load label file
             train_X = pd.concat([train_X, train_X_temp], axis=0)
             train_y = pd.concat([train_y, train_y_temp], axis=0)
     
@@ -32,13 +43,13 @@ def test_task(task_id, task_type, train_data, test_data, label, feat_sel, estima
     (train_n_samples, train_n_features) = train_X.shape
 
     # Instantiate testing dataset
-    test_X = pd.read_csv(TEST_DATA_PATH, encoding='gbk').drop(['ID', 'LABEL'], axis=1) # load data file
-    test_y = pd.read_csv(TEST_DATA_PATH, encoding='gbk').LABEL # load label file
+    test_X = pd.read_csv(TEST_DATA_PATH, encoding='gbk').drop(columns_to_drop, axis=1) # load data file
+    test_y = pd.read_csv(TEST_DATA_PATH, encoding='gbk')['LABEL_' + label] # load label file
     
     if len(test_data) > 0:
         for i in range(1, len(test_data)):
-            test_X_temp = pd.read_csv(test_data[i], encoding='gbk').drop(['ID', 'LABEL'], axis=1) # load data file
-            test_y_temp = pd.read_csv(test_data[i], encoding='gbk').LABEL # load label file
+            test_X_temp = pd.read_csv(test_data[i], encoding='gbk').drop(columns_to_drop, axis=1) # load data file
+            test_y_temp = pd.read_csv(test_data[i], encoding='gbk')['LABEL_' + label] # load label file
             test_X = pd.concat([test_X, test_X_temp], axis=0)
             test_y = pd.concat([test_y, test_y_temp], axis=0)
     
