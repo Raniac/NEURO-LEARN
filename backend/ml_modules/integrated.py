@@ -135,7 +135,8 @@ def integrated_clf_model(result_path, feat_sel, model, train_data, test_data, cv
     writer.writerow(['Run Time', runtime])
     results_csv.close()
 
-def integrated_rgs_model(result_path, feat_sel, model, train_data, test_data, k):
+def integrated_rgs_model(result_path, feat_sel, model, train_data, test_data, cv):
+    starttime = time.time()
     
     pipe = Pipeline(steps=[
         # (feat_sel.name, feat_sel.model),
@@ -144,7 +145,7 @@ def integrated_rgs_model(result_path, feat_sel, model, train_data, test_data, k)
     # pipe_param_grid = dict(feat_sel.param_grid, **model.param_grid)
     pipe_param_grid = model.param_grid
 
-    search = GridSearchCV(pipe, pipe_param_grid, iid=False, cv=k, return_train_score=False, scoring='neg_mean_absolute_error')
+    search = GridSearchCV(pipe, pipe_param_grid, iid=False, cv=cv, return_train_score=False, scoring='neg_mean_absolute_error')
     search.fit(train_data.X, train_data.y)
 
     optimal_score = search.best_score_
@@ -178,6 +179,11 @@ def integrated_rgs_model(result_path, feat_sel, model, train_data, test_data, k)
     plt.legend(loc='upper right')
     g.savefig(result_path + '/' + 'Original_Predicted_Correlation.png', dpi=300)
 
+    endtime = time.time()
+    runtime = str(endtime - starttime)
+    runtime = str(decimal.Decimal(runtime).quantize(decimal.Decimal('0.00'))) + 's'
+    print(runtime)
+
     results_csv = codecs.open(result_path + '/' + 'results.csv', 'w+', encoding='gbk')
     writer = csv.writer(results_csv, delimiter=',')
     writer.writerow(['Item', 'Value'])
@@ -185,4 +191,5 @@ def integrated_rgs_model(result_path, feat_sel, model, train_data, test_data, k)
     writer.writerow(['Optimal Parameters', optimal_params])
     writer.writerow(['Test Pearson r', pearson_r])
     writer.writerow(['Test Pearson p', pearson_p])
+    writer.writerow(['Run Time', runtime])
     results_csv.close()
