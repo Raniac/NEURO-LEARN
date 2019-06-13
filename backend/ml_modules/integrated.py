@@ -11,7 +11,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import roc_auc_score, auc
 
-def integrated_clf_model(result_path, feat_sel, model, train_data, test_data, k):
+def integrated_clf_model(result_path, feat_sel, model, train_data, test_data, cv):
     starttime = time.time()
     
     pipe = Pipeline(steps=[
@@ -20,7 +20,7 @@ def integrated_clf_model(result_path, feat_sel, model, train_data, test_data, k)
     ])
     pipe_param_grid = dict(feat_sel.param_grid, **model.param_grid)
 
-    search = GridSearchCV(pipe, pipe_param_grid, iid=False, cv=k, return_train_score=False, scoring='accuracy')
+    search = GridSearchCV(pipe, pipe_param_grid, iid=False, cv=cv, return_train_score=False, scoring='accuracy')
     search.fit(train_data.X, train_data.y)
 
     optimal_score = search.best_score_

@@ -18,7 +18,6 @@ def test_task(task_id, task_type, train_data, test_data, label, feat_sel, estima
 
     data_columns = pd.read_csv(TRAIN_DATA_PATH, encoding='gbk').columns
     columns_to_drop = []
-
     for column in data_columns:
         if column == 'ID':
             columns_to_drop.append(column)
@@ -57,6 +56,16 @@ def test_task(task_id, task_type, train_data, test_data, label, feat_sel, estima
     my_test_data.data_preprocessing()
     (test_n_samples, test_n_features) = test_X.shape
 
+    if cv_type == '10-fold':
+        cv = 10
+    elif cv_type == '5-fold':
+        cv = 5
+    elif cv_type == '3-fold':
+        cv = 3
+    else:
+        from sklearn.model_selection import LeaveOneOut
+        cv = LeaveOneOut()
+
     if task_type == "Classification":
         if feat_sel == "Principal Component Analysis":
             my_feat_sel = PCA_Feat_Sel(train_n_samples, train_n_features)
@@ -76,7 +85,7 @@ def test_task(task_id, task_type, train_data, test_data, label, feat_sel, estima
         elif estimator == "K Nearest Neighbor":
             my_model = KNN_CLF()
 
-        integrated_clf_model(RESULT_PATH, my_feat_sel, my_model, my_train_data, my_test_data, 10) # run integrated classification model
+        integrated_clf_model(RESULT_PATH, my_feat_sel, my_model, my_train_data, my_test_data, cv) # run integrated classification model
     elif task_type == "Regression":
         if feat_sel == "Principal Component Analysis":
             my_feat_sel = PCA_Feat_Sel(train_n_samples, train_n_features)
@@ -96,4 +105,4 @@ def test_task(task_id, task_type, train_data, test_data, label, feat_sel, estima
         elif estimator == "Ridge Regression":
             my_model = L2_RGS()
     
-        integrated_rgs_model(RESULT_PATH, my_feat_sel, my_model, my_train_data, my_test_data, 10) # run integrated classification model
+        integrated_rgs_model(RESULT_PATH, my_feat_sel, my_model, my_train_data, my_test_data, cv) # run integrated classification model
