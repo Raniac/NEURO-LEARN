@@ -93,11 +93,7 @@ export default {
           {name: '168_Gut', value: '168_Gut'}
         ],
         label_options: [],
-        feat_sel_options: [
-          {name: 'Principal Component Analysis', value: 'Principal Component Analysis'},
-          {name: 'Analysis of Variance', value: 'Analysis of Variance'},
-          {name: 'Recursive Feature Elimination', value: 'Recursive Feature Elimination'}
-        ],
+        feat_sel_options: [],
         estimator_options: [],
         cv_type_options: [
           {name: '10-fold', value: '10-fold'},
@@ -124,6 +120,12 @@ export default {
         this.form.label_options = [
           {name: 'GROUP', value: 'GROUP'}
         ]
+        this.form.feat_sel_options = [
+          {name: 'Principal Component Analysis', value: 'Principal Component Analysis'},
+          {name: 'Analysis of Variance', value: 'Analysis of Variance'},
+          {name: 'Recursive Feature Elimination', value: 'Recursive Feature Elimination'},
+          {name: 'None', value: 'None'}
+        ]
       } else if (this.newform.task_type === 'Regression') {
         this.form.estimator_options = [
           {name: 'Support Vector Regression', value: 'Support Vector Regression'},
@@ -137,6 +139,10 @@ export default {
           {name: 'PANSS_N', value: 'PANSS_N'},
           {name: 'PANSS_G', value: 'PANSS_G'},
           {name: 'PANSS_T', value: 'PANSS_T'}
+        ]
+        this.form.feat_sel_options = [
+          {name: 'Analysis of Variance', value: 'Analysis of Variance'},
+          {name: 'None', value: 'None'}
         ]
       }
     },

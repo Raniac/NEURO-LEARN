@@ -1,0 +1,6 @@
+Item,Value
+Optimal CV MAE,-3.8204239557891126
+Optimal Parameters,"{'anova__percentile': 15, 'svr__C': 0.01}"
+Test Pearson r,0.35351566692189995
+Test Pearson p,1.8312190850936827e-05
+Run Time,29.40s

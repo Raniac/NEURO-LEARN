@@ -73,6 +73,8 @@ def test_task(task_id, task_type, train_data, test_data, label, feat_sel, estima
             my_feat_sel = ANOVA_Feat_Sel(train_n_samples, train_n_features)
         elif feat_sel == "Recursive Feature Elimination":
             my_feat_sel = RFE_Feat_Sel(train_n_samples, train_n_features)
+        elif feat_sel == "None":
+            my_feat_sel = None
         
         if estimator == "Support Vector Machine":
             my_model = SVM_CLF()
@@ -87,12 +89,10 @@ def test_task(task_id, task_type, train_data, test_data, label, feat_sel, estima
 
         integrated_clf_model(RESULT_PATH, my_feat_sel, my_model, my_train_data, my_test_data, cv) # run integrated classification model
     elif task_type == "Regression":
-        if feat_sel == "Principal Component Analysis":
-            my_feat_sel = PCA_Feat_Sel(train_n_samples, train_n_features)
-        elif feat_sel == "Analysis of Variance":
+        if feat_sel == "Analysis of Variance":
             my_feat_sel = ANOVA_Feat_Sel(train_n_samples, train_n_features)
-        elif feat_sel == "Recursive Feature Elimination":
-            my_feat_sel = RFE_Feat_Sel(train_n_samples, train_n_features)
+        elif feat_sel == "None":
+            my_feat_sel = None
         
         if estimator == "Support Vector Regression":
             my_model = SVR_RGS()

@@ -13,12 +13,18 @@ from sklearn.metrics import roc_auc_score, auc
 
 def integrated_clf_model(result_path, feat_sel, model, train_data, test_data, cv):
     starttime = time.time()
-    
-    pipe = Pipeline(steps=[
-        (feat_sel.name, feat_sel.model),
-        (model.name, model.model)
-    ])
-    pipe_param_grid = dict(feat_sel.param_grid, **model.param_grid)
+
+    if feat_sel == None:
+        pipe = Pipeline(steps=[
+            (model.name, model.model)
+        ])
+        pipe_param_grid = model.param_grid
+    else:
+        pipe = Pipeline(steps=[
+            (feat_sel.name, feat_sel.model),
+            (model.name, model.model)
+        ])
+        pipe_param_grid = dict(feat_sel.param_grid, **model.param_grid)
 
     search = GridSearchCV(pipe, pipe_param_grid, iid=False, cv=cv, return_train_score=False, scoring='accuracy')
     search.fit(train_data.X, train_data.y)
@@ -35,7 +41,7 @@ def integrated_clf_model(result_path, feat_sel, model, train_data, test_data, cv
     # ========================================
 
     # Optimization Curve and Selected Features (if possible) 
-    if feat_sel.name == 'pca':
+    if feat_sel and feat_sel.name == 'pca':
         plt.figure()
 
         results = pd.DataFrame(search.cv_results_)
@@ -49,7 +55,7 @@ def integrated_clf_model(result_path, feat_sel, model, train_data, test_data, cv
 
         plt.savefig(result_path + '/' + 'optimization_curve.png', dpi=300)
 
-    elif feat_sel.name == 'anova':
+    elif feat_sel and feat_sel.name == 'anova':
         plt.figure()
 
         results = pd.DataFrame(search.cv_results_)
@@ -63,7 +69,7 @@ def integrated_clf_model(result_path, feat_sel, model, train_data, test_data, cv
 
         plt.savefig(result_path + '/' + 'optimization_curve.png', dpi=300)
 
-    elif feat_sel.name == 'rfe':
+    elif feat_sel and feat_sel.name == 'rfe':
         plt.figure()
 
         results = pd.DataFrame(search.cv_results_)
@@ -138,12 +144,17 @@ def integrated_clf_model(result_path, feat_sel, model, train_data, test_data, cv
 def integrated_rgs_model(result_path, feat_sel, model, train_data, test_data, cv):
     starttime = time.time()
     
-    pipe = Pipeline(steps=[
-        # (feat_sel.name, feat_sel.model),
-        (model.name, model.model)
-    ])
-    # pipe_param_grid = dict(feat_sel.param_grid, **model.param_grid)
-    pipe_param_grid = model.param_grid
+    if feat_sel == None:
+        pipe = Pipeline(steps=[
+            (model.name, model.model)
+        ])
+        pipe_param_grid = model.param_grid
+    else:
+        pipe = Pipeline(steps=[
+            (feat_sel.name, feat_sel.model),
+            (model.name, model.model)
+        ])
+        pipe_param_grid = dict(feat_sel.param_grid, **model.param_grid)
 
     search = GridSearchCV(pipe, pipe_param_grid, iid=False, cv=cv, return_train_score=False, scoring='neg_mean_absolute_error')
     search.fit(train_data.X, train_data.y)
