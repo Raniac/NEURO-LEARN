@@ -12,7 +12,6 @@ urlpatterns = [
     url(r'upload_data$', views.upload_data, ),
     url(r'show_data$', views.show_data, ),
     url(r'show_results$', views.show_results, ),
-    url(r'show_roc$', views.show_roc, ),
-    url(r'show_opt$', views.show_opt, ),
+    url(r'show_img$', views.show_img, ),
     url(r'download_templates$', views.download_templates, ),
     ]

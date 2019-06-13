@@ -335,6 +335,12 @@ def show_results(request):
         task_info = Submissions_Demo.objects.filter(task_id=task_id)
         response_content['info']  = json.loads(serializers.serialize("json", task_info))
 
+        img_list = []
+        for filename in os.listdir('results/' + task_id):
+            if filename[-4:] == '.png':
+                img_list.append(filename[:-4])
+        response_content['img_list'] = img_list
+
         response_content['msg'] = 'success'
         response_content['error_num'] = 0
     except  Exception as e:
@@ -350,23 +356,13 @@ def show_results(request):
     return response
 
 @require_http_methods(["GET"])
-def show_roc(request):
+def show_img(request):
     response = {}
     task_id = request.GET.get('task_id')
+    img_name = request.GET.get('img_name')
 
     buf = io.BytesIO()
-    img = Image.open('results/' + task_id + '/ROC_curve.png')
-    img.save(buf, 'png')
-
-    return HttpResponse(buf.getvalue(), 'image/png')
-
-@require_http_methods(["GET"])
-def show_opt(request):
-    response = {}
-    task_id = request.GET.get('task_id')
-
-    buf = io.BytesIO()
-    img = Image.open('results/' + task_id + '/optimization_curve.png')
+    img = Image.open('results/' + task_id + '/' + img_name + '.png')
     img.save(buf, 'png')
 
     return HttpResponse(buf.getvalue(), 'image/png')

@@ -68,8 +68,9 @@
                 prop="Value">
               </el-table-column>
             </el-table>
-            <img class="result-image" :src="optimgurl">
-            <img class="result-image" :src="pfmimgurl">
+            <li v-for="(img_name, index) in resultImgList" :key="index" style="list-style: none; text-align: center">
+              <img class="result-image" :src="'http://127.0.0.1:8000/api/show_img?task_id=' + taskid + '&img_name=' + img_name">
+            </li>
           </div>
         </div>
       </el-tab-pane>
@@ -88,7 +89,6 @@ export default {
       this.tasktype = this.taskSelection.fields.task_type
       this.tabsValue = this.taskid
       this.showResults()
-      this.showResultImages()
     } else if (this.$route.query.taskid) {
       this.taskid = this.$route.query.taskid
       this.tasktype = this.$route.query.tasktype
@@ -96,7 +96,6 @@ export default {
       this.taskSelection = this.taskSelections[0]
       this.tabsValue = this.taskid
       this.showResults()
-      this.showResultImages()
     } else {
       this.$alert('There is no report to view!', 'Error!', {
         confirmButtonText: 'Confirm',
@@ -112,15 +111,7 @@ export default {
   methods: {
     handleTabClick () {
       this.taskid = this.tabsValue
-      // console.log(this.taskid)
       this.showResults()
-      this.showResultImages()
-    },
-    showResultImages () {
-      if (this.tasktype === 'Classification') {
-        this.pfmimgurl = 'http://127.0.0.1:8000/api/show_roc?task_id=' + this.taskid
-        this.optimgurl = 'http://127.0.0.1:8000/api/show_opt?task_id=' + this.taskid
-      }
     },
     showResults () {
       axios.get('http://127.0.0.1:8000/api/show_results?task_id=' + this.taskid)
@@ -131,8 +122,10 @@ export default {
             console.log(res)
             this.taskinfo = res['info']
             this.resultData = res['list']
+            this.resultImgList = res['img_list']
             console.log(this.taskinfo)
             console.log(this.resultData)
+            console.log(this.resultImgList)
           } else {
             this.$alert(res['msg'].slice(1, -1), 'Error!', {
               confirmButtonText: 'Confirm',
@@ -155,6 +148,7 @@ export default {
       optimgurl: '',
       taskinfo: [],
       resultData: [],
+      resultImgList: [],
       tabsValue: ''
     }
   }
