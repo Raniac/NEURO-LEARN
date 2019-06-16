@@ -209,3 +209,329 @@ unable to load configuration from from multiprocessing.semaphore_tracker import 
 [pid: 19105|app: 0|req: 46/85] 192.168.51.148 () {42 vars in 646 bytes} [Sun Jun 16 16:59:28 2019] GET / => generated 517 bytes in 0 msecs (HTTP/1.1 200) 4 headers in 123 bytes (1 switches on core 0)
 [pid: 19105|app: 0|req: 47/86] 192.168.51.159 () {42 vars in 693 bytes} [Sun Jun 16 16:59:44 2019] GET / => generated 517 bytes in 0 msecs (HTTP/1.1 200) 4 headers in 123 bytes (1 switches on core 1)
 [pid: 19102|app: 0|req: 25/87] 192.168.51.159 () {42 vars in 693 bytes} [Sun Jun 16 17:00:41 2019] GET / => generated 517 bytes in 1 msecs (HTTP/1.1 200) 4 headers in 123 bytes (1 switches on core 0)
+[pid: 19105|app: 0|req: 48/88] 192.168.51.148 () {42 vars in 646 bytes} [Sun Jun 16 17:03:25 2019] GET / => generated 517 bytes in 0 msecs (HTTP/1.1 200) 4 headers in 123 bytes (1 switches on core 0)
+[pid: 19105|app: 0|req: 49/89] 192.168.51.148 () {42 vars in 646 bytes} [Sun Jun 16 17:03:39 2019] GET / => generated 517 bytes in 0 msecs (HTTP/1.1 200) 4 headers in 123 bytes (1 switches on core 1)
+SIGINT/SIGQUIT received...killing workers...
+worker 1 buried after 1 seconds
+worker 2 buried after 1 seconds
+worker 3 buried after 1 seconds
+worker 4 buried after 1 seconds
+goodbye to uWSGI.
+*** Starting uWSGI 2.0.18 (64bit) on [Sun Jun 16 17:04:02 2019] ***
+compiled with version: 7.4.0 on 16 June 2019 06:41:54
+os: Linux-4.15.0-51-generic #55-Ubuntu SMP Wed May 15 14:27:21 UTC 2019
+nodename: bennyray
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 8
+current working directory: /home/bennyray/Projects/neuro-learn/web/neurolearn_dev
+writing pidfile to uwsgi.pid
+detected binary path: /home/bennyray/Projects/neuro-learn/env/bin/uwsgi
+chdir() to /home/bennyray/Projects/neuro-learn/web/neurolearn_dev/
+your processes number limit is 63476
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 0.0.0.0:9090 fd 3
+Python version: 3.6.8 (default, Jan 14 2019, 11:02:34)  [GCC 8.0.1 20180414 (experimental) [trunk revision 259383]]
+Python main interpreter initialized at 0x5615434b3ec0
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 416880 bytes (407 KB) for 8 cores
+*** Operational MODE: preforking+threaded ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x5615434b3ec0 pid: 29475 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 29475)
+spawned uWSGI worker 1 (pid: 29509, cores: 2)
+spawned uWSGI worker 2 (pid: 29511, cores: 2)
+spawned uWSGI worker 3 (pid: 29512, cores: 2)
+spawned uWSGI worker 4 (pid: 29515, cores: 2)
+unable to load configuration from from multiprocessing.semaphore_tracker import main;main(20)
+[pid: 29515|app: 0|req: 1/1] 192.168.51.148 () {42 vars in 646 bytes} [Sun Jun 16 17:04:04 2019] GET / => generated 517 bytes in 697 msecs (HTTP/1.1 200) 4 headers in 123 bytes (1 switches on core 0)
+SIGINT/SIGQUIT received...killing workers...
+worker 1 buried after 1 seconds
+worker 2 buried after 1 seconds
+worker 3 buried after 1 seconds
+worker 4 buried after 1 seconds
+goodbye to uWSGI.
+*** Starting uWSGI 2.0.18 (64bit) on [Sun Jun 16 17:04:36 2019] ***
+compiled with version: 7.4.0 on 16 June 2019 06:41:54
+os: Linux-4.15.0-51-generic #55-Ubuntu SMP Wed May 15 14:27:21 UTC 2019
+nodename: bennyray
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 8
+current working directory: /home/bennyray/Projects/neuro-learn/web/neurolearn_dev
+writing pidfile to uwsgi.pid
+detected binary path: /home/bennyray/Projects/neuro-learn/env/bin/uwsgi
+chdir() to /home/bennyray/Projects/neuro-learn/web/neurolearn_dev/
+your processes number limit is 63476
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 0.0.0.0:9090 fd 3
+Python version: 3.6.8 (default, Jan 14 2019, 11:02:34)  [GCC 8.0.1 20180414 (experimental) [trunk revision 259383]]
+Python main interpreter initialized at 0x5644625e6ec0
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 416880 bytes (407 KB) for 8 cores
+*** Operational MODE: preforking+threaded ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x5644625e6ec0 pid: 29597 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 29597)
+spawned uWSGI worker 1 (pid: 29601, cores: 2)
+spawned uWSGI worker 2 (pid: 29603, cores: 2)
+spawned uWSGI worker 3 (pid: 29604, cores: 2)
+spawned uWSGI worker 4 (pid: 29607, cores: 2)
+SIGINT/SIGQUIT received...killing workers...
+worker 1 buried after 1 seconds
+worker 2 buried after 1 seconds
+worker 3 buried after 1 seconds
+worker 4 buried after 1 seconds
+goodbye to uWSGI.
+*** Starting uWSGI 2.0.18 (64bit) on [Sun Jun 16 17:05:30 2019] ***
+compiled with version: 7.4.0 on 16 June 2019 06:41:54
+os: Linux-4.15.0-51-generic #55-Ubuntu SMP Wed May 15 14:27:21 UTC 2019
+nodename: bennyray
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 8
+current working directory: /home/bennyray/Projects/neuro-learn/web/neurolearn_dev
+writing pidfile to uwsgi.pid
+detected binary path: /home/bennyray/Projects/neuro-learn/env/bin/uwsgi
+chdir() to /home/bennyray/Projects/neuro-learn/web/neurolearn_dev/
+your processes number limit is 63476
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 0.0.0.0:9090 fd 3
+Python version: 3.6.8 (default, Jan 14 2019, 11:02:34)  [GCC 8.0.1 20180414 (experimental) [trunk revision 259383]]
+Python main interpreter initialized at 0x56398fee6ec0
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 416880 bytes (407 KB) for 8 cores
+*** Operational MODE: preforking+threaded ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x56398fee6ec0 pid: 29875 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 29875)
+spawned uWSGI worker 1 (pid: 29882, cores: 2)
+spawned uWSGI worker 2 (pid: 29884, cores: 2)
+spawned uWSGI worker 3 (pid: 29885, cores: 2)
+spawned uWSGI worker 4 (pid: 29888, cores: 2)
+unable to load configuration from from multiprocessing.semaphore_tracker import main;main(20)
+[pid: 29885|app: 0|req: 1/1] 192.168.51.148 () {42 vars in 646 bytes} [Sun Jun 16 17:05:39 2019] GET / => generated 517 bytes in 636 msecs (HTTP/1.1 200) 4 headers in 123 bytes (1 switches on core 0)
+unable to load configuration from from multiprocessing.semaphore_tracker import main;main(20)
+[pid: 29888|app: 0|req: 1/2] 192.168.51.148 () {42 vars in 646 bytes} [Sun Jun 16 17:08:02 2019] GET / => generated 517 bytes in 639 msecs (HTTP/1.1 200) 4 headers in 123 bytes (1 switches on core 0)
+SIGINT/SIGQUIT received...killing workers...
+worker 1 buried after 1 seconds
+worker 2 buried after 1 seconds
+worker 3 buried after 1 seconds
+worker 4 buried after 1 seconds
+goodbye to uWSGI.
+*** Starting uWSGI 2.0.18 (64bit) on [Sun Jun 16 17:11:38 2019] ***
+compiled with version: 7.4.0 on 16 June 2019 06:41:54
+os: Linux-4.15.0-51-generic #55-Ubuntu SMP Wed May 15 14:27:21 UTC 2019
+nodename: bennyray
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 8
+current working directory: /home/bennyray/Projects/neuro-learn/web/neurolearn_dev
+writing pidfile to uwsgi.pid
+detected binary path: /home/bennyray/Projects/neuro-learn/env/bin/uwsgi
+chdir() to /home/bennyray/Projects/neuro-learn/web/neurolearn_dev/
+your processes number limit is 63476
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 0.0.0.0:9090 fd 3
+Python version: 3.6.8 (default, Jan 14 2019, 11:02:34)  [GCC 8.0.1 20180414 (experimental) [trunk revision 259383]]
+Python main interpreter initialized at 0x558bc0773ec0
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 416880 bytes (407 KB) for 8 cores
+*** Operational MODE: preforking+threaded ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x558bc0773ec0 pid: 30496 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 30496)
+spawned uWSGI worker 1 (pid: 30500, cores: 2)
+spawned uWSGI worker 2 (pid: 30502, cores: 2)
+spawned uWSGI worker 3 (pid: 30503, cores: 2)
+spawned uWSGI worker 4 (pid: 30506, cores: 2)
+invalid request block size: 21573 (max 4096)...skip
+invalid request block size: 21573 (max 4096)...skip
+invalid request block size: 21573 (max 4096)...skip
+invalid request block size: 21573 (max 4096)...skip
+invalid request block size: 21573 (max 4096)...skip
+unable to load configuration from from multiprocessing.semaphore_tracker import main;main(21)
+[pid: 30502|app: 0|req: 1/1] 192.168.51.148 () {42 vars in 646 bytes} [Sun Jun 16 17:12:04 2019] GET / => generated 517 bytes in 643 msecs (HTTP/1.1 200) 4 headers in 123 bytes (1 switches on core 1)
+unable to load configuration from from multiprocessing.semaphore_tracker import main;main(20)
+1cf93550-8eb4-3c32-a229-826cf8c1be59
+[pid: 30506|app: 0|req: 1/2] 192.168.51.132 () {40 vars in 590 bytes} [Sun Jun 16 17:12:09 2019] GET /api/login?username=test&password=test => generated 117 bytes in 622 msecs (HTTP/1.1 200) 10 headers in 545 bytes (2 switches on core 0)
+1cf93550-8eb4-3c32-a229-826cf8c1be59
+[pid: 30506|app: 0|req: 2/3] 192.168.51.132 () {42 vars in 691 bytes} [Sun Jun 16 17:13:58 2019] GET /api/login?username=test&password=test => generated 117 bytes in 27 msecs (HTTP/1.1 200) 10 headers in 545 bytes (2 switches on core 1)
+unable to load configuration from from multiprocessing.semaphore_tracker import main;main(20)
+1cf93550-8eb4-3c32-a229-826cf8c1be59
+[pid: 30503|app: 0|req: 1/4] 192.168.51.132 () {42 vars in 691 bytes} [Sun Jun 16 17:14:01 2019] GET /api/login?username=test&password=test => generated 117 bytes in 707 msecs (HTTP/1.1 200) 10 headers in 545 bytes (2 switches on core 0)
+SIGINT/SIGQUIT received...killing workers...
+worker 1 buried after 1 seconds
+worker 2 buried after 1 seconds
+worker 3 buried after 1 seconds
+worker 4 buried after 1 seconds
+goodbye to uWSGI.
+*** Starting uWSGI 2.0.18 (64bit) on [Sun Jun 16 17:14:08 2019] ***
+compiled with version: 7.4.0 on 16 June 2019 06:41:54
+os: Linux-4.15.0-51-generic #55-Ubuntu SMP Wed May 15 14:27:21 UTC 2019
+nodename: bennyray
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 8
+current working directory: /home/bennyray/Projects/neuro-learn/web/neurolearn_dev
+writing pidfile to uwsgi.pid
+detected binary path: /home/bennyray/Projects/neuro-learn/env/bin/uwsgi
+chdir() to /home/bennyray/Projects/neuro-learn/web/neurolearn_dev/
+your processes number limit is 63476
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 0.0.0.0:9090 fd 3
+Python version: 3.6.8 (default, Jan 14 2019, 11:02:34)  [GCC 8.0.1 20180414 (experimental) [trunk revision 259383]]
+Python main interpreter initialized at 0x55ebd2a35ec0
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 416880 bytes (407 KB) for 8 cores
+*** Operational MODE: preforking+threaded ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x55ebd2a35ec0 pid: 30992 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 30992)
+spawned uWSGI worker 1 (pid: 30996, cores: 2)
+spawned uWSGI worker 2 (pid: 30998, cores: 2)
+spawned uWSGI worker 3 (pid: 30999, cores: 2)
+spawned uWSGI worker 4 (pid: 31001, cores: 2)
+unable to load configuration from from multiprocessing.semaphore_tracker import main;main(21)
+[pid: 30998|app: 0|req: 1/1] 192.168.51.148 () {42 vars in 646 bytes} [Sun Jun 16 17:14:19 2019] GET / => generated 517 bytes in 650 msecs (HTTP/1.1 200) 4 headers in 123 bytes (1 switches on core 0)
+SIGINT/SIGQUIT received...killing workers...
+worker 1 buried after 1 seconds
+worker 2 buried after 1 seconds
+worker 3 buried after 1 seconds
+worker 4 buried after 1 seconds
+goodbye to uWSGI.
+*** Starting uWSGI 2.0.18 (64bit) on [Sun Jun 16 17:15:29 2019] ***
+compiled with version: 7.4.0 on 16 June 2019 06:41:54
+os: Linux-4.15.0-51-generic #55-Ubuntu SMP Wed May 15 14:27:21 UTC 2019
+nodename: bennyray
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 8
+current working directory: /home/bennyray/Projects/neuro-learn/web/neurolearn_dev
+writing pidfile to uwsgi.pid
+detected binary path: /home/bennyray/Projects/neuro-learn/env/bin/uwsgi
+chdir() to /home/bennyray/Projects/neuro-learn/web/neurolearn_dev/
+your processes number limit is 63476
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 0.0.0.0:9090 fd 3
+Python version: 3.6.8 (default, Jan 14 2019, 11:02:34)  [GCC 8.0.1 20180414 (experimental) [trunk revision 259383]]
+Python main interpreter initialized at 0x55abac470ec0
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 416880 bytes (407 KB) for 8 cores
+*** Operational MODE: preforking+threaded ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x55abac470ec0 pid: 31364 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 31364)
+spawned uWSGI worker 1 (pid: 31368, cores: 2)
+spawned uWSGI worker 2 (pid: 31370, cores: 2)
+spawned uWSGI worker 3 (pid: 31371, cores: 2)
+spawned uWSGI worker 4 (pid: 31374, cores: 2)
+unable to load configuration from from multiprocessing.semaphore_tracker import main;main(20)
+[pid: 31374|app: 0|req: 1/1] 192.168.51.148 () {42 vars in 646 bytes} [Sun Jun 16 17:15:39 2019] GET / => generated 517 bytes in 658 msecs (HTTP/1.1 200) 4 headers in 123 bytes (1 switches on core 0)
+unable to load configuration from from multiprocessing.semaphore_tracker import main;main(21)
+1cf93550-8eb4-3c32-a229-826cf8c1be59
+[pid: 31368|app: 0|req: 1/2] 192.168.51.148 () {40 vars in 661 bytes} [Sun Jun 16 17:15:46 2019] GET /api/login?username=test&password=test => generated 117 bytes in 658 msecs (HTTP/1.1 200) 10 headers in 545 bytes (2 switches on core 0)
+SIGINT/SIGQUIT received...killing workers...
+worker 1 buried after 1 seconds
+worker 2 buried after 1 seconds
+worker 3 buried after 1 seconds
+worker 4 buried after 1 seconds
+goodbye to uWSGI.
+*** Starting uWSGI 2.0.18 (64bit) on [Sun Jun 16 17:20:06 2019] ***
+compiled with version: 7.4.0 on 16 June 2019 06:41:54
+os: Linux-4.15.0-51-generic #55-Ubuntu SMP Wed May 15 14:27:21 UTC 2019
+nodename: bennyray
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 8
+current working directory: /home/bennyray/Projects/neuro-learn/web/neurolearn_dev
+writing pidfile to uwsgi.pid
+detected binary path: /home/bennyray/Projects/neuro-learn/env/bin/uwsgi
+chdir() to /home/bennyray/Projects/neuro-learn/web/neurolearn_dev/
+your processes number limit is 63476
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 0.0.0.0:9090 fd 3
+Python version: 3.6.8 (default, Jan 14 2019, 11:02:34)  [GCC 8.0.1 20180414 (experimental) [trunk revision 259383]]
+Python main interpreter initialized at 0x55a1bb3d9ec0
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 416880 bytes (407 KB) for 8 cores
+*** Operational MODE: preforking+threaded ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x55a1bb3d9ec0 pid: 32166 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 32166)
+spawned uWSGI worker 1 (pid: 32170, cores: 2)
+spawned uWSGI worker 2 (pid: 32172, cores: 2)
+spawned uWSGI worker 3 (pid: 32173, cores: 2)
+spawned uWSGI worker 4 (pid: 32176, cores: 2)
+unable to load configuration from from multiprocessing.semaphore_tracker import main;main(21)
+[pid: 32170|app: 0|req: 1/1] 192.168.51.148 () {44 vars in 750 bytes} [Sun Jun 16 17:20:21 2019] GET / => generated 517 bytes in 640 msecs (HTTP/1.1 200) 4 headers in 123 bytes (1 switches on core 0)
+unable to load configuration from from multiprocessing.semaphore_tracker import main;main(20)
+1cf93550-8eb4-3c32-a229-826cf8c1be59
+test
+USER20190605213221
+[pid: 32173|app: 0|req: 1/2] 192.168.51.148 () {42 vars in 740 bytes} [Sun Jun 16 17:20:22 2019] GET /api/overview_submissions => generated 2440 bytes in 720 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 32173|app: 0|req: 2/3] 192.168.51.148 () {44 vars in 750 bytes} [Sun Jun 16 17:25:21 2019] GET / => generated 517 bytes in 6 msecs (HTTP/1.1 200) 4 headers in 123 bytes (1 switches on core 1)
+1cf93550-8eb4-3c32-a229-826cf8c1be59
+test
+USER20190605213221
+[pid: 32173|app: 0|req: 3/4] 192.168.51.148 () {44 vars in 771 bytes} [Sun Jun 16 17:25:22 2019] GET /api/overview_submissions => generated 2440 bytes in 26 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+unable to load configuration from from multiprocessing.semaphore_tracker import main;main(20)
+1cf93550-8eb4-3c32-a229-826cf8c1be59
+test
+USER20190605213221
+[pid: 32176|app: 0|req: 1/5] 192.168.51.148 () {42 vars in 740 bytes} [Sun Jun 16 17:25:24 2019] GET /api/overview_submissions => generated 2440 bytes in 633 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 32173|app: 0|req: 4/6] 192.168.51.148 () {42 vars in 732 bytes} [Sun Jun 16 17:25:27 2019] GET /api/show_submissions => generated 48625 bytes in 9 msecs (HTTP/1.1 200) 7 headers in 276 bytes (2 switches on core 1)
+[pid: 32173|app: 0|req: 5/7] 192.168.51.148 () {44 vars in 750 bytes} [Sun Jun 16 17:26:27 2019] GET / => generated 517 bytes in 0 msecs (HTTP/1.1 200) 4 headers in 123 bytes (1 switches on core 0)
+[pid: 32176|app: 0|req: 2/8] 192.168.51.148 () {44 vars in 763 bytes} [Sun Jun 16 17:26:28 2019] GET /api/show_submissions => generated 48625 bytes in 13 msecs (HTTP/1.1 200) 7 headers in 276 bytes (2 switches on core 1)
+unable to load configuration from from multiprocessing.semaphore_tracker import main;main(21)
+1cf93550-8eb4-3c32-a229-826cf8c1be59
+test
+USER20190605213221
+[pid: 32172|app: 0|req: 1/9] 192.168.51.148 () {44 vars in 771 bytes} [Sun Jun 16 17:26:28 2019] GET /api/overview_submissions => generated 2440 bytes in 764 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 32173|app: 0|req: 6/10] 192.168.51.148 () {42 vars in 732 bytes} [Sun Jun 16 17:26:34 2019] GET /api/show_submissions => generated 48625 bytes in 90 msecs (HTTP/1.1 200) 7 headers in 276 bytes (2 switches on core 1)
+1cf93550-8eb4-3c32-a229-826cf8c1be59
+test
+USER20190605213221
+[pid: 32173|app: 0|req: 7/11] 192.168.51.148 () {42 vars in 740 bytes} [Sun Jun 16 17:26:34 2019] GET /api/overview_submissions => generated 2440 bytes in 7 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)

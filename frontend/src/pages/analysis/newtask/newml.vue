@@ -161,7 +161,7 @@ export default {
       })
     },
     updateData () {
-      axios.get('http://127.0.0.1:8000/api/show_data')
+      axios.get('/api/show_data')
         .then(response => {
           var res = response.data
           if (res.error_num === 0) {
@@ -176,7 +176,7 @@ export default {
     },
     newTask () {
       console.log(JSON.stringify(this.newform))
-      axios.post('http://127.0.0.1:8000/api/new_task', JSON.stringify(this.newform))
+      axios.post('/api/new_task', JSON.stringify(this.newform))
         .then(response => {
           var res = response.data
           if (res.error_num === 0) {

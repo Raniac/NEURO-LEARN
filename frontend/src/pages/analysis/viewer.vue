@@ -69,7 +69,7 @@
               </el-table-column>
             </el-table>
             <li v-for="(img_name, index) in resultImgList" :key="index" style="list-style: none; text-align: center">
-              <img class="result-image" :src="'http://127.0.0.1:8000/api/show_img?task_id=' + taskid + '&img_name=' + img_name">
+              <img class="result-image" :src="'/api/show_img?task_id=' + taskid + '&img_name=' + img_name">
             </li>
           </div>
         </div>
@@ -114,7 +114,7 @@ export default {
       this.showResults()
     },
     showResults () {
-      axios.get('http://127.0.0.1:8000/api/show_results?task_id=' + this.taskid)
+      axios.get('/api/show_results?task_id=' + this.taskid)
         .then(response => {
           var res = response.data
           console.log(res)

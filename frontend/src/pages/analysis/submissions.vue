@@ -119,7 +119,7 @@ export default {
   },
   methods: {
     showSubmissions () {
-      axios.get('http://127.0.0.1:8000/api/show_submissions')
+      axios.get('/api/show_submissions')
         .then(response => {
           var res = response.data
           if (res.error_num === 0) {

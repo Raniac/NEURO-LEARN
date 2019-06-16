@@ -4,7 +4,7 @@
       <div>
         <el-upload
           class="upload-demo"
-          action="http://127.0.0.1:8000/api/upload_data"
+          action="/api/upload_data"
           name="datafile"
           :on-change="handleChange"
           :on-success="uploadSuccess"
@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     showData () {
-      axios.get('http://127.0.0.1:8000/api/show_data')
+      axios.get('/api/show_data')
         .then(response => {
           var res = response.data
           if (res.error_num === 0) {

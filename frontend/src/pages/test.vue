@@ -2,7 +2,7 @@
   <div style="background-color: #FFFFFF; margin: 14px; padding: 14px">
     <el-upload
       class="upload-demo"
-      action="http://127.0.0.1:8000/api/upload_data"
+      action="/api/upload_data"
       name="datafile"
       :on-change="handleChange"
       :on-success="uploadSuccess"

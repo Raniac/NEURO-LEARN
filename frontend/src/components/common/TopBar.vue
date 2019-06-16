@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     showSubmissions () {
-      axios.get('http://127.0.0.1:8000/api/overview_submissions')
+      axios.get('/api/overview_submissions')
         .then(response => {
           var res = response.data
           if (res.error_num === 0) {

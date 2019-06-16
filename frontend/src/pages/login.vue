@@ -113,7 +113,7 @@ export default {
   },
   methods: {
     handleLogin () {
-      axios.get('http://http://192.168.51.148:80/api/login?username=' + this.loginForm.username + '&password=' + this.loginForm.password).then(response => {
+      axios.get('/api/login?username=' + this.loginForm.username + '&password=' + this.loginForm.password).then(response => {
         // var DjangoToken = this.getCookie('sessionid')
         // var username = this.getCookie('username')
         var res = response.data
@@ -137,7 +137,7 @@ export default {
       console.log(JSON.stringify(this.registerForm))
 
       axios.post(
-        'http://127.0.0.1:8000/api/register',
+        '/api/register',
         JSON.stringify(this.registerForm)
       )
         .then(response => {

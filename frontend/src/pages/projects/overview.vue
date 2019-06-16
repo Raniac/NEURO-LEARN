@@ -10,9 +10,9 @@
               and degree centrality</i>. The brain template used for ROI extraction is <i>Anatomical Automatic
               Labeling 90</i>.</p>
             <p>To configure the DPASFA toolbox, you can download the
-              <a href="http://127.0.0.1:8000/api/download_templates?template_type=workflow_templates" target="_self" style="color: #00CCFF">workflow templates</a>.
+              <a href="/api/download_templates?template_type=workflow_templates" target="_self" style="color: #00CCFF">workflow templates</a>.
               The format and feature data arrangement of the dataset should be strictly the same as the
-              <a href="http://127.0.0.1:8000/api/download_templates?template_type=dataset_templates" target="_self" style="color: #00CCFF">dataset templates</a>.</p>
+              <a href="/api/download_templates?template_type=dataset_templates" target="_self" style="color: #00CCFF">dataset templates</a>.</p>
             <p>If you have a dataset prepared, you can <router-link to="/projects/data/sz_with_sfmri" style="color: #00CCFF">upload</router-link> it for analysis.</p>
           </div>
           <div style="text-align: center">
