@@ -82,7 +82,6 @@ def user_register(request):
         response_content['msg'] = str(e)
         response_content['error_num'] = 1
     
-    response["Access-Control-Allow-Origin"] = "http://localhost:8080"
     response["Access-Control-Allow-Credentials"] = "true"
     response["Access-Control-Allow-Methods"] = "GET,POST"
     response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"
@@ -119,7 +118,6 @@ def user_login(request):
         response_content['msg'] = str(e)
         response_content['error_num'] = 1
 
-    response["Access-Control-Allow-Origin"] = "http://localhost:8080"
     response["Access-Control-Allow-Credentials"] = "true"
     response["Access-Control-Allow-Methods"] = "GET,POST"
     response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"
@@ -156,7 +154,6 @@ def overview_submissions(request):
         response_content['msg'] = str(e)
         response_content['error_num'] = 1
 
-    response["Access-Control-Allow-Origin"] = "http://localhost:8080"
     response["Access-Control-Allow-Credentials"] = "true"
     response["Access-Control-Allow-Methods"] = "GET,POST"
     response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"
@@ -223,7 +220,6 @@ def new_task(request):
         response_content['msg'] = str(e)
         response_content['error_num'] = 1
 
-    response["Access-Control-Allow-Origin"] = "http://localhost:8080"
     response["Access-Control-Allow-Credentials"] = "true"
     response["Access-Control-Allow-Methods"] = "GET,POST"
     response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"
@@ -244,7 +240,6 @@ def show_submissions(request):
         response_content['msg'] = str(e)
         response_content['error_num'] = 1
 
-    response["Access-Control-Allow-Origin"] = "http://localhost:8080"
     response["Access-Control-Allow-Credentials"] = "true"
     response["Access-Control-Allow-Methods"] = "GET,POST"
     response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"
@@ -276,7 +271,6 @@ def upload_data(request):
         response_content['msg'] = str(e)
         response_content['error_num'] = 1
 
-    response["Access-Control-Allow-Origin"] = "http://localhost:8080"
     response["Access-Control-Allow-Credentials"] = "true"
     response["Access-Control-Allow-Methods"] = "PUT,POST,GET,DELETE,OPTIONS"
     response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token,X-Requested-With"
@@ -313,7 +307,6 @@ def show_data(request):
         response_content['msg'] = str(e)
         response_content['error_num'] = 1
 
-    response["Access-Control-Allow-Origin"] = "http://localhost:8080"
     response["Access-Control-Allow-Credentials"] = "true"
     response["Access-Control-Allow-Methods"] = "GET,POST"
     response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"
@@ -347,7 +340,6 @@ def show_results(request):
         response_content['msg'] = json.dumps(Submissions_Demo.objects.get(task_id=task_id).task_result)
         response_content['error_num'] = 1
 
-    response["Access-Control-Allow-Origin"] = "http://localhost:8080"
     response["Access-Control-Allow-Credentials"] = "true"
     response["Access-Control-Allow-Methods"] = "GET,POST"
     response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"

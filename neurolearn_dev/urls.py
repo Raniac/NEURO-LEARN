@@ -23,3 +23,8 @@ urlpatterns = [
     url(r'^api/', include(backend.urls)),
     url(r'^$', TemplateView.as_view(template_name="index.html")),
 ]
+
+from django.conf.urls.static import static
+from neurolearn_dev import settings
+
+urlpatterns += static('/static/', document_root=settings.STATIC_ROOT)
