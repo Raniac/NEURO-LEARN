@@ -13,18 +13,20 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf.urls import url, include
+from django.conf.urls import url, include, re_path
 from django.contrib import admin
 from django.views.generic import TemplateView
 import backend.urls
+from django.views.generic.base import RedirectView
+from neurolearn_dev import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include(backend.urls)),
     url(r'^$', TemplateView.as_view(template_name="index.html")),
+    url(r'^favicon.ico$', RedirectView.as_view(url=settings.STATIC_URL + r'favicon.ico')),
 ]
 
 from django.conf.urls.static import static
-from neurolearn_dev import settings
 
 urlpatterns += static('/static/', document_root=settings.STATIC_ROOT)
