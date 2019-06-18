@@ -111,3 +111,58 @@ FileNotFoundError: [Errno 2] No such file or directory: 'results/TASK20190613180
 [pid: 6757|app: 0|req: 2/16] 192.168.51.148 () {42 vars in 790 bytes} [Tue Jun 18 11:53:00 2019] GET /api/show_img?task_id=TASK20190613180347&img_name=ROC_curve => generated 103780 bytes in 215 msecs (HTTP/1.1 200) 4 headers in 111 bytes (1 switches on core 1)
 [pid: 6760|app: 0|req: 4/17] 192.168.51.148 () {42 vars in 779 bytes} [Tue Jun 18 11:53:01 2019] GET /api/show_results?task_id=TASK20190618105459 => generated 1166 bytes in 24 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
 [pid: 6763|app: 0|req: 10/18] 192.168.51.148 () {44 vars in 868 bytes} [Tue Jun 18 11:53:05 2019] GET /api/download_feature_weights?task_id=TASK20190618105459 => generated 1652 bytes in 0 msecs via sendfile() (HTTP/1.1 200) 4 headers in 185 bytes (0 switches on core 1)
+*** Starting uWSGI 2.0.18 (64bit) on [Tue Jun 18 12:08:59 2019] ***
+compiled with version: 7.4.0 on 16 June 2019 06:41:54
+os: Linux-4.15.0-51-generic #55-Ubuntu SMP Wed May 15 14:27:21 UTC 2019
+nodename: bennyray
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 8
+current working directory: /home/bennyray/Projects/neuro-learn/web/neurolearn_dev
+writing pidfile to uwsgi.pid
+detected binary path: /home/bennyray/Projects/neuro-learn/env/bin/uwsgi
+chdir() to /home/bennyray/Projects/neuro-learn/web/neurolearn_dev/
+your processes number limit is 63476
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 0.0.0.0:9090 fd 3
+Python version: 3.6.8 (default, Jan 14 2019, 11:02:34)  [GCC 8.0.1 20180414 (experimental) [trunk revision 259383]]
+Python main interpreter initialized at 0x55cb0a059220
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 416880 bytes (407 KB) for 8 cores
+*** Operational MODE: preforking+threaded ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x55cb0a059220 pid: 10325 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 10325)
+spawned uWSGI worker 1 (pid: 10329, cores: 2)
+spawned uWSGI worker 2 (pid: 10331, cores: 2)
+spawned uWSGI worker 3 (pid: 10333, cores: 2)
+spawned uWSGI worker 4 (pid: 10335, cores: 2)
+unable to load configuration from from multiprocessing.semaphore_tracker import main;main(21)
+[pid: 10329|app: 0|req: 1/1] 192.168.51.148 () {42 vars in 721 bytes} [Tue Jun 18 12:09:12 2019] GET / => generated 562 bytes in 630 msecs (HTTP/1.1 200) 4 headers in 123 bytes (1 switches on core 0)
+unable to load configuration from from multiprocessing.semaphore_tracker import main;main(21)
+ef1b304f-2fb6-3f8b-bd37-d51b1dd61b4b
+Raniac
+USER20190605173800
+[pid: 10333|app: 0|req: 2/2] 192.168.51.148 () {40 vars in 659 bytes} [Tue Jun 18 12:09:13 2019] GET /favicon.ico => generated 0 bytes in 484 msecs (HTTP/1.1 302) 5 headers in 155 bytes (1 switches on core 1)
+[pid: 10333|app: 0|req: 2/3] 192.168.51.148 () {42 vars in 742 bytes} [Tue Jun 18 12:09:13 2019] GET /api/overview_submissions => generated 2693 bytes in 728 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 10333|app: 0|req: 3/4] 192.168.51.148 () {40 vars in 729 bytes} [Tue Jun 18 12:09:27 2019] GET / => generated 562 bytes in 9 msecs (HTTP/1.1 200) 4 headers in 123 bytes (1 switches on core 1)
+unable to load configuration from from multiprocessing.semaphore_tracker import main;main(21)
+None
+None
+None
+[pid: 10335|app: 0|req: 2/5] 192.168.51.148 () {40 vars in 675 bytes} [Tue Jun 18 12:09:27 2019] GET /favicon.ico => generated 0 bytes in 390 msecs (HTTP/1.1 302) 5 headers in 155 bytes (1 switches on core 1)
+[pid: 10335|app: 0|req: 2/6] 192.168.51.148 () {40 vars in 695 bytes} [Tue Jun 18 12:09:27 2019] GET /api/overview_submissions => generated 2693 bytes in 639 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 10333|app: 0|req: 4/7] 192.168.51.148 () {42 vars in 734 bytes} [Tue Jun 18 12:09:37 2019] GET /api/show_submissions => generated 50606 bytes in 10 msecs (HTTP/1.1 200) 7 headers in 276 bytes (2 switches on core 0)
+ef1b304f-2fb6-3f8b-bd37-d51b1dd61b4b
+Raniac
+USER20190605173800
+[pid: 10335|app: 0|req: 3/8] 192.168.51.148 () {42 vars in 742 bytes} [Tue Jun 18 12:09:41 2019] GET /api/overview_submissions => generated 2693 bytes in 8 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+[pid: 10333|app: 0|req: 5/9] 192.168.51.148 () {42 vars in 779 bytes} [Tue Jun 18 12:09:42 2019] GET /api/show_results?task_id=TASK20190618105459 => generated 1166 bytes in 7 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+[pid: 10333|app: 0|req: 7/10] 192.168.51.148 () {42 vars in 808 bytes} [Tue Jun 18 12:09:42 2019] GET /api/show_img?task_id=TASK20190618105459&img_name=optimization_curve => generated 112588 bytes in 154 msecs (HTTP/1.1 200) 4 headers in 111 bytes (1 switches on core 0)
+[pid: 10333|app: 0|req: 7/11] 192.168.51.148 () {42 vars in 790 bytes} [Tue Jun 18 12:09:42 2019] GET /api/show_img?task_id=TASK20190618105459&img_name=ROC_curve => generated 104095 bytes in 168 msecs (HTTP/1.1 200) 4 headers in 111 bytes (1 switches on core 1)
