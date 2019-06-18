@@ -329,9 +329,12 @@ def show_results(request):
         response_content['info']  = json.loads(serializers.serialize("json", task_info))
 
         img_list = []
+        response_content['got_weights'] = 0
         for filename in os.listdir('results/' + task_id):
             if filename[-4:] == '.png':
                 img_list.append(filename[:-4])
+            if filename == 'feature_weights.csv':
+                response_content['got_weights'] = 1
         response_content['img_list'] = img_list
 
         response_content['msg'] = 'success'
@@ -361,11 +364,20 @@ def show_img(request):
 
 @require_http_methods(["GET"])
 def download_templates(request):
-    response = {}
     template_type = request.GET.get('template_type')
 
-    template_file=open('templates/' + template_type + '.zip', 'rb')
-    response =FileResponse(template_file)
+    template_file = open('templates/' + template_type + '.zip', 'rb')
+    response = FileResponse(template_file)
     response['Content-Type']='application/octet-stream'
     response['Content-Disposition']='attachment;filename=\"' + template_type + '.zip\"'
+    return response
+
+@require_http_methods(["GET"])
+def download_feature_weights(request):
+    task_id = request.GET.get('task_id')
+    feature_weights_file = open('results/' + task_id + '/' + 'feature_weights.csv', 'rb')
+    
+    response = FileResponse(feature_weights_file)
+    response['Content-Type']='application/octet-stream'
+    response['Content-Disposition']='attachment;filename=\"' + task_id + '/' + 'feature_weights.csv\"'
     return response

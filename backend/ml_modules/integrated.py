@@ -14,6 +14,8 @@ from sklearn.metrics import roc_auc_score, auc
 def integrated_clf_model(result_path, feat_sel, model, train_data, test_data, cv):
     starttime = time.time()
 
+    feature_list = train_data.list_features
+
     if feat_sel == None:
         pipe = Pipeline(steps=[
             (model.name, model.model)
@@ -68,6 +70,30 @@ def integrated_clf_model(result_path, feat_sel, model, train_data, test_data, cv
         plt.title('Optimization Curve')
 
         plt.savefig(result_path + '/' + 'optimization_curve.png', dpi=300)
+
+        selector = optimal_model.named_steps['anova'].get_support()
+        selected_feature_list = np.array(feature_list)[selector]
+        
+        if model.name == 'svm':
+            selected_weight_list = optimal_model.named_steps['svm'].coef_[0]
+            feature_weights_list = pd.DataFrame({'Feature': selected_feature_list, 'Weight': selected_weight_list})
+
+        elif model.name == 'rf':
+            selected_weight_list = optimal_model.named_steps['rf'].feature_importances_
+            feature_weights_list = pd.DataFrame({'Feature': selected_feature_list, 'Weight': selected_weight_list})
+
+        elif model.name == 'lr':
+            selected_weight_list = optimal_model.named_steps['lr'].coef_[0]
+            feature_weights_list = pd.DataFrame({'Feature': selected_feature_list, 'Weight': selected_weight_list})
+
+        elif model.name == 'lda':
+            selected_weight_list = optimal_model.named_steps['lda'].coef_[0]
+            feature_weights_list = pd.DataFrame({'Feature': selected_feature_list, 'Weight': selected_weight_list})
+
+        try:
+            feature_weights_list.to_csv(path_or_buf=result_path + '/' + 'feature_weights.csv')
+        except Exception as e:
+            print(e)
 
     elif feat_sel and feat_sel.name == 'rfe':
         plt.figure()

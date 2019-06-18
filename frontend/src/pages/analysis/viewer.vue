@@ -68,6 +68,7 @@
                 prop="Value">
               </el-table-column>
             </el-table>
+            <el-button type="primary" style="margin-top: 14px" round @click="handleDownloadFeatureWeights" v-if="showDownloadButton">Download Feature_Weights.csv</el-button>
             <li v-for="(img_name, index) in resultImgList" :key="index" style="list-style: none; text-align: center">
               <img class="result-image" :src="'/api/show_img?task_id=' + taskid + '&img_name=' + img_name">
             </li>
@@ -113,6 +114,10 @@ export default {
       this.taskid = this.tabsValue
       this.showResults()
     },
+    handleDownloadFeatureWeights () {
+      console.log(this.taskid)
+      window.location.href = '/api/download_feature_weights?task_id=' + this.taskid
+    },
     showResults () {
       axios.get('/api/show_results?task_id=' + this.taskid)
         .then(response => {
@@ -126,6 +131,11 @@ export default {
             console.log(this.taskinfo)
             console.log(this.resultData)
             console.log(this.resultImgList)
+            if (res.got_weights === 1) {
+              this.showDownloadButton = true
+            } else {
+              this.showDownloadButton = false
+            }
           } else {
             this.$alert(res['msg'].slice(1, -1), 'Error!', {
               confirmButtonText: 'Confirm',
@@ -142,6 +152,8 @@ export default {
   },
   data () {
     return {
+      taskid: '',
+      tasktype: '',
       taskSelections: [],
       taskSelection: {},
       pfmimgurl: '',
@@ -149,7 +161,8 @@ export default {
       taskinfo: [],
       resultData: [],
       resultImgList: [],
-      tabsValue: ''
+      tabsValue: '',
+      showDownloadButton: false
     }
   }
 }
