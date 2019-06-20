@@ -2,10 +2,14 @@
   <div>
     <div class="sz-sfmri-data-area">
       <div>
+        <el-input placeholder="Search data by name" v-model="search_input" class="input-with-select" style="width: 50%">
+          <el-button slot="append" icon="el-icon-search"></el-button>
+        </el-input>
         <el-upload
           class="upload-demo"
           action="/api/upload_data"
           name="datafile"
+          style="float: right"
           :on-change="handleChange"
           :on-success="uploadSuccess"
           :file-list="fileList">
@@ -15,7 +19,7 @@
       <div style="margin-top: 14px">
         <el-table
           class="data-table"
-          :data="data_table.slice((currpage - 1) * pagesize, currpage * pagesize)"
+          :data="data_table.filter(data => (!search_input || data.fields.data_name.toLowerCase().includes(search_input.toLowerCase()))).slice((currpage - 1) * pagesize, currpage * pagesize)"
           stripe
           border
           style="width: 100%; background-color: #E8E8E8; color: #282828"
@@ -53,7 +57,8 @@ export default {
       data_table: [],
       fileList: [],
       pagesize: 10,
-      currpage: 1
+      currpage: 1,
+      search_input: ''
     }
   },
   mounted: function () {
@@ -100,6 +105,9 @@ export default {
 .sz-sfmri-data-area {
   margin: 14px;
   padding: 28px;
+  background-color: #FFFFFF;
+}
+.input-with-select .el-input-group__prepend {
   background-color: #FFFFFF;
 }
 </style>

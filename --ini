@@ -166,3 +166,319 @@ USER20190605173800
 [pid: 10333|app: 0|req: 5/9] 192.168.51.148 () {42 vars in 779 bytes} [Tue Jun 18 12:09:42 2019] GET /api/show_results?task_id=TASK20190618105459 => generated 1166 bytes in 7 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
 [pid: 10333|app: 0|req: 7/10] 192.168.51.148 () {42 vars in 808 bytes} [Tue Jun 18 12:09:42 2019] GET /api/show_img?task_id=TASK20190618105459&img_name=optimization_curve => generated 112588 bytes in 154 msecs (HTTP/1.1 200) 4 headers in 111 bytes (1 switches on core 0)
 [pid: 10333|app: 0|req: 7/11] 192.168.51.148 () {42 vars in 790 bytes} [Tue Jun 18 12:09:42 2019] GET /api/show_img?task_id=TASK20190618105459&img_name=ROC_curve => generated 104095 bytes in 168 msecs (HTTP/1.1 200) 4 headers in 111 bytes (1 switches on core 1)
+unable to load configuration from from multiprocessing.semaphore_tracker import main;main(21)
+[pid: 10331|app: 0|req: 1/12] 192.168.51.148 () {42 vars in 734 bytes} [Tue Jun 18 12:14:04 2019] GET /api/show_submissions => generated 50606 bytes in 643 msecs (HTTP/1.1 200) 7 headers in 276 bytes (2 switches on core 0)
+[pid: 10333|app: 0|req: 8/13] 192.168.51.148 () {42 vars in 734 bytes} [Tue Jun 18 12:14:26 2019] GET /api/show_submissions => generated 50606 bytes in 9 msecs (HTTP/1.1 200) 7 headers in 276 bytes (2 switches on core 0)
+[pid: 10329|app: 0|req: 2/14] 192.168.51.148 () {44 vars in 752 bytes} [Tue Jun 18 13:30:47 2019] GET / => generated 562 bytes in 0 msecs (HTTP/1.1 200) 4 headers in 123 bytes (1 switches on core 1)
+ef1b304f-2fb6-3f8b-bd37-d51b1dd61b4b
+Raniac
+USER20190605173800
+[pid: 10331|app: 0|req: 2/15] 192.168.51.148 () {44 vars in 773 bytes} [Tue Jun 18 13:30:47 2019] GET /api/overview_submissions => generated 2693 bytes in 10 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+[pid: 10333|app: 0|req: 9/16] 192.168.51.148 () {44 vars in 765 bytes} [Tue Jun 18 13:30:47 2019] GET /api/show_submissions => generated 50606 bytes in 10 msecs (HTTP/1.1 200) 7 headers in 276 bytes (2 switches on core 1)
+[pid: 10335|app: 0|req: 4/17] 192.168.51.148 () {42 vars in 721 bytes} [Tue Jun 18 13:30:55 2019] GET / => generated 562 bytes in 4 msecs (HTTP/1.1 200) 4 headers in 123 bytes (1 switches on core 1)
+ef1b304f-2fb6-3f8b-bd37-d51b1dd61b4b
+Raniac
+USER20190605173800
+[pid: 10329|app: 0|req: 3/18] 192.168.51.148 () {42 vars in 742 bytes} [Tue Jun 18 13:30:55 2019] GET /api/overview_submissions => generated 2693 bytes in 97 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 10329|app: 0|req: 4/19] 192.168.51.148 () {42 vars in 721 bytes} [Tue Jun 18 13:31:08 2019] GET / => generated 562 bytes in 0 msecs (HTTP/1.1 200) 4 headers in 123 bytes (1 switches on core 1)
+ef1b304f-2fb6-3f8b-bd37-d51b1dd61b4b
+Raniac
+USER20190605173800
+[pid: 10333|app: 0|req: 10/20] 192.168.51.148 () {42 vars in 742 bytes} [Tue Jun 18 13:31:08 2019] GET /api/overview_submissions => generated 2693 bytes in 9 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 10335|app: 0|req: 5/21] 192.168.51.148 () {40 vars in 659 bytes} [Tue Jun 18 13:31:08 2019] GET /favicon.ico => generated 0 bytes in 0 msecs (HTTP/1.1 302) 5 headers in 155 bytes (1 switches on core 0)
+[pid: 10333|app: 0|req: 11/22] 192.168.51.148 () {42 vars in 721 bytes} [Tue Jun 18 13:31:22 2019] GET / => generated 562 bytes in 1 msecs (HTTP/1.1 200) 4 headers in 123 bytes (1 switches on core 1)
+ef1b304f-2fb6-3f8b-bd37-d51b1dd61b4b
+Raniac
+USER20190605173800
+[pid: 10335|app: 0|req: 6/23] 192.168.51.148 () {42 vars in 742 bytes} [Tue Jun 18 13:31:22 2019] GET /api/overview_submissions => generated 2693 bytes in 7 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+[pid: 10335|app: 0|req: 7/24] 192.168.51.148 () {40 vars in 659 bytes} [Tue Jun 18 13:31:23 2019] GET /favicon.ico => generated 0 bytes in 0 msecs (HTTP/1.1 302) 5 headers in 155 bytes (1 switches on core 0)
+[pid: 10335|app: 0|req: 8/25] 192.168.51.148 () {42 vars in 734 bytes} [Tue Jun 18 14:42:55 2019] GET /api/show_submissions => generated 50606 bytes in 12 msecs (HTTP/1.1 200) 7 headers in 276 bytes (2 switches on core 1)
+ef1b304f-2fb6-3f8b-bd37-d51b1dd61b4b
+Raniac
+USER20190605173800
+[pid: 10335|app: 0|req: 9/26] 192.168.51.148 () {42 vars in 742 bytes} [Tue Jun 18 14:42:58 2019] GET /api/overview_submissions => generated 2693 bytes in 8 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 10335|app: 0|req: 10/27] 192.168.51.148 () {42 vars in 734 bytes} [Tue Jun 18 14:43:00 2019] GET /api/show_submissions => generated 50606 bytes in 10 msecs (HTTP/1.1 200) 7 headers in 276 bytes (2 switches on core 1)
+[pid: 10335|app: 0|req: 11/28] 192.168.51.148 () {42 vars in 734 bytes} [Tue Jun 18 14:43:02 2019] GET /api/show_submissions => generated 50606 bytes in 8 msecs (HTTP/1.1 200) 7 headers in 276 bytes (2 switches on core 0)
+[pid: 10335|app: 0|req: 12/29] 192.168.51.148 () {42 vars in 779 bytes} [Tue Jun 18 14:43:07 2019] GET /api/show_results?task_id=TASK20190618105459 => generated 1166 bytes in 10 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+[pid: 10333|app: 0|req: 13/30] 192.168.51.148 () {42 vars in 808 bytes} [Tue Jun 18 14:43:07 2019] GET /api/show_img?task_id=TASK20190618105459&img_name=optimization_curve => generated 112588 bytes in 147 msecs (HTTP/1.1 200) 4 headers in 111 bytes (1 switches on core 0)
+[pid: 10333|app: 0|req: 13/31] 192.168.51.148 () {42 vars in 790 bytes} [Tue Jun 18 14:43:07 2019] GET /api/show_img?task_id=TASK20190618105459&img_name=ROC_curve => generated 104095 bytes in 166 msecs (HTTP/1.1 200) 4 headers in 111 bytes (1 switches on core 1)
+[pid: 10331|app: 0|req: 3/32] 192.168.51.148 () {42 vars in 779 bytes} [Tue Jun 18 14:43:08 2019] GET /api/show_results?task_id=TASK20190613180607 => generated 1118 bytes in 14 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+Internal Server Error: /api/show_img
+Traceback (most recent call last):
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/django/core/handlers/base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/django/core/handlers/base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "./backend/views.py", line 360, in show_img
+    img = Image.open('results/' + task_id + '/' + img_name + '.png')
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/PIL/Image.py", line 2634, in open
+    fp = builtins.open(filename, "rb")
+FileNotFoundError: [Errno 2] No such file or directory: 'results/TASK20190613180607/optimization_curve.png'
+[pid: 10335|app: 0|req: 14/33] 192.168.51.148 () {42 vars in 808 bytes} [Tue Jun 18 14:43:08 2019] GET /api/show_img?task_id=TASK20190613180607&img_name=optimization_curve => generated 71976 bytes in 69 msecs (HTTP/1.1 500) 4 headers in 137 bytes (1 switches on core 0)
+[pid: 10335|app: 0|req: 14/34] 192.168.51.148 () {42 vars in 790 bytes} [Tue Jun 18 14:43:08 2019] GET /api/show_img?task_id=TASK20190613180607&img_name=ROC_curve => generated 104095 bytes in 225 msecs (HTTP/1.1 200) 4 headers in 111 bytes (1 switches on core 1)
+[pid: 10335|app: 0|req: 16/35] 192.168.51.148 () {42 vars in 779 bytes} [Tue Jun 18 14:43:09 2019] GET /api/show_results?task_id=TASK20190613180347 => generated 1181 bytes in 8 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+[pid: 10335|app: 0|req: 17/36] 192.168.51.148 () {42 vars in 790 bytes} [Tue Jun 18 14:43:09 2019] GET /api/show_img?task_id=TASK20190613180347&img_name=ROC_curve => generated 103780 bytes in 212 msecs (HTTP/1.1 200) 4 headers in 111 bytes (1 switches on core 0)
+[pid: 10335|app: 0|req: 17/37] 192.168.51.148 () {42 vars in 808 bytes} [Tue Jun 18 14:43:09 2019] GET /api/show_img?task_id=TASK20190613180347&img_name=optimization_curve => generated 112277 bytes in 179 msecs (HTTP/1.1 200) 4 headers in 111 bytes (1 switches on core 1)
+[pid: 10335|app: 0|req: 18/38] 192.168.51.148 () {42 vars in 779 bytes} [Tue Jun 18 14:43:10 2019] GET /api/show_results?task_id=TASK20190618105459 => generated 1166 bytes in 6 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 10335|app: 0|req: 19/39] 192.168.51.148 () {42 vars in 779 bytes} [Tue Jun 18 14:43:11 2019] GET /api/show_results?task_id=TASK20190613180607 => generated 1118 bytes in 8 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+Internal Server Error: /api/show_img
+Traceback (most recent call last):
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/django/core/handlers/base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/django/core/handlers/base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "./backend/views.py", line 360, in show_img
+    img = Image.open('results/' + task_id + '/' + img_name + '.png')
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/PIL/Image.py", line 2634, in open
+    fp = builtins.open(filename, "rb")
+FileNotFoundError: [Errno 2] No such file or directory: 'results/TASK20190613180607/optimization_curve.png'
+Tue Jun 18 14:43:11 2019 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 341] during GET /api/show_img?task_id=TASK20190613180607&img_name=optimization_curve (192.168.51.148)
+OSError: write error
+[pid: 10333|app: 0|req: 14/40] 192.168.51.148 () {42 vars in 808 bytes} [Tue Jun 18 14:43:11 2019] GET /api/show_img?task_id=TASK20190613180607&img_name=optimization_curve => generated 21751 bytes in 55 msecs (HTTP/1.1 500) 4 headers in 137 bytes (0 switches on core 0)
+[pid: 10333|app: 0|req: 15/41] 192.168.51.148 () {42 vars in 779 bytes} [Tue Jun 18 14:43:14 2019] GET /api/show_results?task_id=TASK20190613180347 => generated 1181 bytes in 7 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+[pid: 10333|app: 0|req: 16/42] 192.168.51.148 () {42 vars in 779 bytes} [Tue Jun 18 14:43:15 2019] GET /api/show_results?task_id=TASK20190618105459 => generated 1166 bytes in 10 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 10331|app: 0|req: 4/43] 192.168.51.148 () {44 vars in 868 bytes} [Tue Jun 18 14:43:17 2019] GET /api/download_feature_weights?task_id=TASK20190618105459 => generated 1652 bytes in 4 msecs via sendfile() (HTTP/1.1 200) 4 headers in 185 bytes (0 switches on core 1)
+[pid: 10335|app: 0|req: 20/44] 192.168.51.148 () {42 vars in 779 bytes} [Tue Jun 18 14:43:22 2019] GET /api/show_results?task_id=TASK20190613180607 => generated 1118 bytes in 6 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+Internal Server Error: /api/show_img
+Traceback (most recent call last):
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/django/core/handlers/base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/django/core/handlers/base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "./backend/views.py", line 360, in show_img
+    img = Image.open('results/' + task_id + '/' + img_name + '.png')
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/PIL/Image.py", line 2634, in open
+    fp = builtins.open(filename, "rb")
+FileNotFoundError: [Errno 2] No such file or directory: 'results/TASK20190613180607/optimization_curve.png'
+Tue Jun 18 14:43:22 2019 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 341] during GET /api/show_img?task_id=TASK20190613180607&img_name=optimization_curve (192.168.51.148)
+OSError: write error
+[pid: 10331|app: 0|req: 5/45] 192.168.51.148 () {42 vars in 808 bytes} [Tue Jun 18 14:43:22 2019] GET /api/show_img?task_id=TASK20190613180607&img_name=optimization_curve => generated 21751 bytes in 48 msecs (HTTP/1.1 500) 4 headers in 137 bytes (0 switches on core 0)
+[pid: 10333|app: 0|req: 17/46] 192.168.51.148 () {42 vars in 779 bytes} [Tue Jun 18 14:43:23 2019] GET /api/show_results?task_id=TASK20190613180347 => generated 1181 bytes in 6 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+[pid: 10331|app: 0|req: 6/47] 192.168.51.148 () {42 vars in 779 bytes} [Tue Jun 18 14:43:24 2019] GET /api/show_results?task_id=TASK20190618105459 => generated 1166 bytes in 18 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+[pid: 10333|app: 0|req: 18/48] 192.168.51.148 () {44 vars in 868 bytes} [Tue Jun 18 14:43:25 2019] GET /api/download_feature_weights?task_id=TASK20190618105459 => generated 1652 bytes in 3 msecs via sendfile() (HTTP/1.1 200) 4 headers in 185 bytes (0 switches on core 0)
+[pid: 10335|app: 0|req: 21/49] 192.168.51.159 () {44 vars in 734 bytes} [Tue Jun 18 14:44:03 2019] GET / => generated 562 bytes in 1 msecs (HTTP/1.1 200) 4 headers in 123 bytes (1 switches on core 1)
+None
+None
+USER20190605173800
+[pid: 10333|app: 0|req: 19/50] 192.168.51.159 () {44 vars in 755 bytes} [Tue Jun 18 14:44:05 2019] GET /api/overview_submissions => generated 2693 bytes in 11 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+[pid: 10335|app: 0|req: 22/51] 192.168.51.159 () {42 vars in 672 bytes} [Tue Jun 18 14:44:05 2019] GET /favicon.ico => generated 0 bytes in 1 msecs (HTTP/1.1 302) 5 headers in 155 bytes (1 switches on core 0)
+1cf93550-8eb4-3c32-a229-826cf8c1be59
+[pid: 10329|app: 0|req: 5/52] 192.168.51.159 () {42 vars in 749 bytes} [Tue Jun 18 14:53:17 2019] GET /api/login?username=test&password=test => generated 117 bytes in 32 msecs (HTTP/1.1 200) 10 headers in 545 bytes (2 switches on core 0)
+[pid: 10329|app: 0|req: 6/53] 192.168.51.159 () {42 vars in 779 bytes} [Tue Jun 18 14:53:19 2019] GET /api/show_submissions => generated 50606 bytes in 23 msecs (HTTP/1.1 200) 7 headers in 276 bytes (2 switches on core 1)
+[pid: 10329|app: 0|req: 7/54] 192.168.51.159 () {42 vars in 824 bytes} [Tue Jun 18 14:53:56 2019] GET /api/show_results?task_id=TASK20190613155817 => generated 1160 bytes in 14 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 10329|app: 0|req: 8/55] 192.168.51.159 () {42 vars in 853 bytes} [Tue Jun 18 14:53:57 2019] GET /api/show_img?task_id=TASK20190613155817&img_name=optimization_curve => generated 93577 bytes in 157 msecs (HTTP/1.1 200) 4 headers in 110 bytes (1 switches on core 1)
+[pid: 10335|app: 0|req: 23/56] 192.168.51.159 () {42 vars in 835 bytes} [Tue Jun 18 14:53:57 2019] GET /api/show_img?task_id=TASK20190613155817&img_name=ROC_curve => generated 104234 bytes in 161 msecs (HTTP/1.1 200) 4 headers in 111 bytes (1 switches on core 1)
+[pid: 10331|app: 0|req: 8/57] 192.168.51.159 () {42 vars in 824 bytes} [Tue Jun 18 14:53:58 2019] GET /api/show_results?task_id=TASK20190612104438 => generated 1155 bytes in 4 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+[pid: 10329|app: 0|req: 9/58] 192.168.51.159 () {42 vars in 853 bytes} [Tue Jun 18 14:53:58 2019] GET /api/show_img?task_id=TASK20190612104438&img_name=optimization_curve => generated 112167 bytes in 134 msecs (HTTP/1.1 200) 4 headers in 111 bytes (1 switches on core 0)
+[pid: 10331|app: 0|req: 8/59] 192.168.51.159 () {42 vars in 835 bytes} [Tue Jun 18 14:53:58 2019] GET /api/show_img?task_id=TASK20190612104438&img_name=ROC_curve => generated 103976 bytes in 152 msecs (HTTP/1.1 200) 4 headers in 111 bytes (1 switches on core 0)
+[pid: 10335|app: 0|req: 24/60] 192.168.51.159 () {42 vars in 824 bytes} [Tue Jun 18 14:54:00 2019] GET /api/show_results?task_id=TASK20190613155817 => generated 1160 bytes in 10 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 10329|app: 0|req: 10/61] 192.168.51.159 () {42 vars in 824 bytes} [Tue Jun 18 14:54:07 2019] GET /api/show_results?task_id=TASK20190612104438 => generated 1155 bytes in 7 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+None
+None
+None
+[pid: 10335|app: 0|req: 25/62] 192.168.51.148 () {40 vars in 636 bytes} [Tue Jun 18 15:22:06 2019] GET /api/overview_submissions => generated 2693 bytes in 11 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+[pid: 10333|app: 0|req: 20/63] 192.168.51.148 () {40 vars in 614 bytes} [Tue Jun 18 15:22:39 2019] GET /api/show_data => generated 2244 bytes in 2 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 10333|app: 0|req: 21/64] 192.168.51.148 () {40 vars in 614 bytes} [Tue Jun 18 15:22:43 2019] GET /api/show_data => generated 2244 bytes in 2 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+[pid: 10331|app: 0|req: 9/65] 192.168.51.148 () {40 vars in 628 bytes} [Tue Jun 18 15:22:47 2019] GET /api/show_submissions => generated 50606 bytes in 9 msecs (HTTP/1.1 200) 7 headers in 276 bytes (2 switches on core 1)
+[pid: 10333|app: 0|req: 22/66] 192.168.51.148 () {40 vars in 673 bytes} [Tue Jun 18 15:23:06 2019] GET /api/show_results?task_id=TASK20190618105459 => generated 1166 bytes in 4 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 10333|app: 0|req: 23/67] 192.168.51.148 () {42 vars in 646 bytes} [Tue Jun 18 15:23:27 2019] GET / => generated 562 bytes in 2 msecs (HTTP/1.1 200) 4 headers in 123 bytes (1 switches on core 1)
+None
+None
+None
+[pid: 10335|app: 0|req: 26/68] 192.168.51.148 () {42 vars in 667 bytes} [Tue Jun 18 15:23:28 2019] GET /api/overview_submissions => generated 2693 bytes in 7 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+None
+None
+None
+[pid: 10335|app: 0|req: 27/69] 192.168.51.148 () {40 vars in 636 bytes} [Tue Jun 18 15:23:35 2019] GET /api/overview_submissions => generated 2693 bytes in 8 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+[pid: 10333|app: 0|req: 24/70] 192.168.51.148 () {40 vars in 673 bytes} [Tue Jun 18 15:23:36 2019] GET /api/show_results?task_id=TASK20190618105459 => generated 1166 bytes in 6 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 10335|app: 0|req: 29/71] 192.168.51.148 () {42 vars in 733 bytes} [Tue Jun 18 15:23:36 2019] GET /api/show_img?task_id=TASK20190618105459&img_name=optimization_curve => generated 112588 bytes in 140 msecs (HTTP/1.1 200) 4 headers in 111 bytes (1 switches on core 0)
+[pid: 10335|app: 0|req: 29/72] 192.168.51.148 () {42 vars in 715 bytes} [Tue Jun 18 15:23:36 2019] GET /api/show_img?task_id=TASK20190618105459&img_name=ROC_curve => generated 104095 bytes in 157 msecs (HTTP/1.1 200) 4 headers in 111 bytes (1 switches on core 1)
+[pid: 10333|app: 0|req: 25/73] 192.168.51.148 () {40 vars in 628 bytes} [Tue Jun 18 15:23:38 2019] GET /api/show_submissions => generated 50606 bytes in 8 msecs (HTTP/1.1 200) 7 headers in 276 bytes (2 switches on core 1)
+[pid: 10335|app: 0|req: 30/74] 192.168.51.148 () {40 vars in 673 bytes} [Tue Jun 18 15:23:43 2019] GET /api/show_results?task_id=TASK20190618105459 => generated 1166 bytes in 4 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 10335|app: 0|req: 31/75] 192.168.51.148 () {40 vars in 673 bytes} [Tue Jun 18 15:23:46 2019] GET /api/show_results?task_id=TASK20190613180607 => generated 1118 bytes in 6 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+Internal Server Error: /api/show_img
+Traceback (most recent call last):
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/django/core/handlers/base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/django/core/handlers/base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "./backend/views.py", line 360, in show_img
+    img = Image.open('results/' + task_id + '/' + img_name + '.png')
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/PIL/Image.py", line 2634, in open
+    fp = builtins.open(filename, "rb")
+FileNotFoundError: [Errno 2] No such file or directory: 'results/TASK20190613180607/optimization_curve.png'
+[pid: 10331|app: 0|req: 11/76] 192.168.51.148 () {40 vars in 702 bytes} [Tue Jun 18 15:23:46 2019] GET /api/show_img?task_id=TASK20190613180607&img_name=optimization_curve => generated 71156 bytes in 48 msecs (HTTP/1.1 500) 4 headers in 137 bytes (1 switches on core 0)
+[pid: 10331|app: 0|req: 11/77] 192.168.51.148 () {42 vars in 715 bytes} [Tue Jun 18 15:23:46 2019] GET /api/show_img?task_id=TASK20190613180607&img_name=ROC_curve => generated 104095 bytes in 198 msecs (HTTP/1.1 200) 4 headers in 111 bytes (1 switches on core 1)
+[pid: 10335|app: 0|req: 32/78] 192.168.51.148 () {40 vars in 673 bytes} [Tue Jun 18 15:23:46 2019] GET /api/show_results?task_id=TASK20190613180347 => generated 1181 bytes in 5 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 10335|app: 0|req: 33/79] 192.168.51.148 () {42 vars in 733 bytes} [Tue Jun 18 15:23:46 2019] GET /api/show_img?task_id=TASK20190613180347&img_name=optimization_curve => generated 112277 bytes in 166 msecs (HTTP/1.1 200) 4 headers in 111 bytes (1 switches on core 1)
+[pid: 10333|app: 0|req: 26/80] 192.168.51.148 () {42 vars in 715 bytes} [Tue Jun 18 15:23:46 2019] GET /api/show_img?task_id=TASK20190613180347&img_name=ROC_curve => generated 103780 bytes in 194 msecs (HTTP/1.1 200) 4 headers in 111 bytes (1 switches on core 0)
+[pid: 10333|app: 0|req: 27/81] 192.168.51.148 () {40 vars in 673 bytes} [Tue Jun 18 15:23:47 2019] GET /api/show_results?task_id=TASK20190618105459 => generated 1166 bytes in 4 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+[pid: 10335|app: 0|req: 34/82] 192.168.51.148 () {40 vars in 673 bytes} [Tue Jun 18 15:23:47 2019] GET /api/show_results?task_id=TASK20190618105459 => generated 1166 bytes in 8 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+Internal Server Error: /api/show_img
+Traceback (most recent call last):
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/django/core/handlers/base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/django/core/handlers/base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "./backend/views.py", line 360, in show_img
+    img = Image.open('results/' + task_id + '/' + img_name + '.png')
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/PIL/Image.py", line 2634, in open
+    fp = builtins.open(filename, "rb")
+FileNotFoundError: [Errno 2] No such file or directory: 'results/TASK20190613180607/optimization_curve.png'
+[pid: 10335|app: 0|req: 36/83] 192.168.51.148 () {42 vars in 733 bytes} [Tue Jun 18 15:23:48 2019] GET /api/show_img?task_id=TASK20190613180607&img_name=optimization_curve => generated 71291 bytes in 47 msecs (HTTP/1.1 500) 4 headers in 137 bytes (1 switches on core 1)
+[pid: 10335|app: 0|req: 36/84] 192.168.51.148 () {40 vars in 673 bytes} [Tue Jun 18 15:23:48 2019] GET /api/show_results?task_id=TASK20190613180607 => generated 1118 bytes in 28 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 10335|app: 0|req: 37/85] 192.168.51.148 () {40 vars in 673 bytes} [Tue Jun 18 15:23:48 2019] GET /api/show_results?task_id=TASK20190613180347 => generated 1181 bytes in 7 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+[pid: 10333|app: 0|req: 28/86] 192.168.51.148 () {40 vars in 628 bytes} [Tue Jun 18 15:23:50 2019] GET /api/show_submissions => generated 50606 bytes in 10 msecs (HTTP/1.1 200) 7 headers in 276 bytes (2 switches on core 0)
+[pid: 10335|app: 0|req: 38/87] 192.168.51.148 () {40 vars in 673 bytes} [Tue Jun 18 15:23:55 2019] GET /api/show_results?task_id=TASK20190613180347 => generated 1181 bytes in 4 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 10333|app: 0|req: 29/88] 192.168.51.148 () {40 vars in 673 bytes} [Tue Jun 18 15:23:56 2019] GET /api/show_results?task_id=TASK20190618105459 => generated 1166 bytes in 6 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+[pid: 10335|app: 0|req: 39/89] 192.168.51.148 () {40 vars in 673 bytes} [Tue Jun 18 15:23:57 2019] GET /api/show_results?task_id=TASK20190613180607 => generated 1118 bytes in 7 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+Internal Server Error: /api/show_img
+Traceback (most recent call last):
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/django/core/handlers/base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/django/core/handlers/base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "./backend/views.py", line 360, in show_img
+    img = Image.open('results/' + task_id + '/' + img_name + '.png')
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/PIL/Image.py", line 2634, in open
+    fp = builtins.open(filename, "rb")
+FileNotFoundError: [Errno 2] No such file or directory: 'results/TASK20190613180607/optimization_curve.png'
+Tue Jun 18 15:23:57 2019 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 341] during GET /api/show_img?task_id=TASK20190613180607&img_name=optimization_curve (192.168.51.148)
+OSError: write error
+[pid: 10331|app: 0|req: 12/90] 192.168.51.148 () {42 vars in 733 bytes} [Tue Jun 18 15:23:57 2019] GET /api/show_img?task_id=TASK20190613180607&img_name=optimization_curve => generated 21751 bytes in 47 msecs (HTTP/1.1 500) 4 headers in 137 bytes (0 switches on core 0)
+[pid: 10335|app: 0|req: 40/91] 192.168.51.148 () {40 vars in 673 bytes} [Tue Jun 18 15:23:59 2019] GET /api/show_results?task_id=TASK20190613180347 => generated 1181 bytes in 8 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 10335|app: 0|req: 41/92] 192.168.51.148 () {40 vars in 673 bytes} [Tue Jun 18 15:24:01 2019] GET /api/show_results?task_id=TASK20190618105459 => generated 1166 bytes in 5 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+None
+None
+None
+[pid: 10335|app: 0|req: 42/93] 192.168.51.148 () {40 vars in 636 bytes} [Tue Jun 18 15:24:13 2019] GET /api/overview_submissions => generated 2693 bytes in 8 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 10335|app: 0|req: 43/94] 192.168.51.148 () {40 vars in 673 bytes} [Tue Jun 18 15:24:14 2019] GET /api/show_results?task_id=TASK20190618105459 => generated 1166 bytes in 6 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+[pid: 10333|app: 0|req: 30/95] 192.168.51.148 () {40 vars in 673 bytes} [Tue Jun 18 15:24:17 2019] GET /api/show_results?task_id=TASK20190618105459 => generated 1166 bytes in 9 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 10329|app: 0|req: 11/96] 192.168.51.148 () {40 vars in 673 bytes} [Tue Jun 18 15:24:18 2019] GET /api/show_results?task_id=TASK20190618105459 => generated 1166 bytes in 9 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 10335|app: 0|req: 44/97] 192.168.51.148 () {40 vars in 628 bytes} [Tue Jun 18 15:24:20 2019] GET /api/show_submissions => generated 50606 bytes in 46 msecs (HTTP/1.1 200) 7 headers in 276 bytes (2 switches on core 0)
+[pid: 10333|app: 0|req: 31/98] 192.168.51.148 () {40 vars in 673 bytes} [Tue Jun 18 15:24:23 2019] GET /api/show_results?task_id=TASK20190618105459 => generated 1166 bytes in 4 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+[pid: 10335|app: 0|req: 45/99] 192.168.51.148 () {40 vars in 673 bytes} [Tue Jun 18 15:24:24 2019] GET /api/show_results?task_id=TASK20190613180347 => generated 1181 bytes in 10 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+[pid: 10331|app: 0|req: 13/100] 192.168.51.148 () {40 vars in 673 bytes} [Tue Jun 18 15:24:25 2019] GET /api/show_results?task_id=TASK20190613180607 => generated 1118 bytes in 7 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+Internal Server Error: /api/show_img
+Traceback (most recent call last):
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/django/core/handlers/base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/django/core/handlers/base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "./backend/views.py", line 360, in show_img
+    img = Image.open('results/' + task_id + '/' + img_name + '.png')
+  File "/home/bennyray/Projects/neuro-learn/env/lib/python3.6/site-packages/PIL/Image.py", line 2634, in open
+    fp = builtins.open(filename, "rb")
+FileNotFoundError: [Errno 2] No such file or directory: 'results/TASK20190613180607/optimization_curve.png'
+Tue Jun 18 15:24:25 2019 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 341] during GET /api/show_img?task_id=TASK20190613180607&img_name=optimization_curve (192.168.51.148)
+OSError: write error
+[pid: 10335|app: 0|req: 46/101] 192.168.51.148 () {42 vars in 733 bytes} [Tue Jun 18 15:24:25 2019] GET /api/show_img?task_id=TASK20190613180607&img_name=optimization_curve => generated 21751 bytes in 53 msecs (HTTP/1.1 500) 4 headers in 137 bytes (0 switches on core 0)
+[pid: 10331|app: 0|req: 14/102] 192.168.51.148 () {40 vars in 673 bytes} [Tue Jun 18 15:24:26 2019] GET /api/show_results?task_id=TASK20190618105459 => generated 1166 bytes in 8 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 10331|app: 0|req: 15/103] 192.168.51.148 () {40 vars in 628 bytes} [Tue Jun 18 16:16:28 2019] GET /api/show_submissions => generated 50606 bytes in 9 msecs (HTTP/1.1 200) 7 headers in 276 bytes (2 switches on core 1)
+[pid: 10333|app: 0|req: 32/104] 192.168.51.148 () {40 vars in 673 bytes} [Tue Jun 18 16:16:39 2019] GET /api/show_results?task_id=TASK20190612104438 => generated 1155 bytes in 4 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 10335|app: 0|req: 47/105] 192.168.51.148 () {40 vars in 702 bytes} [Tue Jun 18 16:16:39 2019] GET /api/show_img?task_id=TASK20190612104438&img_name=optimization_curve => generated 112167 bytes in 142 msecs (HTTP/1.1 200) 4 headers in 111 bytes (1 switches on core 1)
+[pid: 10333|app: 0|req: 33/106] 192.168.51.148 () {40 vars in 684 bytes} [Tue Jun 18 16:16:39 2019] GET /api/show_img?task_id=TASK20190612104438&img_name=ROC_curve => generated 103976 bytes in 152 msecs (HTTP/1.1 200) 4 headers in 111 bytes (1 switches on core 1)
+[pid: 10333|app: 0|req: 34/107] 192.168.51.148 () {40 vars in 614 bytes} [Tue Jun 18 17:46:48 2019] GET /api/show_data => generated 2244 bytes in 2 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 10333|app: 0|req: 35/108] 192.168.51.148 () {40 vars in 628 bytes} [Tue Jun 18 18:12:10 2019] GET /api/show_submissions => generated 50606 bytes in 9 msecs (HTTP/1.1 200) 7 headers in 276 bytes (2 switches on core 1)
+[pid: 10331|app: 0|req: 16/109] 192.168.51.159 () {42 vars in 766 bytes} [Tue Jun 18 20:55:34 2019] GET / => generated 562 bytes in 7 msecs (HTTP/1.1 200) 4 headers in 123 bytes (1 switches on core 0)
+1cf93550-8eb4-3c32-a229-826cf8c1be59
+test
+USER20190605213221
+[pid: 10333|app: 0|req: 36/110] 192.168.51.159 () {42 vars in 787 bytes} [Tue Jun 18 20:55:34 2019] GET /api/overview_submissions => generated 2693 bytes in 20 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 10335|app: 0|req: 48/111] 192.168.51.159 () {40 vars in 704 bytes} [Tue Jun 18 20:55:34 2019] GET /favicon.ico => generated 0 bytes in 1 msecs (HTTP/1.1 302) 5 headers in 155 bytes (1 switches on core 0)
+1cf93550-8eb4-3c32-a229-826cf8c1be59
+[pid: 10335|app: 0|req: 49/112] 192.168.51.159 () {42 vars in 812 bytes} [Tue Jun 18 20:55:39 2019] GET /api/login?username=test&password=test => generated 117 bytes in 19 msecs (HTTP/1.1 200) 10 headers in 545 bytes (2 switches on core 1)
+[pid: 10329|app: 0|req: 12/113] 192.168.51.159 () {42 vars in 779 bytes} [Tue Jun 18 20:55:41 2019] GET /api/show_submissions => generated 50606 bytes in 25 msecs (HTTP/1.1 200) 7 headers in 276 bytes (2 switches on core 1)
+[pid: 10329|app: 0|req: 13/114] 192.168.51.159 () {42 vars in 824 bytes} [Tue Jun 18 20:59:31 2019] GET /api/show_results?task_id=TASK20190613154607 => generated 103 bytes in 6 msecs (HTTP/1.1 200) 7 headers in 274 bytes (2 switches on core 0)
+[pid: 10329|app: 0|req: 14/115] 192.168.51.159 () {42 vars in 779 bytes} [Tue Jun 18 20:59:35 2019] GET /api/show_submissions => generated 50606 bytes in 24 msecs (HTTP/1.1 200) 7 headers in 276 bytes (2 switches on core 1)
+1cf93550-8eb4-3c32-a229-826cf8c1be59
+test
+USER20190605213221
+[pid: 10333|app: 0|req: 37/116] 192.168.51.159 () {42 vars in 787 bytes} [Tue Jun 18 20:59:41 2019] GET /api/overview_submissions => generated 2693 bytes in 8 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+[pid: 10335|app: 0|req: 50/117] 192.168.51.159 () {40 vars in 699 bytes} [Wed Jun 19 13:54:45 2019] GET / => generated 562 bytes in 2 msecs (HTTP/1.1 200) 4 headers in 123 bytes (1 switches on core 0)
+None
+None
+None
+[pid: 10333|app: 0|req: 38/118] 192.168.51.159 () {40 vars in 720 bytes} [Wed Jun 19 13:54:45 2019] GET /api/overview_submissions => generated 2693 bytes in 20 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+ef1b304f-2fb6-3f8b-bd37-d51b1dd61b4b
+[pid: 10335|app: 0|req: 51/119] 192.168.51.159 () {40 vars in 753 bytes} [Wed Jun 19 14:00:55 2019] GET /api/login?username=Raniac&password=246493 => generated 119 bytes in 7 msecs (HTTP/1.1 200) 10 headers in 547 bytes (2 switches on core 1)
+[pid: 10333|app: 0|req: 39/120] 192.168.51.159 () {42 vars in 804 bytes} [Wed Jun 19 14:01:03 2019] GET /api/show_data => generated 2244 bytes in 20 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+[pid: 10333|app: 0|req: 40/121] 192.168.51.148 () {40 vars in 614 bytes} [Thu Jun 20 13:34:28 2019] GET /api/show_data => generated 2244 bytes in 2 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 10335|app: 0|req: 52/122] 192.168.51.148 () {40 vars in 614 bytes} [Thu Jun 20 13:35:15 2019] GET /api/show_data => generated 2244 bytes in 2 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 10331|app: 0|req: 17/123] 192.168.51.148 () {40 vars in 628 bytes} [Thu Jun 20 13:35:16 2019] GET /api/show_submissions => generated 50606 bytes in 42 msecs (HTTP/1.1 200) 7 headers in 276 bytes (2 switches on core 1)
+[pid: 10335|app: 0|req: 53/124] 192.168.51.148 () {40 vars in 628 bytes} [Thu Jun 20 13:35:18 2019] GET /api/show_submissions => generated 50606 bytes in 9 msecs (HTTP/1.1 200) 7 headers in 276 bytes (2 switches on core 1)
+[pid: 10333|app: 0|req: 41/125] 192.168.51.148 () {40 vars in 614 bytes} [Thu Jun 20 13:35:23 2019] GET /api/show_data => generated 2244 bytes in 2 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+[pid: 10335|app: 0|req: 54/126] 192.168.51.148 () {40 vars in 614 bytes} [Thu Jun 20 13:45:54 2019] GET /api/show_data => generated 2244 bytes in 13 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 10329|app: 0|req: 15/127] 192.168.51.148 () {40 vars in 628 bytes} [Thu Jun 20 13:45:55 2019] GET /api/show_submissions => generated 50606 bytes in 8 msecs (HTTP/1.1 200) 7 headers in 276 bytes (2 switches on core 0)
+[pid: 10333|app: 0|req: 42/128] 192.168.51.148 () {40 vars in 628 bytes} [Thu Jun 20 13:45:57 2019] GET /api/show_submissions => generated 50606 bytes in 42 msecs (HTTP/1.1 200) 7 headers in 276 bytes (2 switches on core 0)
+[pid: 10329|app: 0|req: 16/129] 192.168.51.148 () {40 vars in 614 bytes} [Thu Jun 20 14:17:17 2019] GET /api/show_data => generated 2244 bytes in 16 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+[pid: 10335|app: 0|req: 55/130] 192.168.51.148 () {40 vars in 628 bytes} [Thu Jun 20 14:49:36 2019] GET /api/show_submissions => generated 50606 bytes in 20 msecs (HTTP/1.1 200) 7 headers in 276 bytes (2 switches on core 1)
+*** Starting uWSGI 2.0.18 (64bit) on [Thu Jun 20 15:01:27 2019] ***
+compiled with version: 7.4.0 on 16 June 2019 06:41:54
+os: Linux-4.15.0-51-generic #55-Ubuntu SMP Wed May 15 14:27:21 UTC 2019
+nodename: bennyray
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 8
+current working directory: /home/bennyray/Projects/neuro-learn/web/neurolearn_dev
+writing pidfile to uwsgi.pid
+detected binary path: /home/bennyray/Projects/neuro-learn/env/bin/uwsgi
+chdir() to /home/bennyray/Projects/neuro-learn/web/neurolearn_dev/
+your processes number limit is 63476
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 0.0.0.0:9090 fd 3
+Python version: 3.6.8 (default, Jan 14 2019, 11:02:34)  [GCC 8.0.1 20180414 (experimental) [trunk revision 259383]]
+Python main interpreter initialized at 0x55a0c19b5220
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 416880 bytes (407 KB) for 8 cores
+*** Operational MODE: preforking+threaded ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x55a0c19b5220 pid: 22586 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 22586)
+spawned uWSGI worker 1 (pid: 22590, cores: 2)
+spawned uWSGI worker 2 (pid: 22592, cores: 2)
+spawned uWSGI worker 3 (pid: 22594, cores: 2)
+spawned uWSGI worker 4 (pid: 22596, cores: 2)
+unable to load configuration from from multiprocessing.semaphore_tracker import main;main(20)
+[pid: 22594|app: 0|req: 1/1] 192.168.51.148 () {42 vars in 646 bytes} [Thu Jun 20 15:01:32 2019] GET / => generated 562 bytes in 654 msecs (HTTP/1.1 200) 4 headers in 123 bytes (1 switches on core 0)
+None
+None
+None
+[pid: 22594|app: 0|req: 2/2] 192.168.51.148 () {42 vars in 667 bytes} [Thu Jun 20 15:01:33 2019] GET /api/overview_submissions => generated 2693 bytes in 23 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+unable to load configuration from from multiprocessing.semaphore_tracker import main;main(20)
+[pid: 22596|app: 0|req: 1/3] 192.168.51.148 () {42 vars in 659 bytes} [Thu Jun 20 15:01:33 2019] GET /api/show_submissions => generated 50606 bytes in 647 msecs (HTTP/1.1 200) 7 headers in 276 bytes (2 switches on core 0)
+[pid: 22596|app: 0|req: 2/4] 192.168.51.148 () {40 vars in 614 bytes} [Thu Jun 20 15:01:37 2019] GET /api/show_data => generated 2244 bytes in 2 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
