@@ -22,10 +22,7 @@ import os
 import io
 import time
 
-from .models import Book
-from .models import Submissions_Demo
-from .models import Data_Demo
-from .models import User_Demo
+from .models import Book, Submissions_Demo, Submissions_SA_Demo, Data_Demo, User_Demo
 
 from .tasks import *
 
@@ -227,6 +224,64 @@ def new_task(request):
 
     return response
 
+@require_http_methods(["GET", "POST"])
+def new_sa_task(request):
+    response = HttpResponse()
+    response_content = {}
+    try:
+        if request.method == 'GET':
+            get_token(request)
+        if request.method == 'POST':
+            postBody = json.loads(request.body)
+            task_id = 'TASK' + time.strftime('%Y%m%d%H%M%S')
+            task_name=postBody.get('task_name')
+            task_type=postBody.get('task_type')
+            project_name=postBody.get('project_name')
+            test_var_data_x=postBody.get('test_var_data_x')
+            group_var_data_y=postBody.get('group_var_data_y')
+            note=postBody.get('note')
+            verbose=postBody.get('verbose')
+
+            task = Submissions_SA_Demo(
+                task_id=task_id,
+                task_name=task_name,
+                task_type=task_type,
+                project_name=project_name,
+                test_var_data_x=test_var_data_x,
+                group_var_data_y=group_var_data_y,
+                note=note,
+                verbose=verbose,
+                task_status='Submitted',
+                task_result=''
+            )
+            task.save()
+
+            # # create new celery task
+            # new_ml_task.delay(
+            #     taskid=task_id,
+            #     tasktype=task_type,
+            #     traindata=train_data,
+            #     testdata=test_data,
+            #     label=label,
+            #     featsel=feat_sel,
+            #     estimator=estimator,
+            #     cv=cv_type
+            # )
+
+            response_content['post_body'] = postBody
+            response_content['msg'] = 'success'
+            response_content['error_num'] = 0
+    except Exception as e:
+        response_content['msg'] = str(e)
+        response_content['error_num'] = 1
+
+    response["Access-Control-Allow-Credentials"] = "true"
+    response["Access-Control-Allow-Methods"] = "GET,POST"
+    response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"
+    response.write(json.dumps(response_content))
+
+    return response
+
 @require_http_methods(["GET"])
 def show_submissions(request):
     response_content = {}
@@ -235,6 +290,9 @@ def show_submissions(request):
         analysis_type = request.GET.get('analysis_type')
         if analysis_type == 'Machine Learning':
             submissions = Submissions_Demo.objects.filter().order_by('-id')
+            response_content['list']  = json.loads(serializers.serialize("json", submissions))
+        elif analysis_type == "Statistical Analysis":
+            submissions = Submissions_SA_Demo.objects.filter().order_by('-id')
             response_content['list']  = json.loads(serializers.serialize("json", submissions))
         response_content['msg'] = 'success'
         response_content['error_num'] = 0

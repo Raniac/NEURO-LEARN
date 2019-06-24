@@ -127,9 +127,8 @@ export default {
         confirmButtonText: 'Confirm',
         cancelButtonText: 'Cancel'
       }).then(() => {
-        console.log('New task!')
         this.newform.task_type = this.tabsValue + '-' + this.taskType
-        console.log(this.newform.task_type)
+        this.newTask()
       }).catch(() => {})
     },
     onCancel () {

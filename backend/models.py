@@ -30,6 +30,21 @@ class Submissions_Demo(models.Model):
     def __unicode__(self):
         return self.task_id
 
+class Submissions_SA_Demo(models.Model):
+    task_id = models.CharField(max_length=64, unique=True)
+    task_name = models.CharField(max_length=64)
+    task_type = models.CharField(max_length=64)
+    project_name = models.CharField(max_length=64)
+    test_var_data_x = models.CharField(max_length=1024)
+    group_var_data_y = models.CharField(max_length=1024)
+    note = models.CharField(max_length=64)
+    verbose = models.BooleanField()
+    task_status = models.CharField(max_length=64)
+    task_result = models.CharField(max_length=1024)
+
+    def __unicode__(self):
+        return self.task_id
+
 class Data_Demo(models.Model):
     data_id = models.CharField(max_length=64, unique=True)
     data_name = models.CharField(max_length=64, unique=True)

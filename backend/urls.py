@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'login$', views.user_login, ),
     url(r'overview_submissions$', views.overview_submissions, ),
     url(r'new_task$', views.new_task, ),
+    url(r'new_sa_task$', views.new_sa_task, ),
     url(r'show_submissions$', views.show_submissions, ),
     url(r'upload_data$', views.upload_data, ),
     url(r'show_data$', views.show_data, ),
