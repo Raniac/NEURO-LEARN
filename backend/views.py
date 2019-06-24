@@ -210,7 +210,7 @@ def new_task(request):
             task.save()
 
             # create new celery task
-            new_ml_task.delay(
+            new_ml_celery_task.delay(
                 taskid=task_id,
                 tasktype=task_type,
                 traindata=train_data,
@@ -267,17 +267,13 @@ def new_sa_task(request):
             )
             task.save()
 
-            # # create new celery task
-            # new_ml_task.delay(
-            #     taskid=task_id,
-            #     tasktype=task_type,
-            #     traindata=train_data,
-            #     testdata=test_data,
-            #     label=label,
-            #     featsel=feat_sel,
-            #     estimator=estimator,
-            #     cv=cv_type
-            # )
+            # create new celery task
+            new_sa_celery_task.delay(
+                taskid=task_id,
+                tasktype=task_type,
+                testvardatax=test_var_data_x,
+                groupvardatay=group_var_data_y
+            )
 
             response_content['post_body'] = postBody
             response_content['msg'] = 'success'
