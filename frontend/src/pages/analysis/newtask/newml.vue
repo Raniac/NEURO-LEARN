@@ -86,12 +86,6 @@ export default {
           {name: 'AD with sMRI', value: 'ad_with_smri'},
           {name: 'SZ with fMRI', value: 'sz_with_fmri'}
         ],
-        data_options: [
-          {name: '363_fMRI', value: '363_fMRI'},
-          {name: '345_sMRI', value: '345_sMRI'},
-          {name: '110_DTI', value: '110_DTI'},
-          {name: '168_Gut', value: '168_Gut'}
-        ],
         label_options: [],
         feat_sel_options: [],
         estimator_options: [],

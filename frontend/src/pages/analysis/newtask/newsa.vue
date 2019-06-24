@@ -1,73 +1,83 @@
 <template>
 <div style="padding: 14px">
   <div class="tasks-form-area">
-    <el-tabs type="border-card" stretch style="box-shadow: 0px 0 0px #FFFFFF;">
-      <el-tab-pane label="Difference Analysis">
+    <el-tabs type="border-card" stretch style="box-shadow: 0px 0 0px #FFFFFF;" v-model="tabsValue" @tab-click="handleTabClick">
+      <el-tab-pane label="Difference Analysis" name="da">
         <div class="da-task-form">
-          <el-form ref="diff_form" :model="diff_form" label-width="90px" label-position="middle">
+          <el-form ref="form" :model="newform" label-width="90px" label-position="middle">
             <el-form-item label="Task Name">
-              <el-input v-model="diff_form.task_name"></el-input>
+              <el-input v-model="newform.task_name"></el-input>
             </el-form-item>
             <el-form-item label="Task Type">
-              <el-radio-group v-model="diff_form.task_type">
-              <el-radio label="ttest">T-test</el-radio>
-              <el-radio label="anova">ANOVA</el-radio>
+              <el-radio-group v-model="taskType">
+                <el-radio label="T-test">T-test</el-radio>
+                <el-radio label="ANOVA">ANOVA</el-radio>
               </el-radio-group>
             </el-form-item>
+            <el-form-item label="Proj. Name">
+              <el-select class="select-label" v-model="newform.project_name" placeholder="Select Project">
+                <el-option v-for="(project_option, key) in form.project_options" :label="project_option.name" :value="project_option.value" :key="key"></el-option>
+              </el-select>
+            </el-form-item>
             <el-form-item label="Test Var.">
-              <el-select class="select-data" v-model="diff_form.test_variables" placeholder="Select Test Variables">
-              <el-option v-for="(test_variables_option, key) in diff_form.test_variables_options" :label="test_variables_option.name" :value="test_variables_option.value" :key="key"></el-option>
+              <el-select class="select-data" v-model="newform.test_var_data_x" placeholder="Select Test Variables">
+              <el-option v-for="(data_option, key) in data_table" :label="data_option.fields.data_name" :value="data_option.fields.data_path" :key="key"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="Group Var.">
-              <el-select class="select-data" v-model="diff_form.group_variables" placeholder="Select Group Variables">
-              <el-option v-for="(group_variables_option, key) in diff_form.group_variables_options" :label="group_variables_option.name" :value="group_variables_option.value" :key="key"></el-option>
+              <el-select class="select-data" v-model="newform.group_var_data_y" placeholder="Select Group Variables">
+              <el-option v-for="(group_variables_option, key) in form.group_variables_options" :label="group_variables_option.name" :value="group_variables_option.value" :key="key"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="Note">
-              <el-input type="textarea" v-model="diff_form.note"></el-input>
+              <el-input type="textarea" v-model="newform.note"></el-input>
             </el-form-item>
             <el-form-item label="Verbose">
-              <el-switch active-text="On" inactive-text="Off" v-model="diff_form.verbose"></el-switch>
+              <el-switch active-text="On" inactive-text="Off" v-model="newform.verbose"></el-switch>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="onSubmit">Submit</el-button>
-              <el-button>Cancel</el-button>
+              <el-button @click="onCancel">Cancel</el-button>
             </el-form-item>
             </el-form>
         </div>
       </el-tab-pane>
-      <el-tab-pane label="Correlation Analysis">
+      <el-tab-pane label="Correlation Analysis" name="ca">
         <div class="ca-task-form">
-          <el-form ref="corr_form" :model="corr_form" label-width="90px" label-position="middle">
+          <el-form ref="form" :model="newform" label-width="90px" label-position="middle">
             <el-form-item label="Task Name">
-              <el-input v-model="corr_form.task_name"></el-input>
+              <el-input v-model="newform.task_name"></el-input>
             </el-form-item>
             <el-form-item label="Task Type">
-              <el-radio-group v-model="corr_form.task_type">
-              <el-radio label="pearson">Pearson</el-radio>
-              <el-radio label="spearman">Spearman</el-radio>
+              <el-radio-group v-model="taskType">
+                <el-radio label="Pearson">Pearson</el-radio>
+                <el-radio label="Spearman">Spearman</el-radio>
               </el-radio-group>
             </el-form-item>
+            <el-form-item label="Proj. Name">
+              <el-select class="select-label" v-model="newform.project_name" placeholder="Select Project">
+                <el-option v-for="(project_option, key) in form.project_options" :label="project_option.name" :value="project_option.value" :key="key"></el-option>
+              </el-select>
+            </el-form-item>
             <el-form-item label="Data X">
-              <el-select class="select-data" v-model="corr_form.datax_variables" placeholder="Select Data X">
-              <el-option v-for="(datax_variables_option, key) in corr_form.datax_variables_options" :label="datax_variables_option.name" :value="datax_variables_option.value" :key="key"></el-option>
+              <el-select class="select-data" v-model="newform.test_var_data_x" placeholder="Select Data X">
+              <el-option v-for="(data_option, key) in data_table" :label="data_option.fields.data_name" :value="data_option.fields.data_path" :key="key"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="Data Y">
-              <el-select class="select-data" v-model="corr_form.datay_variables" placeholder="Select Data Y">
-              <el-option v-for="(datay_variables_option, key) in corr_form.datay_variables_options" :label="datay_variables_option.name" :value="datay_variables_option.value" :key="key"></el-option>
+              <el-select class="select-data" v-model="newform.group_var_data_y" placeholder="Select Data Y">
+              <el-option v-for="(data_option, key) in data_table" :label="data_option.fields.data_name" :value="data_option.fields.data_path" :key="key"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="Note">
-              <el-input type="textarea" v-model="corr_form.note"></el-input>
+              <el-input type="textarea" v-model="newform.note"></el-input>
             </el-form-item>
             <el-form-item label="Verbose">
-              <el-switch active-text="On" inactive-text="Off" v-model="corr_form.verbose"></el-switch>
+              <el-switch active-text="On" inactive-text="Off" v-model="newform.verbose"></el-switch>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="onSubmit">Submit</el-button>
-              <el-button>Cancel</el-button>
+              <el-button @click="onCancel">Cancel</el-button>
             </el-form-item>
             </el-form>
         </div>
@@ -78,54 +88,86 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data () {
     return {
-      diff_form: {
+      data_table: [],
+      tabsValue: 'da',
+      taskType: '',
+      newform: {
+        project_name: '',
         task_name: '',
-        task_type: 'ttest',
-        test_variables: '',
-        group_variables: '',
+        task_type: '',
+        test_var_data_x: [],
+        group_var_data_y: [],
         note: '',
-        verbose: false,
-        test_variables_options: [
-          {name: 'fMRI', value: 'fmri'},
-          {name: 'sMRI', value: 'smri'},
-          {name: 'DTI', value: 'dti'},
-          {name: 'Gut', value: 'gut'}
+        verbose: false
+      },
+      form: {
+        project_options: [
+          {name: 'SZ with s/fMRI', value: 'sz_with_sfmri'},
+          {name: 'AD with sMRI', value: 'ad_with_smri'},
+          {name: 'SZ with fMRI', value: 'sz_with_fmri'}
         ],
         group_variables_options: [
-          {name: 'fMRI', value: 'fmri'},
-          {name: 'sMRI', value: 'smri'},
-          {name: 'DTI', value: 'dti'},
-          {name: 'Gut', value: 'gut'}
-        ]
-      },
-      corr_form: {
-        task_name: '',
-        task_type: 'pearson',
-        datax_variables: '',
-        datay_variables: '',
-        note: '',
-        verbose: false,
-        datax_variables_options: [
-          {name: 'fMRI', value: 'fmri'},
-          {name: 'sMRI', value: 'smri'},
-          {name: 'DTI', value: 'dti'},
-          {name: 'Gut', value: 'gut'}
-        ],
-        datay_variables_options: [
-          {name: 'fMRI', value: 'fmri'},
-          {name: 'sMRI', value: 'smri'},
-          {name: 'DTI', value: 'dti'},
-          {name: 'Gut', value: 'gut'}
+          {name: 'GROUP', value: 'GROUP'}
         ]
       }
     }
   },
+  mounted () {
+    this.updateData()
+  },
   methods: {
+    handleTabClick () {
+    },
     onSubmit () {
-      console.log('submit!')
+      this.$confirm('Submit this task now?', 'Attention!', {
+        confirmButtonText: 'Confirm',
+        cancelButtonText: 'Cancel'
+      }).then(() => {
+        console.log('New task!')
+        this.newform.task_type = this.tabsValue + '-' + this.taskType
+        console.log(this.newform.task_type)
+      }).catch(() => {})
+    },
+    onCancel () {
+      this.$router.replace({
+        path: '/analysis/overview',
+        component: resolve => require(['@/pages/analysis/overview'], resolve)
+      })
+    },
+    updateData () {
+      axios.get('/api/show_data')
+        .then(response => {
+          var res = response.data
+          if (res.error_num === 0) {
+            console.log(res)
+            this.data_table = res['list']
+            console.log(this.data_table[0].fields.data_name)
+          } else {
+            this.$message.error('Failed!')
+            console.log(res['msg'])
+          }
+        })
+    },
+    newTask () {
+      console.log(JSON.stringify(this.newform))
+      axios.post('/api/new_sa_task', JSON.stringify(this.newform))
+        .then(response => {
+          var res = response.data
+          if (res.error_num === 0) {
+            this.$router.replace({
+              path: '/analysis/overview',
+              component: resolve => require(['@/pages/analysis/overview'], resolve)
+            })
+            console.log(res)
+          } else {
+            this.$message.error('Failed submission!')
+            console.log(res['msg'])
+          }
+        })
     }
   }
 }
