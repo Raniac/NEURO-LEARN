@@ -34,10 +34,10 @@
                     <el-form-item label="Proj. Name">
                       <span>{{ props.row.fields.project_name }}</span>
                     </el-form-item>
-                    <el-form-item label="Test Variable/Data X">
+                    <el-form-item label="Test Var. / Data X">
                       <span>{{ props.row.fields.test_var_data_x }}</span>
                     </el-form-item>
-                    <el-form-item label="Group Variable/Data Y">
+                    <el-form-item label="Group Var. / Data Y">
                       <span>{{ props.row.fields.group_var_data_y }}</span>
                     </el-form-item>
                     <el-form-item label="Note">
