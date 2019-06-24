@@ -1,102 +1,204 @@
 <template>
   <div>
     <div class="submissions-area">
-    <div style="margin: 14px">
-      <el-input placeholder="Search tasks by name" v-model="search_input" class="input-with-select">
-        <el-select v-model="selected_status" slot="prepend" placeholder="Status">
-        <el-option label="Total" value=""></el-option>
-        <el-option label="Submitted" value="Submitted"></el-option>
-        <el-option label="Running" value="Running"></el-option>
-        <el-option label="Finished" value="Finished"></el-option>
-        <el-option label="Failed" value="Failed"></el-option>
-        </el-select>
-        <el-button slot="append" icon="el-icon-search"></el-button>
-      </el-input>
-    </div>
-    <div style="margin: 14px">
-      <el-table
-        class="submissions-table"
-        :data="submissions_table.filter(data => (!search_input || data.fields.task_name.toLowerCase().includes(search_input.toLowerCase())) && data.fields.task_status.includes(selected_status)).slice((currpage - 1) * pagesize, currpage * pagesize)"
-        stripe
-        border
-        @selection-change="onSelectionChange"
-        ref="multipleTable"
-        type="selection"
-        style="width: 100%; background-color: #E8E8E8; color: #282828">
-        <el-table-column type="expand">
-          <template slot-scope="props">
-            <el-form label-position="left" inline class="demo-table-expand">
-              <el-form-item label="Task ID">
-                <span>{{ props.row.fields.task_id }}</span>
-              </el-form-item>
-              <el-form-item label="Proj. Name">
-                <span>{{ props.row.fields.project_name }}</span>
-              </el-form-item>
-              <el-form-item label="Train Data">
-                <span>{{ props.row.fields.train_data }}</span>
-              </el-form-item>
-              <el-form-item label="Test Data">
-                <span>{{ props.row.fields.test_data }}</span>
-              </el-form-item>
-              <el-form-item label="Label">
-                <span>{{ props.row.fields.label }}</span>
-              </el-form-item>
-              <el-form-item label="Feat. Sel.">
-                <span>{{ props.row.fields.feat_sel }}</span>
-              </el-form-item>
-              <el-form-item label="Estimator">
-                <span>{{ props.row.fields.estimator }}</span>
-              </el-form-item>
-              <el-form-item label="CV Type">
-                <span>{{ props.row.fields.cv_type }}</span>
-              </el-form-item>
-              <el-form-item label="Note">
-                <span>{{ props.row.fields.note }}</span>
-              </el-form-item>
-            </el-form>
-          </template>
-        </el-table-column>
-        <el-table-column
-        label="Task Name"
-        prop="fields.task_name">
-        </el-table-column>
-        <el-table-column
-        label="Task Type"
-        prop="fields.task_type"
-        width="120">
-        </el-table-column>
-        <el-table-column
-        label="Status"
-        prop="fields.task_status"
-        width="100">
-          <template slot-scope="scope">
-            <el-tag
-              size="small"
-              :type="scope.row.fields.task_status === 'Finished' ? 'success' : (scope.row.fields.task_status === 'Failed' ? 'danger' : (scope.row.fields.task_status === 'Running' ? 'primary' : 'info'))">
-              {{ scope.row.fields.task_status }}
-            </el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column
-          type="selection"
-          width="40">
-        </el-table-column>
-      </el-table>
-    </div>
-    <div style="margin: 14px; padding-bottom: 30px">
-      <el-pagination
-        background
-        layout="prev, pager, next"
-        :page-size="pagesize"
-        :total="submissions_table.length"
-        @current-change="handleCurrentChange"
-        @size-change="handleSizeChange"
-        style="float: left">
-      </el-pagination>
-      <el-tooltip content="View the report(s) of selected task(s)" placement="top">
-        <el-button style="float: right" size="large" type="primary" @click="clickToView">View</el-button>
-      </el-tooltip>
-    </div>
+      <el-tabs @tab-click="handleTabClick" stretch v-model="tabsValue">
+        <el-tab-pane label="Statistical Analysis" name="Statistical Analysis">
+          <div style="margin: 14px">
+            <el-input placeholder="Search statistical analysis tasks by name" v-model="search_input" class="input-with-select">
+              <el-select v-model="selected_status" slot="prepend" placeholder="Status">
+              <el-option label="Total" value=""></el-option>
+              <el-option label="Submitted" value="Submitted"></el-option>
+              <el-option label="Running" value="Running"></el-option>
+              <el-option label="Finished" value="Finished"></el-option>
+              <el-option label="Failed" value="Failed"></el-option>
+              </el-select>
+              <el-button slot="append" icon="el-icon-search"></el-button>
+            </el-input>
+          </div>
+          <div style="margin: 14px">
+            <el-table
+              class="submissions-table"
+              :data="submissions_table.filter(data => (!search_input || data.fields.task_name.toLowerCase().includes(search_input.toLowerCase())) && data.fields.task_status.includes(selected_status)).slice((currpage - 1) * pagesize, currpage * pagesize)"
+              stripe
+              border
+              @selection-change="onSelectionChange"
+              ref="multipleTable"
+              type="selection"
+              style="width: 100%; background-color: #E8E8E8; color: #282828">
+              <el-table-column type="expand">
+                <template slot-scope="props">
+                  <el-form label-position="left" inline class="demo-table-expand">
+                    <el-form-item label="Task ID">
+                      <span>{{ props.row.fields.task_id }}</span>
+                    </el-form-item>
+                    <el-form-item label="Proj. Name">
+                      <span>{{ props.row.fields.project_name }}</span>
+                    </el-form-item>
+                    <el-form-item label="Train Data">
+                      <span>{{ props.row.fields.train_data }}</span>
+                    </el-form-item>
+                    <el-form-item label="Test Data">
+                      <span>{{ props.row.fields.test_data }}</span>
+                    </el-form-item>
+                    <el-form-item label="Label">
+                      <span>{{ props.row.fields.label }}</span>
+                    </el-form-item>
+                    <el-form-item label="Feat. Sel.">
+                      <span>{{ props.row.fields.feat_sel }}</span>
+                    </el-form-item>
+                    <el-form-item label="Estimator">
+                      <span>{{ props.row.fields.estimator }}</span>
+                    </el-form-item>
+                    <el-form-item label="CV Type">
+                      <span>{{ props.row.fields.cv_type }}</span>
+                    </el-form-item>
+                    <el-form-item label="Note">
+                      <span>{{ props.row.fields.note }}</span>
+                    </el-form-item>
+                  </el-form>
+                </template>
+              </el-table-column>
+              <el-table-column
+              label="Task Name"
+              prop="fields.task_name">
+              </el-table-column>
+              <el-table-column
+              label="Task Type"
+              prop="fields.task_type"
+              width="120">
+              </el-table-column>
+              <el-table-column
+              label="Status"
+              prop="fields.task_status"
+              width="100">
+                <template slot-scope="scope">
+                  <el-tag
+                    size="small"
+                    :type="scope.row.fields.task_status === 'Finished' ? 'success' : (scope.row.fields.task_status === 'Failed' ? 'danger' : (scope.row.fields.task_status === 'Running' ? 'primary' : 'info'))">
+                    {{ scope.row.fields.task_status }}
+                  </el-tag>
+                </template>
+              </el-table-column>
+              <el-table-column
+                type="selection"
+                width="40">
+              </el-table-column>
+            </el-table>
+          </div>
+          <div style="margin: 14px; padding-bottom: 30px">
+            <el-pagination
+              background
+              layout="prev, pager, next"
+              :page-size="pagesize"
+              :total="submissions_table.length"
+              @current-change="handleCurrentChange"
+              @size-change="handleSizeChange"
+              style="float: left">
+            </el-pagination>
+            <el-tooltip content="View the report(s) of selected task(s)" placement="top">
+              <el-button style="float: right" size="large" type="primary" @click="clickToView">View</el-button>
+            </el-tooltip>
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="Machine Learning" name="Machine Learning">
+          <div style="margin: 14px">
+            <el-input placeholder="Search machine learning tasks by name" v-model="search_input" class="input-with-select">
+              <el-select v-model="selected_status" slot="prepend" placeholder="Status">
+              <el-option label="Total" value=""></el-option>
+              <el-option label="Submitted" value="Submitted"></el-option>
+              <el-option label="Running" value="Running"></el-option>
+              <el-option label="Finished" value="Finished"></el-option>
+              <el-option label="Failed" value="Failed"></el-option>
+              </el-select>
+              <el-button slot="append" icon="el-icon-search"></el-button>
+            </el-input>
+          </div>
+          <div style="margin: 14px">
+            <el-table
+              class="submissions-table"
+              :data="submissions_table.filter(data => (!search_input || data.fields.task_name.toLowerCase().includes(search_input.toLowerCase())) && data.fields.task_status.includes(selected_status)).slice((currpage - 1) * pagesize, currpage * pagesize)"
+              stripe
+              border
+              @selection-change="onSelectionChange"
+              ref="multipleTable"
+              type="selection"
+              style="width: 100%; background-color: #E8E8E8; color: #282828">
+              <el-table-column type="expand">
+                <template slot-scope="props">
+                  <el-form label-position="left" inline class="demo-table-expand">
+                    <el-form-item label="Task ID">
+                      <span>{{ props.row.fields.task_id }}</span>
+                    </el-form-item>
+                    <el-form-item label="Proj. Name">
+                      <span>{{ props.row.fields.project_name }}</span>
+                    </el-form-item>
+                    <el-form-item label="Train Data">
+                      <span>{{ props.row.fields.train_data }}</span>
+                    </el-form-item>
+                    <el-form-item label="Test Data">
+                      <span>{{ props.row.fields.test_data }}</span>
+                    </el-form-item>
+                    <el-form-item label="Label">
+                      <span>{{ props.row.fields.label }}</span>
+                    </el-form-item>
+                    <el-form-item label="Feat. Sel.">
+                      <span>{{ props.row.fields.feat_sel }}</span>
+                    </el-form-item>
+                    <el-form-item label="Estimator">
+                      <span>{{ props.row.fields.estimator }}</span>
+                    </el-form-item>
+                    <el-form-item label="CV Type">
+                      <span>{{ props.row.fields.cv_type }}</span>
+                    </el-form-item>
+                    <el-form-item label="Note">
+                      <span>{{ props.row.fields.note }}</span>
+                    </el-form-item>
+                  </el-form>
+                </template>
+              </el-table-column>
+              <el-table-column
+              label="Task Name"
+              prop="fields.task_name">
+              </el-table-column>
+              <el-table-column
+              label="Task Type"
+              prop="fields.task_type"
+              width="120">
+              </el-table-column>
+              <el-table-column
+              label="Status"
+              prop="fields.task_status"
+              width="100">
+                <template slot-scope="scope">
+                  <el-tag
+                    size="small"
+                    :type="scope.row.fields.task_status === 'Finished' ? 'success' : (scope.row.fields.task_status === 'Failed' ? 'danger' : (scope.row.fields.task_status === 'Running' ? 'primary' : 'info'))">
+                    {{ scope.row.fields.task_status }}
+                  </el-tag>
+                </template>
+              </el-table-column>
+              <el-table-column
+                type="selection"
+                width="40">
+              </el-table-column>
+            </el-table>
+          </div>
+          <div style="margin: 14px; padding-bottom: 30px">
+            <el-pagination
+              background
+              layout="prev, pager, next"
+              :page-size="pagesize"
+              :total="submissions_table.length"
+              @current-change="handleCurrentChange"
+              @size-change="handleSizeChange"
+              style="float: left">
+            </el-pagination>
+            <el-tooltip content="View the report(s) of selected task(s)" placement="top">
+              <el-button style="float: right" size="large" type="primary" @click="clickToView">View</el-button>
+            </el-tooltip>
+          </div>
+        </el-tab-pane>
+      </el-tabs>
     </div>
   </div>
 </template>
@@ -111,15 +213,21 @@ export default {
       submissions_table: [],
       pagesize: 10,
       currpage: 1,
-      multipleSelections: []
+      multipleSelections: [],
+      tabsValue: 'Machine Learning',
+      analysisType: 'Machine Learning'
     }
   },
   mounted: function () {
     this.showSubmissions()
   },
   methods: {
+    handleTabClick () {
+      this.analysisType = this.tabsValue
+      this.showSubmissions()
+    },
     showSubmissions () {
-      axios.get('/api/show_submissions')
+      axios.get('/api/show_submissions?analysis_type=' + this.analysisType)
         .then(response => {
           var res = response.data
           if (res.error_num === 0) {
@@ -152,7 +260,7 @@ export default {
       } else {
         this.$router.push({
           path: '/analysis/viewer',
-          query: {taskSelections: this.multipleSelections}
+          query: {analysisType: this.analysisType, taskSelections: this.multipleSelections}
         })
       }
     },

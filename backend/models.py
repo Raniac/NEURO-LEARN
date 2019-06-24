@@ -32,14 +32,14 @@ class Submissions_Demo(models.Model):
 
 class Data_Demo(models.Model):
     data_id = models.CharField(max_length=64, unique=True)
-    data_name = models.CharField(max_length=64)
+    data_name = models.CharField(max_length=64, unique=True)
     data_path = models.CharField(max_length=128)
 
     def __unicode__(self):
         return self.task_id
 
 class User_Demo(models.Model):
-    user_id = models.CharField(max_length=64)
+    user_id = models.CharField(max_length=64, unique=True)
     username = models.CharField(max_length=32, unique=True)
     password = models.CharField(max_length=64)
 

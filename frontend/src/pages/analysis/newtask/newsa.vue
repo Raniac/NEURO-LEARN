@@ -1,7 +1,7 @@
 <template>
 <div style="padding: 14px">
   <div class="tasks-form-area">
-    <el-tabs type="border-card" style="box-shadow: 0px 0 0px #FFFFFF;">
+    <el-tabs type="border-card" stretch style="box-shadow: 0px 0 0px #FFFFFF;">
       <el-tab-pane label="Difference Analysis">
         <div class="da-task-form">
           <el-form ref="diff_form" :model="diff_form" label-width="90px" label-position="middle">

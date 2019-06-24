@@ -1,5 +1,83 @@
 <template>
-  <div class="viewer-area">
+  <div class="viewer-area" v-if="analysisType == 'Machine Learning'">
+    <el-tabs type="border-card" style="box-shadow: 0px 0 0px #FFFFFF;" @tab-click="handleTabClick" stretch v-model="tabsValue">
+      <el-tab-pane v-for="(taskSelection, key) in taskSelections" :label="taskSelection.fields.task_id" :name="taskSelection.fields.task_id" :key="key">
+        <div>
+          <div style="padding: 14px">
+          <div style="padding-bottom: 28px">
+            <el-table
+              class="taskinfo-table"
+              :data="taskinfo"
+              stripe
+              border
+              style="width: 100%; background-color: #E8E8E8; color: #282828">
+              <el-table-column type="expand">
+                <template slot-scope="props">
+                  <el-form label-position="left" inline class="demo-table-expand">
+                    <el-form-item label="Project Name">
+                      <span>{{ props.row.fields.project_name }}</span>
+                    </el-form-item>
+                    <el-form-item label="Label">
+                      <span>{{ props.row.fields.label }}</span>
+                    </el-form-item>
+                    <el-form-item label="Train Data">
+                      <span>{{ props.row.fields.train_data }}</span>
+                    </el-form-item>
+                    <el-form-item label="Test Data">
+                      <span>{{ props.row.fields.test_data }}</span>
+                    </el-form-item>
+                    <el-form-item label="Feat. Sel.">
+                      <span>{{ props.row.fields.feat_sel }}</span>
+                    </el-form-item>
+                    <el-form-item label="Estimator">
+                      <span>{{ props.row.fields.estimator }}</span>
+                    </el-form-item>
+                    <el-form-item label="CV Type">
+                      <span>{{ props.row.fields.cv_type }}</span>
+                    </el-form-item>
+                    <el-form-item label="Note">
+                      <span>{{ props.row.fields.note }}</span>
+                    </el-form-item>
+                  </el-form>
+                </template>
+              </el-table-column>
+              <el-table-column
+              label="Task Name"
+              prop="fields.task_name">
+              </el-table-column>
+              <el-table-column
+              label="Task Type"
+              prop="fields.task_type"
+              width="120">
+              </el-table-column>
+            </el-table>
+            </div>
+            <el-table
+              :data="resultData"
+              stripe
+              border
+              style="width: 100%; color: #282828">
+              <el-table-column
+                label="Item"
+                prop="Item"
+                fixed
+                width="180">
+              </el-table-column>
+              <el-table-column
+                label="Value"
+                prop="Value">
+              </el-table-column>
+            </el-table>
+            <el-button type="primary" style="margin-top: 14px" round @click="handleDownloadFeatureWeights" v-if="showDownloadButton">Download Feature Weights</el-button>
+            <li v-for="(img_name, index) in resultImgList" :key="index" style="list-style: none; text-align: center">
+              <img class="result-image" :src="'/api/show_img?task_id=' + taskid + '&img_name=' + img_name">
+            </li>
+          </div>
+        </div>
+      </el-tab-pane>
+    </el-tabs>
+  </div>
+  <div class="viewer-area" v-else-if="analysisType == 'Statistical Analysis'">
     <el-tabs type="border-card" style="box-shadow: 0px 0 0px #FFFFFF;" @tab-click="handleTabClick" stretch v-model="tabsValue">
       <el-tab-pane v-for="(taskSelection, key) in taskSelections" :label="taskSelection.fields.task_id" :name="taskSelection.fields.task_id" :key="key">
         <div>
@@ -89,6 +167,7 @@ export default {
       this.taskid = this.taskSelection.fields.task_id
       this.tasktype = this.taskSelection.fields.task_type
       this.tabsValue = this.taskid
+      this.analysisType = this.$route.query.analysisType
       this.showResults()
     } else if (this.$route.query.taskid) {
       this.taskid = this.$route.query.taskid
@@ -96,6 +175,7 @@ export default {
       this.taskSelections = {0: {fields: {task_id: this.taskid}}}
       this.taskSelection = this.taskSelections[0]
       this.tabsValue = this.taskid
+      this.analysisType = this.$route.query.analysisType
       this.showResults()
     } else {
       this.$alert('There is no report to view!', 'Error!', {
@@ -119,7 +199,7 @@ export default {
       window.location.href = '/api/download_feature_weights?task_id=' + this.taskid
     },
     showResults () {
-      axios.get('/api/show_results?task_id=' + this.taskid)
+      axios.get('/api/show_results?analysis_type=' + this.analysisType + '&task_id=' + this.taskid)
         .then(response => {
           var res = response.data
           console.log(res)
@@ -162,7 +242,8 @@ export default {
       resultData: [],
       resultImgList: [],
       tabsValue: '',
-      showDownloadButton: false
+      showDownloadButton: false,
+      analysisType: ''
     }
   }
 }

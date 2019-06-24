@@ -232,8 +232,10 @@ def show_submissions(request):
     response_content = {}
     response = HttpResponse()
     try:
-        submissions = Submissions_Demo.objects.filter().order_by('-id')
-        response_content['list']  = json.loads(serializers.serialize("json", submissions))
+        analysis_type = request.GET.get('analysis_type')
+        if analysis_type == 'Machine Learning':
+            submissions = Submissions_Demo.objects.filter().order_by('-id')
+            response_content['list']  = json.loads(serializers.serialize("json", submissions))
         response_content['msg'] = 'success'
         response_content['error_num'] = 0
     except  Exception as e:
@@ -320,22 +322,24 @@ def show_results(request):
     response = HttpResponse()
     try:
         task_id = request.GET.get('task_id')
+        analysis_type = request.GET.get('analysis_type')
         
-        result_table = pd.read_csv('results/' + task_id + '/results.csv', encoding='gbk')
-        result_json = result_table.to_json(orient='records')
-        response_content['list']  = json.loads(result_json)
+        if analysis_type == 'Machine Learning':
+            result_table = pd.read_csv('results/' + task_id + '/results.csv', encoding='gbk')
+            result_json = result_table.to_json(orient='records')
+            response_content['list']  = json.loads(result_json)
 
-        task_info = Submissions_Demo.objects.filter(task_id=task_id)
-        response_content['info']  = json.loads(serializers.serialize("json", task_info))
+            task_info = Submissions_Demo.objects.filter(task_id=task_id)
+            response_content['info']  = json.loads(serializers.serialize("json", task_info))
 
-        img_list = []
-        response_content['got_weights'] = 0
-        for filename in os.listdir('results/' + task_id):
-            if filename[-4:] == '.png':
-                img_list.append(filename[:-4])
-            if filename == 'feature_weights.csv':
-                response_content['got_weights'] = 1
-        response_content['img_list'] = img_list
+            img_list = []
+            response_content['got_weights'] = 0
+            for filename in os.listdir('results/' + task_id):
+                if filename[-4:] == '.png':
+                    img_list.append(filename[:-4])
+                if filename == 'feature_weights.csv':
+                    response_content['got_weights'] = 1
+            response_content['img_list'] = img_list
 
         response_content['msg'] = 'success'
         response_content['error_num'] = 0
