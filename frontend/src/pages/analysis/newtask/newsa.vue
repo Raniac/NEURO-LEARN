@@ -2,7 +2,7 @@
 <div style="padding: 14px">
   <div class="tasks-form-area">
     <el-tabs type="border-card" stretch style="box-shadow: 0px 0 0px #FFFFFF;" v-model="tabsValue" @tab-click="handleTabClick">
-      <el-tab-pane label="Difference Analysis" name="da">
+      <el-tab-pane label="Difference Analysis" name="DA">
         <div class="da-task-form">
           <el-form ref="form" :model="newform" label-width="90px" label-position="middle">
             <el-form-item label="Task Name">
@@ -42,7 +42,7 @@
             </el-form>
         </div>
       </el-tab-pane>
-      <el-tab-pane label="Correlation Analysis" name="ca">
+      <el-tab-pane label="Correlation Analysis" name="CA">
         <div class="ca-task-form">
           <el-form ref="form" :model="newform" label-width="90px" label-position="middle">
             <el-form-item label="Task Name">
@@ -93,7 +93,7 @@ export default {
   data () {
     return {
       data_table: [],
-      tabsValue: 'da',
+      tabsValue: 'DA',
       taskType: '',
       newform: {
         project_name: '',

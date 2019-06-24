@@ -131,19 +131,30 @@ def overview_submissions(request):
         print(request.COOKIES.get('sessionid'))
         print(request.COOKIES.get('username'))
         print(request.COOKIES.get('user_id'))
-        submissions = Submissions_Demo.objects.filter().order_by('-id')[:4]
-        response_content['list']  = json.loads(serializers.serialize("json", submissions))
 
-        total = Submissions_Demo.objects.filter()
-        response_content['total_num'] = len(total)
-        submitted = Submissions_Demo.objects.filter(task_status='Submitted')
-        response_content['submitted_num'] = len(submitted)
-        running = Submissions_Demo.objects.filter(task_status='Running')
-        response_content['running_num'] = len(running)
-        finished = Submissions_Demo.objects.filter(task_status='Finished')
-        response_content['finished_num'] = len(finished)
-        failed = Submissions_Demo.objects.filter(task_status='Failed')
-        response_content['failed_num'] = len(failed)
+        analysis_type = request.GET.get('analysis_type')
+        if analysis_type == 'Machine Learning':
+            submissions = Submissions_Demo.objects.filter().order_by('-id')[:4]
+            response_content['list']  = json.loads(serializers.serialize("json", submissions))
+        elif analysis_type == 'Statistical Analysis':
+            submissions = Submissions_SA_Demo.objects.filter().order_by('-id')[:4]
+            response_content['list']  = json.loads(serializers.serialize("json", submissions))
+
+        total_ml = Submissions_Demo.objects.filter() 
+        total_sa = Submissions_SA_Demo.objects.filter()
+        response_content['total_num'] = len(total_ml) + len(total_sa)
+        submitted_ml = Submissions_Demo.objects.filter(task_status='Submitted')
+        submitted_sa = Submissions_SA_Demo.objects.filter(task_status='Submitted')
+        response_content['submitted_num'] = len(submitted_ml) + len(submitted_sa)
+        running_ml = Submissions_Demo.objects.filter(task_status='Running') 
+        running_sa = Submissions_SA_Demo.objects.filter(task_status='Running')
+        response_content['running_num'] = len(running_ml) + len(running_sa)
+        finished_ml = Submissions_Demo.objects.filter(task_status='Finished') 
+        finished_sa = Submissions_SA_Demo.objects.filter(task_status='Finished')
+        response_content['finished_num'] = len(finished_ml) + len(finished_sa)
+        failed_ml = Submissions_Demo.objects.filter(task_status='Failed') 
+        failed_sa = Submissions_SA_Demo.objects.filter(task_status='Failed')
+        response_content['failed_num'] = len(failed_ml) + len(failed_sa)
 
         response_content['msg'] = 'success'
         response_content['error_num'] = 0
