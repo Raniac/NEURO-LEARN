@@ -1,0 +1,32 @@
+*** Starting uWSGI 2.0.18 (64bit) on [Tue Jun 25 12:02:26 2019] ***
+compiled with version: 7.4.0 on 16 June 2019 06:41:54
+os: Linux-4.15.0-51-generic #55-Ubuntu SMP Wed May 15 14:27:21 UTC 2019
+nodename: bennyray
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 8
+current working directory: /home/bennyray/Projects/neuro-learn/web/neurolearn_dev
+writing pidfile to uwsgi.pid
+detected binary path: /home/bennyray/Projects/neuro-learn/env/bin/uwsgi
+chdir() to /home/bennyray/Projects/neuro-learn/web/neurolearn_dev/
+your processes number limit is 63476
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 0.0.0.0:9090 fd 3
+Python version: 3.6.8 (default, Jan 14 2019, 11:02:34)  [GCC 8.0.1 20180414 (experimental) [trunk revision 259383]]
+Python main interpreter initialized at 0x55c0f2334220
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 416880 bytes (407 KB) for 8 cores
+*** Operational MODE: preforking+threaded ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x55c0f2334220 pid: 21938 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 21938)
+spawned uWSGI worker 1 (pid: 21942, cores: 2)
+spawned uWSGI worker 2 (pid: 21943, cores: 2)
+spawned uWSGI worker 3 (pid: 21946, cores: 2)
+spawned uWSGI worker 4 (pid: 21947, cores: 2)
