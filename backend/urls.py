@@ -16,4 +16,5 @@ urlpatterns = [
     url(r'show_img$', views.show_img, ),
     url(r'download_templates$', views.download_templates, ),
     url(r'download_feature_weights$', views.download_feature_weights, ),
+    url(r'download_significance_values$', views.download_significance_values, ),
     ]

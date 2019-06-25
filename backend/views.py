@@ -406,6 +406,10 @@ def show_results(request):
                     response_content['got_weights'] = 1
             response_content['img_list'] = img_list
 
+        elif analysis_type == 'Statistical Analysis':
+            task_info = Submissions_SA_Demo.objects.filter(task_id=task_id)
+            response_content['info']  = json.loads(serializers.serialize("json", task_info))
+
         response_content['msg'] = 'success'
         response_content['error_num'] = 0
     except  Exception as e:
@@ -449,4 +453,14 @@ def download_feature_weights(request):
     response = FileResponse(feature_weights_file)
     response['Content-Type']='application/octet-stream'
     response['Content-Disposition']='attachment;filename=\"' + task_id + '/' + 'feature_weights.csv\"'
+    return response
+
+@require_http_methods(["GET"])
+def download_significance_values(request):
+    task_id = request.GET.get('task_id')
+    significance_file = open('results/' + task_id + '/' + 'significance.csv', 'rb')
+    
+    response = FileResponse(significance_file)
+    response['Content-Type']='application/octet-stream'
+    response['Content-Disposition']='attachment;filename=\"' + task_id + '/' + 'significance.csv\"'
     return response

@@ -68,7 +68,7 @@
                 prop="Value">
               </el-table-column>
             </el-table>
-            <el-button type="primary" style="margin-top: 14px" round @click="handleDownloadFeatureWeights" v-if="showDownloadButton">Download Feature Weights</el-button>
+            <el-button type="primary" style="margin-top: 28px" round @click="handleDownloadFeatureWeights" v-if="showDownloadButton">Download Feature Weights</el-button>
             <li v-for="(img_name, index) in resultImgList" :key="index" style="list-style: none; text-align: center">
               <img class="result-image" :src="'/api/show_img?task_id=' + taskid + '&img_name=' + img_name">
             </li>
@@ -87,6 +87,7 @@
               class="taskinfo-table"
               :data="taskinfo"
               stripe
+              default-expand-all="true"
               border
               style="width: 100%; background-color: #E8E8E8; color: #282828">
               <el-table-column type="expand">
@@ -95,23 +96,11 @@
                     <el-form-item label="Project Name">
                       <span>{{ props.row.fields.project_name }}</span>
                     </el-form-item>
-                    <el-form-item label="Label">
-                      <span>{{ props.row.fields.label }}</span>
+                    <el-form-item label="Test Var. / Data X">
+                      <span>{{ props.row.fields.test_var_data_x }}</span>
                     </el-form-item>
-                    <el-form-item label="Train Data">
-                      <span>{{ props.row.fields.train_data }}</span>
-                    </el-form-item>
-                    <el-form-item label="Test Data">
-                      <span>{{ props.row.fields.test_data }}</span>
-                    </el-form-item>
-                    <el-form-item label="Feat. Sel.">
-                      <span>{{ props.row.fields.feat_sel }}</span>
-                    </el-form-item>
-                    <el-form-item label="Estimator">
-                      <span>{{ props.row.fields.estimator }}</span>
-                    </el-form-item>
-                    <el-form-item label="CV Type">
-                      <span>{{ props.row.fields.cv_type }}</span>
+                    <el-form-item label="Group Var. / Data Y">
+                      <span>{{ props.row.fields.group_var_data_y }}</span>
                     </el-form-item>
                     <el-form-item label="Note">
                       <span>{{ props.row.fields.note }}</span>
@@ -130,23 +119,7 @@
               </el-table-column>
             </el-table>
             </div>
-            <el-table
-              :data="resultData"
-              stripe
-              border
-              style="width: 100%; color: #282828">
-              <el-table-column
-                label="Item"
-                prop="Item"
-                fixed
-                width="180">
-              </el-table-column>
-              <el-table-column
-                label="Value"
-                prop="Value">
-              </el-table-column>
-            </el-table>
-            <el-button type="primary" style="margin-top: 14px" round @click="handleDownloadFeatureWeights" v-if="showDownloadButton">Download Feature Weights</el-button>
+            <el-button type="primary" style="margin-top: 0px" round @click="handleDownloadSigValues" v-if="showDownloadButton">Download Significance Values</el-button>
             <li v-for="(img_name, index) in resultImgList" :key="index" style="list-style: none; text-align: center">
               <img class="result-image" :src="'/api/show_img?task_id=' + taskid + '&img_name=' + img_name">
             </li>
@@ -198,6 +171,9 @@ export default {
       console.log(this.taskid)
       window.location.href = '/api/download_feature_weights?task_id=' + this.taskid
     },
+    handleDownloadSigValues () {
+      window.location.href = '/api/download_significance_values?task_id=' + this.taskid
+    },
     showResults () {
       axios.get('/api/show_results?analysis_type=' + this.analysisType + '&task_id=' + this.taskid)
         .then(response => {
@@ -205,16 +181,21 @@ export default {
           console.log(res)
           if (res.error_num === 0) {
             console.log(res)
-            this.taskinfo = res['info']
-            this.resultData = res['list']
-            this.resultImgList = res['img_list']
-            console.log(this.taskinfo)
-            console.log(this.resultData)
-            console.log(this.resultImgList)
-            if (res.got_weights === 1) {
+            if (this.analysisType === 'Machine Learning') {
+              this.taskinfo = res['info']
+              this.resultData = res['list']
+              this.resultImgList = res['img_list']
+              console.log(this.taskinfo)
+              console.log(this.resultData)
+              console.log(this.resultImgList)
+              if (res.got_weights === 1) {
+                this.showDownloadButton = true
+              } else {
+                this.showDownloadButton = false
+              }
+            } else if (this.analysisType === 'Statistical Analysis') {
+              this.taskinfo = res['info']
               this.showDownloadButton = true
-            } else {
-              this.showDownloadButton = false
             }
           } else {
             this.$alert(res['msg'].slice(1, -1), 'Error!', {
