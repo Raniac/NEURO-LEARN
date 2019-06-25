@@ -20,7 +20,7 @@
               </el-select>
             </el-form-item>
             <el-form-item label="Test Var.">
-              <el-select class="select-data" v-model="newform.test_var_data_x" placeholder="Select Test Variables">
+              <el-select class="select-data" v-model="newform.test_var_data_x" placeholder="Select Test Variables" filterable multiple>
               <el-option v-for="(data_option, key) in data_table" :label="data_option.fields.data_name" :value="data_option.fields.data_path" :key="key"></el-option>
               </el-select>
             </el-form-item>
@@ -60,12 +60,12 @@
               </el-select>
             </el-form-item>
             <el-form-item label="Data X">
-              <el-select class="select-data" v-model="newform.test_var_data_x" placeholder="Select Data X">
+              <el-select class="select-data" v-model="newform.test_var_data_x" placeholder="Select Data X" filterable multiple>
               <el-option v-for="(data_option, key) in data_table" :label="data_option.fields.data_name" :value="data_option.fields.data_path" :key="key"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="Data Y">
-              <el-select class="select-data" v-model="newform.group_var_data_y" placeholder="Select Data Y">
+              <el-select class="select-data" v-model="newform.group_var_data_y" placeholder="Select Data Y" filterable multiple>
               <el-option v-for="(data_option, key) in data_table" :label="data_option.fields.data_name" :value="data_option.fields.data_path" :key="key"></el-option>
               </el-select>
             </el-form-item>
