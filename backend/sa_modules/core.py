@@ -34,9 +34,9 @@ def test_sa_task(task_id, task_type, test_var_data_x, group_var_data_y):
                 group_variables = pd.concat([group_variables, group_variables_temp], axis=0)
 
         if task_type[3:] == 'T-test':
-            pass
+            integrated_ttest(RESULT_PATH, test_variables, group_variables)
         elif task_type[3:] == 'ANOVA':
-            pass
+            integrated_anova(RESULT_PATH, test_variables, group_variables)
     
     elif task_type[:2] == 'CA':
         DATA_X_PATH = test_var_data_x[0]
@@ -66,6 +66,6 @@ def test_sa_task(task_id, task_type, test_var_data_x, group_var_data_y):
                 data_y = pd.concat([data_y, data_y_temp], axis=0)
 
         if task_type[3:] == 'Pearson':
-            pass
+            integrated_pearson(RESULT_PATH, data_x, data_y)
         elif task_type[3:] == 'Spearman':
-            pass
+            integrated_spearman(RESULT_PATH, data_x, data_y)

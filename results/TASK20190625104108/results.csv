@@ -1,0 +1,8 @@
+Item,Value
+Optimal CV Accuracy,0.7576470588235293
+Optimal Parameters,"{'lr__multi_class': 'multinomial', 'lr__solver': 'sag'}"
+Test Accuracy,0.7758620689655172
+Test Sensitivity,0.6551724137931034
+Test Specificity,0.896551724137931
+Area Under Curve,0.8014268727705113
+Run Time,8.01s
