@@ -30,3 +30,80 @@ spawned uWSGI worker 1 (pid: 21942, cores: 2)
 spawned uWSGI worker 2 (pid: 21943, cores: 2)
 spawned uWSGI worker 3 (pid: 21946, cores: 2)
 spawned uWSGI worker 4 (pid: 21947, cores: 2)
+unable to load configuration from from multiprocessing.semaphore_tracker import main;main(20)
+[pid: 21946|app: 0|req: 1/1] 192.168.51.148 () {40 vars in 615 bytes} [Tue Jun 25 12:04:19 2019] GET / => generated 562 bytes in 1911 msecs (HTTP/1.1 200) 4 headers in 123 bytes (1 switches on core 0)
+unable to load configuration from from multiprocessing.semaphore_tracker import main;main(21)
+unable to load configuration from from multiprocessing.semaphore_tracker import main;main(21)
+None
+None
+None
+None
+None
+None
+[pid: 21947|app: 0|req: 2/2] 192.168.51.148 () {40 vars in 636 bytes} [Tue Jun 25 12:04:21 2019] GET /api/overview_submissions => generated 128 bytes in 1537 msecs (HTTP/1.1 200) 7 headers in 274 bytes (2 switches on core 0)
+[pid: 21947|app: 0|req: 2/3] 192.168.51.148 () {40 vars in 701 bytes} [Tue Jun 25 12:04:21 2019] GET /api/overview_submissions?analysis_type=Machine%20Learning => generated 2528 bytes in 1587 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+[pid: 21943|app: 0|req: 1/4] 192.168.51.148 () {38 vars in 553 bytes} [Tue Jun 25 12:04:21 2019] GET /favicon.ico => generated 0 bytes in 1400 msecs (HTTP/1.1 302) 5 headers in 155 bytes (1 switches on core 0)
+None
+None
+None
+[pid: 21946|app: 0|req: 2/5] 192.168.51.148 () {40 vars in 709 bytes} [Tue Jun 25 12:04:24 2019] GET /api/overview_submissions?analysis_type=Statistical%20Analysis => generated 2059 bytes in 23 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+[pid: 21947|app: 0|req: 3/6] 192.168.51.148 () {40 vars in 747 bytes} [Tue Jun 25 12:04:29 2019] GET /api/show_results?analysis_type=Statistical%20Analysis&task_id=TASK20190625113602 => generated 557 bytes in 3 msecs (HTTP/1.1 200) 7 headers in 274 bytes (2 switches on core 0)
+[pid: 21946|app: 0|req: 3/7] 192.168.51.148 () {42 vars in 770 bytes} [Tue Jun 25 12:05:02 2019] GET /api/download_significance_values?task_id=TASK20190625113602 => generated 22269645 bytes in 44 msecs via sendfile() (HTTP/1.1 200) 4 headers in 182 bytes (8 switches on core 0)
+None
+None
+None
+[pid: 21946|app: 0|req: 4/8] 192.168.51.148 () {40 vars in 701 bytes} [Tue Jun 25 12:37:36 2019] GET /api/overview_submissions?analysis_type=Machine%20Learning => generated 2528 bytes in 12 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+None
+None
+None
+[pid: 21943|app: 0|req: 2/9] 192.168.51.148 () {40 vars in 709 bytes} [Tue Jun 25 12:37:38 2019] GET /api/overview_submissions?analysis_type=Statistical%20Analysis => generated 2059 bytes in 48 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+None
+None
+None
+[pid: 21947|app: 0|req: 4/10] 192.168.51.148 () {40 vars in 701 bytes} [Tue Jun 25 12:37:39 2019] GET /api/overview_submissions?analysis_type=Machine%20Learning => generated 2528 bytes in 18 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+None
+None
+None
+[pid: 21947|app: 0|req: 5/11] 192.168.51.148 () {40 vars in 709 bytes} [Tue Jun 25 12:37:40 2019] GET /api/overview_submissions?analysis_type=Statistical%20Analysis => generated 2059 bytes in 10 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 21947|app: 0|req: 6/12] 192.168.51.148 () {40 vars in 747 bytes} [Tue Jun 25 13:21:30 2019] GET /api/show_results?analysis_type=Statistical%20Analysis&task_id=TASK20190625113602 => generated 557 bytes in 2 msecs (HTTP/1.1 200) 7 headers in 274 bytes (2 switches on core 1)
+None
+None
+None
+[pid: 21947|app: 0|req: 7/13] 192.168.51.148 () {40 vars in 701 bytes} [Tue Jun 25 13:21:39 2019] GET /api/overview_submissions?analysis_type=Machine%20Learning => generated 2528 bytes in 9 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 21947|app: 0|req: 8/14] 192.168.51.148 () {40 vars in 693 bytes} [Tue Jun 25 15:26:37 2019] GET /api/show_submissions?analysis_type=Machine%20Learning => generated 52387 bytes in 9 msecs (HTTP/1.1 200) 7 headers in 276 bytes (2 switches on core 1)
+unable to load configuration from from multiprocessing.semaphore_tracker import main;main(21)
+[pid: 21942|app: 0|req: 1/15] 192.168.51.148 () {42 vars in 646 bytes} [Tue Jun 25 15:26:42 2019] GET / => generated 562 bytes in 1616 msecs (HTTP/1.1 200) 4 headers in 123 bytes (1 switches on core 0)
+None
+None
+None
+[pid: 21946|app: 0|req: 6/16] 192.168.51.148 () {42 vars in 724 bytes} [Tue Jun 25 15:26:44 2019] GET /api/show_submissions?analysis_type=Machine%20Learning => generated 52387 bytes in 12 msecs (HTTP/1.1 200) 7 headers in 276 bytes (2 switches on core 1)
+[pid: 21946|app: 0|req: 6/17] 192.168.51.148 () {42 vars in 667 bytes} [Tue Jun 25 15:26:44 2019] GET /api/overview_submissions => generated 128 bytes in 19 msecs (HTTP/1.1 200) 7 headers in 274 bytes (2 switches on core 0)
+[pid: 21942|app: 0|req: 2/18] 192.168.51.148 () {40 vars in 693 bytes} [Tue Jun 25 15:27:04 2019] GET /api/show_submissions?analysis_type=Machine%20Learning => generated 52387 bytes in 15 msecs (HTTP/1.1 200) 7 headers in 276 bytes (2 switches on core 1)
+[pid: 21946|app: 0|req: 7/19] 192.168.51.148 () {40 vars in 614 bytes} [Tue Jun 25 15:27:05 2019] GET /api/show_data => generated 2244 bytes in 2 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+[pid: 21947|app: 0|req: 9/20] 192.168.51.148 () {40 vars in 614 bytes} [Tue Jun 25 15:27:06 2019] GET /api/show_data => generated 2244 bytes in 2 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+None
+None
+None
+[pid: 21947|app: 0|req: 10/21] 192.168.51.148 () {40 vars in 701 bytes} [Tue Jun 25 15:27:07 2019] GET /api/overview_submissions?analysis_type=Machine%20Learning => generated 2528 bytes in 10 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+[pid: 21947|app: 0|req: 11/22] 192.168.51.148 () {40 vars in 614 bytes} [Tue Jun 25 15:27:10 2019] GET /api/show_data => generated 2244 bytes in 3 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 21947|app: 0|req: 12/23] 192.168.51.148 () {42 vars in 646 bytes} [Tue Jun 25 15:27:15 2019] GET / => generated 562 bytes in 7 msecs (HTTP/1.1 200) 4 headers in 123 bytes (1 switches on core 1)
+None
+None
+None
+[pid: 21947|app: 0|req: 13/24] 192.168.51.148 () {42 vars in 645 bytes} [Tue Jun 25 15:27:16 2019] GET /api/show_data => generated 2244 bytes in 2 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 21943|app: 0|req: 3/25] 192.168.51.148 () {42 vars in 667 bytes} [Tue Jun 25 15:27:16 2019] GET /api/overview_submissions => generated 128 bytes in 11 msecs (HTTP/1.1 200) 7 headers in 274 bytes (2 switches on core 0)
+[pid: 21946|app: 0|req: 8/26] 192.168.51.148 () {40 vars in 614 bytes} [Tue Jun 25 15:54:08 2019] GET /api/show_data => generated 2244 bytes in 3 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+None
+None
+None
+[pid: 21946|app: 0|req: 9/27] 192.168.51.148 () {40 vars in 701 bytes} [Tue Jun 25 15:56:34 2019] GET /api/overview_submissions?analysis_type=Machine%20Learning => generated 2528 bytes in 11 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+[pid: 21942|app: 0|req: 3/28] 192.168.51.148 () {40 vars in 614 bytes} [Tue Jun 25 16:51:03 2019] GET /api/show_data => generated 2244 bytes in 3 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 21947|app: 0|req: 14/29] 192.168.51.148 () {40 vars in 693 bytes} [Tue Jun 25 16:51:05 2019] GET /api/show_submissions?analysis_type=Machine%20Learning => generated 52387 bytes in 9 msecs (HTTP/1.1 200) 7 headers in 276 bytes (2 switches on core 1)
+[pid: 21947|app: 0|req: 15/30] 192.168.51.148 () {40 vars in 701 bytes} [Tue Jun 25 16:51:06 2019] GET /api/show_submissions?analysis_type=Statistical%20Analysis => generated 6155 bytes in 4 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 0)
+[pid: 21947|app: 0|req: 16/31] 192.168.51.148 () {40 vars in 614 bytes} [Tue Jun 25 16:56:15 2019] GET /api/show_data => generated 2244 bytes in 2 msecs (HTTP/1.1 200) 7 headers in 275 bytes (2 switches on core 1)
+None
+None
+None
+Wed Jun 26 08:14:54 2019 - uwsgi_response_write_body_do(): Broken pipe [core/writer.c line 429] during GET /api/overview_submissions (192.168.51.148)
+OSError: write error
+[pid: 21946|app: 0|req: 10/32] 192.168.51.148 () {40 vars in 636 bytes} [Wed Jun 26 08:14:54 2019] GET /api/overview_submissions => generated 0 bytes in 11 msecs (HTTP/1.1 200) 7 headers in 274 bytes (1 switches on core 0)
