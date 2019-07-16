@@ -121,8 +121,8 @@ export default {
           {name: 'GROUP', value: 'GROUP'}
         ]
         this.form.feat_sel_options = [
-          {name: 'Principal Component Analysis', value: 'Principal Component Analysis'},
           {name: 'Analysis of Variance', value: 'Analysis of Variance'},
+          {name: 'Principal Component Analysis', value: 'Principal Component Analysis'},
           {name: 'Recursive Feature Elimination', value: 'Recursive Feature Elimination'},
           {name: 'None', value: 'None'}
         ]

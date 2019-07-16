@@ -17,6 +17,7 @@ class Submissions_Demo(models.Model):
     task_type = models.CharField(max_length=64)
     project_name = models.CharField(max_length=64)
     train_data = models.CharField(max_length=1024)
+    enable_test = models.BooleanField()
     test_data = models.CharField(max_length=1024)
     label = models.CharField(max_length=64)
     feat_sel = models.CharField(max_length=64)

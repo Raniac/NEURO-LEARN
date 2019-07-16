@@ -1,0 +1,4 @@
+Item,Value
+Optimal CV MAE,-3.871247928823562
+Optimal Parameters,"{'anova__percentile': 35, 'svr__C': 0.01}"
+Run Time,20.97s

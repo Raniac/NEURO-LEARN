@@ -6,15 +6,14 @@ from .acquisition import Data
 from .models import *
 from .integrated import *
 
-def test_task(task_id, task_type, train_data, test_data, label, feat_sel, estimator, cv_type):
-    print(task_id, task_type, train_data[0], test_data[0], label, feat_sel, estimator, cv_type)
+def test_task(task_id, task_type, train_data, enable_test, test_data, label, feat_sel, estimator, cv_type):
+    # print(task_id, task_type, train_data[0], enable_test, test_data[0], label, feat_sel, estimator, cv_type)
     
     RESULT_PATH = 'results/' + task_id
     if not os.path.exists(RESULT_PATH):
         os.makedirs(RESULT_PATH)
 
     TRAIN_DATA_PATH = train_data[0]
-    TEST_DATA_PATH = test_data[0]
 
     data_columns = pd.read_csv(TRAIN_DATA_PATH, encoding='gbk').columns
     columns_to_drop = []
@@ -41,20 +40,22 @@ def test_task(task_id, task_type, train_data, test_data, label, feat_sel, estima
     my_train_data.data_preprocessing()
     (train_n_samples, train_n_features) = train_X.shape
 
-    # Instantiate testing dataset
-    test_X = pd.read_csv(TEST_DATA_PATH, encoding='gbk').drop(columns_to_drop, axis=1) # load data file
-    test_y = pd.read_csv(TEST_DATA_PATH, encoding='gbk')['LABEL_' + label] # load label file
-    
-    if len(test_data) > 0:
-        for i in range(1, len(test_data)):
-            test_X_temp = pd.read_csv(test_data[i], encoding='gbk').drop(columns_to_drop, axis=1) # load data file
-            test_y_temp = pd.read_csv(test_data[i], encoding='gbk')['LABEL_' + label] # load label file
-            test_X = pd.concat([test_X, test_X_temp], axis=0)
-            test_y = pd.concat([test_y, test_y_temp], axis=0)
-    
-    my_test_data = Data(test_X, test_y) # instantiate data class
-    my_test_data.data_preprocessing()
-    (test_n_samples, test_n_features) = test_X.shape
+    if enable_test:
+        # Instantiate testing dataset
+        TEST_DATA_PATH = test_data[0]
+        test_X = pd.read_csv(TEST_DATA_PATH, encoding='gbk').drop(columns_to_drop, axis=1) # load data file
+        test_y = pd.read_csv(TEST_DATA_PATH, encoding='gbk')['LABEL_' + label] # load label file
+        
+        if len(test_data) > 0:
+            for i in range(1, len(test_data)):
+                test_X_temp = pd.read_csv(test_data[i], encoding='gbk').drop(columns_to_drop, axis=1) # load data file
+                test_y_temp = pd.read_csv(test_data[i], encoding='gbk')['LABEL_' + label] # load label file
+                test_X = pd.concat([test_X, test_X_temp], axis=0)
+                test_y = pd.concat([test_y, test_y_temp], axis=0)
+        
+        my_test_data = Data(test_X, test_y) # instantiate data class
+        my_test_data.data_preprocessing()
+        (test_n_samples, test_n_features) = test_X.shape
 
     if cv_type == '10-fold':
         cv = 10
@@ -87,7 +88,10 @@ def test_task(task_id, task_type, train_data, test_data, label, feat_sel, estima
         elif estimator == "K Nearest Neighbor":
             my_model = KNN_CLF()
 
-        integrated_clf_model(RESULT_PATH, my_feat_sel, my_model, my_train_data, my_test_data, cv) # run integrated classification model
+        if enable_test:
+            integrated_clf_model(RESULT_PATH, my_feat_sel, my_model, my_train_data, my_test_data, cv) # run integrated classification model
+        else:
+            integrated_clf_model_notest(RESULT_PATH, my_feat_sel, my_model, my_train_data, cv)
     elif task_type == "Regression":
         if feat_sel == "Analysis of Variance":
             my_feat_sel = ANOVA_Feat_Sel(train_n_samples, train_n_features)
@@ -105,4 +109,7 @@ def test_task(task_id, task_type, train_data, test_data, label, feat_sel, estima
         elif estimator == "Ridge Regression":
             my_model = L2_RGS()
     
-        integrated_rgs_model(RESULT_PATH, my_feat_sel, my_model, my_train_data, my_test_data, cv) # run integrated classification model
+        if enable_test:
+            integrated_rgs_model(RESULT_PATH, my_feat_sel, my_model, my_train_data, my_test_data, cv) # run integrated classification model
+        else:
+            integrated_rgs_model_notest(RESULT_PATH, my_feat_sel, my_model, my_train_data, cv)

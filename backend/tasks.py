@@ -13,13 +13,14 @@ def add(x, y):
     return x + y
 
 @task
-def new_ml_celery_task(taskid, tasktype, traindata, testdata, label, featsel, estimator, cv):
+def new_ml_celery_task(taskid, tasktype, traindata, enabletest, testdata, label, featsel, estimator, cv):
     Submissions_Demo.objects.filter(task_id=taskid).update(task_status='Running')
     try:
-        test_task(taskid, tasktype, traindata, testdata, label, featsel, estimator, cv)
+        test_task(taskid, tasktype, traindata, enabletest, testdata, label, featsel, estimator, cv)
         Submissions_Demo.objects.filter(task_id=taskid).update(task_status='Finished')
-    except:
+    except Exception as e:
         Submissions_Demo.objects.filter(task_id=taskid).update(task_status='Failed')
+        print(e)
         Submissions_Demo.objects.filter(task_id=taskid).update(task_result=traceback.format_exc()[-min(1000, len(traceback.format_exc())):])
     return
 

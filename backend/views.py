@@ -183,6 +183,7 @@ def new_task(request):
             task_type=postBody.get('task_type')
             project_name=postBody.get('project_name')
             train_data=postBody.get('train_data')
+            enable_test=postBody.get('enable_test')
             test_data=postBody.get('test_data')
             label=postBody.get('label')
             feat_sel=postBody.get('feat_sel')
@@ -197,6 +198,7 @@ def new_task(request):
                 task_type=task_type,
                 project_name=project_name,
                 train_data=train_data,
+                enable_test=enable_test,
                 test_data=test_data,
                 label=label,
                 feat_sel=feat_sel,
@@ -214,6 +216,7 @@ def new_task(request):
                 taskid=task_id,
                 tasktype=task_type,
                 traindata=train_data,
+                enabletest=enable_test,
                 testdata=test_data,
                 label=label,
                 featsel=feat_sel,
