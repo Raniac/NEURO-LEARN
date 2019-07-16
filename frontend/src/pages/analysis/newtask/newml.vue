@@ -21,16 +21,6 @@
             <el-option v-for="(data_option, key) in data_table" :label="data_option.fields.data_name" :value="data_option.fields.data_path" :key="key"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="Enable Test">
-          <el-switch
-            v-model="newform.enable_test">
-          </el-switch>
-        </el-form-item>
-        <el-form-item label="Test Data">
-          <el-select class="select-data" v-model="newform.test_data" placeholder="Select Test Data" :disabled="!newform.enable_test" filterable multiple>
-            <el-option v-for="(data_option, key) in data_table" :label="data_option.fields.data_name" :value="data_option.fields.data_path" :key="key"></el-option>
-          </el-select>
-        </el-form-item>
         <el-form-item label="Label">
           <el-select class="select-label" v-model="newform.label" placeholder="Select Label">
           <el-option v-for="(label_option, key) in form.label_options" :label="label_option.name" :value="label_option.value" :key="key"></el-option>
@@ -51,12 +41,22 @@
           <el-option v-for="(cv_type_option, key) in form.cv_type_options" :label="cv_type_option.name" :value="cv_type_option.value" :key="key"></el-option>
           </el-select>
         </el-form-item>
+        <el-form-item label="Enable Test">
+          <el-switch
+            v-model="newform.enable_test">
+          </el-switch>
+        </el-form-item>
+        <el-form-item label="Test Data">
+          <el-select class="select-data" v-model="newform.test_data" placeholder="Select Test Data" :disabled="!newform.enable_test" filterable multiple>
+            <el-option v-for="(data_option, key) in data_table" :label="data_option.fields.data_name" :value="data_option.fields.data_path" :key="key"></el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item label="Note">
           <el-input type="textarea" v-model="newform.note"></el-input>
         </el-form-item>
-        <el-form-item label="Verbose">
+        <!-- <el-form-item label="Verbose">
           <el-switch v-model="newform.verbose"></el-switch>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item>
           <el-button type="primary" @click="onSubmit">Submit</el-button>
           <el-button @click="onCancel">Cancel</el-button>
