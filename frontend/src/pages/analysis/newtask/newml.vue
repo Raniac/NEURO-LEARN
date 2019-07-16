@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="ml-task-form">
-      <el-form ref="form" :model="form" label-width="90px" label-position="middle">
+      <el-form ref="form" :model="form" label-width="100px" label-position="middle">
         <el-form-item label="Task Name">
           <el-input v-model="newform.task_name" placeholder="Specify Task Name. (e.g. 'Classify SZ with ANOVA SVM on 246-template sfMRI data')"></el-input>
         </el-form-item>
@@ -21,8 +21,13 @@
             <el-option v-for="(data_option, key) in data_table" :label="data_option.fields.data_name" :value="data_option.fields.data_path" :key="key"></el-option>
           </el-select>
         </el-form-item>
+        <el-form-item label="Enable Test">
+          <el-switch
+            v-model="newform.enable_test">
+          </el-switch>
+        </el-form-item>
         <el-form-item label="Test Data">
-          <el-select class="select-data" v-model="newform.test_data" placeholder="Select Test Data" filterable multiple>
+          <el-select class="select-data" v-model="newform.test_data" placeholder="Select Test Data" :disabled="!newform.enable_test" filterable multiple>
             <el-option v-for="(data_option, key) in data_table" :label="data_option.fields.data_name" :value="data_option.fields.data_path" :key="key"></el-option>
           </el-select>
         </el-form-item>
@@ -50,7 +55,7 @@
           <el-input type="textarea" v-model="newform.note"></el-input>
         </el-form-item>
         <el-form-item label="Verbose">
-          <el-switch active-text="On" inactive-text="Off" v-model="newform.verbose"></el-switch>
+          <el-switch v-model="newform.verbose"></el-switch>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit">Submit</el-button>
@@ -72,6 +77,7 @@ export default {
         task_name: '',
         task_type: '',
         train_data: [],
+        enable_test: false,
         test_data: [],
         label: '',
         feat_sel: '',
