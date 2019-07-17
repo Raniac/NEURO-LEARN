@@ -1,0 +1,5 @@
+Item,Value
+Optimal CV Accuracy,0.7133333333333333
+Optimal Parameters,"{'anova__percentile': 25, 'svm__C': 1}"
+Permutation Test pvalue,0.019801980198019802
+Run Time,2.85s

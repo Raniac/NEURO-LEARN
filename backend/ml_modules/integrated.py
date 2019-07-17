@@ -9,6 +9,7 @@ import csv
 
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import permutation_test_score
 from sklearn.metrics import roc_auc_score, auc
 
 def integrated_clf_model(result_path, feat_sel, model, train_data, test_data, cv):
@@ -34,6 +35,17 @@ def integrated_clf_model(result_path, feat_sel, model, train_data, test_data, cv
     optimal_score = search.best_score_
     optimal_params = search.best_params_
     optimal_model = search.best_estimator_
+
+    _, _, pvalue_tested = permutation_test_score(
+        optimal_model,
+        train_data.X,
+        train_data.y,
+        scoring='accuracy',
+        cv=cv,
+        n_permutations=100,
+        n_jobs=1,
+        random_state=0
+        )
 
     print('The best score is', optimal_score)
     print('The corresponding parameter setting is', optimal_params)
@@ -116,6 +128,28 @@ def integrated_clf_model(result_path, feat_sel, model, train_data, test_data, cv
                 list_selected_features.append(train_data.list_features[i])
         print(list_selected_features[:50])
     
+    elif not feat_sel:
+        if model.name == 'svm':
+            selected_weight_list = optimal_model.named_steps['svm'].coef_[0]
+            feature_weights_list = pd.DataFrame({'Feature': feature_list, 'Weight': selected_weight_list})
+
+        elif model.name == 'rf':
+            selected_weight_list = optimal_model.named_steps['rf'].feature_importances_
+            feature_weights_list = pd.DataFrame({'Feature': feature_list, 'Weight': selected_weight_list})
+
+        elif model.name == 'lr':
+            selected_weight_list = optimal_model.named_steps['lr'].coef_[0]
+            feature_weights_list = pd.DataFrame({'Feature': feature_list, 'Weight': selected_weight_list})
+
+        elif model.name == 'lda':
+            selected_weight_list = optimal_model.named_steps['lda'].coef_[0]
+            feature_weights_list = pd.DataFrame({'Feature': feature_list, 'Weight': selected_weight_list})
+
+        try:
+            feature_weights_list.to_csv(path_or_buf=result_path + '/' + 'feature_weights.csv')
+        except Exception as e:
+            print(e)
+
     # ROC Curve and Confusion Matrix
 
     from scipy import interp
@@ -160,6 +194,7 @@ def integrated_clf_model(result_path, feat_sel, model, train_data, test_data, cv
     writer.writerow(['Item', 'Value'])
     writer.writerow(['Optimal CV Accuracy', optimal_score])
     writer.writerow(['Optimal Parameters', optimal_params])
+    writer.writerow(['Permutation Test p-Value', pvalue_tested])
     writer.writerow(['Test Accuracy', test_accuracy])
     writer.writerow(['Test Sensitivity', test_sensitivity])
     writer.writerow(['Test Specificity', test_specificity])
@@ -190,6 +225,17 @@ def integrated_clf_model_notest(result_path, feat_sel, model, train_data, cv):
     optimal_score = search.best_score_
     optimal_params = search.best_params_
     optimal_model = search.best_estimator_
+
+    _, _, pvalue_tested = permutation_test_score(
+        optimal_model,
+        train_data.X,
+        train_data.y,
+        scoring='accuracy',
+        cv=cv,
+        n_permutations=100,
+        n_jobs=1,
+        random_state=0
+        )
 
     print('The best score is', optimal_score)
     print('The corresponding parameter setting is', optimal_params)
@@ -282,6 +328,7 @@ def integrated_clf_model_notest(result_path, feat_sel, model, train_data, cv):
     writer.writerow(['Item', 'Value'])
     writer.writerow(['Optimal CV Accuracy', optimal_score])
     writer.writerow(['Optimal Parameters', optimal_params])
+    writer.writerow(['Permutation Test p-Value', pvalue_tested])
     writer.writerow(['Run Time', runtime])
     results_csv.close()
 
