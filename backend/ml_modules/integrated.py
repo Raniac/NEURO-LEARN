@@ -121,12 +121,29 @@ def integrated_clf_model(result_path, feat_sel, model, train_data, test_data, cv
 
         plt.savefig(result_path + '/' + 'optimization_curve.png', dpi=300)
 
-        selector = search.best_estimator_.named_steps['rfe'].fit(train_data.X, train_data.y)
-        list_selected_features = []
-        for i, feat in enumerate(selector.support_):
-            if feat == True:
-                list_selected_features.append(train_data.list_features[i])
-        print(list_selected_features[:50])
+        selector = optimal_model.named_steps['rfe'].get_support()
+        selected_feature_list = np.array(feature_list)[selector]
+        
+        if model.name == 'svm':
+            selected_weight_list = optimal_model.named_steps['svm'].coef_[0]
+            feature_weights_list = pd.DataFrame({'Feature': selected_feature_list, 'Weight': selected_weight_list})
+
+        elif model.name == 'rf':
+            selected_weight_list = optimal_model.named_steps['rf'].feature_importances_
+            feature_weights_list = pd.DataFrame({'Feature': selected_feature_list, 'Weight': selected_weight_list})
+
+        elif model.name == 'lr':
+            selected_weight_list = optimal_model.named_steps['lr'].coef_[0]
+            feature_weights_list = pd.DataFrame({'Feature': selected_feature_list, 'Weight': selected_weight_list})
+
+        elif model.name == 'lda':
+            selected_weight_list = optimal_model.named_steps['lda'].coef_[0]
+            feature_weights_list = pd.DataFrame({'Feature': selected_feature_list, 'Weight': selected_weight_list})
+
+        try:
+            feature_weights_list.to_csv(path_or_buf=result_path + '/' + 'feature_weights.csv')
+        except Exception as e:
+            print(e)
     
     elif not feat_sel:
         if model.name == 'svm':
@@ -311,12 +328,51 @@ def integrated_clf_model_notest(result_path, feat_sel, model, train_data, cv):
 
         plt.savefig(result_path + '/' + 'optimization_curve.png', dpi=300)
 
-        selector = search.best_estimator_.named_steps['rfe'].fit(train_data.X, train_data.y)
-        list_selected_features = []
-        for i, feat in enumerate(selector.support_):
-            if feat == True:
-                list_selected_features.append(train_data.list_features[i])
-        print(list_selected_features[:50])
+        selector = optimal_model.named_steps['rfe'].get_support()
+        selected_feature_list = np.array(feature_list)[selector]
+        
+        if model.name == 'svm':
+            selected_weight_list = optimal_model.named_steps['svm'].coef_[0]
+            feature_weights_list = pd.DataFrame({'Feature': selected_feature_list, 'Weight': selected_weight_list})
+
+        elif model.name == 'rf':
+            selected_weight_list = optimal_model.named_steps['rf'].feature_importances_
+            feature_weights_list = pd.DataFrame({'Feature': selected_feature_list, 'Weight': selected_weight_list})
+
+        elif model.name == 'lr':
+            selected_weight_list = optimal_model.named_steps['lr'].coef_[0]
+            feature_weights_list = pd.DataFrame({'Feature': selected_feature_list, 'Weight': selected_weight_list})
+
+        elif model.name == 'lda':
+            selected_weight_list = optimal_model.named_steps['lda'].coef_[0]
+            feature_weights_list = pd.DataFrame({'Feature': selected_feature_list, 'Weight': selected_weight_list})
+
+        try:
+            feature_weights_list.to_csv(path_or_buf=result_path + '/' + 'feature_weights.csv')
+        except Exception as e:
+            print(e)
+    
+    elif not feat_sel:
+        if model.name == 'svm':
+            selected_weight_list = optimal_model.named_steps['svm'].coef_[0]
+            feature_weights_list = pd.DataFrame({'Feature': feature_list, 'Weight': selected_weight_list})
+
+        elif model.name == 'rf':
+            selected_weight_list = optimal_model.named_steps['rf'].feature_importances_
+            feature_weights_list = pd.DataFrame({'Feature': feature_list, 'Weight': selected_weight_list})
+
+        elif model.name == 'lr':
+            selected_weight_list = optimal_model.named_steps['lr'].coef_[0]
+            feature_weights_list = pd.DataFrame({'Feature': feature_list, 'Weight': selected_weight_list})
+
+        elif model.name == 'lda':
+            selected_weight_list = optimal_model.named_steps['lda'].coef_[0]
+            feature_weights_list = pd.DataFrame({'Feature': feature_list, 'Weight': selected_weight_list})
+
+        try:
+            feature_weights_list.to_csv(path_or_buf=result_path + '/' + 'feature_weights.csv')
+        except Exception as e:
+            print(e)
 
     endtime = time.time()
     runtime = str(endtime - starttime)
