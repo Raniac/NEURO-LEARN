@@ -116,7 +116,7 @@ export default {
       if (this.loginForm.username === 'admin' && this.loginForm.password === 'admin') {
         sessionStorage.setItem('Authorization', '00000000000000000000000000000000')
         sessionStorage.setItem('Username', 'admin')
-        this.$router.push('/profile')
+        this.$router.push('/home')
       } else {
         axios.get('/api/login?username=' + this.loginForm.username + '&password=' + this.loginForm.password).then(response => {
           // var DjangoToken = this.getCookie('sessionid')
@@ -131,7 +131,7 @@ export default {
             console.log(res.msg)
             sessionStorage.setItem('Authorization', DjangoToken)
             sessionStorage.setItem('Username', username)
-            this.$router.push('/profile')
+            this.$router.push('/home')
           } else {
             this.$message.error('Wrong password!')
             console.log(res.msg)
@@ -184,9 +184,10 @@ export default {
 
 <style lang="scss">
 .login-area{
-  padding: 150px 0px 0px 150px;
+  padding: 150px 0px 0px 0px;
   text-align: center;
   .login-container {
+    margin: 0 auto;
     width: 500px;
     background-color: #FFFFFF;
     overflow: hidden;
