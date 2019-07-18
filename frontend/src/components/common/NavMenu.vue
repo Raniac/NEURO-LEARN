@@ -15,15 +15,7 @@
           </div>
         </template>
         <el-menu-item index="2-1"><router-link to="/projects/overview" class="nav-link"><i class="el-icon-files"></i> Overview</router-link></el-menu-item>
-        <el-submenu index="2-2">
-          <template slot="title">
-            <div>
-              <i class="el-icon-upload"></i>
-              <span style="font-size: 16px; color: #E8E8E8">Data</span>
-            </div>
-          </template>
-          <el-menu-item index="2-2-1"><router-link to="/projects/data/sz_with_sfmri" class="nav-link"><i class="el-icon-document"></i>SZ with sfMRI</router-link></el-menu-item>
-          </el-submenu>
+        <el-menu-item index="2-2"><router-link to="/projects/data" class="nav-link"><i class="el-icon-upload"></i> Data</router-link></el-menu-item>
       </el-submenu>
       <el-submenu index="3">
         <template slot="title">

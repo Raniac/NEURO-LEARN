@@ -5,7 +5,7 @@ import home from '@/pages/home'
 import login from '@/pages/login'
 import profile from '@/pages/profile'
 import projectsOverview from '@/pages/projects/overview'
-import projectsDataSZWithSfmri from '@/pages/projects/data/sz_with_sfmri'
+import projectsData from '@/pages/projects/data'
 import analysisOverview from '@/pages/analysis/overview'
 import analysisNewtaskNewDL from '@/pages/analysis/newtask/newdl'
 import analysisNewtaskNewML from '@/pages/analysis/newtask/newml'
@@ -40,8 +40,8 @@ const router = new Router({
       component: projectsOverview
     },
     {
-      path: '/projects/data/sz_with_sfmri',
-      component: projectsDataSZWithSfmri
+      path: '/projects/data',
+      component: projectsData
     },
     {
       path: '/analysis/overview',
