@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="text-align: center">
     <div class="submissions-area">
       <el-tabs @tab-click="handleTabClick" stretch v-model="tabsValue">
         <el-tab-pane label="Statistical Analysis" name="Statistical Analysis">
@@ -264,8 +264,10 @@ export default {
 
 <style lang="scss">
 .submissions-area {
-  margin: 14px;
+  width: 772px;
+  margin: 14px auto;
   padding: 14px;
+  text-align: left;
   background-color: #FFFFFF;
 }
 .input-with-select .el-input-group__prepend {

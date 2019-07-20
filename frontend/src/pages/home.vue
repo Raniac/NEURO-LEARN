@@ -56,7 +56,7 @@
       </div>
     </div>
     <div style="text-align: center">
-      <div style="margin: 14px auto; padding:14px; width: 772px; background-color: #FFFFFF; color: #282828; text-align: center">
+      <div style="margin: 14px auto; padding:14px; width: 772px; background-color: #FFFFFF; color: #505050; text-align: center">
         <div style="text-align: left; width: 700px; margin: 0 auto; font-family: 'Times New Roman', Times, serif; font-size: 18px">
           <h1>About NEURO-LEARN</h1>
         </div>

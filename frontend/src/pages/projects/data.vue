@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="text-align: center">
     <div class="data-area">
       <div>
         <el-input placeholder="Search data by name" v-model="search_input" class="input-with-select" style="width: 50%">
@@ -103,7 +103,9 @@ export default {
 
 <style lang="scss">
 .data-area {
-  margin: 14px;
+  width: 744px;
+  text-align: left;
+  margin: 14px auto;
   padding: 28px;
   background-color: #FFFFFF;
 }

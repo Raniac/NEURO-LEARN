@@ -1,61 +1,61 @@
 <template>
-  <div>
-    <div style="padding: 14px 14px 14px 28px; color: #282828">
-    <h3>Overview</h3>
-    <el-row>
-  <el-col :span="4" :offset=".5">
-    <el-card :body-style="{ padding: '0px' }" style="background-color: #FFFFFF; width: 90%">
-      <div style="padding: 14px; color: #282828; text-align: center">
-        <h4>Total</h4>
-        <div>
-          <h1>{{ total_num }}</h1>
-        </div>
-      </div>
-    </el-card>
-  </el-col>
-  <el-col :span="4" :offset="1">
-    <el-card :body-style="{ padding: '0px' }" style="background-color: #FFFFFF; width: 90%">
-      <div style="padding: 14px; color: #006699; text-align: center">
-        <h4>Submitted</h4>
-        <div>
-          <h1>{{ submitted_num }}</h1>
-        </div>
-      </div>
-    </el-card>
-  </el-col>
-  <el-col :span="4" :offset="1">
-    <el-card :body-style="{ padding: '0px' }" style="background-color: #FFFFFF; width: 90%">
-      <div style="padding: 14px; color: #00CCFF; text-align: center">
-        <h4>Running</h4>
-        <div>
-          <h1>{{ running_num }}</h1>
-        </div>
-      </div>
-    </el-card>
-  </el-col>
-  <el-col :span="4" :offset="1">
-    <el-card :body-style="{ padding: '0px' }" style="background-color: #FFFFFF; width: 90%">
-      <div style="padding: 14px; color: #00CC99; text-align: center">
-        <h4>Finished</h4>
-        <div>
-          <h1>{{ finished_num }}</h1>
-        </div>
-      </div>
-    </el-card>
-  </el-col>
-  <el-col :span="4" :offset="1">
-    <el-card :body-style="{ padding: '0px' }" style="background-color: #FFFFFF; width: 90%">
-      <div style="padding: 14px; color: #FF3333; text-align: center">
-        <h4>Failed</h4>
-        <div>
-          <h1>{{ failed_num }}</h1>
-        </div>
-      </div>
-    </el-card>
-  </el-col>
-</el-row>
+  <div style="text-align: center">
+    <div style="margin: 0px auto; text-align: left; padding: 14px 14px 14px 28px; color: #505050; width: 786px">
+      <h3>Overview</h3>
+      <el-row>
+        <el-col :span="4" :offset=".5">
+          <el-card :body-style="{ padding: '0px' }" style="background-color: #FFFFFF; width: 90%">
+            <div style="padding: 14px; color: #282828; text-align: center">
+              <h4>Total</h4>
+              <div>
+                <h1>{{ total_num }}</h1>
+              </div>
+            </div>
+          </el-card>
+        </el-col>
+        <el-col :span="4" :offset="1">
+          <el-card :body-style="{ padding: '0px' }" style="background-color: #FFFFFF; width: 90%">
+            <div style="padding: 14px; color: #006699; text-align: center">
+              <h4>Submitted</h4>
+              <div>
+                <h1>{{ submitted_num }}</h1>
+              </div>
+            </div>
+          </el-card>
+        </el-col>
+        <el-col :span="4" :offset="1">
+          <el-card :body-style="{ padding: '0px' }" style="background-color: #FFFFFF; width: 90%">
+            <div style="padding: 14px; color: #00CCFF; text-align: center">
+              <h4>Running</h4>
+              <div>
+                <h1>{{ running_num }}</h1>
+              </div>
+            </div>
+          </el-card>
+        </el-col>
+        <el-col :span="4" :offset="1">
+          <el-card :body-style="{ padding: '0px' }" style="background-color: #FFFFFF; width: 90%">
+            <div style="padding: 14px; color: #00CC99; text-align: center">
+              <h4>Finished</h4>
+              <div>
+                <h1>{{ finished_num }}</h1>
+              </div>
+            </div>
+          </el-card>
+        </el-col>
+        <el-col :span="4" :offset="1">
+          <el-card :body-style="{ padding: '0px' }" style="background-color: #FFFFFF; width: 90%">
+            <div style="padding: 14px; color: #FF3333; text-align: center">
+              <h4>Failed</h4>
+              <div>
+                <h1>{{ failed_num }}</h1>
+              </div>
+            </div>
+          </el-card>
+        </el-col>
+      </el-row>
     </div>
-    <div style="padding: 0px 28px 14px 28px">
+    <div style="margin: 0px auto; text-align: left; padding: 0px 28px 14px 28px; color: #505050; width: 772px">
       <h3>Recent</h3>
       <el-tabs style="background-color: #FFFFFF; padding: 14px" el-tabs @tab-click="handleTabClick" stretch v-model="tabsValue">
         <el-tab-pane label="Statistical Analysis" name="Statistical Analysis">

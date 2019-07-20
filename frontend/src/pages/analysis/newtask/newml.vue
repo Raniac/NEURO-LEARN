@@ -1,6 +1,9 @@
 <template>
-  <div>
+  <div style="text-align: center">
     <div class="ml-task-form">
+      <div style="text-align: left; width: 700px; margin: 0 auto; font-family: 'Arial', Times, serif; font-size: 18px; color: #505050">
+        <h2>New Machine Learning Task</h2>
+      </div>
       <el-form ref="form" :model="form" label-width="100px" label-position="middle">
         <el-form-item label="Task Name">
           <el-input v-model="newform.task_name" placeholder="Specify Task Name. (e.g. 'Classify SZ with ANOVA SVM on 246-template sfMRI data')"></el-input>
@@ -197,20 +200,22 @@ export default {
 
 <style lang="scss">
 .ml-task-form {
-    background-color: #FFFFFF;
-    margin: 14px;
-    padding: 14px;
-}
-.select-data {
+  background-color: #FFFFFF;
+  width: 760px;
+  margin: 14px auto;
+  padding: 14px 20px;
+  text-align: left;
+  .select-data {
     width: 400px;
-}
-.select-label {
+  }
+  .select-label {
     width: 200px;
-}
-.select-model {
+  }
+  .select-model {
     width: 300px;
-}
-.select-cv-type {
-  width: 200px;
+  }
+  .select-cv-type {
+    width: 200px;
+  }
 }
 </style>

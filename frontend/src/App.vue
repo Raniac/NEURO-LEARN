@@ -27,7 +27,7 @@ body {
 }
 #app {
   display: flex;
-  min-width: 800px;
+  min-width: 1080px;
   background-color: #E8E8E8;
   color: #282828;
 }

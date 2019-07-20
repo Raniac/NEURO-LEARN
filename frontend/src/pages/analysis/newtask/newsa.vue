@@ -1,12 +1,12 @@
 <template>
-<div style="padding: 14px">
-  <div class="tasks-form-area">
-    <el-tabs type="border-card" stretch style="box-shadow: 0px 0 0px #FFFFFF;" v-model="tabsValue" @tab-click="handleTabClick">
+<div style="text-align: center">
+  <div class="tasks-form-area" style="width: 800px; margin: 14px auto; text-align: left">
+    <el-tabs type="border-card" stretch style="box-shadow: 0px 0 0px #FFFFFF" v-model="tabsValue" @tab-click="handleTabClick">
       <el-tab-pane label="Difference Analysis" name="DA">
         <div class="da-task-form">
-          <el-form ref="form" :model="newform" label-width="90px" label-position="middle">
+          <el-form ref="form" :model="newform" label-width="100px" label-position="middle">
             <el-form-item label="Task Name">
-              <el-input v-model="newform.task_name"></el-input>
+              <el-input v-model="newform.task_name" placeholder="Specify Task Name. (e.g. 'Difference analysis t-test of SZ group with AAL90')"></el-input>
             </el-form-item>
             <el-form-item label="Task Type">
               <el-radio-group v-model="taskType">
@@ -44,9 +44,9 @@
       </el-tab-pane>
       <el-tab-pane label="Correlation Analysis" name="CA">
         <div class="ca-task-form">
-          <el-form ref="form" :model="newform" label-width="90px" label-position="middle">
+          <el-form ref="form" :model="newform" label-width="100px" label-position="middle">
             <el-form-item label="Task Name">
-              <el-input v-model="newform.task_name"></el-input>
+              <el-input v-model="newform.task_name" placeholder="Specify Task Name. (e.g. 'Correlation analysis Pearson of SZ group with AAL90')"></el-input>
             </el-form-item>
             <el-form-item label="Task Type">
               <el-radio-group v-model="taskType">
