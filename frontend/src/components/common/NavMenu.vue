@@ -54,6 +54,7 @@
   border-right-color: #282828;
   box-shadow: 5px 0 20px rgba(0,0,0,.3);
   position: fixed;
+  z-index: 10;
   .logo {
     width: 250px;
     height: 65px;
