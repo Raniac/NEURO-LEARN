@@ -286,6 +286,6 @@ export default {
   .demo-table-expand .el-form-item {
     margin-right: 0;
     margin-bottom: 0;
-    width: 50%;
+    width: 100%;
   }
 </style>

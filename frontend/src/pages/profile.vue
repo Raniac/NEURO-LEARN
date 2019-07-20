@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="text-align: center">
     <div class="profile-area">
       <div class="profile-detail">
         <img style="float: left; height: auto; width: 200px" src="https://avatars2.githubusercontent.com/u/17725948?s=460&v=4">
@@ -16,7 +16,7 @@
     </div>
     <div class="projects-area">
     <div>
-      <h1 style="padding-left: 20px; font-family: Arial; font-weight: 150; font-size: 30px; color: #282828">Joined Projects</h1>
+      <h1 style="padding-left: 20px; font-family: Arial; font-weight: 150; font-size: 30px; color: #505050">Joined Projects</h1>
     </div>
     <div style="margin: 14px">
       <el-table
@@ -28,7 +28,7 @@
         style="width: 100%; background-color: #E8E8E8; color: #282828; ">
         <el-table-column type="expand">
           <template slot-scope="props">
-            <el-form label-position="left" in-line class="demo-table-expand">
+            <el-form label-position="left" in-line class="projects-table-expand">
               <el-form-item label="Research Content">
                 <span>{{ props.row.research_content }}</span>
               </el-form-item>
@@ -80,7 +80,9 @@ export default {
 
 <style lang="scss">
 .profile-area {
-  margin: 14px;
+  width: 772px;
+  margin: 14px auto;
+  text-align: left;
   padding: 14px;
   background-color: #FFFFFF;
   .profile-detail {
@@ -99,24 +101,21 @@ export default {
   }
 }
 .projects-area {
-  margin: 14px;
+  width: 772px;
+  margin: 14px auto;
   padding: 14px;
+  text-align: left;
   background-color: #FFFFFF;
 }
-.input-with-select .el-input-group__prepend {
-  background-color: #FFFFFF;
-  .el-select .el-input {
-    width: 130px;
-}
-}
-.demo-table-expand {
-    font-size: 0;
+.projects-table-expand {
+  font-size: 0;
+  width: 100%;
   }
-  .demo-table-expand label {
+  .projects-table-expand label {
     width: 140px;
     color: #505050;
   }
-  .demo-table-expand .el-form-item {
+  .projects-table-expand .el-form-item {
     margin-right: 0;
     margin-bottom: 0;
     width: 100%;
