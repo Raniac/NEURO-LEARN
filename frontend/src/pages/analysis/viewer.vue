@@ -234,9 +234,9 @@ export default {
 
 <style lang="scss">
 .viewer-area {
-  width: 772px;
-  margin: 0px auto;
-  padding: 14px;
+  width: 800px;
+  text-align: left;
+  margin: 14px auto;
   .result-image {
     width: 700px;
   }
