@@ -54,11 +54,12 @@ export default {
   },
   methods: {
     showSubmissions () {
-      axios.get('/api/overview_submissions')
+      axios.get('/api/overview_submissions?analysis_type=' + 'Machine Learning')
         .then(response => {
           var res = response.data
           if (res.error_num === 0) {
             this.submissions_table = res['list']
+            console.log(res)
           } else {
             this.$message.error('Failed!')
             console.log(res['msg'])
@@ -80,7 +81,7 @@ export default {
     onTaskClick (taskId, taskType) {
       this.$router.push({
         path: '/analysis/viewer',
-        query: {taskid: taskId, tasktype: taskType}
+        query: {taskid: taskId, tasktype: taskType, analysisType: 'Machine Learning'}
       })
     },
     goToSubmissions () {
@@ -288,6 +289,9 @@ export default {
       cursor: pointer;
       line-height: 18px;
       font-size: 14px;
+      &:first-child {
+        margin-top: 12px;
+      }
       &:hover {
         color: #00CCFF;
       }
