@@ -1,7 +1,0 @@
-Item,Value
-Optimal CV Accuracy,0.6727731092436976
-Optimal Parameters,"{'pca__n_components': 45, 'rf__bootstrap': True, 'rf__criterion': 'entropy', 'rf__max_depth': 5, 'rf__min_samples_leaf': 10, 'rf__min_samples_split': 5, 'rf__n_estimators': 50}"
-Test Accuracy,0.603448275862069
-Test Sensitivity,0.20689655172413793
-Test Specificity,1.0
-Area Under Curve,0.7919143876337693

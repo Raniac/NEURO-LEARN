@@ -1,7 +1,0 @@
-Item,Value
-Optimal CV Accuracy,0.7719327731092436
-Optimal Parameters,"{'lr__multi_class': 'multinomial', 'lr__solver': 'newton-cg', 'pca__n_components': 249}"
-Test Accuracy,0.7586206896551724
-Test Sensitivity,0.6206896551724138
-Test Specificity,0.896551724137931
-Area Under Curve,0.8085612366230678

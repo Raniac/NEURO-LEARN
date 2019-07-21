@@ -1,7 +1,0 @@
-Item,Value
-Optimal CV Accuracy,0.757563025210084
-Optimal Parameters,"{'pca__n_components': 113, 'svm__C': 1}"
-Test Accuracy,0.7413793103448276
-Test Sensitivity,0.6206896551724138
-Test Specificity,0.8620689655172413
-Area Under Curve,0.751486325802616

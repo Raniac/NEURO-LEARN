@@ -1,4 +1,0 @@
-Item,Value
-Optimal CV Accuracy,0.7574874921826142
-Optimal Parameters,"{'anova__percentile': 100, 'svm__C': 1}"
-Run Time,72.38s

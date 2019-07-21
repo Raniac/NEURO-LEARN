@@ -1,5 +1,0 @@
-Item,Value
-Optimal CV MAE,-4.1489334441262855
-Optimal Parameters,{'svr__C': 0.01}
-Test Pearson r,0.7825123529846867
-Test Pearson p,3.467470642863502e-30

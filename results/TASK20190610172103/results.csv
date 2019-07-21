@@ -1,7 +1,0 @@
-Item,Value
-Optimal CV Accuracy,0.7602521008403362
-Optimal Parameters,"{'anova__percentile': 90, 'lr__multi_class': 'ovr', 'lr__solver': 'newton-cg'}"
-Test Accuracy,0.8103448275862069
-Test Sensitivity,0.6896551724137931
-Test Specificity,0.9310344827586207
-Area Under Curve,0.835909631391201

@@ -1,6 +1,0 @@
-Item,Value
-Optimal Accuracy,0.7649906191369606
-Optimal Sensitivity,0.699264705882353
-Optimal Specificity,0.8119565217391305
-Optimal Parameters,"{'rfe__n_features_to_select': 451, 'svm__C': 1}"
-Optimal AUC,0.8181781045751634

@@ -1,8 +1,0 @@
-Item,Value
-Optimal CV Accuracy,0.654453781512605
-Optimal Parameters,"{'anova__percentile': 15, 'lda__solver': 'svd'}"
-Test Accuracy,0.603448275862069
-Test Sensitivity,0.4482758620689655
-Test Specificity,0.7586206896551724
-Area Under Curve,0.6420927467300832
-Run Time,12.10s
