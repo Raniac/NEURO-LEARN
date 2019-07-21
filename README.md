@@ -1,10 +1,10 @@
-![neuro-learn](NL.png?raw=true "neuro-learn")
+![neuro-learn](doc/NL.png?raw=true "neuro-learn")
 
 ---
 
 NEURO-LEARN is a decentralized solution for pattern analysis of neuroimaging data. Its decentralization scheme of data and workflow management consists of four parts: projects, data, analysis and reports. As data preparation workflows defined in projects reduce the high dimensionality of neuroimaging data by decentralized computation, collaborative sharing of data and analysis workflows along with visualization of generated reports on the Web enlarge the sample size and facilitate the validity, reliability, and reproducibility of pattern analyses. Incorporating this scheme, NEURO-LEARN provides an easy-to-use web platform for the decentralization of pattern analysis of neuroimaging data.
 
-![neuro-learn-ui](UI.png?raw=true "neuro-learn-ui")
+![neuro-learn-ui](doc/UI.png?raw=true "neuro-learn-ui")
 
 Main functionalities of NEURO-LEARN was coded by _Bingye Lei_, who also wrote the first version of wiki. Should you encouter any problems when using NEURO-LEARN, please feel free to file an issue or contact leibingye@outlook.com.
 
