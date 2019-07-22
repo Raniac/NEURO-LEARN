@@ -2,11 +2,20 @@
 ## Contents
 - [Dev Doc of NEURO-LEARN](#Dev-Doc-of-NEURO-LEARN)
   - [Contents](#Contents)
-  - [Demand Analysis](#Demand-Analysis)
+  - [Demand Analysis and Functionality Design](#Demand-Analysis-and-Functionality-Design)
     - [Data Management](#Data-Management)
-    - [Statistical Workflows](#Statistical-Workflows)
-    - [Machine Learning Workflows](#Machine-Learning-Workflows)
-    - [Deep Learning Workflows](#Deep-Learning-Workflows)
+      - [Project Overview](#Project-Overview)
+      - [Data Uploading](#Data-Uploading)
+    - [Workflow Management](#Workflow-Management)
+      - [Analysis Overview](#Analysis-Overview)
+      - [Statistical Analysis](#Statistical-Analysis)
+        - [Difference Analysis](#Difference-Analysis)
+        - [Correlation Analysis](#Correlation-Analysis)
+      - [Machine Learning](#Machine-Learning)
+        - [Classification/Regression](#ClassificationRegression)
+      - [Deep Learning](#Deep-Learning)
+      - [Submission Management](#Submission-Management)
+      - [View Reports](#View-Reports)
   - [API Definition](#API-Definition)
     - [Universal APIs](#Universal-APIs)
       - [User Login](#User-Login)
@@ -29,19 +38,53 @@
       - [backend_user_demo](#backenduserdemo)
     - [Data Management](#Data-Management-1)
       - [backend_data_demo](#backenddatademo)
-    - [Workflow Management](#Workflow-Management)
+    - [Workflow Management](#Workflow-Management-1)
       - [backend_submissions_demo](#backendsubmissionsdemo)
       - [backend_submissions_sa_demo](#backendsubmissionssademo)
 
-## Demand Analysis
+## Demand Analysis and Functionality Design
 
 ### Data Management
 
-### Statistical Workflows
+#### Project Overview
 
-### Machine Learning Workflows
+Define data and workflow templates in the project overview page, which can be downloaded for users to use. The templates should contain necessary information that helps users to prepare their data correctly and uniformly.
 
-### Deep Learning Workflows
+#### Data Uploading
+
+If one had prepared a dataset according to the templates, he/she should be able to upload it to the cloud for further usage. He/She should also be able to see formerly uploaded datasets under one certain project.
+
+### Workflow Management
+
+#### Analysis Overview
+
+In this page, users can see the statics of submitted tasks and the most recent submitted ones. Further, the configuration of the tasks should also be included in the table of submissions.
+
+#### Statistical Analysis
+
+##### Difference Analysis
+
+Configure a difference analysis task and submit it to run. The types of difference analysis should at least include t-test and ANOVA.
+
+##### Correlation Analysis
+
+Configure a correlation analysis task and submit it to run. The types of correlation analysis should at least include Pearson and Spearman.
+
+#### Machine Learning
+
+##### Classification/Regression
+
+Configure a machine learning task and submit it to run. The types of task should include classification and regression.
+
+#### Deep Learning
+
+#### Submission Management
+
+In this page, users can see all of the submitted tasks and the configuration of them. They should also be able to filter the tasks by their status and names.
+
+#### View Reports
+
+User should be able to view multiple reports, which should include sufficient information about the evaluation of the tasks.
 
 ## API Definition
 
