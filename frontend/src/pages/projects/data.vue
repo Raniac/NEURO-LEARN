@@ -62,6 +62,7 @@ export default {
     }
   },
   mounted: function () {
+    console.log(this.$route.query.projectid)
     this.showData()
   },
   methods: {
