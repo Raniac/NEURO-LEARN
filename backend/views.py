@@ -127,7 +127,7 @@ def show_project_overview(request):
     response_content = {}
     response = HttpResponse()
     try:
-        projects = Projects_Demo.objects.filter().order_by('-id')
+        projects = Projects_Demo.objects.filter()
         print(projects)
         response_content['list']  = json.loads(serializers.serialize("json", projects))
         response_content['msg'] = 'success'
