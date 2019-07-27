@@ -1,44 +1,46 @@
 # Dev Doc of NEURO-LEARN
 ## Contents
-- [Dev Doc of NEURO-LEARN](#Dev-Doc-of-NEURO-LEARN)
-  - [Contents](#Contents)
-  - [Demand Analysis and Functionality Design](#Demand-Analysis-and-Functionality-Design)
-    - [Data Management](#Data-Management)
-      - [Project Overview](#Project-Overview)
-      - [Data Uploading](#Data-Uploading)
-    - [Workflow Management](#Workflow-Management)
-      - [Analysis Overview](#Analysis-Overview)
-      - [Statistical Analysis](#Statistical-Analysis)
-        - [Difference Analysis](#Difference-Analysis)
-        - [Correlation Analysis](#Correlation-Analysis)
-      - [Machine Learning](#Machine-Learning)
-        - [Classification/Regression](#ClassificationRegression)
-      - [Deep Learning](#Deep-Learning)
-      - [Submission Management](#Submission-Management)
-      - [View Reports](#View-Reports)
-  - [API Definition](#API-Definition)
-    - [Universal APIs](#Universal-APIs)
-      - [User Login](#User-Login)
-      - [User Register](#User-Register)
-    - [Data Management APIs](#Data-Management-APIs)
-      - [Download Templates](#Download-Templates)
-      - [Upload Data](#Upload-Data)
-      - [Show Data](#Show-Data)
-    - [Workflow Management APIs](#Workflow-Management-APIs)
-      - [New Machine Learning Task](#New-Machine-Learning-Task)
-      - [New Statistical Analysis Task](#New-Statistical-Analysis-Task)
-      - [Overview Submissions](#Overview-Submissions)
-      - [Show Submissions](#Show-Submissions)
-      - [Show Results](#Show-Results)
-      - [Show Images](#Show-Images)
-      - [Download Feature Weights](#Download-Feature-Weights)
-      - [Download Significance Values](#Download-Significance-Values)
-  - [Database Definition](#Database-Definition)
-    - [User Management](#User-Management)
+- [Dev Doc of NEURO-LEARN](#dev-doc-of-neuro-learn)
+  - [Contents](#contents)
+  - [Demand Analysis and Functionality Design](#demand-analysis-and-functionality-design)
+    - [Data Management](#data-management)
+      - [Project Overview](#project-overview)
+      - [Data Uploading](#data-uploading)
+    - [Workflow Management](#workflow-management)
+      - [Analysis Overview](#analysis-overview)
+      - [Statistical Analysis](#statistical-analysis)
+        - [Difference Analysis](#difference-analysis)
+        - [Correlation Analysis](#correlation-analysis)
+      - [Machine Learning](#machine-learning)
+        - [Classification/Regression](#classificationregression)
+      - [Deep Learning](#deep-learning)
+      - [Submission Management](#submission-management)
+      - [View Reports](#view-reports)
+  - [API Definition](#api-definition)
+    - [Universal APIs](#universal-apis)
+      - [User Login](#user-login)
+      - [User Register](#user-register)
+    - [Data Management APIs](#data-management-apis)
+      - [Show Project Overview](#show-project-overview)
+      - [Download Templates](#download-templates)
+      - [Upload Data](#upload-data)
+      - [Show Data](#show-data)
+    - [Workflow Management APIs](#workflow-management-apis)
+      - [New Machine Learning Task](#new-machine-learning-task)
+      - [New Statistical Analysis Task](#new-statistical-analysis-task)
+      - [Overview Submissions](#overview-submissions)
+      - [Show Submissions](#show-submissions)
+      - [Show Results](#show-results)
+      - [Show Images](#show-images)
+      - [Download Feature Weights](#download-feature-weights)
+      - [Download Significance Values](#download-significance-values)
+  - [Database Definition](#database-definition)
+    - [User Management](#user-management)
       - [backend_user_demo](#backenduserdemo)
-    - [Data Management](#Data-Management-1)
+    - [Data Management](#data-management-1)
+      - [backend_projects_demo](#backendprojectsdemo)
       - [backend_data_demo](#backenddatademo)
-    - [Workflow Management](#Workflow-Management-1)
+    - [Workflow Management](#workflow-management-1)
       - [backend_submissions_demo](#backendsubmissionsdemo)
       - [backend_submissions_sa_demo](#backendsubmissionssademo)
 
@@ -124,6 +126,17 @@ password | Password | True | STRING |
 
 ### Data Management APIs
 
+#### Show Project Overview
+- Request Information
+  - Address: /api/show_project_overview
+  - Method: GET
+- Response Information
+  - Type: JSON
+  - Content:
+    - error_num: request status
+    - msg: request result
+    - list: projects list
+
 #### Download Templates
 - Request Information
   - Address: /api/download_templates
@@ -159,6 +172,11 @@ template_type | Template Type | True | STRING |
     - error_num: request status
     - msg: request result
     - list: data list
+- Parameter Definition:
+
+Parameter Name | Description | Necessary | Type | Default Value
+:-: | :-: | :-: | :-: | :-:
+project_id | Project ID | True | STRING |
 
 ### Workflow Management APIs
 
@@ -325,6 +343,20 @@ username | VARCHAR | 32 | False | False |
 password | VARCHAR | 64 | False | False |
 
 ### Data Management
+
+#### backend_projects_demo
+
+Field Name | Data Type | Max Length | Primary Key | Index | Description
+:-: | :-: | :-: | :-: | :-: | :-:
+id | INT | False | True | True | Primary ID
+project_id | VARCHAR | 64 | False | True | 'PROJ' + time.strftime('%Y%m%d%H%M%S')
+label | VARCHAR | 64 | False | False |
+title | VARCHAR | 128 | False | False |
+introduction | TEXT | 4096 | False | False |
+methods | TEXT | 4096 | False | False |
+flowchart_url | VARCHAR | 128 | False | False |
+workflow_templates_url | VARCHAR | 128 | False | False |
+data_templates_url | VARCHAR | 128 | False | False |
 
 #### backend_data_demo
 
