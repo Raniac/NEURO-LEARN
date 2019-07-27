@@ -58,16 +58,29 @@ export default {
       fileList: [],
       pagesize: 10,
       currpage: 1,
-      search_input: ''
+      search_input: '',
+      project_id: ''
     }
   },
   mounted: function () {
-    console.log(this.$route.query.projectid)
-    this.showData()
+    if (this.$route.query.projectid) {
+      this.project_id = this.$route.query.projectid
+      this.showData()
+    } else {
+      this.$alert('Go choose a project first!', 'Error!', {
+        confirmButtonText: 'Confirm',
+        callback: action => {
+          this.$router.replace({
+            path: '/projects/overview',
+            component: resolve => require(['@/pages/projects/overview'], resolve)
+          })
+        }
+      })
+    }
   },
   methods: {
     showData () {
-      axios.get('/api/show_data')
+      axios.get('/api/show_data?project_id=' + this.project_id)
         .then(response => {
           var res = response.data
           if (res.error_num === 0) {

@@ -3,12 +3,12 @@
     <div class="data-overview-area">
       <div style="padding: 20px 0px">
         <div style="text-align: left">
-          <el-select v-model="selected_project.title" style="margin: 0 20px; width: 300px" placeholder="Select Project">
+          <el-select v-model="selected_project.title" style="margin: 0 20px; width: 300px" placeholder="Select Project" @change="handelSelectionChange">
             <el-option
               v-for="project_option in project_options"
-              :key="project_option.title"
-              :label="project_option.label"
-              :value="project_option.title">
+              :key="project_option.fields.title"
+              :label="project_option.fields.label"
+              :value="project_option.fields.title">
             </el-option>
           </el-select>
         </div>
@@ -19,7 +19,7 @@
           <h3>Methods</h3>
           <p>{{ selected_project.methods }}</p>
           <el-button type="primary" round @click="handleDownloadTemplates('workflow')">Download Workflow Templates</el-button>
-          <el-button type="primary" round :href="selected_project.data_templates_url" @click="handleDownloadTemplates('workflow')">Download Data Templates</el-button>
+          <el-button type="primary" round :href="selected_project.data_templates_url" @click="handleDownloadTemplates('data')">Download Data Templates</el-button>
           <el-button type="primary" round @click="handleUploadData">Upload Prepared Data</el-button>
           <h3>Flowchart</h3>
         </div>
@@ -32,48 +32,53 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data () {
     return {
       selected_project: {
-        id: 'PROJ20190626040404',
-        label: 'SZ with sfMRI',
-        title: 'Study of Schizophrenia with Pattern Analysis of Structural/Functional MRI Data',
-        introduction: 'Fusing structural and functional MRI data, we use DPABI on matlab to compute the features such as gray matter volume, regional homogeneity, amplitude of low frequency fluctuations and degree centrality. The brain template used for ROI extraction is Anatomical Automatic Labeling 90.',
-        methods: 'To configure the DPASFA toolbox, you can download the workflow templates. The format and feature data arrangement of the dataset should be strictly the same as the dataset templates. If you have a dataset prepared, you can upload it for analysis.',
-        flowchart_url: 'http://localhost:8000/api/show_img?task_id=TASK20190717211913&img_name=optimization_curve',
-        workflow_templates_url: '/api/download_templates?template_type=workflow_templates',
-        data_templates_url: '/api/download_templates?template_type=dataset_templates'
+        project_id: '',
+        label: '',
+        title: '',
+        introduction: '',
+        methods: '',
+        flowchart_url: '',
+        workflow_templates_url: '',
+        data_templates_url: ''
       },
-      project_options: [
-        {
-          id: 'PROJ20190727040404',
-          label: 'SZ with Brain FCN',
-          title: 'Study of Schizophrenia with Pattern Analysis of Brain Functional Connectivity Network',
-          introduction: '',
-          methods: '',
-          flowchart_url: 'http://localhost:8000/api/show_img?task_id=TASK20190717211913&img_name=optimization_curve',
-          workflow_templates_url: '/api/download_templates?template_type=workflow_templates',
-          data_templates_url: '/api/download_templates?template_type=dataset_templates'
-        },
-        {
-          id: 'PROJ20190626040404',
-          label: 'SZ with sfMRI',
-          title: 'Study of Schizophrenia with Pattern Analysis of Structural/Functional MRI Data',
-          introduction: 'Fusing structural and functional MRI data, we use DPABI on matlab to compute the features such as gray matter volume, regional homogeneity, amplitude of low frequency fluctuations and degree centrality. The brain template used for ROI extraction is Anatomical Automatic Labeling 90.',
-          methods: 'To configure the DPASFA toolbox, you can download the workflow templates. The format and feature data arrangement of the dataset should be strictly the same as the dataset templates. If you have a dataset prepared, you can upload it for analysis.',
-          flowchart_url: 'http://localhost:8000/api/show_img?task_id=TASK20190717211913&img_name=optimization_curve',
-          workflow_templates_url: '/api/download_templates?template_type=workflow_templates',
-          data_templates_url: '/api/download_templates?template_type=dataset_templates'
-        }
-      ]
+      project_options: []
     }
   },
+  mounted () {
+    this.showProjectOverview()
+  },
   methods: {
+    showProjectOverview () {
+      axios.get('/api/show_project_overview')
+        .then(response => {
+          var res = response.data
+          if (res.error_num === 0) {
+            console.log(res)
+            this.project_options = res['list']
+            console.log(this.project_options)
+            this.selected_project.project_id = this.project_options[0].fields.project_id
+            this.selected_project.label = this.project_options[0].fields.label
+            this.selected_project.title = this.project_options[0].fields.title
+            this.selected_project.introduction = this.project_options[0].fields.introduction
+            this.selected_project.methods = this.project_options[0].fields.methods
+            this.selected_project.flowchart_url = this.project_options[0].fields.flowchart_url
+            this.selected_project.workflow_templates_url = this.project_options[0].fields.workflow_templates_url
+            this.selected_project.data_templates_url = this.project_options[0].fields.data_templates_url
+          } else {
+            this.$message.error('Failed!')
+            console.log(res['msg'])
+          }
+        })
+    },
     handleUploadData () {
       this.$router.push({
         path: '/projects/data',
-        query: {projectid: this.selected_project.id}
+        query: {projectid: this.selected_project.project_id}
       })
     },
     handleDownloadTemplates (templateType) {
@@ -82,6 +87,22 @@ export default {
       } else {
         window.location.href = this.selected_project.data_templates_url
       }
+    },
+    handelSelectionChange () {
+      console.log(this.selected_project.title)
+      var i
+      for (i in this.project_options) {
+        if (this.project_options[i].fields.title === this.selected_project.title) {
+          this.selected_project.project_id = this.project_options[i].fields.project_id
+          this.selected_project.label = this.project_options[i].fields.label
+          this.selected_project.introduction = this.project_options[i].fields.introduction
+          this.selected_project.methods = this.project_options[i].fields.methods
+          this.selected_project.flowchart_url = this.project_options[i].fields.flowchart_url
+          this.selected_project.workflow_templates_url = this.project_options[i].fields.workflow_templates_url
+          this.selected_project.data_templates_url = this.project_options[i].fields.data_templates_url
+        }
+      }
+      console.log(this.selected_project.project_id)
     }
   }
 }

@@ -46,6 +46,19 @@ class Submissions_SA_Demo(models.Model):
     def __unicode__(self):
         return self.task_id
 
+class Projects_Demo(models.Model):
+    project_id = models.CharField(max_length=64, unique=True)
+    label = models.CharField(max_length=64, unique=True)
+    title = models.CharField(max_length=128, unique=True)
+    introduction = models.TextField(max_length=4096)
+    methods = models.TextField(max_length=4096)
+    flowchart_url = models.CharField(max_length=128)
+    workflow_templates_url = models.CharField(max_length=128)
+    data_templates_url = models.CharField(max_length=128)
+
+    def __unicode__(self):
+        return self.project_id
+
 class Data_Demo(models.Model):
     data_id = models.CharField(max_length=64, unique=True)
     data_name = models.CharField(max_length=64, unique=True)
@@ -60,4 +73,4 @@ class User_Demo(models.Model):
     password = models.CharField(max_length=64)
 
     def __unicode__(self):
-        return self.task_id
+        return self.user_id

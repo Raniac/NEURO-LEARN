@@ -22,7 +22,7 @@ import os
 import io
 import time
 
-from .models import Book, Submissions_Demo, Submissions_SA_Demo, Data_Demo, User_Demo
+from .models import Book, Projects_Demo, Submissions_Demo, Submissions_SA_Demo, Data_Demo, User_Demo
 
 from .tasks import *
 
@@ -121,7 +121,27 @@ def user_login(request):
     response.write(json.dumps(response_content))
 
     return response
-    
+
+@require_http_methods(["GET"])
+def show_project_overview(request):
+    response_content = {}
+    response = HttpResponse()
+    try:
+        projects = Projects_Demo.objects.filter().order_by('-id')
+        print(projects)
+        response_content['list']  = json.loads(serializers.serialize("json", projects))
+        response_content['msg'] = 'success'
+        response_content['error_num'] = 0
+    except  Exception as e:
+        response_content['msg'] = str(e)
+        response_content['error_num'] = 1
+
+    response["Access-Control-Allow-Credentials"] = "true"
+    response["Access-Control-Allow-Methods"] = "GET,POST"
+    response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"
+    response.write(json.dumps(response_content))
+
+    return response
 
 @require_http_methods(["GET"])
 def overview_submissions(request):
@@ -300,6 +320,7 @@ def show_submissions(request):
         analysis_type = request.GET.get('analysis_type')
         if analysis_type == 'Machine Learning':
             submissions = Submissions_Demo.objects.filter().order_by('-id')
+            print(submissions)
             response_content['list']  = json.loads(serializers.serialize("json", submissions))
         elif analysis_type == "Statistical Analysis":
             submissions = Submissions_SA_Demo.objects.filter().order_by('-id')
@@ -369,6 +390,8 @@ def show_data(request):
     response_content = {}
     response = HttpResponse()
     try:
+        project_id = request.GET.get('project_id')
+        print(project_id)
         data = Data_Demo.objects.filter().order_by('-id')
         response_content['list']  = json.loads(serializers.serialize("json", data))
         response_content['msg'] = 'success'
