@@ -143,6 +143,17 @@ def show_project_overview(request):
     return response
 
 @require_http_methods(["GET"])
+def show_flowchart(request):
+    response = {}
+    project_id = request.GET.get('project_id')
+
+    buf = io.BytesIO()
+    img = Image.open('projects/' + project_id + '/' + 'flowchart.png')
+    img.save(buf, 'png')
+
+    return HttpResponse(buf.getvalue(), 'image/png')
+
+@require_http_methods(["GET"])
 def overview_submissions(request):
     response_content = {}
     response = HttpResponse()

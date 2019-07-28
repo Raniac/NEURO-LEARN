@@ -24,7 +24,7 @@
           <h3>Flowchart</h3>
         </div>
         <div style="text-align: center">
-          <img style="width: 700px; margin-top: -20px" :src="selected_project.flowchart_url">
+          <img style="width: 700px; margin-top: -10px" :src="selected_project.flowchart_url">
         </div>
       </div>
     </div>
