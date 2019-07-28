@@ -7,7 +7,7 @@
         </el-input>
         <el-upload
           class="upload-demo"
-          action="/api/upload_data"
+          :action="upload_url"
           name="datafile"
           style="float: right"
           :on-change="handleChange"
@@ -59,13 +59,15 @@ export default {
       pagesize: 10,
       currpage: 1,
       search_input: '',
-      project_id: ''
+      project_id: '',
+      upload_url: '/api/upload_data?project_id='
     }
   },
   mounted: function () {
     if (this.$route.query.projectid) {
       this.project_id = this.$route.query.projectid
       this.showData()
+      this.upload_url += this.project_id
     } else {
       this.$alert('Go choose a project first!', 'Error!', {
         confirmButtonText: 'Confirm',

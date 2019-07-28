@@ -163,6 +163,7 @@ export default {
         component: resolve => require(['@/pages/analysis/overview'], resolve)
       })
     },
+    updateProject () {},
     updateData () {
       axios.get('/api/show_data')
         .then(response => {

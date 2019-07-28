@@ -177,6 +177,11 @@ project_id | Project ID | True | STRING |
   - Content:
     - error_num: request status
     - msg: request result
+- Parameter Definition:
+
+Parameter Name | Description | Necessary | Type | Default Value
+:-: | :-: | :-: | :-: | :-:
+project_id | Project ID | True | STRING |
 
 #### Show Data
 - Request Information

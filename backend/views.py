@@ -343,13 +343,14 @@ def upload_data(request):
     response_content = {}
     response = HttpResponse()
     try:
+        project_id = request.GET.get('project_id')
         data_file = request.FILES.get('datafile')
-        if data_file.name not in os.listdir('data/'):
+        if data_file.name not in os.listdir('projects/'+project_id+'/data/'):
             data = Data_Demo()
             data_id = 'DATA' + time.strftime('%Y%m%d%H%M%S')
             data.data_id = data_id
             data.data_name = data_file.name[:-4]
-            data.data_path = handle_uploaded_file(data_file)
+            data.data_path = handle_uploaded_file(project_id, data_file)
             data.save()
             response_content['msg'] = 'success'
             response_content['dataid'] = data_id
@@ -369,9 +370,9 @@ def upload_data(request):
 
     return response
 
-def handle_uploaded_file(f):
+def handle_uploaded_file(pid, f):
     try:
-        path = 'data/'
+        path = 'projects/' + pid + '/data/'
         if not os.path.exists(path):
             os.makedirs(path)
         
