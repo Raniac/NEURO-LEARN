@@ -15,8 +15,8 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="Proj. Name">
-          <el-select class="select-label" v-model="newform.project_name" placeholder="Select Project">
-            <el-option v-for="(project_option, key) in form.project_options" :label="project_option.name" :value="project_option.value" :key="key"></el-option>
+          <el-select class="select-label" v-model="selected_project_label" placeholder="Select Project" @change="handelSelectionChange">
+            <el-option v-for="(project_option, key) in form.project_options" :label="project_option.fields.label" :value="project_option.fields.label" :key="key"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="Train Data">
@@ -74,6 +74,8 @@ import axios from 'axios'
 export default {
   data () {
     return {
+      selected_project_label: '',
+      selected_project_id: '',
       data_table: [],
       newform: {
         project_name: '',
@@ -90,11 +92,7 @@ export default {
         verbose: false
       },
       form: {
-        project_options: [
-          {name: 'SZ with s/fMRI', value: 'sz_with_sfmri'},
-          {name: 'AD with sMRI', value: 'ad_with_smri'},
-          {name: 'SZ with fMRI', value: 'sz_with_fmri'}
-        ],
+        project_options: [],
         label_options: [],
         feat_sel_options: [],
         estimator_options: [],
@@ -108,7 +106,8 @@ export default {
     }
   },
   mounted () {
-    this.updateData()
+    this.updateProjects()
+    // this.updateData()
   },
   methods: {
     onRadioChange () {
@@ -163,9 +162,35 @@ export default {
         component: resolve => require(['@/pages/analysis/overview'], resolve)
       })
     },
-    updateProject () {},
+    updateProjects () {
+      axios.get('/api/show_project_overview')
+        .then(response => {
+          var res = response.data
+          if (res.error_num === 0) {
+            console.log(res)
+            this.form.project_options = res['list']
+            console.log(this.form.project_options)
+            // this.selected_project_label = this.form.project_options[0].fields.label
+            // this.selected_project_id = this.form.project_options[0].fields.project_id
+          } else {
+            this.$message.error('Failed!')
+            console.log(res['msg'])
+          }
+        })
+    },
+    handelSelectionChange () {
+      console.log(this.selected_project_label)
+      var i
+      for (i in this.form.project_options) {
+        if (this.form.project_options[i].fields.label === this.selected_project_label) {
+          this.selected_project_id = this.form.project_options[i].fields.project_id
+        }
+      }
+      console.log(this.selected_project_id)
+      this.updateData()
+    },
     updateData () {
-      axios.get('/api/show_data')
+      axios.get('/api/show_data?project_id=' + this.selected_project_id)
         .then(response => {
           var res = response.data
           if (res.error_num === 0) {
@@ -179,6 +204,13 @@ export default {
         })
     },
     newTask () {
+      // var i, j
+      // for (i in this.newform.train_data) {
+      //   this.newform.train_data[i] = 'projects/' + this.selected_project_id + '/' + this.newform.train_data[i]
+      // }
+      // for (j in this.newform.test_data) {
+      //   this.newform.test_data[j] = 'projects/' + this.selected_project_id + '/' + this.newform.test_data[j]
+      // }
       console.log(JSON.stringify(this.newform))
       axios.post('/api/new_task', JSON.stringify(this.newform))
         .then(response => {

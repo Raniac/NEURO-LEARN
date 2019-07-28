@@ -128,7 +128,6 @@ def show_project_overview(request):
     response = HttpResponse()
     try:
         projects = Projects_Demo.objects.filter()
-        print(projects)
         response_content['list']  = json.loads(serializers.serialize("json", projects))
         response_content['msg'] = 'success'
         response_content['error_num'] = 0
