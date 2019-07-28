@@ -223,7 +223,7 @@ export default {
             })
             console.log(res)
           } else {
-            this.$message.error('Failed submission!')
+            this.$message.error('Failed submission! Please retry!')
             console.log(res['msg'])
           }
         })
