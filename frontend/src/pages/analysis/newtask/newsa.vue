@@ -178,6 +178,7 @@ export default {
         })
     },
     newTask () {
+      this.newform.project_name = this.selected_project_label
       console.log(JSON.stringify(this.newform))
       axios.post('/api/new_sa_task', JSON.stringify(this.newform))
         .then(response => {

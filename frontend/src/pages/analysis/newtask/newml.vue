@@ -211,6 +211,7 @@ export default {
       // for (j in this.newform.test_data) {
       //   this.newform.test_data[j] = 'projects/' + this.selected_project_id + '/' + this.newform.test_data[j]
       // }
+      this.newform.project_name = this.selected_project_label
       console.log(JSON.stringify(this.newform))
       axios.post('/api/new_task', JSON.stringify(this.newform))
         .then(response => {
