@@ -371,8 +371,8 @@ title | VARCHAR | 128 | False | False |
 introduction | TEXT | 4096 | False | False |
 methods | TEXT | 4096 | False | False |
 flowchart_url | VARCHAR | 128 | False | False |
-workflow_templates_url | VARCHAR | 128 | False | False |
-data_templates_url | VARCHAR | 128 | False | False |
+workflows_url | VARCHAR | 128 | False | False |
+templates_url | VARCHAR | 128 | False | False |
 
 #### backend_data_demo
 
