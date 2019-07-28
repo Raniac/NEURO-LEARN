@@ -23,6 +23,7 @@
     - [Data Management APIs](#data-management-apis)
       - [Show Project Overview](#show-project-overview)
       - [Download Templates](#download-templates)
+      - [Download Workflows](#download-workflows)
       - [Upload Data](#upload-data)
       - [Show Data](#show-data)
     - [Workflow Management APIs](#workflow-management-apis)
@@ -145,12 +146,27 @@ password | Password | True | STRING |
   - Type: FILE
   - Content:
     - Content-Type: 'application/octet-stream'
-    - Content-Disposition: 'attachment;filename=\"' + template_type + '.zip\"'
+    - Content-Disposition: 'attachment;filename=\"dataset_templates.zip\"'
 - Parameter Definition:
 
 Parameter Name | Description | Necessary | Type | Default Value
 :-: | :-: | :-: | :-: | :-:
-template_type | Template Type | True | STRING |
+project_id | Project ID | True | STRING |
+
+#### Download Workflows
+- Request Information
+  - Address: /api/download_workflows
+  - Method: GET
+- Response Information
+  - Type: FILE
+  - Content:
+    - Content-Type: 'application/octet-stream'
+    - Content-Disposition: 'attachment;filename=\"local_workflows.zip\"'
+- Parameter Definition:
+
+Parameter Name | Description | Necessary | Type | Default Value
+:-: | :-: | :-: | :-: | :-:
+project_id | Project ID | True | STRING |
 
 #### Upload Data
 - Request Information

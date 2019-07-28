@@ -18,8 +18,8 @@
           <p>{{ selected_project.introduction }}</p>
           <h3>Methods</h3>
           <p>{{ selected_project.methods }}</p>
-          <el-button type="primary" round @click="handleDownloadTemplates('workflow')">Download Local Workflows</el-button>
-          <el-button type="primary" round :href="selected_project.data_templates_url" @click="handleDownloadTemplates('dataset')">Download Dataset Templates</el-button>
+          <el-button type="primary" round @click="handleDownloadWorkflows">Download Local Workflows</el-button>
+          <el-button type="primary" round :href="selected_project.templates_url" @click="handleDownloadTemplates">Download Dataset Templates</el-button>
           <el-button type="primary" round @click="handleUploadData">Upload Prepared Datasets</el-button>
           <h3>Flowchart</h3>
         </div>
@@ -43,8 +43,8 @@ export default {
         introduction: '',
         methods: '',
         flowchart_url: '',
-        workflow_templates_url: '',
-        data_templates_url: ''
+        workflows_url: '',
+        templates_url: ''
       },
       project_options: []
     }
@@ -67,8 +67,8 @@ export default {
             this.selected_project.introduction = this.project_options[0].fields.introduction
             this.selected_project.methods = this.project_options[0].fields.methods
             this.selected_project.flowchart_url = this.project_options[0].fields.flowchart_url
-            this.selected_project.workflow_templates_url = this.project_options[0].fields.workflow_templates_url
-            this.selected_project.data_templates_url = this.project_options[0].fields.data_templates_url
+            this.selected_project.workflows_url = this.project_options[0].fields.workflows_url
+            this.selected_project.templates_url = this.project_options[0].fields.templates_url
           } else {
             this.$message.error('Failed!')
             console.log(res['msg'])
@@ -81,12 +81,11 @@ export default {
         query: {projectid: this.selected_project.project_id}
       })
     },
-    handleDownloadTemplates (templateType) {
-      if (templateType === 'workflow') {
-        window.location.href = this.selected_project.workflow_templates_url
-      } else {
-        window.location.href = this.selected_project.data_templates_url
-      }
+    handleDownloadWorkflows () {
+      window.location.href = this.selected_project.workflows_url
+    },
+    handleDownloadTemplates () {
+      window.location.href = this.selected_project.templates_url
     },
     handelSelectionChange () {
       console.log(this.selected_project.title)
@@ -98,8 +97,8 @@ export default {
           this.selected_project.introduction = this.project_options[i].fields.introduction
           this.selected_project.methods = this.project_options[i].fields.methods
           this.selected_project.flowchart_url = this.project_options[i].fields.flowchart_url
-          this.selected_project.workflow_templates_url = this.project_options[i].fields.workflow_templates_url
-          this.selected_project.data_templates_url = this.project_options[i].fields.data_templates_url
+          this.selected_project.workflows_url = this.project_options[i].fields.workflows_url
+          this.selected_project.templates_url = this.project_options[i].fields.templates_url
         }
       }
       console.log(this.selected_project.project_id)

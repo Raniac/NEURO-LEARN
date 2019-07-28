@@ -463,12 +463,22 @@ def show_img(request):
 
 @require_http_methods(["GET"])
 def download_templates(request):
-    template_type = request.GET.get('template_type')
+    project_id = request.GET.get('project_id')
 
-    template_file = open('templates/' + template_type + '.zip', 'rb')
-    response = FileResponse(template_file)
+    templates_file = open('projects/' + project_id + '/dataset_templates.zip', 'rb')
+    response = FileResponse(templates_file)
     response['Content-Type']='application/octet-stream'
-    response['Content-Disposition']='attachment;filename=\"' + template_type + '.zip\"'
+    response['Content-Disposition']='attachment;filename=\"dataset_templates.zip\"'
+    return response
+
+@require_http_methods(["GET"])
+def download_workflows(request):
+    project_id = request.GET.get('project_id')
+
+    workflows_file = open('projects/' + project_id + '/local_workflows.zip', 'rb')
+    response = FileResponse(workflows_file)
+    response['Content-Type']='application/octet-stream'
+    response['Content-Disposition']='attachment;filename=\"local_workflows.zip\"'
     return response
 
 @require_http_methods(["GET"])

@@ -53,8 +53,8 @@ class Projects_Demo(models.Model):
     introduction = models.TextField(max_length=4096)
     methods = models.TextField(max_length=4096)
     flowchart_url = models.CharField(max_length=128)
-    workflow_templates_url = models.CharField(max_length=128)
-    data_templates_url = models.CharField(max_length=128)
+    workflows_url = models.CharField(max_length=128)
+    templates_url = models.CharField(max_length=128)
 
     def __unicode__(self):
         return self.project_id
