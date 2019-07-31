@@ -1,0 +1,7 @@
+pymysql
+django-celery
+django-cors-headers
+django-redis
+djangorestframework
+Pillow
+statsmodels
