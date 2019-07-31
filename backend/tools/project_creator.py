@@ -80,7 +80,14 @@ if __name__ == "__main__":
     logging.info(project['introduction'])
     logging.info(project['methods'])
 
-    create_project(sql, project)
+    print()
+    print('Are you sure you want to create this project? [y/n]')
+    confirm = input()
 
-    project_path = 'projects/' + PROJECT_ID
-    os.makedirs(project_path)
+    if confirm == 'y':
+        create_project(sql, project)
+
+        project_path = 'projects/' + PROJECT_ID
+        os.makedirs(project_path)
+    else:
+        logging.info('Exit without creating anything!')
