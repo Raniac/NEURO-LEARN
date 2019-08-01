@@ -89,5 +89,7 @@ if __name__ == "__main__":
 
         project_path = 'projects/' + PROJECT_ID
         os.makedirs(project_path)
+        os.makedirs(project_path + '/dataset_templates')
+        os.makedirs(project_path + '/local_workflows')
     else:
         logging.info('Exit without creating anything!')
