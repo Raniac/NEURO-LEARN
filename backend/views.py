@@ -21,6 +21,7 @@ import json
 import os
 import io
 import time
+import zipfile
 
 from .models import Book, Projects_Demo, Submissions_Demo, Submissions_SA_Demo, Data_Demo, User_Demo
 
@@ -472,9 +473,26 @@ def show_img(request):
 
     return HttpResponse(buf.getvalue(), 'image/png')
 
+def writeAllFileToZip(absDir, zipFile):
+    for f in os.listdir(absDir):
+        absFile = os.path.join(absDir, f)
+        if os.path.isdir(absFile):
+            relFile = absFile[len(os.getcwd())+1:]
+            zipFile.write(relFile)
+            writeAllFileToZip(absFile, zipFile)
+        else:
+            relFile = absFile[len(os.getcwd())+1:]
+            zipFile.write(relFile)
+    return
+
 @require_http_methods(["GET"])
 def download_templates(request):
     project_id = request.GET.get('project_id')
+
+    zipFilePath = 'projects/' + project_id + '/dataset_templates.zip'
+    with zipfile.ZipFile(zipFilePath ,'w', zipfile.ZIP_DEFLATED) as zipFile:
+        absDir = os.path.abspath('projects/' + project_id + '/dataset_templates')
+        writeAllFileToZip(absDir, zipFile)
 
     templates_file = open('projects/' + project_id + '/dataset_templates.zip', 'rb')
     response = FileResponse(templates_file)
@@ -485,6 +503,11 @@ def download_templates(request):
 @require_http_methods(["GET"])
 def download_workflows(request):
     project_id = request.GET.get('project_id')
+
+    zipFilePath = 'projects/' + project_id + '/local_workflows.zip'
+    with zipfile.ZipFile(zipFilePath ,'w', zipfile.ZIP_DEFLATED) as zipFile:
+        absDir = os.path.abspath('projects/' + project_id + '/local_workflows')
+        writeAllFileToZip(absDir, zipFile)
 
     workflows_file = open('projects/' + project_id + '/local_workflows.zip', 'rb')
     response = FileResponse(workflows_file)
