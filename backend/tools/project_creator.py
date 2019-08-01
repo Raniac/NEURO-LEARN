@@ -65,8 +65,8 @@ if __name__ == "__main__":
         'introduction': PROJECT_INTRODUCTION,
         'methods': PROJECT_METHODS,
         'flowchart_url': '/api/show_flowchart?project_id=' + PROJECT_ID,
-        'workflows_url': '/api/download_workflows?project_id' + PROJECT_ID,
-        'templates_url': '/api/download_templates?project_id' + PROJECT_ID
+        'workflows_url': '/api/download_workflows?project_id=' + PROJECT_ID,
+        'templates_url': '/api/download_templates?project_id=' + PROJECT_ID
     }
 
     sql = """
