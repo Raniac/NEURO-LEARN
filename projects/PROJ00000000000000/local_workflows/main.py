@@ -17,7 +17,7 @@ def executeJob(jobID, workDir, dataDir):
     # Call NEURO-LEARN-LOCAL modules
     # ========================================
     import nllmodules as nll
-    nll.test()
+    nll.test(workDir, dataDir)
 
     print('Job is done! Check the autosaved log at ' + workDir + ' for details!')
 
@@ -27,6 +27,7 @@ if __name__ == "__main__":
     print()
     print('Welcome to \033[0;36mNEURO-LEARN-LOCAL\033[0m! This application is part of \033[0;36mNEURO-LEARN\033[0m developed by Raniac from South China University of Technology.')
     print('We assume that you know about \033[0;36mNEURO-LEARN\033[0m. If not, please check this out! >> https://github.com/Raniac/NEURO-LEARN/wiki')
+    time.sleep(1)
     print()
     print('Now let\'s get started! Do you know how to use this? [y/n]')
     doKnow = input()
