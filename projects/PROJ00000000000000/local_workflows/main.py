@@ -13,14 +13,13 @@ def executeJob(jobID, workDir, dataDir):
     logging.info('Working directory: ' + workDir)
     logging.info('Data directory: ' + dataDir)
     
-    # import somemodule as somealias
-    time.sleep(2)
-    logging.info('This is an info message.')
-    time.sleep(2)
-    logging.error('This is an error message.')
-    time.sleep(2)
+    # ========================================
+    # Call NEURO-LEARN-LOCAL modules
+    # ========================================
+    import nllmodules as nll
+    nll.test()
 
-    print('Job is done! Check the log at ' + workDir + ' for details!')
+    print('Job is done! Check the autosaved log at ' + workDir + ' for details!')
 
 if __name__ == "__main__":
     print()
