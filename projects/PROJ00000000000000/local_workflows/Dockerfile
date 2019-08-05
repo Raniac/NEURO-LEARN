@@ -4,4 +4,4 @@ WORKDIR /nllwork
  
 ADD . /nllwork
 
-RUN pip install -r requirements.txt
+CMD ["python", "main.py"]
