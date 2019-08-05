@@ -23,7 +23,7 @@ def executeJob(jobID, workDir, dataDir, saveIntermediate):
     # Call NEURO-LEARN-LOCAL modules
     # ========================================
     import nllmodules as nll
-    nll.test(workDir, dataDir, saveIntermediate)
+    nll.testNilearn(workDir, dataDir, saveIntermediate)
 
     print('Job is done! Check the autosaved log at ' + workDir + ' for details!')
 
