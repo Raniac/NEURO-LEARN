@@ -33,7 +33,6 @@ if __name__ == "__main__":
     print()
     print('Welcome to \033[0;36mNEURO-LEARN-LOCAL\033[0m! This application is part of \033[0;36mNEURO-LEARN\033[0m developed by Raniac from South China University of Technology.')
     print('We assume that you know about \033[0;36mNEURO-LEARN\033[0m. If not, please check this out! >> https://github.com/Raniac/NEURO-LEARN/wiki')
-    time.sleep(1)
     print()
     print('Now let\'s get started! This particular version of \033[0;36mNEURO-LEARN-LOCAL\033[0m focuses on extracting brain connectivity features from fMRI data.')
     print('Do you know how to use this? [y/n]')
