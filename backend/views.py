@@ -490,7 +490,7 @@ def download_templates(request):
     project_id = request.GET.get('project_id')
 
     zipFilePath = 'projects/' + project_id + '/dataset_templates.zip'
-    with zipfile.ZipFile(zipFilePath ,'w', zipfile.ZIP_DEFLATED) as zipFile:
+    with zipfile.ZipFile(zipFilePath, 'w', zipfile.ZIP_DEFLATED) as zipFile:
         absDir = os.path.abspath('projects/' + project_id + '/dataset_templates')
         writeAllFileToZip(absDir, zipFile)
 
@@ -505,7 +505,7 @@ def download_workflows(request):
     project_id = request.GET.get('project_id')
 
     zipFilePath = 'projects/' + project_id + '/local_workflows.zip'
-    with zipfile.ZipFile(zipFilePath ,'w', zipfile.ZIP_DEFLATED) as zipFile:
+    with zipfile.ZipFile(zipFilePath, 'w', zipfile.ZIP_DEFLATED) as zipFile:
         absDir = os.path.abspath('projects/' + project_id + '/local_workflows')
         writeAllFileToZip(absDir, zipFile)
 
