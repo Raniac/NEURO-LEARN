@@ -8,6 +8,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import codecs
 import csv
+import pickle
 from nilearn import input_data, plotting, connectome
 
 def test(workDir, dataDir, saveIntermediate):
@@ -57,7 +58,7 @@ def testNilearn(workDir, dataDir, saveIntermediate):
     resultDir = workDir + '/connectivity_matrices/'
     os.makedirs(resultDir)
     
-
+    connectivity_matrices = {}
     for idx, img_name in enumerate(img_names):
         logging.info('Computing image ' + str(idx) + ' for subject ' + filenames[idx])
         img = nilearn.image.load_img(img_name)
@@ -80,25 +81,28 @@ def testNilearn(workDir, dataDir, saveIntermediate):
             # import nibabel
 
         logging.info('Computing connectome ...step2')
-        correlation_measure = connectome.ConnectivityMeasure(kind='partial correlation')
-        correlation_matrix = correlation_measure.fit_transform([time_series])[0]
+        connectivity_measure = connectome.ConnectivityMeasure(kind='partial correlation')
+        connectivity_matrix = connectivity_measure.fit_transform([time_series])[0]
+        connectivity_matrices[filenames[idx]] = connectivity_matrix
         # correlation_vector = connectome.sym_matrix_to_vec(correlation_matrix, discard_diagonal=True)
         # correlation_vector = list(correlation_vector)
         # correlation_vector.insert(0, filenames[idx])
         # writer.writerow(correlation_vector)
 
         if saveIntermediate != 'n':
-            plotting.plot_matrix(correlation_matrix, colorbar=True, vmax=0.8, vmin=-0.8)
+            plotting.plot_matrix(connectivity_matrix, colorbar=True, vmax=0.8, vmin=-0.8)
             plt.savefig(intermDir + filenames[idx] + '_matrix_step2.png')
-            plotting.plot_connectome(correlation_matrix, coords, edge_threshold="97%", colorbar=True)
+            plotting.plot_connectome(connectivity_matrix, coords, edge_threshold="97%", colorbar=True)
             plt.savefig(intermDir + filenames[idx] + '_connectome_step2.png')
 
         with codecs.open(resultDir + '/' + filenames[idx] + '.csv', 'w+', encoding='gbk') as result_csv:
             writer = csv.writer(result_csv, delimiter=',')
-            for row in correlation_matrix:
+            for row in connectivity_matrix:
                 writer.writerow(row)
 
     # logging.info('Packing results ...step3')
     # with zipfile.ZipFile(workDir + '/' + os.environ['USERNAME'] + '_' + time.strftime('%y%m%d') + '_' + str(len(filenames)) + '_bcn.zip', 'w', zipfile.ZIP_DEFLATED) as zipFile:
     #     absDir = resultDir
     #     writeAllFileToZip(workDir, absDir, zipFile)
+    with open(workDir + '/' + os.environ['USERNAME'] + '_' + time.strftime('%y%m%d') + '_' + str(len(filenames)) + '_bcn.pkl', 'wb') as pklf:
+        pickle.dump(connectivity_matrices, pklf)
