@@ -33,18 +33,6 @@ def test(workDir, dataDir, saveIntermediate):
 
     return
 
-# def writeAllFileToZip(workDir, absDir, zipFile):
-#     for f in os.listdir(absDir):
-#         absFile = os.path.join(absDir, f)
-#         if os.path.isdir(absFile):
-#             relFile = absFile
-#             zipFile.write(relFile)
-#             writeAllFileToZip(absFile, zipFile)
-#         else:
-#             relFile = absFile
-#             zipFile.write(relFile)
-#     return
-
 def testNilearn(workDir, dataDir, saveIntermediate):
     """
     :param workDir: the directory where the result files are stored
@@ -78,16 +66,11 @@ def testNilearn(workDir, dataDir, saveIntermediate):
                 os.makedirs(intermDir)
             plotting.plot_img(img.slicer[:, :, :, 100])
             plt.savefig(intermDir + filenames[idx] + '_preprocessed_step1.png')
-            # import nibabel
 
         logging.info('Computing connectome ...step2')
         connectivity_measure = connectome.ConnectivityMeasure(kind='partial correlation')
         connectivity_matrix = connectivity_measure.fit_transform([time_series])[0]
         connectivity_matrices[filenames[idx]] = connectivity_matrix
-        # correlation_vector = connectome.sym_matrix_to_vec(correlation_matrix, discard_diagonal=True)
-        # correlation_vector = list(correlation_vector)
-        # correlation_vector.insert(0, filenames[idx])
-        # writer.writerow(correlation_vector)
 
         if saveIntermediate != 'n':
             plotting.plot_matrix(connectivity_matrix, colorbar=True, vmax=0.8, vmin=-0.8)
@@ -100,9 +83,5 @@ def testNilearn(workDir, dataDir, saveIntermediate):
             for row in connectivity_matrix:
                 writer.writerow(row)
 
-    # logging.info('Packing results ...step3')
-    # with zipfile.ZipFile(workDir + '/' + os.environ['USERNAME'] + '_' + time.strftime('%y%m%d') + '_' + str(len(filenames)) + '_bcn.zip', 'w', zipfile.ZIP_DEFLATED) as zipFile:
-    #     absDir = resultDir
-    #     writeAllFileToZip(workDir, absDir, zipFile)
-    with open(workDir + '/' + os.environ['USERNAME'] + '_' + time.strftime('%y%m%d') + '_' + str(len(filenames)) + '_bcn.pkl', 'wb') as pklf:
-        pickle.dump(connectivity_matrices, pklf)
+    with open(workDir + '/' + os.environ['USERNAME'] + '_' + time.strftime('%y%m%d') + '_' + str(len(filenames)) + '_bcn.pkl', 'wb') as pkl_file:
+        pickle.dump(connectivity_matrices, pkl_file)
