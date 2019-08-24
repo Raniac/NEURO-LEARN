@@ -61,7 +61,7 @@ class Projects_Demo(models.Model):
 
 class Data_Demo(models.Model):
     data_id = models.CharField(max_length=64, unique=True)
-    data_name = models.CharField(max_length=64, unique=True)
+    data_name = models.CharField(max_length=64)
     data_path = models.CharField(max_length=128)
     project_id = models.CharField(max_length=64)
 

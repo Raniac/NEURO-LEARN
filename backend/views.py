@@ -356,12 +356,16 @@ def upload_data(request):
     try:
         project_id = request.GET.get('project_id')
         data_file = request.FILES.get('datafile')
-        if data_file.name not in os.listdir('projects/'+project_id+'/data/'):
+        data_path = 'projects/'+project_id+'/data/'
+        if not os.path.exists(data_path):
+            os.makedirs(data_path)
+        if data_file.name not in os.listdir(data_path):
             data = Data_Demo()
             data_id = 'DATA' + time.strftime('%Y%m%d%H%M%S')
             data.data_id = data_id
             data.data_name = data_file.name[:-4]
-            data.data_path = handle_uploaded_file(project_id, data_file)
+            data.data_path = handle_uploaded_file(data_path, data_file)
+            data.project_id = project_id
             data.save()
             response_content['msg'] = 'success'
             response_content['dataid'] = data_id
@@ -381,12 +385,8 @@ def upload_data(request):
 
     return response
 
-def handle_uploaded_file(pid, f):
+def handle_uploaded_file(path, f):
     try:
-        path = 'projects/' + pid + '/data/'
-        if not os.path.exists(path):
-            os.makedirs(path)
-        
         file_name = str(path + f.name)
         destination = open(file_name, 'wb+')
         for chunk in f.chunks():
@@ -404,7 +404,7 @@ def show_data(request):
     try:
         project_id = request.GET.get('project_id')
         print(project_id)
-        data = Data_Demo.objects.filter().order_by('-id')
+        data = Data_Demo.objects.filter(project_id=project_id).order_by('-id')
         response_content['list']  = json.loads(serializers.serialize("json", data))
         response_content['msg'] = 'success'
         response_content['error_num'] = 0
