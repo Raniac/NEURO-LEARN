@@ -63,6 +63,7 @@ class Data_Demo(models.Model):
     data_id = models.CharField(max_length=64, unique=True)
     data_name = models.CharField(max_length=64, unique=True)
     data_path = models.CharField(max_length=128)
+    project_id = models.CharField(max_length=64)
 
     def __unicode__(self):
         return self.task_id
