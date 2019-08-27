@@ -74,11 +74,11 @@ if __name__ == "__main__":
     values(%s, %s, %s, %s, %s, %s, %s, %s);
     """
 
-    logging.info(project['project_id'])
-    logging.info(project['label'])
-    logging.info(project['title'])
-    logging.info(project['introduction'])
-    logging.info(project['methods'])
+    logging.info('Project ID: '+project['project_id'])
+    logging.info('Proj Label: '+project['label'])
+    logging.info('Proj Title: '+project['title'])
+    logging.info('Proj Intro: '+project['introduction'])
+    logging.info('Proj Methd: '+project['methods'])
 
     print()
     print('Are you sure you want to create this project? [y/n]')
