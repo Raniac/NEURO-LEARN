@@ -420,6 +420,34 @@ def show_data(request):
     return response
 
 @require_http_methods(["GET"])
+def delete_data(request):
+    response_content = {}
+    response = HttpResponse()
+    try:
+        project_id = request.GET.get('project_id')
+        data_id = request.GET.get('data_id')
+        print(project_id)
+        print(data_id)
+        data_path = Data_Demo.objects.filter(data_id=data_id).values('data_path')
+        print(list(data_path)[0]['data_path'])
+        Data_Demo.objects.filter(project_id=project_id, data_id=data_id).delete()
+
+        os.remove(list(data_path)[0]['data_path'])
+
+        response_content['msg'] = 'success'
+        response_content['error_num'] = 0
+    except  Exception as e:
+        response_content['msg'] = str(e)
+        response_content['error_num'] = 1
+
+    response["Access-Control-Allow-Credentials"] = "true"
+    response["Access-Control-Allow-Methods"] = "GET,POST"
+    response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"
+    response.write(json.dumps(response_content))
+
+    return response
+
+@require_http_methods(["GET"])
 def show_results(request):
     response_content = {}
     response = HttpResponse()

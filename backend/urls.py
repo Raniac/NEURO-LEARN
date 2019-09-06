@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'show_submissions$', views.show_submissions, ),
     url(r'upload_data$', views.upload_data, ),
     url(r'show_data$', views.show_data, ),
+    url(r'delete_data$', views.delete_data, ),
     url(r'show_results$', views.show_results, ),
     url(r'show_img$', views.show_img, ),
     url(r'download_templates$', views.download_templates, ),

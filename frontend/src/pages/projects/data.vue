@@ -33,6 +33,14 @@
           label="Data Name"
           prop="fields.data_name">
           </el-table-column>
+          <el-table-column
+            fixed="right"
+            label="Operation"
+            width="100">
+            <template slot-scope="scope">
+              <el-button @click="handleDelete(scope.row)" type="danger" size="mini">Delete</el-button>
+            </template>
+          </el-table-column>
         </el-table>
       </div>
       <div style="margin: 14px">
@@ -101,11 +109,26 @@ export default {
     uploadSuccess (response) {
       if (response.msg === 'success') {
         this.$message({showClose: true, message: 'Successfully uploaded! Data ID: ' + response.dataid, type: 'success'})
+        this.showData()
         console.log(response)
       } else if (response.msg === 'existed') {
         this.$message({showClose: true, message: 'File existed!', type: 'warning'})
         console.log(response)
       }
+    },
+    handleDelete (row) {
+      console.log(row.fields.data_id)
+      axios.get('/api/delete_data?project_id=' + this.project_id + '&data_id=' + row.fields.data_id)
+        .then(response => {
+          var res = response.data
+          if (res.error_num === 0) {
+            console.log(res)
+          } else {
+            this.$message.error('Failed!')
+            console.log(res['msg'])
+          }
+        })
+      this.showData()
     },
     handleCurrentChange (cpage) {
       this.currpage = cpage
