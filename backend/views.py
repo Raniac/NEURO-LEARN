@@ -448,6 +448,18 @@ def delete_data(request):
     return response
 
 @require_http_methods(["GET"])
+def download_data(request):
+    data_id = request.GET.get('data_id')
+    data_path = Data_Demo.objects.filter(data_id=data_id).values('data_path')
+    data_path = list(data_path)[0]['data_path']
+    significance_file = open(data_path, 'rb')
+    
+    response = FileResponse(significance_file)
+    response['Content-Type']='application/octet-stream'
+    response['Content-Disposition']='attachment;filename=\"' + data_id + '.csv\"'
+    return response
+
+@require_http_methods(["GET"])
 def show_results(request):
     response_content = {}
     response = HttpResponse()

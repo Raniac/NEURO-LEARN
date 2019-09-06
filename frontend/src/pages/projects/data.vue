@@ -37,8 +37,9 @@
             fixed="right"
             label="Operation"
             width="100">
-            <template slot-scope="scope">
-              <el-button @click="handleDelete(scope.row)" type="danger" size="mini">Delete</el-button>
+            <template slot-scope="scope" style="font-size: 20px">
+              <el-button @click="handleDownload(scope.row)" size="small" icon="el-icon-download" circle></el-button>
+              <el-button @click="handleDelete(scope.row)" type="danger" size="small" icon="el-icon-delete" circle></el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -118,17 +119,26 @@ export default {
     },
     handleDelete (row) {
       console.log(row.fields.data_id)
-      axios.get('/api/delete_data?project_id=' + this.project_id + '&data_id=' + row.fields.data_id)
-        .then(response => {
-          var res = response.data
-          if (res.error_num === 0) {
-            console.log(res)
-          } else {
-            this.$message.error('Failed!')
-            console.log(res['msg'])
-          }
-        })
-      this.showData()
+      this.$confirm('Are you sure?', 'Attention!', {
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+      }).then(() => {
+        axios.get('/api/delete_data?project_id=' + this.project_id + '&data_id=' + row.fields.data_id)
+          .then(response => {
+            var res = response.data
+            if (res.error_num === 0) {
+              console.log(res)
+              this.showData()
+            } else {
+              this.$message.error('Failed!')
+              console.log(res['msg'])
+            }
+          })
+      }).catch(() => {})
+    },
+    handleDownload (row) {
+      console.log(row.fields.data_id)
+      window.location.href = '/api/download_data?data_id=' + row.fields.data_id
     },
     handleCurrentChange (cpage) {
       this.currpage = cpage
