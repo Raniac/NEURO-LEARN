@@ -3,20 +3,21 @@
     <div class="profile-area">
       <div class="profile-detail">
         <img style="float: left; height: auto; width: 200px" src="https://avatars2.githubusercontent.com/u/17725948?s=460&v=4">
-        <div style="line-height: 30px">
-          <span style="padding-left: 20px; font-family: Arial; font-weight: 200; font-size: 40px; color: #282828">{{ username }}</span><br/>
-          <span style="padding-left: 20px; font-family: Arial; font-weight: 100; font-size: 20px; color: #505050">Master of Science from SCUT</span><br/>
+        <div style="line-height: 28px">
+          <span style="padding-left: 20px; font-family: Arial; font-weight: 200; font-size: 40px; color: #282828">Benny Ray</span><br/>
+          <span style="padding-left: 20px; font-family: Arial; font-weight: 100; font-size: 20px; color: #505050">Master of Engineering | SCUT</span><br/>
           <span style="padding-left: 20px; font-family: Arial; font-weight: 100; font-size: 20px; color: #505050">Interests:  Artificial Intelligence & Neuro-Informatics</span><br/>
         </div>
-        <div style="margin-top: 40px; line-height: 30px">
-          <a class="github-link" href="https://github.com/Raniac" target="_blank">Paper: NEURO-LEARN</a><br/>
+        <div style="margin-top: 16px; line-height: 28px">
+          <a class="github-link" href="https://github.com/Raniac/NEURO-LEARN" target="_blank">NEURO-LEARN</a><br/>
           <a class="github-link" href="https://github.com/Raniac" target="_blank">GitHub/Raniac</a><br/>
+          <a class="github-link" href="mailto:leibingye@outlook.com">leibingye@outlook.com</a>
         </div>
       </div>
     </div>
     <div class="projects-area">
     <div>
-      <h1 style="padding-left: 20px; font-family: Arial; font-weight: 150; font-size: 30px; color: #505050">Joined Projects</h1>
+      <h1 style="padding-left: 20px; font-family: Arial; font-weight: 150; font-size: 30px; color: #505050">Username: {{ username }} | Joined Projects</h1>
     </div>
     <div style="margin: 14px">
       <el-table
