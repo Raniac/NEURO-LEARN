@@ -36,7 +36,7 @@ def add_book(request):
         book.save()
         response['msg'] = 'success'
         response['error_num'] = 0
-    except  Exception as e:
+    except Exception as e:
         response['msg'] = str(e)
         response['error_num'] = 1
 
@@ -50,7 +50,7 @@ def show_books(request):
         response['list']  = json.loads(serializers.serialize("json", books))
         response['msg'] = 'success'
         response['error_num'] = 0
-    except  Exception as e:
+    except Exception as e:
         response['msg'] = str(e)
         response['error_num'] = 1
 
@@ -112,7 +112,7 @@ def user_login(request):
         else:
             response_content['msg'] = 'Wrong password!'
             response_content['error_num'] = 1
-    except  Exception as e:
+    except Exception as e:
         response_content['msg'] = str(e)
         response_content['error_num'] = 1
 
@@ -132,7 +132,7 @@ def show_project_overview(request):
         response_content['list']  = json.loads(serializers.serialize("json", projects))
         response_content['msg'] = 'success'
         response_content['error_num'] = 0
-    except  Exception as e:
+    except Exception as e:
         response_content['msg'] = str(e)
         response_content['error_num'] = 1
 
@@ -189,7 +189,7 @@ def overview_submissions(request):
 
         response_content['msg'] = 'success'
         response_content['error_num'] = 0
-    except  Exception as e:
+    except Exception as e:
         response_content['msg'] = str(e)
         response_content['error_num'] = 1
 
@@ -338,7 +338,7 @@ def show_submissions(request):
             response_content['list']  = json.loads(serializers.serialize("json", submissions))
         response_content['msg'] = 'success'
         response_content['error_num'] = 0
-    except  Exception as e:
+    except Exception as e:
         response_content['msg'] = str(e)
         response_content['error_num'] = 1
 
@@ -408,7 +408,7 @@ def show_data(request):
         response_content['list']  = json.loads(serializers.serialize("json", data))
         response_content['msg'] = 'success'
         response_content['error_num'] = 0
-    except  Exception as e:
+    except Exception as e:
         response_content['msg'] = str(e)
         response_content['error_num'] = 1
 
@@ -436,7 +436,7 @@ def delete_data(request):
 
         response_content['msg'] = 'success'
         response_content['error_num'] = 0
-    except  Exception as e:
+    except Exception as e:
         response_content['msg'] = str(e)
         response_content['error_num'] = 1
 
@@ -485,13 +485,17 @@ def show_results(request):
             response_content['img_list'] = img_list
 
         elif analysis_type == 'Statistical Analysis':
-            task_info = Submissions_SA_Demo.objects.filter(task_id=task_id)
+            task_info = Submissions_SA_Demo.objects.filter(task_id=task_id, task_status='Finished')
+            assert list(task_info)
             response_content['info']  = json.loads(serializers.serialize("json", task_info))
 
         response_content['msg'] = 'success'
         response_content['error_num'] = 0
-    except  Exception as e:
-        response_content['msg'] = json.dumps(Submissions_Demo.objects.get(task_id=task_id).task_result)
+    except Exception as e:
+        if analysis_type == 'Machine Learning':
+            response_content['msg'] = json.dumps(Submissions_Demo.objects.get(task_id=task_id).task_result)
+        elif analysis_type == 'Statistical Analysis':
+            response_content['msg'] = json.dumps(Submissions_SA_Demo.objects.get(task_id=task_id).task_result)
         response_content['error_num'] = 1
 
     response["Access-Control-Allow-Credentials"] = "true"
