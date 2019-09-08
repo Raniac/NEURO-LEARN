@@ -18,8 +18,8 @@
           <p>{{ selected_project.introduction }}</p>
           <h3>Methods</h3>
           <p>{{ selected_project.methods }}</p>
-          <el-button round @click="handleDownloadWorkflows">Download Local Workflows</el-button>
-          <el-button round :href="selected_project.templates_url" @click="handleDownloadTemplates">Download Dataset Templates</el-button>
+          <el-button plain round @click="handleDownloadWorkflows">Download Local Workflows</el-button>
+          <el-button plain round :href="selected_project.templates_url" @click="handleDownloadTemplates">Download Dataset Templates</el-button>
           <el-button type="primary" round @click="handleUploadData">Upload Prepared Datasets</el-button>
           <h3>Flowchart</h3>
         </div>
