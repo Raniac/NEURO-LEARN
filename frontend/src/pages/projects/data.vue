@@ -35,7 +35,7 @@
           </el-table-column>
           <el-table-column
             fixed="right"
-            label="Operation"
+            label="Action"
             width="100">
             <template slot-scope="scope" style="font-size: 20px">
               <el-button @click="handleDownload(scope.row)" size="small" icon="el-icon-download" circle></el-button>
@@ -78,7 +78,7 @@ export default {
       this.showData()
       this.upload_url += this.project_id
     } else {
-      this.$alert('Go choose a project first!', 'Error!', {
+      this.$alert('Choose a project first!', 'Error!', {
         confirmButtonText: 'Confirm',
         callback: action => {
           this.$router.replace({
