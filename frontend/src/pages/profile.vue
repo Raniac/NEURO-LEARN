@@ -17,7 +17,7 @@
     </div>
     <div class="projects-area">
     <div>
-      <h1 style="padding-left: 20px; font-family: Arial; font-weight: 150; font-size: 30px; color: #505050">Username: {{ username }} | Joined Projects</h1>
+      <h1 style="padding-left: 20px; font-family: Arial; font-weight: 150; font-size: 30px; color: #505050">Joined Projects | {{ username }}</h1>
     </div>
     <div style="margin: 14px">
       <el-table
@@ -25,31 +25,30 @@
         :data="projects_table"
         stripe
         border
-        default-expand-all
         style="width: 100%; background-color: #E8E8E8; color: #282828; ">
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-form label-position="left" in-line class="projects-table-expand">
-              <el-form-item label="Research Content">
-                <span>{{ props.row.research_content }}</span>
+              <el-form-item label="Introduction">
+                <span>{{ props.row.fields.introduction }}</span>
               </el-form-item>
-              <el-form-item label="Feature Types">
-                <span>{{ props.row.feat_types }}</span>
+              <el-form-item label="Methods">
+                <span>{{ props.row.fields.methods }}</span>
               </el-form-item>
             </el-form>
           </template>
         </el-table-column>
         <el-table-column
         label="Project ID"
-        prop="project_id">
+        prop="fields.project_id">
         </el-table-column>
         <el-table-column
-        label="Project Name"
-        prop="project_name">
+        label="Project Title"
+        prop="fields.title">
         </el-table-column>
         <el-table-column
-        label="Status"
-        prop="project_status">
+        label="Project Label"
+        prop="fields.label">
         </el-table-column>
       </el-table>
     </div>
@@ -58,22 +57,34 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   mounted () {
     this.username = sessionStorage.getItem('Username')
+    this.showProjects()
   },
   data () {
     return {
       search_input: '',
       selected_status: '',
       username: '',
-      projects_table: [{
-        project_id: '2019050503',
-        project_name: 'SZ with sfMRI',
-        project_status: 'active',
-        research_content: 'Fusing structural and functional MRI data, use DPABI on matlab to compute the features, and analyze SZ.',
-        feat_types: 'Gray matter volume, regional homogeneity, amplitude of low frequency fluctuations and degree centrality.'
-      }]
+      projects_table: []
+    }
+  },
+  methods: {
+    showProjects () {
+      axios.get('/api/show_project_overview')
+        .then(response => {
+          var res = response.data
+          if (res.error_num === 0) {
+            console.log(res)
+            this.projects_table = res['list']
+            console.log(this.projects_table)
+          } else {
+            this.$message.error('Failed!')
+            console.log(res['msg'])
+          }
+        })
     }
   }
 }
