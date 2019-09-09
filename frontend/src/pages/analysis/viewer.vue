@@ -200,7 +200,7 @@ export default {
               this.showDownloadButton = true
             }
           } else {
-            this.$alert('<div>' + res['msg'].slice(1, -1).replace(/\\n/g, '<br/>') + '</div>', 'Error!', {
+            this.$alert('<div>' + res['msg'].slice(1, -1).replace(/\\n/g, '<br/>').replace(/\\/g, '') + '</div>', 'Error!', {
               confirmButtonText: 'Confirm',
               dangerouslyUseHTMLString: true,
               callback: action => {
