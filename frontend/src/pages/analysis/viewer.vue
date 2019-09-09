@@ -200,8 +200,9 @@ export default {
               this.showDownloadButton = true
             }
           } else {
-            this.$alert(res['msg'].slice(1, -1), 'Error!', {
+            this.$alert('<div>' + res['msg'].slice(1, -1).replace(/\\n/g, '<br/>') + '</div>', 'Error!', {
               confirmButtonText: 'Confirm',
+              dangerouslyUseHTMLString: true,
               callback: action => {
                 this.$router.replace({
                   path: '/analysis/submissions',
