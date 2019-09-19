@@ -208,7 +208,7 @@ def new_task(request):
         if request.method == 'GET':
             get_token(request)
         if request.method == 'POST':
-            postBody = json.loads(request.body)
+            postBody = json.loads(request.body.decode("utf-8"))
             task_id = 'TASK' + time.strftime('%Y%m%d%H%M%S')
             task_name=postBody.get('task_name')
             task_type=postBody.get('task_type')
