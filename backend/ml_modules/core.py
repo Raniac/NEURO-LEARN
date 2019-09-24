@@ -89,9 +89,9 @@ def test_task(task_id, task_type, train_data, enable_test, test_data, label, fea
             my_model = KNN_CLF()
 
         if enable_test:
-            integrated_clf_model(RESULT_PATH, my_feat_sel, my_model, my_train_data, my_test_data, cv) # run integrated classification model
+            results = integrated_clf_model(RESULT_PATH, my_feat_sel, my_model, my_train_data, my_test_data, cv) # run integrated classification model
         else:
-            integrated_clf_model_notest(RESULT_PATH, my_feat_sel, my_model, my_train_data, cv)
+            results = integrated_clf_model_notest(RESULT_PATH, my_feat_sel, my_model, my_train_data, cv)
     elif task_type == "Regression":
         if feat_sel == "Analysis of Variance":
             my_feat_sel = ANOVA_Feat_Sel(train_n_samples, train_n_features)
@@ -110,6 +110,8 @@ def test_task(task_id, task_type, train_data, enable_test, test_data, label, fea
             my_model = L2_RGS()
     
         if enable_test:
-            integrated_rgs_model(RESULT_PATH, my_feat_sel, my_model, my_train_data, my_test_data, cv) # run integrated classification model
+            results = integrated_rgs_model(RESULT_PATH, my_feat_sel, my_model, my_train_data, my_test_data, cv) # run integrated classification model
         else:
-            integrated_rgs_model_notest(RESULT_PATH, my_feat_sel, my_model, my_train_data, cv)
+            results = integrated_rgs_model_notest(RESULT_PATH, my_feat_sel, my_model, my_train_data, cv)
+
+    return results

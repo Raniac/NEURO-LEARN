@@ -1,3 +1,8 @@
+import pickle
+
+connet_mats = pickle.load('/home/bennyray/neurolearn/jobs/2019-09-16-21-49-20/bennyray_190916_18_bcn.pkl')
+print(connet_mats)
+
 import torch
 from torch_geometric.data import Data
 

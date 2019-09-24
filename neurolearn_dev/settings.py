@@ -148,7 +148,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 import djcelery
 djcelery.setup_loader()
 
-BROKER_HOST = "localhost"
+BROKER_HOST = "127.0.0.1"
 BROKER_PORT = 5672
 BROKER_USER = "guest"
 BROKER_PASSWORD = "guest"

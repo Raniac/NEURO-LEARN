@@ -219,6 +219,18 @@ def integrated_clf_model(result_path, feat_sel, model, train_data, test_data, cv
     writer.writerow(['Run Time', runtime])
     results_csv.close()
 
+    result_dict = {}
+    result_dict['Optimal CV Accuracy'] = optimal_score
+    result_dict['Optimal Parameters'] = optimal_params
+    result_dict['Permutation Test p-Value'] = pvalue_tested
+    result_dict['Test Accuracy'] = test_accuracy
+    result_dict['Test Sensitivity'] = test_sensitivity
+    result_dict['Test Specificity'] = test_specificity
+    result_dict['Area Under Curve'] = roc_auc
+    result_dict['Run Time'] = runtime
+
+    return result_dict
+
 def integrated_clf_model_notest(result_path, feat_sel, model, train_data, cv):
     starttime = time.time()
 
@@ -388,6 +400,14 @@ def integrated_clf_model_notest(result_path, feat_sel, model, train_data, cv):
     writer.writerow(['Run Time', runtime])
     results_csv.close()
 
+    result_dict = {}
+    result_dict['Optimal CV Accuracy'] = optimal_score
+    result_dict['Optimal Parameters'] = optimal_params
+    result_dict['Permutation Test p-Value'] = pvalue_tested
+    result_dict['Run Time'] = runtime
+
+    return result_dict
+
 def integrated_rgs_model(result_path, feat_sel, model, train_data, test_data, cv):
     starttime = time.time()
     
@@ -452,6 +472,15 @@ def integrated_rgs_model(result_path, feat_sel, model, train_data, test_data, cv
     writer.writerow(['Run Time', runtime])
     results_csv.close()
 
+    result_dict = {}
+    result_dict['Optimal CV MAE'] = optimal_score
+    result_dict['Optimal Parameters'] = optimal_params
+    result_dict['Test Pearson r'] = pearson_r
+    result_dict['Test Pearson p'] = pearson_p
+    result_dict['Run Time'] = runtime
+
+    return result_dict
+
 def integrated_rgs_model_notest(result_path, feat_sel, model, train_data, cv):
     starttime = time.time()
     
@@ -489,3 +518,10 @@ def integrated_rgs_model_notest(result_path, feat_sel, model, train_data, cv):
     writer.writerow(['Optimal Parameters', optimal_params])
     writer.writerow(['Run Time', runtime])
     results_csv.close()
+
+    result_dict = {}
+    result_dict['Optimal CV MAE'] = optimal_score
+    result_dict['Optimal Parameters'] = optimal_params
+    result_dict['Run Time'] = runtime
+
+    return result_dict

@@ -16,8 +16,9 @@ def add(x, y):
 def new_ml_celery_task(taskid, tasktype, traindata, enabletest, testdata, label, featsel, estimator, cv):
     Submissions_Demo.objects.filter(task_id=taskid).update(task_status='Running')
     try:
-        test_task(taskid, tasktype, traindata, enabletest, testdata, label, featsel, estimator, cv)
+        results = test_task(taskid, tasktype, traindata, enabletest, testdata, label, featsel, estimator, cv)
         Submissions_Demo.objects.filter(task_id=taskid).update(task_status='Finished')
+        Submissions_Demo.objects.filter(task_id=taskid).update(task_result=results)
     except Exception as e:
         Submissions_Demo.objects.filter(task_id=taskid).update(task_status='Failed')
         print(e)

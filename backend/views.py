@@ -468,12 +468,21 @@ def show_results(request):
         analysis_type = request.GET.get('analysis_type')
         
         if analysis_type == 'Machine Learning':
-            result_table = pd.read_csv('results/' + task_id + '/results.csv', encoding='gbk')
-            result_json = result_table.to_json(orient='records')
-            response_content['list']  = json.loads(result_json)
+            # result_table = pd.read_csv('results/' + task_id + '/results.csv', encoding='gbk')
+            # result_json = result_table.to_json(orient='records')
+            # response_content['list'] = json.loads(result_json)
+            result_dict = json.loads(Submissions_Demo.objects.get(task_id=task_id).task_result.replace("'", '"'))
+            result_dict_list = []
+            for item in result_dict.items():
+                result_item_value = {}
+                result_item_value["Item"] = item[0]
+                result_item_value["Value"] = item[1]
+                result_dict_list.append(result_item_value)
+            result_json = str(result_dict_list).replace("'", '"')
+            response_content['list'] = json.loads(result_json)
 
             task_info = Submissions_Demo.objects.filter(task_id=task_id)
-            response_content['info']  = json.loads(serializers.serialize("json", task_info))
+            response_content['info'] = json.loads(serializers.serialize("json", task_info))
 
             img_list = []
             response_content['got_weights'] = 0
@@ -487,7 +496,7 @@ def show_results(request):
         elif analysis_type == 'Statistical Analysis':
             task_info = Submissions_SA_Demo.objects.filter(task_id=task_id, task_status='Finished')
             assert list(task_info)
-            response_content['info']  = json.loads(serializers.serialize("json", task_info))
+            response_content['info'] = json.loads(serializers.serialize("json", task_info))
 
         response_content['msg'] = 'success'
         response_content['error_num'] = 0
