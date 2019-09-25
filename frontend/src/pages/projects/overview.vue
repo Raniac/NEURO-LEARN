@@ -37,7 +37,7 @@ export default {
   data () {
     return {
       selected_project: {
-        project_id: '',
+        proj_id: '',
         label: '',
         title: '',
         introduction: '',
@@ -54,14 +54,14 @@ export default {
   },
   methods: {
     showProjectOverview () {
-      axios.get('/api/show_project_overview')
+      axios.get('/api/v0/show_project_overview')
         .then(response => {
           var res = response.data
           if (res.error_num === 0) {
             console.log(res)
             this.project_options = res['list']
             console.log(this.project_options)
-            this.selected_project.project_id = this.project_options[0].fields.project_id
+            this.selected_project.proj_id = this.project_options[0].fields.proj_id
             this.selected_project.label = this.project_options[0].fields.label
             this.selected_project.title = this.project_options[0].fields.title
             this.selected_project.introduction = this.project_options[0].fields.introduction
@@ -78,7 +78,7 @@ export default {
     handleUploadData () {
       this.$router.push({
         path: '/projects/data',
-        query: {projectid: this.selected_project.project_id}
+        query: {projectid: this.selected_project.proj_id}
       })
     },
     handleDownloadWorkflows () {
@@ -92,7 +92,7 @@ export default {
       var i
       for (i in this.project_options) {
         if (this.project_options[i].fields.title === this.selected_project.title) {
-          this.selected_project.project_id = this.project_options[i].fields.project_id
+          this.selected_project.proj_id = this.project_options[i].fields.proj_id
           this.selected_project.label = this.project_options[i].fields.label
           this.selected_project.introduction = this.project_options[i].fields.introduction
           this.selected_project.methods = this.project_options[i].fields.methods
@@ -101,7 +101,7 @@ export default {
           this.selected_project.templates_url = this.project_options[i].fields.templates_url
         }
       }
-      console.log(this.selected_project.project_id)
+      console.log(this.selected_project.proj_id)
     }
   }
 }

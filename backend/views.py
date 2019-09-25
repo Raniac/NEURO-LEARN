@@ -22,10 +22,11 @@ import os
 import io
 import time
 import zipfile
+import traceback
 
 from .models import Book, Projects_Demo, Submissions_Demo, Submissions_SA_Demo, Data_Demo, User_Demo
 
-from .models import Users, Projects, User_Proj_Auth, Data, Submissions
+from .models import Users, Projects, User_Proj_Auth, Datasets, Submissions
 
 from .tasks import *
 
@@ -109,16 +110,112 @@ def show_project_overview(request):
 
     return response
 
+@require_http_methods(['POST'])
+def upload_data(request):
+    response_content = {}
+    response = HttpResponse()
+    try:
+        proj_id = request.GET.get('proj_id')
+        data_file = request.FILES.get('datafile')
+        data_id = 'DATA' + time.strftime('%Y%m%d%H%M%S')
+        data_name = data_file.name[:-4]
+        data_cont = handle_uploaded_file(data_file)
+
+        dataset = Datasets(
+            data_id=data_id,
+            proj_id=proj_id,
+            data_name=data_name,
+            data_cont=data_cont
+        )
+        dataset.save()
+        
+        response_content['msg'] = 'success'
+        response_content['dataid'] = data_id
+    
+    except Exception as e:
+        traceback.print_exc()
+        response_content['msg'] = str(e)
+        response_content['error_num'] = 1
+
+    response.write(json.dumps(response_content))
+
+    return response
+
+def handle_uploaded_file(f):
+    try:
+        file_name = str(f.name)
+        destination = open(file_name, 'wb+')
+        for chunk in f.chunks():
+            destination.write(chunk)
+        destination.close()
+        data_content = pd.read_csv(file_name, encoding='utf-8')
+        data_json = data_content.to_json()
+    
+    except Exception as e:
+        print(e)
+    return data_json
+
 @require_http_methods(["GET"])
-def show_flowchart(request):
-    response = {}
-    project_id = request.GET.get('project_id')
+def show_data(request):
+    response_content = {}
+    response = HttpResponse()
+    try:
+        proj_id = request.GET.get('proj_id')
+        print(proj_id)
+        data = Data_Demo.objects.filter(proj_id=proj_id).order_by('-id')
+        response_content['list']  = json.loads(serializers.serialize("json", data))
+        response_content['msg'] = 'success'
+        response_content['error_num'] = 0
+    except Exception as e:
+        response_content['msg'] = str(e)
+        response_content['error_num'] = 1
 
-    buf = io.BytesIO()
-    img = Image.open('projects/' + project_id + '/' + 'flowchart.png')
-    img.save(buf, 'png')
+    response["Access-Control-Allow-Credentials"] = "true"
+    response["Access-Control-Allow-Methods"] = "GET,POST"
+    response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"
+    response.write(json.dumps(response_content))
 
-    return HttpResponse(buf.getvalue(), 'image/png')
+    return response
+
+@require_http_methods(["GET"])
+def delete_data(request):
+    response_content = {}
+    response = HttpResponse()
+    try:
+        proj_id = request.GET.get('proj_id')
+        data_id = request.GET.get('data_id')
+        print(proj_id)
+        print(data_id)
+        data_path = Data_Demo.objects.filter(data_id=data_id).values('data_path')
+        print(list(data_path)[0]['data_path'])
+        Data_Demo.objects.filter(proj_id=proj_id, data_id=data_id).delete()
+
+        os.remove(list(data_path)[0]['data_path'])
+
+        response_content['msg'] = 'success'
+        response_content['error_num'] = 0
+    except Exception as e:
+        response_content['msg'] = str(e)
+        response_content['error_num'] = 1
+
+    response["Access-Control-Allow-Credentials"] = "true"
+    response["Access-Control-Allow-Methods"] = "GET,POST"
+    response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"
+    response.write(json.dumps(response_content))
+
+    return response
+
+@require_http_methods(["GET"])
+def download_data(request):
+    data_id = request.GET.get('data_id')
+    data_path = Data_Demo.objects.filter(data_id=data_id).values('data_path')
+    data_path = list(data_path)[0]['data_path']
+    significance_file = open(data_path, 'rb')
+    
+    response = FileResponse(significance_file)
+    response['Content-Type']='application/octet-stream'
+    response['Content-Disposition']='attachment;filename=\"' + data_id + '.csv\"'
+    return response
 
 @require_http_methods(["GET"])
 def overview_submissions(request):
@@ -315,116 +412,6 @@ def show_submissions(request):
 
     return response
 
-@require_http_methods(['POST'])
-def upload_data(request):
-    response_content = {}
-    response = HttpResponse()
-    try:
-        project_id = request.GET.get('project_id')
-        data_file = request.FILES.get('datafile')
-        data_path = 'projects/'+project_id+'/data/'
-        if not os.path.exists(data_path):
-            os.makedirs(data_path)
-        if data_file.name not in os.listdir(data_path):
-            data = Data_Demo()
-            data_id = 'DATA' + time.strftime('%Y%m%d%H%M%S')
-            data.data_id = data_id
-            data.data_name = data_file.name[:-4]
-            data.data_path = handle_uploaded_file(data_path, data_file)
-            data.project_id = project_id
-            data.save()
-            response_content['msg'] = 'success'
-            response_content['dataid'] = data_id
-        else:
-            response_content['msg'] = 'existed'
-        
-        response_content['error_num'] = 0
-    
-    except Exception as e:
-        response_content['msg'] = str(e)
-        response_content['error_num'] = 1
-
-    response["Access-Control-Allow-Credentials"] = "true"
-    response["Access-Control-Allow-Methods"] = "PUT,POST,GET,DELETE,OPTIONS"
-    response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token,X-Requested-With"
-    response.write(json.dumps(response_content))
-
-    return response
-
-def handle_uploaded_file(path, f):
-    try:
-        file_name = str(path + f.name)
-        destination = open(file_name, 'wb+')
-        for chunk in f.chunks():
-            destination.write(chunk)
-        destination.close()
-    
-    except Exception as e:
-        print(e)
-    return file_name
-
-@require_http_methods(["GET"])
-def show_data(request):
-    response_content = {}
-    response = HttpResponse()
-    try:
-        project_id = request.GET.get('project_id')
-        print(project_id)
-        data = Data_Demo.objects.filter(project_id=project_id).order_by('-id')
-        response_content['list']  = json.loads(serializers.serialize("json", data))
-        response_content['msg'] = 'success'
-        response_content['error_num'] = 0
-    except Exception as e:
-        response_content['msg'] = str(e)
-        response_content['error_num'] = 1
-
-    response["Access-Control-Allow-Credentials"] = "true"
-    response["Access-Control-Allow-Methods"] = "GET,POST"
-    response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"
-    response.write(json.dumps(response_content))
-
-    return response
-
-@require_http_methods(["GET"])
-def delete_data(request):
-    response_content = {}
-    response = HttpResponse()
-    try:
-        project_id = request.GET.get('project_id')
-        data_id = request.GET.get('data_id')
-        print(project_id)
-        print(data_id)
-        data_path = Data_Demo.objects.filter(data_id=data_id).values('data_path')
-        print(list(data_path)[0]['data_path'])
-        Data_Demo.objects.filter(project_id=project_id, data_id=data_id).delete()
-
-        os.remove(list(data_path)[0]['data_path'])
-
-        response_content['msg'] = 'success'
-        response_content['error_num'] = 0
-    except Exception as e:
-        response_content['msg'] = str(e)
-        response_content['error_num'] = 1
-
-    response["Access-Control-Allow-Credentials"] = "true"
-    response["Access-Control-Allow-Methods"] = "GET,POST"
-    response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"
-    response.write(json.dumps(response_content))
-
-    return response
-
-@require_http_methods(["GET"])
-def download_data(request):
-    data_id = request.GET.get('data_id')
-    data_path = Data_Demo.objects.filter(data_id=data_id).values('data_path')
-    data_path = list(data_path)[0]['data_path']
-    significance_file = open(data_path, 'rb')
-    
-    response = FileResponse(significance_file)
-    response['Content-Type']='application/octet-stream'
-    response['Content-Disposition']='attachment;filename=\"' + data_id + '.csv\"'
-    return response
-
 @require_http_methods(["GET"])
 def show_results(request):
     response_content = {}
@@ -491,48 +478,6 @@ def show_img(request):
     img.save(buf, 'png')
 
     return HttpResponse(buf.getvalue(), 'image/png')
-
-def writeAllFileToZip(absDir, zipFile):
-    for f in os.listdir(absDir):
-        absFile = os.path.join(absDir, f)
-        if os.path.isdir(absFile):
-            relFile = absFile[len(os.getcwd())+1:]
-            zipFile.write(relFile)
-            writeAllFileToZip(absFile, zipFile)
-        else:
-            relFile = absFile[len(os.getcwd())+1:]
-            zipFile.write(relFile)
-    return
-
-@require_http_methods(["GET"])
-def download_templates(request):
-    project_id = request.GET.get('project_id')
-
-    zipFilePath = 'projects/' + project_id + '/dataset_templates.zip'
-    with zipfile.ZipFile(zipFilePath, 'w', zipfile.ZIP_DEFLATED) as zipFile:
-        absDir = os.path.abspath('projects/' + project_id + '/dataset_templates')
-        writeAllFileToZip(absDir, zipFile)
-
-    templates_file = open('projects/' + project_id + '/dataset_templates.zip', 'rb')
-    response = FileResponse(templates_file)
-    response['Content-Type']='application/octet-stream'
-    response['Content-Disposition']='attachment;filename=\"dataset_templates.zip\"'
-    return response
-
-@require_http_methods(["GET"])
-def download_workflows(request):
-    project_id = request.GET.get('project_id')
-
-    zipFilePath = 'projects/' + project_id + '/local_workflows.zip'
-    with zipfile.ZipFile(zipFilePath, 'w', zipfile.ZIP_DEFLATED) as zipFile:
-        absDir = os.path.abspath('projects/' + project_id + '/local_workflows')
-        writeAllFileToZip(absDir, zipFile)
-
-    workflows_file = open('projects/' + project_id + '/local_workflows.zip', 'rb')
-    response = FileResponse(workflows_file)
-    response['Content-Type']='application/octet-stream'
-    response['Content-Disposition']='attachment;filename=\"local_workflows.zip\"'
-    return response
 
 @require_http_methods(["GET"])
 def download_feature_weights(request):

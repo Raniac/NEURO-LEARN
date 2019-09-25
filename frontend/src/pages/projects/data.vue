@@ -68,15 +68,15 @@ export default {
       pagesize: 10,
       currpage: 1,
       search_input: '',
-      project_id: '',
-      upload_url: '/api/upload_data?project_id='
+      proj_id: '',
+      upload_url: '/api/v0/upload_data?proj_id='
     }
   },
   mounted: function () {
     if (this.$route.query.projectid) {
-      this.project_id = this.$route.query.projectid
+      this.proj_id = this.$route.query.projectid
       this.showData()
-      this.upload_url += this.project_id
+      this.upload_url += this.proj_id
     } else {
       this.$alert('Choose a project first!', 'Error!', {
         confirmButtonText: 'Confirm',
@@ -91,7 +91,7 @@ export default {
   },
   methods: {
     showData () {
-      axios.get('/api/show_data?project_id=' + this.project_id)
+      axios.get('/api/v0/show_data?proj_id=' + this.proj_id)
         .then(response => {
           var res = response.data
           if (res.error_num === 0) {
@@ -123,7 +123,7 @@ export default {
         confirmButtonText: 'Yes',
         cancelButtonText: 'No'
       }).then(() => {
-        axios.get('/api/delete_data?project_id=' + this.project_id + '&data_id=' + row.fields.data_id)
+        axios.get('/api/v0/delete_data?proj_id=' + this.proj_id + '&data_id=' + row.fields.data_id)
           .then(response => {
             var res = response.data
             if (res.error_num === 0) {
@@ -138,7 +138,7 @@ export default {
     },
     handleDownload (row) {
       console.log(row.fields.data_id)
-      window.location.href = '/api/download_data?data_id=' + row.fields.data_id
+      window.location.href = '/api/v0/download_data?data_id=' + row.fields.data_id
     },
     handleCurrentChange (cpage) {
       this.currpage = cpage
