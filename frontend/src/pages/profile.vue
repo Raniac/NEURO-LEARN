@@ -40,7 +40,7 @@
         </el-table-column>
         <el-table-column
         label="Project ID"
-        prop="fields.project_id">
+        prop="fields.proj_id">
         </el-table-column>
         <el-table-column
         label="Project Title"
@@ -73,7 +73,7 @@ export default {
   },
   methods: {
     showProjects () {
-      axios.get('/api/show_project_overview')
+      axios.get('/api/v0/show_project_overview')
         .then(response => {
           var res = response.data
           if (res.error_num === 0) {

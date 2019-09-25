@@ -32,7 +32,7 @@
               <el-button :loading="loginLoading" type="primary" style="width:100%" @click.native.prevent="handleLogin">Login</el-button>
             </el-form>
           </el-tab-pane>
-          <!-- <el-tab-pane label="Register" name="register">
+          <el-tab-pane label="Register" name="register">
             <el-form ref="registerForm" :model="registerForm" :rules="registerRules" class="register-form" auto-complete="on" label-position="left">
               <el-form-item prop="username">
                 <el-input
@@ -74,7 +74,7 @@
                 </el-form-item>
               <el-button :loading="registerLoading" type="primary" style="width:100%" @click.native.prevent="handleRegister">Register</el-button>
             </el-form>
-          </el-tab-pane> -->
+          </el-tab-pane>
         </el-tabs>
       </div>
   </div>
@@ -118,7 +118,7 @@ export default {
         sessionStorage.setItem('Username', 'admin')
         this.$router.push('/home')
       } else {
-        axios.get('/api/login?username=' + this.loginForm.username + '&password=' + this.loginForm.password).then(response => {
+        axios.get('/api/v0/login?username=' + this.loginForm.username + '&password=' + this.loginForm.password).then(response => {
           // var DjangoToken = this.getCookie('sessionid')
           // var username = this.getCookie('username')
           var res = response.data
@@ -143,7 +143,7 @@ export default {
       console.log(JSON.stringify(this.registerForm))
 
       axios.post(
-        '/api/register',
+        '/api/v0/register',
         JSON.stringify(this.registerForm)
       )
         .then(response => {

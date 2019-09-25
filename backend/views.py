@@ -25,36 +25,11 @@ import zipfile
 
 from .models import Book, Projects_Demo, Submissions_Demo, Submissions_SA_Demo, Data_Demo, User_Demo
 
+from .models import Users, Projects, User_Proj_Auth, Data, Submissions
+
 from .tasks import *
 
 # Create your views here.
-@require_http_methods(["GET"])
-def add_book(request):
-    response = {}
-    try:
-        book = Book(book_name=request.GET.get('book_name'))
-        book.save()
-        response['msg'] = 'success'
-        response['error_num'] = 0
-    except Exception as e:
-        response['msg'] = str(e)
-        response['error_num'] = 1
-
-    return JsonResponse(response)
-
-@require_http_methods(["GET"])
-def show_books(request):
-    response = {}
-    try:
-        books = Book.objects.filter()
-        response['list']  = json.loads(serializers.serialize("json", books))
-        response['msg'] = 'success'
-        response['error_num'] = 0
-    except Exception as e:
-        response['msg'] = str(e)
-        response['error_num'] = 1
-
-    return JsonResponse(response)
 
 @require_http_methods(["GET", "POST"])
 def user_register(request):
@@ -66,7 +41,7 @@ def user_register(request):
         username=postBody.get('username')
         password=postBody.get('password')
 
-        user = User_Demo(
+        user = Users(
             user_id=user_id,
             username=username,
             password=password
@@ -80,9 +55,6 @@ def user_register(request):
         response_content['msg'] = str(e)
         response_content['error_num'] = 1
     
-    response["Access-Control-Allow-Credentials"] = "true"
-    response["Access-Control-Allow-Methods"] = "GET,POST"
-    response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"
     response.write(json.dumps(response_content))
 
     return response
@@ -94,7 +66,7 @@ def user_login(request):
     try:
         username = request.GET.get('username')
         password = request.GET.get('password')
-        userobj = User_Demo.objects.filter(username=username, password=password).first()
+        userobj = Users.objects.filter(username=username, password=password).first()
 
         if userobj:
             response_content['msg'] = 'Correct password!'
@@ -116,9 +88,6 @@ def user_login(request):
         response_content['msg'] = str(e)
         response_content['error_num'] = 1
 
-    response["Access-Control-Allow-Credentials"] = "true"
-    response["Access-Control-Allow-Methods"] = "GET,POST"
-    response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"
     response.write(json.dumps(response_content))
 
     return response
@@ -128,7 +97,7 @@ def show_project_overview(request):
     response_content = {}
     response = HttpResponse()
     try:
-        projects = Projects_Demo.objects.filter()
+        projects = Projects.objects.filter()
         response_content['list']  = json.loads(serializers.serialize("json", projects))
         response_content['msg'] = 'success'
         response_content['error_num'] = 0
@@ -136,9 +105,6 @@ def show_project_overview(request):
         response_content['msg'] = str(e)
         response_content['error_num'] = 1
 
-    response["Access-Control-Allow-Credentials"] = "true"
-    response["Access-Control-Allow-Methods"] = "GET,POST"
-    response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"
     response.write(json.dumps(response_content))
 
     return response

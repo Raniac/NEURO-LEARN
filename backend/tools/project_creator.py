@@ -21,7 +21,8 @@ This is methods.\
 # End of definition.
 # ========================================
 
-PROJECT_ID = 'PROJ' + time.strftime('%Y%m%d%H%M%S')
+# PROJECT_ID = 'PROJ' + time.strftime('%Y%m%d%H%M%S')
+PROJECT_ID = 'PROJ00000000000000'
 
 def create_project(sql, proj):
     try:
@@ -64,13 +65,13 @@ if __name__ == "__main__":
         'title': PROJECT_TITLE,
         'introduction': PROJECT_INTRODUCTION,
         'methods': PROJECT_METHODS,
-        'flowchart_url': '/api/show_flowchart?project_id=' + PROJECT_ID,
-        'workflows_url': '/api/download_workflows?project_id=' + PROJECT_ID,
-        'templates_url': '/api/download_templates?project_id=' + PROJECT_ID
+        'flowchart_url': 'https://raw.githubusercontent.com/Raniac/NEURO-LEARN/master/projects/PROJ00000000000000/flowchart.png',
+        'workflows_url': 'https://github.com/Raniac/NEURO-LEARN/raw/master/projects/PROJ00000000000000/local_workflows.zip',
+        'templates_url': ''
     }
 
     sql = """
-    insert into backend_projects_demo(project_id, label, title, introduction, methods, flowchart_url, workflows_url, templates_url) 
+    insert into backend_projects(proj_id, label, title, introduction, methods, flowchart_url, workflows_url, templates_url) 
     values(%s, %s, %s, %s, %s, %s, %s, %s);
     """
 
@@ -86,10 +87,5 @@ if __name__ == "__main__":
 
     if confirm == 'y':
         create_project(sql, project)
-
-        project_path = 'projects/' + PROJECT_ID
-        os.makedirs(project_path)
-        os.makedirs(project_path + '/dataset_templates')
-        os.makedirs(project_path + '/local_workflows')
     else:
         logging.info('Exit without creating anything!')
