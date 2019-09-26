@@ -10,18 +10,18 @@
         </el-form-item>
         <el-form-item label="Task Type">
           <el-radio-group v-model="newform.task_type" @change="onRadioChange">
-            <el-radio label="Classification">Classification</el-radio>
-            <el-radio label="Regression">Regression</el-radio>
+            <el-radio label="ml_clf">Classification</el-radio>
+            <el-radio label="ml_rgs">Regression</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="Proj. Name">
-          <el-select class="select-label" v-model="selected_project_label" placeholder="Select Project" @change="handelSelectionChange">
-            <el-option v-for="(project_option, key) in form.project_options" :label="project_option.fields.label" :value="project_option.fields.label" :key="key"></el-option>
+          <el-select class="select-label" v-model="selected_proj_label" placeholder="Select Project" @change="handelSelectionChange">
+            <el-option v-for="(proj_option, key) in form.proj_options" :label="proj_option.fields.label" :value="proj_option.fields.label" :key="key"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="Train Data">
           <el-select class="select-data" v-model="newform.train_data" placeholder="Select Train Data" filterable multiple>
-            <el-option v-for="(data_option, key) in data_table" :label="data_option.fields.data_name" :value="data_option.fields.data_path" :key="key"></el-option>
+            <el-option v-for="(data_option, key) in data_table" :label="data_option.fields.data_name" :value="data_option.fields.data_name" :key="key"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="Label">
@@ -51,12 +51,12 @@
         </el-form-item>
         <el-form-item label="Test Data">
           <el-select class="select-data" v-model="newform.test_data" placeholder="Select Test Data" :disabled="!newform.enable_test" filterable multiple>
-            <el-option v-for="(data_option, key) in data_table" :label="data_option.fields.data_name" :value="data_option.fields.data_path" :key="key"></el-option>
+            <el-option v-for="(data_option, key) in data_table" :label="data_option.fields.data_name" :value="data_option.fields.data_name" :key="key"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="Note">
+        <!-- <el-form-item label="Note">
           <el-input type="textarea" v-model="newform.note"></el-input>
-        </el-form-item>
+        </el-form-item> -->
         <!-- <el-form-item label="Verbose">
           <el-switch v-model="newform.verbose"></el-switch>
         </el-form-item> -->
@@ -74,11 +74,12 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      selected_project_label: '',
-      selected_project_id: '',
+      selected_proj_label: '',
+      selected_proj_id: '',
       data_table: [],
       newform: {
-        project_name: '',
+        proj_id: '',
+        proj_name: '',
         task_name: '',
         task_type: '',
         train_data: [],
@@ -87,12 +88,10 @@ export default {
         label: '',
         feat_sel: '',
         estimator: '',
-        cv_type: '',
-        note: '',
-        verbose: false
+        cv_type: ''
       },
       form: {
-        project_options: [],
+        proj_options: [],
         label_options: [],
         feat_sel_options: [],
         estimator_options: [],
@@ -111,7 +110,7 @@ export default {
   },
   methods: {
     onRadioChange () {
-      if (this.newform.task_type === 'Classification') {
+      if (this.newform.task_type === 'ml_clf') {
         this.form.estimator_options = [
           {name: 'Support Vector Machine', value: 'Support Vector Machine'},
           {name: 'Random Forest', value: 'Random Forest'},
@@ -128,7 +127,7 @@ export default {
           {name: 'Recursive Feature Elimination', value: 'Recursive Feature Elimination'},
           {name: 'None', value: 'None'}
         ]
-      } else if (this.newform.task_type === 'Regression') {
+      } else if (this.newform.task_type === 'ml_rgs') {
         this.form.estimator_options = [
           {name: 'Support Vector Regression', value: 'Support Vector Regression'},
           {name: 'Elastic Net', value: 'Elastic Net'},
@@ -163,15 +162,13 @@ export default {
       })
     },
     updateProjects () {
-      axios.get('/api/show_project_overview')
+      axios.get('/api/v0/show_project_overview')
         .then(response => {
           var res = response.data
           if (res.error_num === 0) {
             console.log(res)
-            this.form.project_options = res['list']
-            console.log(this.form.project_options)
-            // this.selected_project_label = this.form.project_options[0].fields.label
-            // this.selected_project_id = this.form.project_options[0].fields.project_id
+            this.form.proj_options = res['list']
+            console.log(this.form.proj_options)
           } else {
             this.$message.error('Failed!')
             console.log(res['msg'])
@@ -179,18 +176,18 @@ export default {
         })
     },
     handelSelectionChange () {
-      console.log(this.selected_project_label)
+      console.log(this.selected_proj_label)
       var i
-      for (i in this.form.project_options) {
-        if (this.form.project_options[i].fields.label === this.selected_project_label) {
-          this.selected_project_id = this.form.project_options[i].fields.project_id
+      for (i in this.form.proj_options) {
+        if (this.form.proj_options[i].fields.label === this.selected_proj_label) {
+          this.selected_proj_id = this.form.proj_options[i].fields.proj_id
         }
       }
-      console.log(this.selected_project_id)
+      console.log(this.selected_proj_id)
       this.updateData()
     },
     updateData () {
-      axios.get('/api/show_data?project_id=' + this.selected_project_id)
+      axios.get('/api/v0/show_data?proj_id=' + this.selected_proj_id)
         .then(response => {
           var res = response.data
           if (res.error_num === 0) {
@@ -204,16 +201,10 @@ export default {
         })
     },
     newTask () {
-      // var i, j
-      // for (i in this.newform.train_data) {
-      //   this.newform.train_data[i] = 'projects/' + this.selected_project_id + '/' + this.newform.train_data[i]
-      // }
-      // for (j in this.newform.test_data) {
-      //   this.newform.test_data[j] = 'projects/' + this.selected_project_id + '/' + this.newform.test_data[j]
-      // }
-      this.newform.project_name = this.selected_project_label
+      this.newform.proj_name = this.selected_proj_label
+      this.newform.proj_id = this.selected_proj_id
       console.log(JSON.stringify(this.newform))
-      axios.post('/api/new_task', JSON.stringify(this.newform))
+      axios.post('/api/v0/new_task', JSON.stringify(this.newform))
         .then(response => {
           var res = response.data
           if (res.error_num === 0) {

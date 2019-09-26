@@ -107,7 +107,7 @@ class User_Proj_Auth(models.Model):
 class Datasets(models.Model):
     data_id = models.CharField(max_length=32, unique=True)
     proj_id = models.CharField(max_length=32)
-    data_name = models.CharField(max_length=64)
+    data_name = models.CharField(max_length=64, unique=True)
     data_cont = models.TextField(max_length=4294967295)
 
     def __unicode__(self):

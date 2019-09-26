@@ -227,7 +227,7 @@ export default {
   },
   methods: {
     showSubmissions () {
-      axios.get('/api/overview_submissions?analysis_type=' + this.analysisType)
+      axios.get('/api/v0/overview_submissions?analysis_type=' + this.analysisType)
         .then(response => {
           var res = response.data
           if (res.error_num === 0) {

@@ -31,7 +31,9 @@ from .models import Users, Projects, User_Proj_Auth, Datasets, Submissions
 from .tasks import *
 
 # Create your views here.
-
+# ==================================================
+# Universal APIs
+# ==================================================
 @require_http_methods(["GET", "POST"])
 def user_register(request):
     response_content = {}
@@ -93,11 +95,16 @@ def user_login(request):
 
     return response
 
+# ==================================================
+# Data Management APIs
+# ==================================================
 @require_http_methods(["GET"])
 def show_project_overview(request):
     response_content = {}
     response = HttpResponse()
     try:
+        user_id = request.COOKIES.get('user_id')
+        proj_ids = User_Proj_Auth.objects.filter(user_id=user_id).values('proj_id')
         projects = Projects.objects.filter()
         response_content['list']  = json.loads(serializers.serialize("json", projects))
         response_content['msg'] = 'success'
@@ -206,6 +213,93 @@ def download_data(request):
     response['Content-Disposition']='attachment;filename=\"' + data_id + '.csv\"'
     return response
 
+# ==================================================
+# Workflow Management APIs
+# ==================================================
+@require_http_methods(["GET", "POST"])
+def new_task(request):
+    response = HttpResponse()
+    response_content = {}
+    try:
+        if request.method == 'GET':
+            get_token(request)
+        if request.method == 'POST':
+            postBody = json.loads(request.body.decode("utf-8"))
+            task_id = 'TASK' + time.strftime('%Y%m%d%H%M%S')
+            proj_id = postBody.get('proj_id')
+            task_name = postBody.get('task_name')
+            task_type = postBody.get('task_type')
+            if task_type[:2] == 'ml':
+                task_config = {}
+                task_config['proj_name'] = postBody.get('proj_name')
+                task_config['train_data'] = postBody.get('train_data')
+                task_config['enable_test'] = postBody.get('enable_test')
+                task_config['test_data'] = postBody.get('test_data')
+                task_config['label'] = postBody.get('label')
+                task_config['feat_sel'] = postBody.get('feat_sel')
+                task_config['estimator'] = postBody.get('estimator')
+                task_config['cv_type'] = postBody.get('cv_type')
+
+                task = Submissions(
+                    task_id=task_id,
+                    proj_id=proj_id,
+                    task_name=task_name,
+                    task_type=task_type,
+                    task_config=json.dumps(task_config),
+                    task_status='Submitted',
+                    task_result=''
+                )
+                task.save()
+
+                # # create new celery task
+                # new_ml_celery_task.delay(
+                #     taskid=task_id,
+                #     tasktype=task_type,
+                #     train_data=task_config['train_data'],
+                #     enable_test=task_config['enable_test'],
+                #     test_data=task_config['test_data'],
+                #     label=task_config['label'],
+                #     feat_sel=task_config['feat_sel'],
+                #     estimator=task_config['estimator'],
+                #     cv_type=task_config['cv_type']
+                # )
+
+            elif task_type[:2] == 'sa':
+                task_config = {}
+                task_config['proj_name'] = postBody.get('proj_name')
+                task_config['test_var_data_x'] = postBody.get('test_var_data_x')
+                task_config['group_var_data_y'] = postBody.get('group_var_data_y')
+
+                task = Submissions(
+                    task_id=task_id,
+                    proj_id=proj_id,
+                    task_name=task_name,
+                    task_type=task_type,
+                    task_config=json.dumps(task_config),
+                    task_status='Submitted',
+                    task_result=''
+                )
+                task.save()
+
+                # # create new celery task
+                # new_sa_celery_task.delay(
+                #     taskid=task_id,
+                #     tasktype=task_type,
+                #     testvardatax=task_config['test_var_data_x'],
+                #     groupvardatay=task_config['group_var_data_y']
+                # )
+
+            response_content['post_body'] = postBody
+            response_content['msg'] = 'success'
+            response_content['error_num'] = 0
+    except Exception as e:
+        response_content['msg'] = str(e)
+        response_content['error_num'] = 1
+
+    response.write(json.dumps(response_content))
+
+    return response
+
 @require_http_methods(["GET"])
 def overview_submissions(request):
     response_content = {}
@@ -217,27 +311,22 @@ def overview_submissions(request):
 
         analysis_type = request.GET.get('analysis_type')
         if analysis_type == 'Machine Learning':
-            submissions = Submissions_Demo.objects.filter().order_by('-id')[:4]
+            submissions = Submissions.objects.filter(task_type__in = ['ml_clf', 'ml_rgs']).order_by('-id')[:4]
             response_content['list']  = json.loads(serializers.serialize("json", submissions))
         elif analysis_type == 'Statistical Analysis':
-            submissions = Submissions_SA_Demo.objects.filter().order_by('-id')[:4]
+            submissions = Submissions.objects.filter(task_type__in = ['sa_da', 'sa_ca']).order_by('-id')[:4]
             response_content['list']  = json.loads(serializers.serialize("json", submissions))
 
-        total_ml = Submissions_Demo.objects.filter() 
-        total_sa = Submissions_SA_Demo.objects.filter()
-        response_content['total_num'] = len(total_ml) + len(total_sa)
-        submitted_ml = Submissions_Demo.objects.filter(task_status='Submitted')
-        submitted_sa = Submissions_SA_Demo.objects.filter(task_status='Submitted')
-        response_content['submitted_num'] = len(submitted_ml) + len(submitted_sa)
-        running_ml = Submissions_Demo.objects.filter(task_status='Running') 
-        running_sa = Submissions_SA_Demo.objects.filter(task_status='Running')
-        response_content['running_num'] = len(running_ml) + len(running_sa)
-        finished_ml = Submissions_Demo.objects.filter(task_status='Finished') 
-        finished_sa = Submissions_SA_Demo.objects.filter(task_status='Finished')
-        response_content['finished_num'] = len(finished_ml) + len(finished_sa)
-        failed_ml = Submissions_Demo.objects.filter(task_status='Failed') 
-        failed_sa = Submissions_SA_Demo.objects.filter(task_status='Failed')
-        response_content['failed_num'] = len(failed_ml) + len(failed_sa)
+        total = Submissions.objects.filter()
+        response_content['total_num'] = len(total)
+        submitted = Submissions.objects.filter(task_status='Submitted')
+        response_content['submitted_num'] = len(submitted)
+        running = Submissions.objects.filter(task_status='Running')
+        response_content['running_num'] = len(running)
+        finished = Submissions.objects.filter(task_status='Finished')
+        response_content['finished_num'] = len(finished)
+        failed = Submissions.objects.filter(task_status='Failed')
+        response_content['failed_num'] = len(failed)
 
         response_content['msg'] = 'success'
         response_content['error_num'] = 0
@@ -245,78 +334,6 @@ def overview_submissions(request):
         response_content['msg'] = str(e)
         response_content['error_num'] = 1
 
-    response["Access-Control-Allow-Credentials"] = "true"
-    response["Access-Control-Allow-Methods"] = "GET,POST"
-    response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"
-    response.write(json.dumps(response_content))
-
-    return response
-
-@require_http_methods(["GET", "POST"])
-def new_task(request):
-    response = HttpResponse()
-    response_content = {}
-    try:
-        if request.method == 'GET':
-            get_token(request)
-        if request.method == 'POST':
-            postBody = json.loads(request.body.decode("utf-8"))
-            task_id = 'TASK' + time.strftime('%Y%m%d%H%M%S')
-            task_name=postBody.get('task_name')
-            task_type=postBody.get('task_type')
-            project_name=postBody.get('project_name')
-            train_data=postBody.get('train_data')
-            enable_test=postBody.get('enable_test')
-            test_data=postBody.get('test_data')
-            label=postBody.get('label')
-            feat_sel=postBody.get('feat_sel')
-            estimator=postBody.get('estimator')
-            cv_type=postBody.get('cv_type')
-            note=postBody.get('note')
-            verbose=postBody.get('verbose')
-
-            task = Submissions_Demo(
-                task_id=task_id,
-                task_name=task_name,
-                task_type=task_type,
-                project_name=project_name,
-                train_data=train_data,
-                enable_test=enable_test,
-                test_data=test_data,
-                label=label,
-                feat_sel=feat_sel,
-                estimator=estimator,
-                cv_type=cv_type,
-                note=note,
-                verbose=verbose,
-                task_status='Submitted',
-                task_result=''
-            )
-            task.save()
-
-            # create new celery task
-            new_ml_celery_task.delay(
-                taskid=task_id,
-                tasktype=task_type,
-                traindata=train_data,
-                enabletest=enable_test,
-                testdata=test_data,
-                label=label,
-                featsel=feat_sel,
-                estimator=estimator,
-                cv=cv_type
-            )
-
-            response_content['post_body'] = postBody
-            response_content['msg'] = 'success'
-            response_content['error_num'] = 0
-    except Exception as e:
-        response_content['msg'] = str(e)
-        response_content['error_num'] = 1
-
-    response["Access-Control-Allow-Credentials"] = "true"
-    response["Access-Control-Allow-Methods"] = "GET,POST"
-    response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"
     response.write(json.dumps(response_content))
 
     return response
