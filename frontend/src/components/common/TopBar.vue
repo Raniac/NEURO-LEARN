@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     showSubmissions () {
-      axios.get('/api/overview_submissions?analysis_type=' + 'Machine Learning')
+      axios.get('/api/v0/overview_submissions?analysis_type=' + 'Machine Learning')
         .then(response => {
           var res = response.data
           if (res.error_num === 0) {
@@ -98,6 +98,7 @@ export default {
       })
       this.delCookie('sessionid')
       this.delCookie('username')
+      this.delCookie('user_id')
       console.log('Logout!')
     },
     getCookie (name) {
