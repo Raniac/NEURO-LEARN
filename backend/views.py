@@ -180,13 +180,7 @@ def delete_data(request):
     try:
         proj_id = request.GET.get('proj_id')
         data_id = request.GET.get('data_id')
-        print(proj_id)
-        print(data_id)
-        data_path = Data_Demo.objects.filter(data_id=data_id).values('data_path')
-        print(list(data_path)[0]['data_path'])
-        Data_Demo.objects.filter(proj_id=proj_id, data_id=data_id).delete()
-
-        os.remove(list(data_path)[0]['data_path'])
+        Datasets.objects.filter(proj_id=proj_id, data_id=data_id).delete()
 
         response_content['msg'] = 'success'
         response_content['error_num'] = 0
@@ -194,9 +188,6 @@ def delete_data(request):
         response_content['msg'] = str(e)
         response_content['error_num'] = 1
 
-    response["Access-Control-Allow-Credentials"] = "true"
-    response["Access-Control-Allow-Methods"] = "GET,POST"
-    response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"
     response.write(json.dumps(response_content))
 
     return response
