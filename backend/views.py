@@ -161,8 +161,7 @@ def show_data(request):
     response = HttpResponse()
     try:
         proj_id = request.GET.get('proj_id')
-        print(proj_id)
-        data = Data_Demo.objects.filter(proj_id=proj_id).order_by('-id')
+        data = Datasets.objects.filter(proj_id=proj_id).order_by('-id')
         response_content['list']  = json.loads(serializers.serialize("json", data))
         response_content['msg'] = 'success'
         response_content['error_num'] = 0
@@ -170,9 +169,6 @@ def show_data(request):
         response_content['msg'] = str(e)
         response_content['error_num'] = 1
 
-    response["Access-Control-Allow-Credentials"] = "true"
-    response["Access-Control-Allow-Methods"] = "GET,POST"
-    response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"
     response.write(json.dumps(response_content))
 
     return response
