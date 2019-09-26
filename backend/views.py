@@ -195,11 +195,13 @@ def delete_data(request):
 @require_http_methods(["GET"])
 def download_data(request):
     data_id = request.GET.get('data_id')
-    data_path = Data_Demo.objects.filter(data_id=data_id).values('data_path')
-    data_path = list(data_path)[0]['data_path']
-    significance_file = open(data_path, 'rb')
+    data_path = data_id + '.csv'
+    data_cont_query = Datasets.objects.filter(data_id=data_id).values('data_cont')
+    data_cont = list(data_cont_query)[0]['data_cont']
+    pd.read_json(data_cont).to_csv(data_path)
+    data_file = open(data_path, 'rb')
     
-    response = FileResponse(significance_file)
+    response = FileResponse(data_file)
     response['Content-Type']='application/octet-stream'
     response['Content-Disposition']='attachment;filename=\"' + data_id + '.csv\"'
     return response
