@@ -231,7 +231,6 @@ export default {
         .then(response => {
           var res = response.data
           if (res.error_num === 0) {
-            console.log(JSON.parse(res['list'][0].fields.task_config))
             this.parseSubmissionsTable(res['list'])
             this.total_num = res['total_num']
             this.submitted_num = res['submitted_num']
@@ -245,9 +244,10 @@ export default {
         })
     },
     parseSubmissionsTable (submissions) {
+      var parsedConfig
       if (this.analysisType === 'Machine Learning') {
-        for (var submission of submissions) {
-          var parsedConfig = JSON.parse(submission.fields.task_config)
+        for (let submission of submissions) {
+          parsedConfig = JSON.parse(submission.fields.task_config)
           submission.fields.proj_name = parsedConfig.proj_name
           submission.fields.train_data = parsedConfig.train_data
           submission.fields.test_data = parsedConfig.test_data
@@ -256,14 +256,13 @@ export default {
           submission.fields.estimator = parsedConfig.estimator
         }
       } else if (this.analysisType === 'Statistical Analysis') {
-        for (var submission of submissions) {
-          var parsedConfig = JSON.parse(submission.fields.task_config)
+        for (let submission of submissions) {
+          parsedConfig = JSON.parse(submission.fields.task_config)
           submission.fields.proj_name = parsedConfig.proj_name
           submission.fields.test_var_data_x = parsedConfig.group_var_data_y
           submission.fields.group_var_data_y = parsedConfig.group_var_data_y
         }
       }
-      
       this.submissions_table = submissions
       console.log(this.submissions_table)
     },

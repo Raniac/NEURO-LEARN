@@ -314,7 +314,7 @@ def overview_submissions(request):
             submissions = Submissions.objects.filter(task_type__in = ['ml_clf', 'ml_rgs']).order_by('-id')[:4]
             response_content['list']  = json.loads(serializers.serialize("json", submissions))
         elif analysis_type == 'Statistical Analysis':
-            submissions = Submissions.objects.filter(task_type__in = ['sa_da', 'sa_ca']).order_by('-id')[:4]
+            submissions = Submissions.objects.filter(task_type__in = ['sa_da_ttest', 'sa_da_anova', 'sa_ca_prson', 'sa_ca_spman']).order_by('-id')[:4]
             response_content['list']  = json.loads(serializers.serialize("json", submissions))
 
         total = Submissions.objects.filter()
@@ -399,11 +399,10 @@ def show_submissions(request):
     try:
         analysis_type = request.GET.get('analysis_type')
         if analysis_type == 'Machine Learning':
-            submissions = Submissions_Demo.objects.filter().order_by('-id')
-            print(submissions)
+            submissions = Submissions.objects.filter(task_type__in = ['ml_clf', 'ml_rgs']).order_by('-id')
             response_content['list']  = json.loads(serializers.serialize("json", submissions))
         elif analysis_type == "Statistical Analysis":
-            submissions = Submissions_SA_Demo.objects.filter().order_by('-id')
+            submissions = Submissions.objects.filter(task_type__in = ['sa_da_ttest', 'sa_da_anova', 'sa_ca_prson', 'sa_ca_spman']).order_by('-id')[:4]
             response_content['list']  = json.loads(serializers.serialize("json", submissions))
         response_content['msg'] = 'success'
         response_content['error_num'] = 0
@@ -411,9 +410,6 @@ def show_submissions(request):
         response_content['msg'] = str(e)
         response_content['error_num'] = 1
 
-    response["Access-Control-Allow-Credentials"] = "true"
-    response["Access-Control-Allow-Methods"] = "GET,POST"
-    response["Access-Control-Allow-Headers"] = "Origin,Content-Type,Cookie,Accept,Token"
     response.write(json.dumps(response_content))
 
     return response

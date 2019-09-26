@@ -10,18 +10,18 @@
             </el-form-item>
             <el-form-item label="Task Type">
               <el-radio-group v-model="taskType">
-                <el-radio label="T-test">T-test</el-radio>
-                <el-radio label="ANOVA">ANOVA</el-radio>
+                <el-radio label="sa_da_ttest">T-test</el-radio>
+                <el-radio label="sa_da_anova">ANOVA</el-radio>
               </el-radio-group>
             </el-form-item>
             <el-form-item label="Proj. Name">
-              <el-select class="select-label" v-model="selected_project_label" placeholder="Select Project" @change="handelSelectionChange">
-                <el-option v-for="(project_option, key) in form.project_options" :label="project_option.fields.label" :value="project_option.fields.label" :key="key"></el-option>
+              <el-select class="select-label" v-model="selected_proj_label" placeholder="Select proj" @change="handelSelectionChange">
+                <el-option v-for="(proj_option, key) in form.proj_options" :label="proj_option.fields.label" :value="proj_option.fields.label" :key="key"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="Test Var.">
               <el-select class="select-data" v-model="newform.test_var_data_x" placeholder="Select Test Variables" filterable multiple>
-              <el-option v-for="(data_option, key) in data_table" :label="data_option.fields.data_name" :value="data_option.fields.data_path" :key="key"></el-option>
+              <el-option v-for="(data_option, key) in data_table" :label="data_option.fields.data_name" :value="data_option.fields.data_name" :key="key"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="Group Var.">
@@ -29,12 +29,12 @@
               <el-option v-for="(group_variables_option, key) in form.group_variables_options" :label="group_variables_option.name" :value="group_variables_option.value" :key="key"></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="Note">
+            <!-- <el-form-item label="Note">
               <el-input type="textarea" v-model="newform.note"></el-input>
             </el-form-item>
             <el-form-item label="Verbose">
               <el-switch active-text="On" inactive-text="Off" v-model="newform.verbose"></el-switch>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item>
               <el-button type="primary" @click="onSubmit">Submit</el-button>
               <el-button @click="onCancel">Cancel</el-button>
@@ -50,31 +50,31 @@
             </el-form-item>
             <el-form-item label="Task Type">
               <el-radio-group v-model="taskType">
-                <el-radio label="Pearson">Pearson</el-radio>
-                <el-radio label="Spearman">Spearman</el-radio>
+                <el-radio label="sa_ca_prson">Pearson</el-radio>
+                <el-radio label="sa_ca_spman">Spearman</el-radio>
               </el-radio-group>
             </el-form-item>
             <el-form-item label="Proj. Name">
-              <el-select class="select-label" v-model="selected_project_label" placeholder="Select Project" @change="handelSelectionChange">
-                <el-option v-for="(project_option, key) in form.project_options" :label="project_option.fields.label" :value="project_option.fields.label" :key="key"></el-option>
+              <el-select class="select-label" v-model="selected_proj_label" placeholder="Select proj" @change="handelSelectionChange">
+                <el-option v-for="(proj_option, key) in form.proj_options" :label="proj_option.fields.label" :value="proj_option.fields.label" :key="key"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="Data X">
               <el-select class="select-data" v-model="newform.test_var_data_x" placeholder="Select Data X" filterable multiple>
-              <el-option v-for="(data_option, key) in data_table" :label="data_option.fields.data_name" :value="data_option.fields.data_path" :key="key"></el-option>
+              <el-option v-for="(data_option, key) in data_table" :label="data_option.fields.data_name" :value="data_option.fields.data_name" :key="key"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="Data Y">
               <el-select class="select-data" v-model="newform.group_var_data_y" placeholder="Select Data Y" filterable multiple>
-              <el-option v-for="(data_option, key) in data_table" :label="data_option.fields.data_name" :value="data_option.fields.data_path" :key="key"></el-option>
+              <el-option v-for="(data_option, key) in data_table" :label="data_option.fields.data_name" :value="data_option.fields.data_name" :key="key"></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="Note">
+            <!-- <el-form-item label="Note">
               <el-input type="textarea" v-model="newform.note"></el-input>
-            </el-form-item>
-            <el-form-item label="Verbose">
+            </el-form-item> -->
+            <!-- <el-form-item label="Verbose">
               <el-switch active-text="On" inactive-text="Off" v-model="newform.verbose"></el-switch>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item>
               <el-button type="primary" @click="onSubmit">Submit</el-button>
               <el-button @click="onCancel">Cancel</el-button>
@@ -92,22 +92,20 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      selected_project_label: '',
-      selected_project_id: '',
+      selected_proj_label: '',
+      selected_proj_id: '',
       data_table: [],
       tabsValue: 'DA',
       taskType: '',
       newform: {
-        project_name: '',
+        proj_name: '',
         task_name: '',
         task_type: '',
         test_var_data_x: [],
-        group_var_data_y: [],
-        note: '',
-        verbose: false
+        group_var_data_y: []
       },
       form: {
-        project_options: [],
+        proj_options: [],
         group_variables_options: [
           {name: 'GROUP', value: 'GROUP'}
         ]
@@ -126,7 +124,7 @@ export default {
         confirmButtonText: 'Confirm',
         cancelButtonText: 'Cancel'
       }).then(() => {
-        this.newform.task_type = this.tabsValue + '-' + this.taskType
+        this.newform.task_type = this.taskType
         this.newTask()
       }).catch(() => {})
     },
@@ -137,15 +135,13 @@ export default {
       })
     },
     updateProjects () {
-      axios.get('/api/show_project_overview')
+      axios.get('/api/v0/show_project_overview')
         .then(response => {
           var res = response.data
           if (res.error_num === 0) {
             console.log(res)
-            this.form.project_options = res['list']
-            console.log(this.form.project_options)
-            // this.selected_project_label = this.form.project_options[0].fields.label
-            // this.selected_project_id = this.form.project_options[0].fields.project_id
+            this.form.proj_options = res['list']
+            console.log(this.form.proj_options)
           } else {
             this.$message.error('Failed!')
             console.log(res['msg'])
@@ -153,18 +149,18 @@ export default {
         })
     },
     handelSelectionChange () {
-      console.log(this.selected_project_label)
+      console.log(this.selected_proj_label)
       var i
-      for (i in this.form.project_options) {
-        if (this.form.project_options[i].fields.label === this.selected_project_label) {
-          this.selected_project_id = this.form.project_options[i].fields.project_id
+      for (i in this.form.proj_options) {
+        if (this.form.proj_options[i].fields.label === this.selected_proj_label) {
+          this.selected_proj_id = this.form.proj_options[i].fields.proj_id
         }
       }
-      console.log(this.selected_project_id)
+      console.log(this.selected_proj_id)
       this.updateData()
     },
     updateData () {
-      axios.get('/api/show_data?project_id=' + this.selected_project_id)
+      axios.get('/api/v0/show_data?proj_id=' + this.selected_proj_id)
         .then(response => {
           var res = response.data
           if (res.error_num === 0) {
@@ -178,9 +174,10 @@ export default {
         })
     },
     newTask () {
-      this.newform.project_name = this.selected_project_label
+      this.newform.proj_name = this.selected_proj_label
+      this.newform.proj_id = this.selected_proj_id
       console.log(JSON.stringify(this.newform))
-      axios.post('/api/new_sa_task', JSON.stringify(this.newform))
+      axios.post('/api/v0/new_task', JSON.stringify(this.newform))
         .then(response => {
           var res = response.data
           if (res.error_num === 0) {
