@@ -244,29 +244,29 @@ def new_task(request):
                 task_config['estimator'] = postBody.get('estimator')
                 task_config['cv_type'] = postBody.get('cv_type')
 
-                task = Submissions(
-                    task_id=task_id,
-                    proj_id=proj_id,
-                    task_name=task_name,
-                    task_type=task_type,
-                    task_config=json.dumps(task_config),
-                    task_status='Submitted',
-                    task_result=''
-                )
-                task.save()
-
-                # # create new celery task
-                # new_ml_celery_task.delay(
-                #     taskid=task_id,
-                #     tasktype=task_type,
-                #     train_data=task_config['train_data'],
-                #     enable_test=task_config['enable_test'],
-                #     test_data=task_config['test_data'],
-                #     label=task_config['label'],
-                #     feat_sel=task_config['feat_sel'],
-                #     estimator=task_config['estimator'],
-                #     cv_type=task_config['cv_type']
+                # task = Submissions(
+                #     task_id=task_id,
+                #     proj_id=proj_id,
+                #     task_name=task_name,
+                #     task_type=task_type,
+                #     task_config=json.dumps(task_config),
+                #     task_status='Submitted',
+                #     task_result=''
                 # )
+                # task.save()
+
+                # create new celery task
+                new_ml_celery_task.delay(
+                    taskid=task_id,
+                    tasktype=task_type,
+                    traindata=task_config['train_data'],
+                    enabletest=task_config['enable_test'],
+                    testdata=task_config['test_data'],
+                    label=task_config['label'],
+                    featsel=task_config['feat_sel'],
+                    estimator=task_config['estimator'],
+                    cv=task_config['cv_type']
+                )
 
             elif task_type[:2] == 'sa':
                 task_config = {}
