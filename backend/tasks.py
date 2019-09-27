@@ -10,10 +10,6 @@ import traceback
 import json
 
 @task
-def add(x, y):
-    return x + y
-
-@task
 def new_ml_celery_task(taskid, tasktype, traindata, enabletest, testdata, label, featsel, estimator, cv):
     Submissions.objects.filter(task_id=taskid).update(task_status='Running')
     try:

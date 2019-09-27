@@ -244,16 +244,16 @@ def new_task(request):
                 task_config['estimator'] = postBody.get('estimator')
                 task_config['cv_type'] = postBody.get('cv_type')
 
-                # task = Submissions(
-                #     task_id=task_id,
-                #     proj_id=proj_id,
-                #     task_name=task_name,
-                #     task_type=task_type,
-                #     task_config=json.dumps(task_config),
-                #     task_status='Submitted',
-                #     task_result=''
-                # )
-                # task.save()
+                task = Submissions(
+                    task_id=task_id,
+                    proj_id=proj_id,
+                    task_name=task_name,
+                    task_type=task_type,
+                    task_config=json.dumps(task_config),
+                    task_status='Submitted',
+                    task_result=''
+                )
+                task.save()
 
                 # create new celery task
                 new_ml_celery_task.delay(
@@ -372,31 +372,30 @@ def show_results(request):
         task_id = request.GET.get('task_id')
         analysis_type = request.GET.get('analysis_type')
         
+        task_info_query = Submissions.objects.filter(task_id=task_id).values('task_id', 'proj_id', 'task_name', 'task_type', 'task_config', 'task_status', 'task_result')
+        task_info = list(task_info_query)[0]
+        
         if analysis_type == 'Machine Learning':
-            # result_table = pd.read_csv('results/' + task_id + '/results.csv', encoding='gbk')
-            # result_json = result_table.to_json(orient='records')
-            # response_content['list'] = json.loads(result_json)
-            result_dict = json.loads(Submissions_Demo.objects.get(task_id=task_id).task_result.replace("'", '"'))
-            result_dict_list = []
-            for item in result_dict.items():
-                result_item_value = {}
-                result_item_value["Item"] = item[0]
-                result_item_value["Value"] = item[1]
-                result_dict_list.append(result_item_value)
-            result_json = str(result_dict_list).replace("'", '"')
-            response_content['list'] = json.loads(result_json)
+            task_config = task_info['task_config']
+            task_info_dist = json.loads(task_config)
+            task_info_dist['task_name'] = task_info['task_name']
+            task_info_dist['task_type'] = task_info['task_type']
+            response_content['info'] = task_info_dist
 
-            task_info = Submissions_Demo.objects.filter(task_id=task_id)
-            response_content['info'] = json.loads(serializers.serialize("json", task_info))
+            task_result_json = task_info['task_result']
+            task_result_dict = json.loads(task_result_json)
+            result_table_dict = task_result_dict.copy()
+            del(result_table_dict['Feature Weight'])
+            del(result_table_dict['Optimization'])
+            result_table_dict['Optimal Parameters'] = str(result_table_dict['Optimal Parameters'])
+            result_table = []
+            for idx in range(len(list(result_table_dict.keys()))):
+                result_table.append({'Item': list(result_table_dict.keys())[idx], 'Value': list(result_table_dict.values())[idx]})
+            response_content['list'] = result_table
 
-            img_list = []
-            response_content['got_weights'] = 0
-            for filename in os.listdir('results/' + task_id):
-                if filename[-4:] == '.png':
-                    img_list.append(filename[:-4])
-                if filename == 'feature_weights.csv':
-                    response_content['got_weights'] = 1
-            response_content['img_list'] = img_list
+            feature_weights_list = pd.DataFrame.from_records(task_result_dict['Feature Weight'])
+            feature_weights_list.to_csv(path_or_buf='feature_weights.csv')
+            response_content['got_weights'] = 1
 
         elif analysis_type == 'Statistical Analysis':
             task_info = Submissions_SA_Demo.objects.filter(task_id=task_id, task_status='Finished')
@@ -405,11 +404,13 @@ def show_results(request):
 
         response_content['msg'] = 'success'
         response_content['error_num'] = 0
+
     except Exception as e:
+        traceback.print_exc()
         if analysis_type == 'Machine Learning':
-            response_content['msg'] = json.dumps(Submissions_Demo.objects.get(task_id=task_id).task_result)
+            response_content['msg'] = json.dumps(Submissions.objects.get(task_id=task_id).task_result)
         elif analysis_type == 'Statistical Analysis':
-            response_content['msg'] = json.dumps(Submissions_SA_Demo.objects.get(task_id=task_id).task_result)
+            response_content['msg'] = json.dumps(Submissions.objects.get(task_id=task_id).task_result)
         response_content['error_num'] = 1
 
     response.write(json.dumps(response_content))
@@ -431,7 +432,7 @@ def show_img(request):
 @require_http_methods(["GET"])
 def download_feature_weights(request):
     task_id = request.GET.get('task_id')
-    feature_weights_file = open('results/' + task_id + '/' + 'feature_weights.csv', 'rb')
+    feature_weights_file = open('feature_weights.csv', 'rb')
     
     response = FileResponse(feature_weights_file)
     response['Content-Type']='application/octet-stream'

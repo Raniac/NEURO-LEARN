@@ -16,7 +16,7 @@
                   <template slot-scope="props">
                     <el-form label-position="left" inline class="demo-table-expand">
                       <el-form-item label="Project Name">
-                        <span>{{ props.row.fields.project_name }}</span>
+                        <span>{{ props.row.fields.proj_name }}</span>
                       </el-form-item>
                       <el-form-item label="Label">
                         <span>{{ props.row.fields.label }}</span>
@@ -35,9 +35,6 @@
                       </el-form-item>
                       <el-form-item label="CV Type">
                         <span>{{ props.row.fields.cv_type }}</span>
-                      </el-form-item>
-                      <el-form-item label="Note">
-                        <span>{{ props.row.fields.note }}</span>
                       </el-form-item>
                     </el-form>
                   </template>
@@ -95,16 +92,13 @@
                   <template slot-scope="props">
                     <el-form label-position="left" inline class="demo-table-expand">
                       <el-form-item label="Project Name">
-                        <span>{{ props.row.fields.project_name }}</span>
+                        <span>{{ props.row.fields.proj_name }}</span>
                       </el-form-item>
                       <el-form-item label="Test Var. / Data X">
                         <span>{{ props.row.fields.test_var_data_x }}</span>
                       </el-form-item>
                       <el-form-item label="Group Var. / Data Y">
                         <span>{{ props.row.fields.group_var_data_y }}</span>
-                      </el-form-item>
-                      <el-form-item label="Note">
-                        <span>{{ props.row.fields.note }}</span>
                       </el-form-item>
                     </el-form>
                   </template>
@@ -121,9 +115,9 @@
               </el-table>
               </div>
               <el-button type="primary" style="margin-top: 0px" round @click="handleDownloadSigValues" v-if="showDownloadButton">Download Significance Values</el-button>
-              <li v-for="(img_name, index) in resultImgList" :key="index" style="list-style: none; text-align: center">
+              <!-- <li v-for="(img_name, index) in resultImgList" :key="index" style="list-style: none; text-align: center">
                 <img class="result-image" :src="'/api/show_img?task_id=' + taskid + '&img_name=' + img_name">
-              </li>
+              </li> -->
             </div>
           </div>
         </el-tab-pane>
@@ -171,25 +165,23 @@ export default {
     },
     handleDownloadFeatureWeights () {
       console.log(this.taskid)
-      window.location.href = '/api/download_feature_weights?task_id=' + this.taskid
+      window.location.href = '/api/v0/download_feature_weights?task_id=' + this.taskid
     },
     handleDownloadSigValues () {
-      window.location.href = '/api/download_significance_values?task_id=' + this.taskid
+      window.location.href = '/api/v0/download_significance_values?task_id=' + this.taskid
     },
     showResults () {
-      axios.get('/api/show_results?analysis_type=' + this.analysisType + '&task_id=' + this.taskid)
+      axios.get('/api/v0/show_results?analysis_type=' + this.analysisType + '&task_id=' + this.taskid)
         .then(response => {
           var res = response.data
           console.log(res)
           if (res.error_num === 0) {
             console.log(res)
             if (this.analysisType === 'Machine Learning') {
-              this.taskinfo = res['info']
+              this.taskinfo = [{fields: res['info']}]
               this.resultData = res['list']
-              this.resultImgList = res['img_list']
               console.log(this.taskinfo)
               console.log(this.resultData)
-              console.log(this.resultImgList)
               if (res.got_weights === 1) {
                 this.showDownloadButton = true
               } else {
