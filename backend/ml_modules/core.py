@@ -107,7 +107,6 @@ def ml_task(task_id, task_type, train_data, enable_test, test_data, label, feat_
         else:
             results = integrated_rgs_model_notest(my_feat_sel, my_model, my_train_data, cv)
 
-    print(type(results))
     return results
 
 def test_task(task_id, task_type, train_data, enable_test, test_data, label, feat_sel, estimator, cv_type):

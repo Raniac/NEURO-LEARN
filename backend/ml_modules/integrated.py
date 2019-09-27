@@ -55,12 +55,12 @@ def integrated_clf_model(feat_sel, model, train_data, test_data, cv):
     # ========================================
 
     # Optimization Curve and Selected Features (if possible) 
-    # if feat_sel and feat_sel.name == 'pca':
+    if feat_sel and feat_sel.name == 'pca':
         # plt.figure()
 
-        # results = pd.DataFrame(search.cv_results_)
-        # components_col = 'param_pca__n_components'
-        # best_clfs = results.groupby(components_col).apply(lambda g: g.nlargest(1, 'mean_test_score'))
+        results = pd.DataFrame(search.cv_results_)
+        components_col = 'param_pca__n_components'
+        best_clfs = results.groupby(components_col).apply(lambda g: g.nlargest(1, 'mean_test_score'))
         # best_clfs.plot(x=components_col, y='mean_test_score', yerr='std_test_score')
         
         # plt.ylabel('Classification accuracy (val)')
@@ -69,13 +69,12 @@ def integrated_clf_model(feat_sel, model, train_data, test_data, cv):
 
         # plt.savefig(result_path + '/' + 'optimization_curve.png', dpi=300)
 
-    # elif feat_sel and feat_sel.name == 'anova':
-    if feat_sel and feat_sel.name == 'anova':
+    elif feat_sel and feat_sel.name == 'anova':
         # plt.figure()
 
-        # results = pd.DataFrame(search.cv_results_)
-        # components_col = 'param_anova__percentile'
-        # best_clfs = results.groupby(components_col).apply(lambda g: g.nlargest(1, 'mean_test_score'))
+        results = pd.DataFrame(search.cv_results_)
+        components_col = 'param_anova__percentile'
+        best_clfs = results.groupby(components_col).apply(lambda g: g.nlargest(1, 'mean_test_score'))
         # best_clfs.plot(x=components_col, y='mean_test_score', yerr='std_test_score')
         
         # plt.ylabel('Classification accuracy (val)')
@@ -103,17 +102,12 @@ def integrated_clf_model(feat_sel, model, train_data, test_data, cv):
             selected_weight_list = optimal_model.named_steps['lda'].coef_[0]
             feature_weights_list = pd.DataFrame({'Feature': selected_feature_list, 'Weight': selected_weight_list})
 
-        # try:
-        #     feature_weights_list.to_csv(path_or_buf=result_path + '/' + 'feature_weights.csv')
-        # except Exception as e:
-        #     print(e)
-
     elif feat_sel and feat_sel.name == 'rfe':
         # plt.figure()
 
-        # results = pd.DataFrame(search.cv_results_)
-        # components_col = 'param_rfe__n_features_to_select'
-        # best_clfs = results.groupby(components_col).apply(lambda g: g.nlargest(1, 'mean_test_score'))
+        results = pd.DataFrame(search.cv_results_)
+        components_col = 'param_rfe__n_features_to_select'
+        best_clfs = results.groupby(components_col).apply(lambda g: g.nlargest(1, 'mean_test_score'))
         # best_clfs.plot(x=components_col, y='mean_test_score', yerr='std_test_score')
         
         # plt.ylabel('Classification accuracy (val)')
@@ -141,11 +135,6 @@ def integrated_clf_model(feat_sel, model, train_data, test_data, cv):
             selected_weight_list = optimal_model.named_steps['lda'].coef_[0]
             feature_weights_list = pd.DataFrame({'Feature': selected_feature_list, 'Weight': selected_weight_list})
 
-        # try:
-        #     feature_weights_list.to_csv(path_or_buf=result_path + '/' + 'feature_weights.csv')
-        # except Exception as e:
-        #     print(e)
-    
     elif not feat_sel:
         if model.name == 'svm':
             selected_weight_list = optimal_model.named_steps['svm'].coef_[0]
@@ -162,11 +151,6 @@ def integrated_clf_model(feat_sel, model, train_data, test_data, cv):
         elif model.name == 'lda':
             selected_weight_list = optimal_model.named_steps['lda'].coef_[0]
             feature_weights_list = pd.DataFrame({'Feature': feature_list, 'Weight': selected_weight_list})
-
-        # try:
-        #     feature_weights_list.to_csv(path_or_buf=result_path + '/' + 'feature_weights.csv')
-        # except Exception as e:
-        #     print(e)
 
     # ROC Curve and Confusion Matrix
 
@@ -207,19 +191,6 @@ def integrated_clf_model(feat_sel, model, train_data, test_data, cv):
     runtime = str(decimal.Decimal(runtime).quantize(decimal.Decimal('0.00'))) + 's'
     print(runtime)
 
-    # results_csv = codecs.open(result_path + '/' + 'results.csv', 'w+', encoding='gbk')
-    # writer = csv.writer(results_csv, delimiter=',')
-    # writer.writerow(['Item', 'Value'])
-    # writer.writerow(['Optimal CV Accuracy', optimal_score])
-    # writer.writerow(['Optimal Parameters', optimal_params])
-    # writer.writerow(['Permutation Test p-Value', pvalue_tested])
-    # writer.writerow(['Test Accuracy', test_accuracy])
-    # writer.writerow(['Test Sensitivity', test_sensitivity])
-    # writer.writerow(['Test Specificity', test_specificity])
-    # writer.writerow(['Area Under Curve', roc_auc])
-    # writer.writerow(['Run Time', runtime])
-    # results_csv.close()
-
     result_dict = {}
     result_dict['Optimal CV Accuracy'] = optimal_score
     result_dict['Optimal Parameters'] = optimal_params
@@ -231,13 +202,13 @@ def integrated_clf_model(feat_sel, model, train_data, test_data, cv):
     result_dict['Run Time'] = runtime
     result_dict['ROC fpr'] = list(fpr)
     result_dict['ROC tpr'] = list(tpr)
-    result_dict['Feature Weight'] = feature_weights_list.to_dict('index')
-
-    print(tpr)
+    result_dict['Feature Weight'] = feature_weights_list.to_dict('records')
+    if feat_sel:
+        result_dict['Optimization'] = best_clfs.to_dict('records')
 
     return result_dict
 
-def integrated_clf_model_notest(result_path, feat_sel, model, train_data, cv):
+def integrated_clf_model_notest(feat_sel, model, train_data, cv):
     starttime = time.time()
 
     feature_list = train_data.list_features
@@ -281,32 +252,32 @@ def integrated_clf_model_notest(result_path, feat_sel, model, train_data, cv):
 
     # Optimization Curve and Selected Features (if possible) 
     if feat_sel and feat_sel.name == 'pca':
-        plt.figure()
+        # plt.figure()
 
         results = pd.DataFrame(search.cv_results_)
         components_col = 'param_pca__n_components'
         best_clfs = results.groupby(components_col).apply(lambda g: g.nlargest(1, 'mean_test_score'))
-        best_clfs.plot(x=components_col, y='mean_test_score', yerr='std_test_score')
+        # best_clfs.plot(x=components_col, y='mean_test_score', yerr='std_test_score')
         
-        plt.ylabel('Classification accuracy (val)')
-        plt.xlabel('n_components')
-        plt.title('Optimization Curve')
+        # plt.ylabel('Classification accuracy (val)')
+        # plt.xlabel('n_components')
+        # plt.title('Optimization Curve')
 
-        plt.savefig(result_path + '/' + 'optimization_curve.png', dpi=300)
+        # plt.savefig(result_path + '/' + 'optimization_curve.png', dpi=300)
 
     elif feat_sel and feat_sel.name == 'anova':
-        plt.figure()
+        # plt.figure()
 
         results = pd.DataFrame(search.cv_results_)
         components_col = 'param_anova__percentile'
         best_clfs = results.groupby(components_col).apply(lambda g: g.nlargest(1, 'mean_test_score'))
-        best_clfs.plot(x=components_col, y='mean_test_score', yerr='std_test_score')
+        # best_clfs.plot(x=components_col, y='mean_test_score', yerr='std_test_score')
         
-        plt.ylabel('Classification accuracy (val)')
-        plt.xlabel('percentile')
-        plt.title('Optimization Curve')
+        # plt.ylabel('Classification accuracy (val)')
+        # plt.xlabel('percentile')
+        # plt.title('Optimization Curve')
 
-        plt.savefig(result_path + '/' + 'optimization_curve.png', dpi=300)
+        # plt.savefig(result_path + '/' + 'optimization_curve.png', dpi=300)
 
         selector = optimal_model.named_steps['anova'].get_support()
         selected_feature_list = np.array(feature_list)[selector]
@@ -327,24 +298,19 @@ def integrated_clf_model_notest(result_path, feat_sel, model, train_data, cv):
             selected_weight_list = optimal_model.named_steps['lda'].coef_[0]
             feature_weights_list = pd.DataFrame({'Feature': selected_feature_list, 'Weight': selected_weight_list})
 
-        try:
-            feature_weights_list.to_csv(path_or_buf=result_path + '/' + 'feature_weights.csv')
-        except Exception as e:
-            print(e)
-
     elif feat_sel and feat_sel.name == 'rfe':
-        plt.figure()
+        # plt.figure()
 
         results = pd.DataFrame(search.cv_results_)
         components_col = 'param_rfe__n_features_to_select'
         best_clfs = results.groupby(components_col).apply(lambda g: g.nlargest(1, 'mean_test_score'))
-        best_clfs.plot(x=components_col, y='mean_test_score', yerr='std_test_score')
+        # best_clfs.plot(x=components_col, y='mean_test_score', yerr='std_test_score')
         
-        plt.ylabel('Classification accuracy (val)')
-        plt.xlabel('n_features_to_select')
-        plt.title('Optimization Curve')
+        # plt.ylabel('Classification accuracy (val)')
+        # plt.xlabel('n_features_to_select')
+        # plt.title('Optimization Curve')
 
-        plt.savefig(result_path + '/' + 'optimization_curve.png', dpi=300)
+        # plt.savefig(result_path + '/' + 'optimization_curve.png', dpi=300)
 
         selector = optimal_model.named_steps['rfe'].get_support()
         selected_feature_list = np.array(feature_list)[selector]
@@ -364,11 +330,6 @@ def integrated_clf_model_notest(result_path, feat_sel, model, train_data, cv):
         elif model.name == 'lda':
             selected_weight_list = optimal_model.named_steps['lda'].coef_[0]
             feature_weights_list = pd.DataFrame({'Feature': selected_feature_list, 'Weight': selected_weight_list})
-
-        try:
-            feature_weights_list.to_csv(path_or_buf=result_path + '/' + 'feature_weights.csv')
-        except Exception as e:
-            print(e)
     
     elif not feat_sel:
         if model.name == 'svm':
@@ -387,34 +348,23 @@ def integrated_clf_model_notest(result_path, feat_sel, model, train_data, cv):
             selected_weight_list = optimal_model.named_steps['lda'].coef_[0]
             feature_weights_list = pd.DataFrame({'Feature': feature_list, 'Weight': selected_weight_list})
 
-        try:
-            feature_weights_list.to_csv(path_or_buf=result_path + '/' + 'feature_weights.csv')
-        except Exception as e:
-            print(e)
-
     endtime = time.time()
     runtime = str(endtime - starttime)
     runtime = str(decimal.Decimal(runtime).quantize(decimal.Decimal('0.00'))) + 's'
     print(runtime)
-
-    results_csv = codecs.open(result_path + '/' + 'results.csv', 'w+', encoding='gbk')
-    writer = csv.writer(results_csv, delimiter=',')
-    writer.writerow(['Item', 'Value'])
-    writer.writerow(['Optimal CV Accuracy', optimal_score])
-    writer.writerow(['Optimal Parameters', optimal_params])
-    writer.writerow(['Permutation Test p-Value', pvalue_tested])
-    writer.writerow(['Run Time', runtime])
-    results_csv.close()
 
     result_dict = {}
     result_dict['Optimal CV Accuracy'] = optimal_score
     result_dict['Optimal Parameters'] = optimal_params
     result_dict['Permutation Test p-Value'] = pvalue_tested
     result_dict['Run Time'] = runtime
+    result_dict['Feature Weight'] = feature_weights_list.to_dict('records')
+    if feat_sel:
+        result_dict['Optimization'] = best_clfs.to_dict('records')
 
     return result_dict
 
-def integrated_rgs_model(result_path, feat_sel, model, train_data, test_data, cv):
+def integrated_rgs_model(feat_sel, model, train_data, test_data, cv):
     starttime = time.time()
     
     if feat_sel == None:
@@ -459,24 +409,14 @@ def integrated_rgs_model(result_path, feat_sel, model, train_data, test_data, cv
     import scipy
     pearson_r, pearson_p = scipy.stats.pearsonr(original, predictions)
     print('The pearsonr and pearsonp are:', pearson_r, 'and', pearson_p)
-    g = sns.jointplot(x='Original', y='Predicted', data=original_predicted, kind='reg', label='pearson_r = %.2f, pearson_p = %.4f' % (pearson_r, pearson_p))
-    plt.legend(loc='upper right')
-    g.savefig(result_path + '/' + 'Original_Predicted_Correlation.png', dpi=300)
+    # g = sns.jointplot(x='Original', y='Predicted', data=original_predicted, kind='reg', label='pearson_r = %.2f, pearson_p = %.4f' % (pearson_r, pearson_p))
+    # plt.legend(loc='upper right')
+    # g.savefig(result_path + '/' + 'Original_Predicted_Correlation.png', dpi=300)
 
     endtime = time.time()
     runtime = str(endtime - starttime)
     runtime = str(decimal.Decimal(runtime).quantize(decimal.Decimal('0.00'))) + 's'
     print(runtime)
-
-    results_csv = codecs.open(result_path + '/' + 'results.csv', 'w+', encoding='gbk')
-    writer = csv.writer(results_csv, delimiter=',')
-    writer.writerow(['Item', 'Value'])
-    writer.writerow(['Optimal CV MAE', optimal_score])
-    writer.writerow(['Optimal Parameters', optimal_params])
-    writer.writerow(['Test Pearson r', pearson_r])
-    writer.writerow(['Test Pearson p', pearson_p])
-    writer.writerow(['Run Time', runtime])
-    results_csv.close()
 
     result_dict = {}
     result_dict['Optimal CV MAE'] = optimal_score
@@ -487,7 +427,7 @@ def integrated_rgs_model(result_path, feat_sel, model, train_data, test_data, cv
 
     return result_dict
 
-def integrated_rgs_model_notest(result_path, feat_sel, model, train_data, cv):
+def integrated_rgs_model_notest(feat_sel, model, train_data, cv):
     starttime = time.time()
     
     if feat_sel == None:
@@ -516,14 +456,6 @@ def integrated_rgs_model_notest(result_path, feat_sel, model, train_data, cv):
     runtime = str(endtime - starttime)
     runtime = str(decimal.Decimal(runtime).quantize(decimal.Decimal('0.00'))) + 's'
     print(runtime)
-
-    results_csv = codecs.open(result_path + '/' + 'results.csv', 'w+', encoding='gbk')
-    writer = csv.writer(results_csv, delimiter=',')
-    writer.writerow(['Item', 'Value'])
-    writer.writerow(['Optimal CV MAE', optimal_score])
-    writer.writerow(['Optimal Parameters', optimal_params])
-    writer.writerow(['Run Time', runtime])
-    results_csv.close()
 
     result_dict = {}
     result_dict['Optimal CV MAE'] = optimal_score

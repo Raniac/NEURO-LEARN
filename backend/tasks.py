@@ -22,14 +22,13 @@ def new_ml_celery_task(taskid, tasktype, traindata, enabletest, testdata, label,
         for itm in list(train_data_queryset):
             train_data_list.append(pd.read_json(itm['data_cont']))
 
+        test_data_list = []
         if enabletest:
             test_data_queryset = list(Datasets.objects.filter(data_name__in = testdata).values('data_cont'))
-            test_data_list = []
             for jtm in list(test_data_queryset):
                 test_data_list.append(pd.read_json(jtm['data_cont']))
 
         results = ml_task(taskid, tasktype, train_data_list, enabletest, test_data_list, label, featsel, estimator, cv)
-        print(type(results))
         results_json = json.dumps(results)
         print(results_json)
         # Submissions.objects.filter(task_id=taskid).update(task_status='Finished')
