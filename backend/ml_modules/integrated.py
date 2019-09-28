@@ -202,7 +202,10 @@ def integrated_clf_model(feat_sel, model, train_data, test_data, cv):
     result_dict['Run Time'] = runtime
     result_dict['ROC fpr'] = list(fpr)
     result_dict['ROC tpr'] = list(tpr)
-    result_dict['Feature Weight'] = feature_weights_list.to_dict('records')
+    try:
+        result_dict['Feature Weights'] = feature_weights_list.to_dict('records')
+    except:
+        result_dict['Feature Weights'] = pd.DataFrame({"Error": ["This model doesn\'t support generating feature weights"]}).to_dict('records')
     if feat_sel:
         result_dict['Optimization'] = best_clfs.to_dict('records')
 
@@ -358,7 +361,10 @@ def integrated_clf_model_notest(feat_sel, model, train_data, cv):
     result_dict['Optimal Parameters'] = optimal_params
     result_dict['Permutation Test p-Value'] = pvalue_tested
     result_dict['Run Time'] = runtime
-    result_dict['Feature Weight'] = feature_weights_list.to_dict('records')
+    try:
+        result_dict['Feature Weights'] = feature_weights_list.to_dict('records')
+    except:
+        result_dict['Feature Weights'] = pd.DataFrame({"Error": ["This model doesn\'t support generating feature weights"]}).to_dict('records')
     if feat_sel:
         result_dict['Optimization'] = best_clfs.to_dict('records')
 

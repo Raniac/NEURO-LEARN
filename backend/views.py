@@ -16,6 +16,8 @@ import uuid
 
 from PIL import Image
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 import requests
 import json
 import os
@@ -109,7 +111,6 @@ def show_project_overview(request):
         for itm in proj_ids:
             proj_id_list.append(itm['proj_id'])
         projects = Projects.objects.filter(proj_id__in = proj_id_list)
-        print(projects)
         response_content['list']  = json.loads(serializers.serialize("json", projects))
         response_content['msg'] = 'success'
         response_content['error_num'] = 0
@@ -376,26 +377,71 @@ def show_results(request):
         task_info = list(task_info_query)[0]
         
         if analysis_type == 'Machine Learning':
+            # response with task configuration list
             task_config = task_info['task_config']
-            task_info_dist = json.loads(task_config)
-            task_info_dist['task_name'] = task_info['task_name']
-            task_info_dist['task_type'] = task_info['task_type']
-            response_content['info'] = task_info_dist
+            task_info_dict = json.loads(task_config)
+            task_info_dict['task_name'] = task_info['task_name']
+            task_info_dict['task_type'] = task_info['task_type']
+            response_content['info'] = task_info_dict
 
+            # response with task result table
             task_result_json = task_info['task_result']
             task_result_dict = json.loads(task_result_json)
             result_table_dict = task_result_dict.copy()
-            del(result_table_dict['Feature Weight'])
-            del(result_table_dict['Optimization'])
+            if 'Feature Weights' in result_table_dict.keys():
+                del(result_table_dict['Feature Weights'])
+            if 'Optimization' in result_table_dict.keys():
+                del(result_table_dict['Optimization'])
+            if 'ROC fpr' in result_table_dict.keys():
+                del(result_table_dict['ROC fpr'])
+            if 'ROC tpr' in result_table_dict.keys():
+                del(result_table_dict['ROC tpr'])
             result_table_dict['Optimal Parameters'] = str(result_table_dict['Optimal Parameters'])
             result_table = []
             for idx in range(len(list(result_table_dict.keys()))):
                 result_table.append({'Item': list(result_table_dict.keys())[idx], 'Value': list(result_table_dict.values())[idx]})
             response_content['list'] = result_table
 
-            feature_weights_list = pd.DataFrame.from_records(task_result_dict['Feature Weight'])
-            feature_weights_list.to_csv(path_or_buf='feature_weights.csv')
-            response_content['got_weights'] = 1
+            # response with feature weights list if exists
+            response_content['got_weights'] = 0
+            if 'Feature Weights' in task_result_dict.keys():
+                feature_weights_list = pd.DataFrame.from_records(task_result_dict['Feature Weights'])
+                feature_weights_list.to_csv(path_or_buf='feature_weights.csv')
+                response_content['got_weights'] = 1
+
+            # response with image data if exists
+            response_content['img_list'] = []
+            if 'Optimization' in task_result_dict.keys():
+                plt.figure()
+                best_clfs = pd.DataFrame.from_records(task_result_dict['Optimization'])
+                print(best_clfs.columns.values.tolist())
+                components_col = best_clfs.columns.values.tolist()[3]
+                best_clfs.plot(x=components_col, y='mean_test_score', yerr='std_test_score')
+                plt.ylabel('Classification accuracy (val)')
+                plt.xlabel('n_features_to_select')
+                plt.title('Optimization Curve')
+                plt.savefig('optimization_curve.png', dpi=300)
+                plt.close()
+                response_content['img_list'].append('optimization_curve.png')
+            if 'ROC fpr' in task_result_dict.keys():
+                plt.figure()
+                mean_fpr = np.linspace(0, 1, 100)
+                fpr = np.array(task_result_dict['ROC fpr'])
+                tpr = np.array(task_result_dict['ROC tpr'])
+                roc_auc = auc(fpr, tpr)
+                plt.plot(fpr, tpr, lw=1, alpha=0.3, color='b',
+                        label='AUC = %0.2f' % (roc_auc))
+                plt.plot([0, 1], [0, 1], linestyle='--', lw=2, color='r',
+                        label='Chance', alpha=.8)
+                plt.xlim([-0.05, 1.05])
+                plt.ylim([-0.05, 1.05])
+                plt.xlabel('False Positive Rate')
+                plt.ylabel('True Positive Rate')
+                plt.title('Receiver Operating Characteristic')
+                plt.legend(loc="lower right")
+                plt.savefig('ROC_curve.png', dpi=300)
+                plt.close()
+                response_content['img_list'].append('ROC_curve.png')
 
         elif analysis_type == 'Statistical Analysis':
             task_info = Submissions_SA_Demo.objects.filter(task_id=task_id, task_status='Finished')
@@ -420,11 +466,10 @@ def show_results(request):
 @require_http_methods(["GET"])
 def show_img(request):
     response = {}
-    task_id = request.GET.get('task_id')
     img_name = request.GET.get('img_name')
 
     buf = io.BytesIO()
-    img = Image.open('results/' + task_id + '/' + img_name + '.png')
+    img = Image.open(img_name)
     img.save(buf, 'png')
 
     return HttpResponse(buf.getvalue(), 'image/png')

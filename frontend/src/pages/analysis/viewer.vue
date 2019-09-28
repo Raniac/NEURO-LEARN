@@ -68,7 +68,7 @@
               </el-table>
               <el-button type="primary" style="margin-top: 28px" round @click="handleDownloadFeatureWeights" v-if="showDownloadButton">Download Feature Weights</el-button>
               <li v-for="(img_name, index) in resultImgList" :key="index" style="list-style: none; text-align: center">
-                <img class="result-image" :src="'/api/show_img?task_id=' + taskid + '&img_name=' + img_name">
+                <img class="result-image" :src="'/api/v0/show_img?&img_name=' + img_name">
               </li>
             </div>
           </div>
@@ -180,8 +180,10 @@ export default {
             if (this.analysisType === 'Machine Learning') {
               this.taskinfo = [{fields: res['info']}]
               this.resultData = res['list']
+              this.resultImgList = res['img_list']
               console.log(this.taskinfo)
               console.log(this.resultData)
+              console.log(this.resultImgList)
               if (res.got_weights === 1) {
                 this.showDownloadButton = true
               } else {
