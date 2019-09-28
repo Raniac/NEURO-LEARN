@@ -26,7 +26,7 @@ import time
 import zipfile
 import traceback
 
-from .models import Book, Projects_Demo, Submissions_Demo, Submissions_SA_Demo, Data_Demo, User_Demo
+# from .models import Book, Projects_Demo, Submissions_Demo, Submissions_SA_Demo, Data_Demo, User_Demo
 
 from .models import Users, Projects, User_Proj_Auth, Datasets, Submissions
 
@@ -41,7 +41,7 @@ def user_register(request):
     response_content = {}
     response = HttpResponse()
     try:
-        postBody = json.loads(request.body)
+        postBody = json.loads(request.body.decode('utf-8'))
         user_id = 'USER' + time.strftime('%Y%m%d%H%M%S')
         username=postBody.get('username')
         password=postBody.get('password')

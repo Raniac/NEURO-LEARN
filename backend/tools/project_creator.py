@@ -27,10 +27,10 @@ PROJECT_ID = 'PROJ00000000000000'
 def create_project(sql, proj):
     try:
         conn = pymysql.connect(
-            host = 'localhost',
+            host = '116.56.138.220',
             user = 'root',
             password = 'root',
-            database = 'neurolearn_dev',
+            database = 'neurolearn',
             charset = 'utf8'
         )
         cursor = conn.cursor()
