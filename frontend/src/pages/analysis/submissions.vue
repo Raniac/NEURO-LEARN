@@ -2,7 +2,7 @@
   <div style="text-align: center">
     <div class="submissions-area">
       <el-tabs @tab-click="handleTabClick" stretch v-model="tabsValue">
-        <el-tab-pane label="Statistical Analysis" name="Statistical Analysis">
+        <!-- <el-tab-pane label="Statistical Analysis" name="Statistical Analysis">
           <div style="margin: 14px">
             <el-input placeholder="Search statistical analysis tasks by name" v-model="search_input" class="input-with-select">
               <el-select v-model="selected_status" slot="prepend" placeholder="Status">
@@ -87,7 +87,7 @@
               <el-button style="float: right" size="large" type="primary" @click="clickToView">View</el-button>
             </el-tooltip>
           </div>
-        </el-tab-pane>
+        </el-tab-pane> -->
         <el-tab-pane label="Machine Learning" name="Machine Learning">
           <div style="margin: 14px">
             <el-input placeholder="Search machine learning tasks by name" v-model="search_input" class="input-with-select">

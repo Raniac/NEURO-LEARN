@@ -58,7 +58,7 @@
     <div style="margin: 0px auto; text-align: left; padding: 0px 28px 14px 28px; color: #505050; width: 772px">
       <h3>Recent</h3>
       <el-tabs style="background-color: #FFFFFF; padding: 14px" el-tabs @tab-click="handleTabClick" stretch v-model="tabsValue">
-        <el-tab-pane label="Statistical Analysis" name="Statistical Analysis">
+        <!-- <el-tab-pane label="Statistical Analysis" name="Statistical Analysis">
           <el-table
             class="submissions-table"
             :data="submissions_table"
@@ -110,7 +110,7 @@
               </template>
             </el-table-column>
           </el-table>
-        </el-tab-pane>
+        </el-tab-pane> -->
         <el-tab-pane label="Machine Learning" name="Machine Learning">
           <el-table
             class="submissions-table"

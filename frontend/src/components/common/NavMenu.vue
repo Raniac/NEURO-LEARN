@@ -32,7 +32,7 @@
               <span style="font-size: 16px; color: #E8E8E8">New Task</span>
             </div>
           </template>
-          <el-menu-item index="3-2-1"><router-link to="/analysis/newtask/newsa" class="nav-link"><i class="el-icon-edit-outline"></i>Statistical Analysis</router-link></el-menu-item>
+          <!-- <el-menu-item index="3-2-1"><router-link to="/analysis/newtask/newsa" class="nav-link"><i class="el-icon-edit-outline"></i>Statistical Analysis</router-link></el-menu-item> -->
           <el-menu-item index="3-2-2"><router-link to="/analysis/newtask/newml" class="nav-link"><i class="el-icon-edit-outline"></i>Machine Learning</router-link></el-menu-item>
           <!-- <el-menu-item index="3-2-3"><router-link to="/analysis/newtask/newdl" class="nav-link"><i class="el-icon-edit-outline"></i>Deep Learning</router-link></el-menu-item> -->
         </el-submenu>
