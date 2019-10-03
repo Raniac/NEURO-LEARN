@@ -55,12 +55,17 @@
     </div>
     <div class="projects-area">
       <div>
-        <h1 style="padding-left: 20px; font-family: Arial; font-weight: 150; font-size: 30px; color: #505050">All Projects</h1>
+        <h1 style="float: left; padding-left: 20px; font-family: Arial; font-weight: 150; font-size: 30px; color: #505050">All Projects</h1>
+      </div>
+      <div style="margin: 14px">
+        <el-input placeholder="Search projects by name" v-model="search_input" class="input-with-select" style="float: right; width: 50%">
+          <el-button slot="append" icon="el-icon-search"></el-button>
+        </el-input>
       </div>
       <div style="margin: 14px">
         <el-table
           class="projects-table"
-          :data="projects_table"
+          :data="all_projects_table.filter(data => (!search_input || data.fields.title.toLowerCase().includes(search_input.toLowerCase()))).slice((currpage - 1) * pagesize, currpage * pagesize)"
           stripe
           border
           style="width: 100%; background-color: #E8E8E8; color: #282828; ">
@@ -98,6 +103,17 @@
           </el-table-column>
         </el-table>
       </div>
+      <div style="margin: 14px; padding-bottom: 30px">
+        <el-pagination
+          background
+          layout="prev, pager, next"
+          :page-size="pagesize"
+          :total="all_projects_table.length"
+          @current-change="handleCurrentChange"
+          @size-change="handleSizeChange"
+          style="float: left">
+        </el-pagination>
+      </div>
     </div>
   </div>
 </template>
@@ -113,7 +129,8 @@ export default {
   data () {
     return {
       search_input: '',
-      selected_status: '',
+      pagesize: 10,
+      currpage: 1,
       username: '',
       projects_table: [],
       all_projects_table: []
@@ -160,6 +177,12 @@ export default {
             console.log(res['msg'])
           }
         })
+    },
+    handleCurrentChange (cpage) {
+      this.currpage = cpage
+    },
+    handleSizeChange (psize) {
+      this.pagesize = psize
     }
   }
 }
