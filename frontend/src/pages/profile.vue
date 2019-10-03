@@ -40,7 +40,8 @@
           </el-table-column>
           <el-table-column
           label="Project ID"
-          prop="fields.proj_id">
+          prop="fields.proj_id"
+          width="180px">
           </el-table-column>
           <el-table-column
           label="Project Title"
@@ -48,7 +49,8 @@
           </el-table-column>
           <el-table-column
           label="Project Label"
-          prop="fields.label">
+          prop="fields.label"
+          width="120px">
           </el-table-column>
         </el-table>
       </div>
@@ -83,7 +85,8 @@
           </el-table-column>
           <el-table-column
           label="Project ID"
-          prop="fields.proj_id">
+          prop="fields.proj_id"
+          width="180px">
           </el-table-column>
           <el-table-column
           label="Project Title"
@@ -91,7 +94,8 @@
           </el-table-column>
           <el-table-column
           label="Project Label"
-          prop="fields.label">
+          prop="fields.label"
+          width="120px">
           </el-table-column>
           <el-table-column
             fixed="right"
@@ -129,7 +133,7 @@ export default {
   data () {
     return {
       search_input: '',
-      pagesize: 10,
+      pagesize: 4,
       currpage: 1,
       username: '',
       projects_table: [],
