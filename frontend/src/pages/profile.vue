@@ -176,6 +176,7 @@ export default {
           if (res.error_num === 0) {
             console.log(res)
             this.$message({showClose: true, message: 'Successfully joined ' + row.fields.proj_id, type: 'success'})
+            this.showJoinedProjects()
           } else {
             this.$message.warning(res['msg'])
             console.log(res['msg'])
