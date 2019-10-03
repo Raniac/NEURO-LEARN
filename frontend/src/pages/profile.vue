@@ -16,42 +16,88 @@
       </div>
     </div>
     <div class="projects-area">
-    <div>
-      <h1 style="padding-left: 20px; font-family: Arial; font-weight: 150; font-size: 30px; color: #505050">Joined Projects | {{ username }}</h1>
+      <div>
+        <h1 style="padding-left: 20px; font-family: Arial; font-weight: 150; font-size: 30px; color: #505050">Joined Projects | {{ username }}</h1>
+      </div>
+      <div style="margin: 14px">
+        <el-table
+          class="projects-table"
+          :data="projects_table"
+          stripe
+          border
+          style="width: 100%; background-color: #E8E8E8; color: #282828; ">
+          <el-table-column type="expand">
+            <template slot-scope="props">
+              <el-form label-position="left" in-line class="projects-table-expand">
+                <el-form-item label="Introduction">
+                  <span>{{ props.row.fields.introduction }}</span>
+                </el-form-item>
+                <el-form-item label="Methods">
+                  <span>{{ props.row.fields.methods }}</span>
+                </el-form-item>
+              </el-form>
+            </template>
+          </el-table-column>
+          <el-table-column
+          label="Project ID"
+          prop="fields.proj_id">
+          </el-table-column>
+          <el-table-column
+          label="Project Title"
+          prop="fields.title">
+          </el-table-column>
+          <el-table-column
+          label="Project Label"
+          prop="fields.label">
+          </el-table-column>
+        </el-table>
+      </div>
     </div>
-    <div style="margin: 14px">
-      <el-table
-        class="projects-table"
-        :data="projects_table"
-        stripe
-        border
-        style="width: 100%; background-color: #E8E8E8; color: #282828; ">
-        <el-table-column type="expand">
-          <template slot-scope="props">
-            <el-form label-position="left" in-line class="projects-table-expand">
-              <el-form-item label="Introduction">
-                <span>{{ props.row.fields.introduction }}</span>
-              </el-form-item>
-              <el-form-item label="Methods">
-                <span>{{ props.row.fields.methods }}</span>
-              </el-form-item>
-            </el-form>
-          </template>
-        </el-table-column>
-        <el-table-column
-        label="Project ID"
-        prop="fields.proj_id">
-        </el-table-column>
-        <el-table-column
-        label="Project Title"
-        prop="fields.title">
-        </el-table-column>
-        <el-table-column
-        label="Project Label"
-        prop="fields.label">
-        </el-table-column>
-      </el-table>
-    </div>
+    <div class="projects-area">
+      <div>
+        <h1 style="padding-left: 20px; font-family: Arial; font-weight: 150; font-size: 30px; color: #505050">All Projects</h1>
+      </div>
+      <div style="margin: 14px">
+        <el-table
+          class="projects-table"
+          :data="projects_table"
+          stripe
+          border
+          style="width: 100%; background-color: #E8E8E8; color: #282828; ">
+          <el-table-column type="expand">
+            <template slot-scope="props">
+              <el-form label-position="left" in-line class="projects-table-expand">
+                <el-form-item label="Introduction">
+                  <span>{{ props.row.fields.introduction }}</span>
+                </el-form-item>
+                <el-form-item label="Methods">
+                  <span>{{ props.row.fields.methods }}</span>
+                </el-form-item>
+              </el-form>
+            </template>
+          </el-table-column>
+          <el-table-column
+          label="Project ID"
+          prop="fields.proj_id">
+          </el-table-column>
+          <el-table-column
+          label="Project Title"
+          prop="fields.title">
+          </el-table-column>
+          <el-table-column
+          label="Project Label"
+          prop="fields.label">
+          </el-table-column>
+          <el-table-column
+            fixed="right"
+            label="Action"
+            width="90">
+            <template slot-scope="scope" style="font-size: 20px">
+              <el-button @click="handleJoin(scope.row)" type="primary">Join</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
     </div>
   </div>
 </template>
@@ -61,18 +107,20 @@ import axios from 'axios'
 export default {
   mounted () {
     this.username = sessionStorage.getItem('Username')
-    this.showProjects()
+    this.showJoinedProjects()
+    this.showAllProjects()
   },
   data () {
     return {
       search_input: '',
       selected_status: '',
       username: '',
-      projects_table: []
+      projects_table: [],
+      all_projects_table: []
     }
   },
   methods: {
-    showProjects () {
+    showJoinedProjects () {
       axios.get('/api/v0/show_project_overview')
         .then(response => {
           var res = response.data
@@ -82,6 +130,33 @@ export default {
             console.log(this.projects_table)
           } else {
             this.$message.error('Failed!')
+            console.log(res['msg'])
+          }
+        })
+    },
+    showAllProjects () {
+      axios.get('/api/v0/show_all_projects')
+        .then(response => {
+          var res = response.data
+          if (res.error_num === 0) {
+            console.log(res)
+            this.all_projects_table = res['list']
+            console.log(this.all_projects_table)
+          } else {
+            this.$message.error('Failed!')
+            console.log(res['msg'])
+          }
+        })
+    },
+    handleJoin (row) {
+      axios.get('/api/v0/join_project?proj_id=' + row.fields.proj_id)
+        .then(response => {
+          var res = response.data
+          if (res.error_num === 0) {
+            console.log(res)
+            this.$message({showClose: true, message: 'Successfully joined ' + row.fields.proj_id, type: 'success'})
+          } else {
+            this.$message.error(res['msg'])
             console.log(res['msg'])
           }
         })
