@@ -148,8 +148,8 @@ def join_project(request):
         user_id = request.COOKIES.get('user_id')
         if len(User_Proj_Auth.objects.filter(proj_id=proj_id, user_id=user_id)) == 0:
             auth_rec = User_Proj_Auth(
-                user_id=models.CharField(max_length=32),
-                proj_id=models.CharField(max_length=32)
+                user_id=user_id,
+                proj_id=proj_id
             )
             auth_rec.save()
         else:
