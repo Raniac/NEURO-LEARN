@@ -192,7 +192,10 @@ def delete_data(request):
     try:
         proj_id = request.GET.get('proj_id')
         data_id = request.GET.get('data_id')
-        Datasets.objects.filter(proj_id=proj_id, data_id=data_id).delete()
+        user_id = request.COOKIES.get('user_id')
+        if len(Datasets.objects.filter(proj_id=proj_id, data_id=data_id, user_id=user_id)) == 0:
+            raise Exception('Oops! No access!')
+        Datasets.objects.filter(proj_id=proj_id, data_id=data_id, user_id=user_id).delete()
 
         response_content['msg'] = 'success'
         response_content['error_num'] = 0
@@ -206,16 +209,27 @@ def delete_data(request):
 
 @require_http_methods(["GET"])
 def download_data(request):
-    data_id = request.GET.get('data_id')
-    data_path = data_id + '.csv'
-    data_cont_query = Datasets.objects.filter(data_id=data_id).values('data_cont')
-    data_cont = list(data_cont_query)[0]['data_cont']
-    pd.read_json(data_cont).to_csv(data_path)
-    data_file = open(data_path, 'rb')
-    
-    response = FileResponse(data_file)
-    response['Content-Type']='application/octet-stream'
-    response['Content-Disposition']='attachment;filename=\"' + data_id + '.csv\"'
+    try:
+        data_id = request.GET.get('data_id')
+        user_id = request.COOKIES.get('user_id')
+        data_path = data_id + '.csv'
+        data_cont_query = Datasets.objects.filter(data_id=data_id, user_id=user_id).values('data_cont')
+        if len(data_cont_query) == 0:
+            raise Exception('Oops! No access!')
+        data_cont = list(data_cont_query)[0]['data_cont']
+        pd.read_json(data_cont).to_csv(data_path)
+        data_file = open(data_path, 'rb')
+        
+        response = FileResponse(data_file)
+        response['Content-Type']='application/octet-stream'
+        response['Content-Disposition']='attachment;filename=\"' + data_id + '.csv\"'
+    except Exception as e:
+        response_content = {}
+        response = HttpResponse()
+        response_content['msg'] = str(e)
+        response_content['error_num'] = 1
+        response.write(json.dumps(response_content))
+
     return response
 
 # ==================================================

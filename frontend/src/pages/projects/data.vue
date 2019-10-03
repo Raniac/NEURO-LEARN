@@ -130,7 +130,7 @@ export default {
               console.log(res)
               this.showData()
             } else {
-              this.$message.error('Failed!')
+              this.$message.error(res['msg'])
               console.log(res['msg'])
             }
           })
