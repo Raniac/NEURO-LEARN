@@ -173,7 +173,7 @@ export default {
             console.log(res)
             this.$message({showClose: true, message: 'Successfully joined ' + row.fields.proj_id, type: 'success'})
           } else {
-            this.$message.error(res['msg'])
+            this.$message.warning(res['msg'])
             console.log(res['msg'])
           }
         })
