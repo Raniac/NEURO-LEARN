@@ -138,7 +138,17 @@ export default {
     },
     handleDownload (row) {
       console.log(row.fields.data_id)
-      window.location.href = '/api/v0/download_data?data_id=' + row.fields.data_id
+      // window.location.href = '/api/v0/download_data?data_id=' + row.fields.data_id
+      axios.get('/api/v0/download_data?data_id=' + row.fields.data_id)
+        .then(response => {
+          var res = response.data
+          if (res.error_num === 1) {
+            this.$message.error(res['msg'])
+            console.log(res['msg'])
+          } else {
+            window.location.href = '/api/v0/download_data?data_id=' + row.fields.data_id
+          }
+        })
     },
     handleCurrentChange (cpage) {
       this.currpage = cpage
