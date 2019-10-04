@@ -42,7 +42,7 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      avatar_url: 'https://raw.githubusercontent.com/Raniac/NEURO-LEARN/master/doc/img/NL_icon.png',
+      avatar_url: 'https://raw.githubusercontent.com/Raniac/NEURO-LEARN/master/doc/img/lby.png',
       search: '',
       submissions_table: [],
       username: 'Profile'
