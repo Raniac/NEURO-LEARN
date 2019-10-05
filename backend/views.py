@@ -406,15 +406,15 @@ def overview_submissions(request):
             submissions = Submissions.objects.filter(task_type__in = ['sa_da_ttest', 'sa_da_anova', 'sa_ca_prson', 'sa_ca_spman'], proj_id__in = proj_id_list).order_by('-id')[:4]
             response_content['list']  = json.loads(serializers.serialize("json", submissions))
 
-        total = Submissions.objects.filter()
+        total = Submissions.objects.filter(proj_id__in = proj_id_list)
         response_content['total_num'] = len(total)
-        submitted = Submissions.objects.filter(task_status='Submitted')
+        submitted = Submissions.objects.filter(task_status='Submitted', proj_id__in = proj_id_list)
         response_content['submitted_num'] = len(submitted)
-        running = Submissions.objects.filter(task_status='Running')
+        running = Submissions.objects.filter(task_status='Running', proj_id__in = proj_id_list)
         response_content['running_num'] = len(running)
-        finished = Submissions.objects.filter(task_status='Finished')
+        finished = Submissions.objects.filter(task_status='Finished', proj_id__in = proj_id_list)
         response_content['finished_num'] = len(finished)
-        failed = Submissions.objects.filter(task_status='Failed')
+        failed = Submissions.objects.filter(task_status='Failed', proj_id__in = proj_id_list)
         response_content['failed_num'] = len(failed)
 
         response_content['msg'] = 'success'
