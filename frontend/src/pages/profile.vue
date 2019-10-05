@@ -52,6 +52,14 @@
           prop="fields.label"
           width="120px">
           </el-table-column>
+          <el-table-column
+            fixed="right"
+            label="Action"
+            width="80px">
+            <template slot-scope="scope" style="font-size: 20px">
+              <el-button @click="handleQuit(scope.row)" type="danger" size="small">QUIT</el-button>
+            </template>
+          </el-table-column>
         </el-table>
       </div>
     </div>
@@ -100,9 +108,9 @@
           <el-table-column
             fixed="right"
             label="Action"
-            width="90">
+            width="80px">
             <template slot-scope="scope" style="font-size: 20px">
-              <el-button @click="handleJoin(scope.row)" type="primary">Join</el-button>
+              <el-button @click="handleJoin(scope.row)" type="primary" size="small">JOIN</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -176,6 +184,20 @@ export default {
           if (res.error_num === 0) {
             console.log(res)
             this.$message({showClose: true, message: 'Successfully joined ' + row.fields.proj_id, type: 'success'})
+            this.showJoinedProjects()
+          } else {
+            this.$message.warning(res['msg'])
+            console.log(res['msg'])
+          }
+        })
+    },
+    handleQuit (row) {
+      axios.get('/api/v0/quit_project?proj_id=' + row.fields.proj_id)
+        .then(response => {
+          var res = response.data
+          if (res.error_num === 0) {
+            console.log(res)
+            this.$message({showClose: true, message: 'Successfully quitted ' + row.fields.proj_id, type: 'success'})
             this.showJoinedProjects()
           } else {
             this.$message.warning(res['msg'])

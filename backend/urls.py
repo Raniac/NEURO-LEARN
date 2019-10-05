@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'v0/show_project_overview$', views.show_project_overview, ),
     url(r'v0/show_all_projects$', views.show_all_projects, ),
     url(r'v0/join_project$', views.join_project, ),
+    url(r'v0/quit_project$', views.quit_project, ),
     url(r'v0/overview_submissions$', views.overview_submissions, ),
     url(r'v0/new_task$', views.new_task, ),
     url(r'v0/show_submissions$', views.show_submissions, ),

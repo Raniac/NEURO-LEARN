@@ -165,6 +165,28 @@ def join_project(request):
 
     return response
 
+@require_http_methods(["GET"])
+def quit_project(request):
+    response_content = {}
+    response = HttpResponse()
+    try:
+        proj_id = request.GET.get('proj_id')
+        user_id = request.COOKIES.get('user_id')
+        if len(User_Proj_Auth.objects.filter(proj_id=proj_id, user_id=user_id)) == 1:
+            User_Proj_Auth.objects.filter(proj_id=proj_id, user_id=user_id).delete()
+        else:
+            raise Exception('Something went wrong!')
+        
+        response_content['msg'] = 'success'
+        response_content['error_num'] = 0
+    except Exception as e:
+        response_content['msg'] = str(e)
+        response_content['error_num'] = 1
+
+    response.write(json.dumps(response_content))
+
+    return response
+
 @require_http_methods(['POST'])
 def upload_data(request):
     response_content = {}
@@ -372,11 +394,16 @@ def overview_submissions(request):
         print(request.COOKIES.get('user_id'))
 
         analysis_type = request.GET.get('analysis_type')
+        user_id = request.COOKIES.get('user_id')
+        proj_ids = User_Proj_Auth.objects.filter(user_id=user_id).values('proj_id')
+        proj_id_list = []
+        for itm in proj_ids:
+            proj_id_list.append(itm['proj_id'])
         if analysis_type == 'Machine Learning':
-            submissions = Submissions.objects.filter(task_type__in = ['ml_clf', 'ml_rgs']).order_by('-id')[:4]
+            submissions = Submissions.objects.filter(task_type__in = ['ml_clf', 'ml_rgs'], proj_id__in = proj_id_list).order_by('-id')[:4]
             response_content['list']  = json.loads(serializers.serialize("json", submissions))
         elif analysis_type == 'Statistical Analysis':
-            submissions = Submissions.objects.filter(task_type__in = ['sa_da_ttest', 'sa_da_anova', 'sa_ca_prson', 'sa_ca_spman']).order_by('-id')[:4]
+            submissions = Submissions.objects.filter(task_type__in = ['sa_da_ttest', 'sa_da_anova', 'sa_ca_prson', 'sa_ca_spman'], proj_id__in = proj_id_list).order_by('-id')[:4]
             response_content['list']  = json.loads(serializers.serialize("json", submissions))
 
         total = Submissions.objects.filter()
@@ -406,11 +433,16 @@ def show_submissions(request):
     response = HttpResponse()
     try:
         analysis_type = request.GET.get('analysis_type')
+        user_id = request.COOKIES.get('user_id')
+        proj_ids = User_Proj_Auth.objects.filter(user_id=user_id).values('proj_id')
+        proj_id_list = []
+        for itm in proj_ids:
+            proj_id_list.append(itm['proj_id'])
         if analysis_type == 'Machine Learning':
-            submissions = Submissions.objects.filter(task_type__in = ['ml_clf', 'ml_rgs']).order_by('-id')
+            submissions = Submissions.objects.filter(task_type__in = ['ml_clf', 'ml_rgs'], proj_id__in = proj_id_list).order_by('-id')
             response_content['list']  = json.loads(serializers.serialize("json", submissions))
         elif analysis_type == "Statistical Analysis":
-            submissions = Submissions.objects.filter(task_type__in = ['sa_da_ttest', 'sa_da_anova', 'sa_ca_prson', 'sa_ca_spman']).order_by('-id')[:4]
+            submissions = Submissions.objects.filter(task_type__in = ['sa_da_ttest', 'sa_da_anova', 'sa_ca_prson', 'sa_ca_spman'], proj_id__in = proj_id_list).order_by('-id')[:4]
             response_content['list']  = json.loads(serializers.serialize("json", submissions))
         response_content['msg'] = 'success'
         response_content['error_num'] = 0

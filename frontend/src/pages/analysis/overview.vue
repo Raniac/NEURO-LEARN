@@ -147,9 +147,6 @@
                   <el-form-item label="CV Type">
                     <span>{{ props.row.fields.cv_type }}</span>
                   </el-form-item>
-                  <el-form-item label="Note">
-                    <span>{{ props.row.fields.note }}</span>
-                  </el-form-item>
                 </el-form>
               </template>
             </el-table-column>
@@ -254,6 +251,7 @@ export default {
           submission.fields.label = parsedConfig.label
           submission.fields.feat_sel = parsedConfig.feat_sel
           submission.fields.estimator = parsedConfig.estimator
+          submission.fields.cv_type = parsedConfig.cv_type
         }
       } else if (this.analysisType === 'Statistical Analysis') {
         for (let submission of submissions) {

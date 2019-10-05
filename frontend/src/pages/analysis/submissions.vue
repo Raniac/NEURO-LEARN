@@ -118,7 +118,7 @@
                       <span>{{ props.row.fields.task_id }}</span>
                     </el-form-item>
                     <el-form-item label="Proj. Name">
-                      <span>{{ props.row.fields.project_name }}</span>
+                      <span>{{ props.row.fields.proj_name }}</span>
                     </el-form-item>
                     <el-form-item label="Train Data">
                       <span>{{ props.row.fields.train_data }}</span>
@@ -137,9 +137,6 @@
                     </el-form-item>
                     <el-form-item label="CV Type">
                       <span>{{ props.row.fields.cv_type }}</span>
-                    </el-form-item>
-                    <el-form-item label="Note">
-                      <span>{{ props.row.fields.note }}</span>
                     </el-form-item>
                   </el-form>
                 </template>
@@ -239,6 +236,7 @@ export default {
           submission.fields.label = parsedConfig.label
           submission.fields.feat_sel = parsedConfig.feat_sel
           submission.fields.estimator = parsedConfig.estimator
+          submission.fields.cv_type = parsedConfig.cv_type
         }
       } else if (this.analysisType === 'Statistical Analysis') {
         for (let submission of submissions) {
