@@ -141,16 +141,16 @@ export default {
     },
     handleRegister () {
       console.log(JSON.stringify(this.registerForm))
-
-      axios.post(
-        '/api/v0/register',
-        JSON.stringify(this.registerForm)
-      )
+      axios.post('/api/v0/register', JSON.stringify(this.registerForm))
         .then(response => {
           var res = response.data
           console.log(res.error_num)
           if (res.error_num === 0) {
             console.log(res)
+            this.$message.success('Successfully registered!')
+            this.loginForm.username = this.registerForm.username
+            this.loginForm.password = this.registerForm.password
+            this.handleLogin()
           } else {
             this.$message.error('Failed to register!')
             console.log(res['msg'])
