@@ -2,21 +2,21 @@
   <div style="text-align: center">
     <div class="data-area">
       <div>
-        <el-input placeholder="Search data by name" v-model="search_input" class="input-with-select" style="width: 50%">
-          <el-button slot="append" icon="el-icon-search"></el-button>
-        </el-input>
         <el-upload
           class="upload-demo"
           :action="upload_url"
           name="datafile"
-          style="float: right"
+          style="float: left"
           :on-change="handleChange"
           :on-success="uploadSuccess"
           :file-list="fileList">
           <el-button size="large" type="primary">Upload</el-button>
         </el-upload>
+        <el-input placeholder="Search data by name" v-model="search_input" class="input-with-select" style="width: 50%; float: right">
+          <el-button slot="append" icon="el-icon-search"></el-button>
+        </el-input>
       </div>
-      <div style="margin-top: 14px">
+      <div style="margin-top: 60px">
         <el-table
           class="data-table"
           :data="data_table.filter(data => (!search_input || data.fields.data_name.toLowerCase().includes(search_input.toLowerCase()))).slice((currpage - 1) * pagesize, currpage * pagesize)"
@@ -44,14 +44,15 @@
           </el-table-column>
         </el-table>
       </div>
-      <div style="margin: 14px">
+      <div style="margin-top: 14px; padding-bottom: 30px">
         <el-pagination
         background
         layout="prev, pager, next"
         :page-size="pagesize"
         :total="data_table.length"
         @current-change="handleCurrentChange"
-        @size-change="handleSizeChange">
+        @size-change="handleSizeChange"
+        style="float: left">
         </el-pagination>
       </div>
     </div>

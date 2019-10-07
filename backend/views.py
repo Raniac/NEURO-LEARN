@@ -192,6 +192,7 @@ def upload_data(request):
     response_content = {}
     response = HttpResponse()
     try:
+        user_id = request.COOKIES.get('user_id')
         proj_id = request.GET.get('proj_id')
         data_file = request.FILES.get('datafile')
         data_id = 'DATA' + time.strftime('%Y%m%d%H%M%S')
@@ -201,6 +202,7 @@ def upload_data(request):
         dataset = Datasets(
             data_id=data_id,
             proj_id=proj_id,
+            user_id=user_id,
             data_name=data_name,
             data_cont=data_cont
         )

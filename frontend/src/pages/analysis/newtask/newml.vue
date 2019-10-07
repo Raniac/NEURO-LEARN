@@ -136,10 +136,11 @@ export default {
           {name: 'Ridge Regression', value: 'Ridge Regression'}
         ]
         this.form.label_options = [
-          {name: 'PANSS_P', value: 'PANSS_P'},
-          {name: 'PANSS_N', value: 'PANSS_N'},
-          {name: 'PANSS_G', value: 'PANSS_G'},
-          {name: 'PANSS_T', value: 'PANSS_T'}
+          // {name: 'PANSS_P', value: 'PANSS_P'},
+          // {name: 'PANSS_N', value: 'PANSS_N'},
+          // {name: 'PANSS_G', value: 'PANSS_G'},
+          // {name: 'PANSS_T', value: 'PANSS_T'}
+          {name: 'SCORE', value: 'SCORE'}
         ]
         this.form.feat_sel_options = [
           {name: 'Analysis of Variance', value: 'Analysis of Variance'},
