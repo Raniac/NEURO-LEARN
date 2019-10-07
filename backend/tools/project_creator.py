@@ -80,15 +80,25 @@ if __name__ == "__main__":
     insert into backend_projects(proj_id, label, title, introduction, methods, flowchart_url, workflows_url, templates_url) 
     values(%s, %s, %s, %s, %s, %s, %s, %s);
     """
+    print()
+    print('\033[0;36;40mNL\033[0m \033[1;36mNEURO-LEARN\033[0m')
+    print()
+    print('\033[1mAuthored by Raniac\033[0m')
+    print()
+    logging.info('\033[0;36mThis is the content of your project:\033[0m')
+    print()
 
-    logging.info('Project ID: '+project['project_id'])
-    logging.info('Proj Label: '+project['label'])
-    logging.info('Proj Title: '+project['title'])
-    logging.info('Proj Intro: '+project['introduction'])
-    logging.info('Proj Methd: '+project['methods'])
+    logging.info('\033[0;36mProject ID: \033[0m'+project['project_id'])
+    logging.info('\033[0;36mProj Label: \033[0m'+project['label'])
+    logging.info('\033[0;36mProj Title: \033[0m'+project['title'])
+    logging.info('\033[0;36mProj Intro: \033[0m'+project['introduction'])
+    logging.info('\033[0;36mProj Methd: \033[0m'+project['methods'])
+    logging.info('\033[0;36mProj FlwCh: \033[0m'+project['flowchart_url'])
+    logging.info('\033[0;36mProj WrkFl: \033[0m'+project['workflows_url'])
+    logging.info('\033[0;36mProj TmpLt: \033[0m'+project['templates_url'])
 
     print()
-    print('Are you sure you want to create this project? [y/n]')
+    logging.info('\033[0;36mConfirm to create this project?\033[0m \033[1m[y/n]\033[0m')
     confirm = input()
 
     if confirm in ['y', 'Y']:
