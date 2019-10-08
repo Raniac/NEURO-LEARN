@@ -15,7 +15,7 @@
                 <el-table-column type="expand">
                   <template slot-scope="props">
                     <el-form label-position="left" inline class="demo-table-expand">
-                      <el-form-item label="Project Name">
+                      <el-form-item label="Proj. Name">
                         <span>{{ props.row.fields.proj_name }}</span>
                       </el-form-item>
                       <el-form-item label="Label">

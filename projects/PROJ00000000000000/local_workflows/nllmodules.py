@@ -42,13 +42,14 @@ def testNilearn(workDir, dataDir, saveIntermediate):
     """
 
     filenames = os.listdir(dataDir + '/fMRI/')
+    filenames.sort()
     img_names = [dataDir + '/fMRI/' + filename + '/' + filename + '.nii' for filename in filenames]
     resultDir = workDir + '/connectivity_matrices/'
     os.makedirs(resultDir)
     
     connectivity_matrices = {}
     for idx, img_name in enumerate(img_names):
-        logging.info('Computing image ' + str(idx) + ' for subject ' + filenames[idx])
+        logging.info('Computing image of subject %s. (Progress: %s/%s)' % (filenames[idx], str(idx+1), str(len(img_names))))
         img = nilearn.image.load_img(img_name)
 
         logging.info('Preprocessing image ...step1')
