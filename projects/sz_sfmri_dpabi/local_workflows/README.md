@@ -27,31 +27,31 @@
   |    |    | -- Subject_n
   |    |
   |    | -- T1Img
-  |    |    | -- Subject_1
-  |    |    | -- Subject_2
-  |    |    | -- ...
-  |    |    | -- Subject_n
+  |         | -- Subject_1
+  |         | -- Subject_2
+  |         | -- ...
+  |         | -- Subject_n
   |
   | -- Organized
   | -- Resliced
   ```
 - Launch Matlab and type ```dpabi``` in the command window, then the GUI of DPABI will pop up, click DPASFA v4.3;
-- Load the configuration file ```./compute_ReHo_DC.mat``` and the panel will look like this:
+- Load the configuration file ```./compute_ReHo_DC.mat``` and the panel will look like this:  
   ![compute_ReHo_DC](imgs/compute_ReHo_DC.png)
-- Note that the buttons labeled ```Nuisance regressors (WM, CSF, Global)``` and ```Define ROI``` should be clicked respectively with further configuration as follows:
-  ![nuisance_setting](imgs/nuisance_setting.png)
-  ![ROI_templates](imgs/ROI_templates.png)
-  ![ROI_list](imgs/ROI_list.png)
+- Note that the buttons labeled ```Nuisance regressors (WM, CSF, Global)``` and ```Define ROI``` should be clicked respectively with further configuration as follows:  
+  ![nuisance_setting](imgs/nuisance_setting.png)  
+  ![ROI_templates](imgs/ROI_templates.png)  
+  ![ROI_list](imgs/ROI_list.png)  
 - Click RUN and wait for the jobs' completion;
-- Load the configuration file ```./compute_ALFF_FC.mat``` and the panel will look like this:
+- Load the configuration file ```./compute_ALFF_FC.mat``` and the panel will look like this:  
   ![compute_ALFF_FC](imgs/compute_ALFF_FC.png)
 - Click RUN and wait for the jobs' completion;
 - Organize the results:
   - Select the ```The R-fMRI Maps Project``` and a panel will pop up;
-  - Select the output directory named ```Organized``` as follows:
+  - Select the output directory named ```Organized``` as follows:  
     ![organizer](imgs/organizer.png)
 - Reslice the result image to obtain designated resolution, in our case, 3mm\*3mm\*3mm:
   - Select the ```Utilities``` and then select ```Image Reslicer```;
-  - Set the output directory as ```Resliced```, the panel should look like this:
+  - Set the output directory as ```Resliced```, the panel should look like this:  
     ![reslicer](imgs/reslicer.png)
 - Run the data preparation script named ```data_prep.m``` in Matlab, and a dataset file will be generated and ready for uploading.
