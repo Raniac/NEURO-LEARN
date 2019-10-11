@@ -18,11 +18,14 @@ PROJECT_METHODS = '''\
 Compute gray matter volume, regional homogeneity, amplitude of low frequency fluctuations and degree centrality.\
 '''
 # Flowchart Url
-FLOWCHART_URL = 'https://raw.githubusercontent.com/Raniac/NEURO-LEARN/master/doc/img/neurolearn_framework.png'
+FLOWCHART_URL = 'https://raw.githubusercontent.com/Raniac/NEURO-LEARN/master/projects/sz_sfmri_dpabi/flowchart.png'
 # Workflows Url
-WORKFLOWS_URL = 'https://github.com/Raniac/NEURO-LEARN/raw/master/projects/PROJ00000000000000/local_workflows.zip'
+WORKFLOWS_URL = 'https://github.com/Raniac/NEURO-LEARN/raw/master/projects/sz_sfmri_dpabi/local_workflows.zip'
 # Templates Url
-TEMPLATES_URL = 'https://github.com/Raniac/NEURO-LEARN/raw/master/projects/PROJ20190626040404/dataset_templates.zip'
+TEMPLATES_URL = 'https://github.com/Raniac/NEURO-LEARN/raw/master/projects/sz_sfmri_dpabi/data_templates.zip'
+
+DB_HOST = '120.79.49.129'
+DB_NAME = 'neurolearn'
 # ========================================
 # End of definition.
 # ========================================
@@ -33,10 +36,10 @@ PROJECT_ID = 'PROJ' + time.strftime('%Y%m%d%H%M%S')
 def create_project(sql, proj):
     try:
         conn = pymysql.connect(
-            host = '127.0.0.1',
+            host = DB_HOST,
             user = 'neurolearn',
             password = 'nl4444_',
-            database = 'neurolearn_dev',
+            database = DB_NAME,
             charset = 'utf8'
         )
         cursor = conn.cursor()
