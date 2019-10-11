@@ -240,7 +240,8 @@ def show_data(request):
     response = HttpResponse()
     try:
         proj_id = request.GET.get('proj_id')
-        data = Datasets.objects.filter(proj_id=proj_id).order_by('-id')
+        data = Datasets.objects.filter(proj_id=proj_id).order_by('-id').only('data_id', 'data_name', 'user_id', 'proj_id')
+        print(data)
         response_content['list']  = json.loads(serializers.serialize("json", data))
         response_content['msg'] = 'success'
         response_content['error_num'] = 0
