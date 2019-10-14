@@ -77,7 +77,7 @@
       <div style="margin: 14px">
         <el-table
           class="projects-table"
-          :data="all_projects_table.filter(data => (!search_input || data.fields.title.toLowerCase().includes(search_input.toLowerCase()))).slice((currpage - 1) * pagesize, currpage * pagesize)"
+          :data="all_projects_table.filter(data => (!search_input || data.fields.title.toLowerCase().includes(search_input.toLowerCase()) || data.fields.label.toLowerCase().includes(search_input.toLowerCase()))).slice((currpage - 1) * pagesize, currpage * pagesize)"
           stripe
           border
           style="width: 100%; background-color: #E8E8E8; color: #282828; ">
