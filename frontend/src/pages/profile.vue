@@ -70,7 +70,7 @@
         <h1 style="float: left; padding-left: 20px; font-family: Arial; font-weight: 150; font-size: 30px; color: #505050">All Projects</h1>
       </div>
       <div style="margin: 14px">
-        <el-input placeholder="Search projects by name" v-model="search_input" class="input-with-select" style="float: right; width: 50%">
+        <el-input placeholder="Search projects by title or label" v-model="search_input" class="input-with-select" style="float: right; width: 50%">
           <el-button slot="append" icon="el-icon-search"></el-button>
         </el-input>
       </div>

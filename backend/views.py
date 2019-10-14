@@ -299,6 +299,44 @@ def download_data(request):
 
     return response
 
+@require_http_methods(["POST"])
+def new_proj(request):
+    response = HttpResponse()
+    response_content = {}
+    try:
+        postBody = json.loads(request.body.decode("utf-8"))
+        proj_id = 'PROJ' + time.strftime('%Y%m%d%H%M%S')
+        label = postBody.get('label')
+        title = postBody.get('title')
+        intro = postBody.get('introduction')
+        methd = postBody.get('methods')
+        flowchart_url = postBody.get('flowchart_url')
+        workflows_url = postBody.get('workflows_url')
+        templates_url = postBody.get('templates_url')
+
+        proj = Projects(
+            proj_id=proj_id,
+            label=label,
+            title=title,
+            introduction=intro,
+            methods=methd,
+            flowchart_url=flowchart_url,
+            workflows_url=workflows_url,
+            templates_url=templates_url
+        )
+        proj.save()
+
+        response_content['post_body'] = postBody
+        response_content['msg'] = 'success'
+        response_content['error_num'] = 0
+    except Exception as e:
+        response_content['msg'] = str(e)
+        response_content['error_num'] = 1
+
+    response.write(json.dumps(response_content))
+
+    return response
+
 # ==================================================
 # Workflow Management APIs
 # ==================================================
