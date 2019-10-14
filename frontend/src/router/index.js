@@ -6,6 +6,7 @@ import login from '@/pages/login'
 import profile from '@/pages/profile'
 import projectsOverview from '@/pages/projects/overview'
 import projectsData from '@/pages/projects/data'
+import projectsNewProjBeta from '@/pages/projects/newproj/beta'
 import analysisOverview from '@/pages/analysis/overview'
 import analysisNewtaskNewDL from '@/pages/analysis/newtask/newdl'
 import analysisNewtaskNewML from '@/pages/analysis/newtask/newml'
@@ -42,6 +43,10 @@ const router = new Router({
     {
       path: '/projects/data',
       component: projectsData
+    },
+    {
+      path: '/projects/newproj/beta',
+      component: projectsNewProjBeta
     },
     {
       path: '/analysis/overview',
