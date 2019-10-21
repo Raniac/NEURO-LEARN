@@ -535,7 +535,7 @@ def show_results(request):
             response_content['got_weights'] = 0
             if 'Feature Weights' in task_result_dict.keys():
                 feature_weights_list = pd.DataFrame.from_records(task_result_dict['Feature Weights'])
-                feature_weights_list.to_csv(path_or_buf='feature_weights.csv')
+                feature_weights_list.to_csv(path_or_buf='tmp/feature_weights.csv')
                 response_content['got_weights'] = 1
 
             # response with image data if exists
@@ -549,7 +549,7 @@ def show_results(request):
                 plt.ylabel('Classification accuracy (val)')
                 plt.xlabel('n_features_to_select')
                 plt.title('Optimization Curve')
-                plt.savefig('optimization_curve.png', dpi=300)
+                plt.savefig('tmp/optimization_curve.png', dpi=300)
                 plt.close()
                 response_content['img_list'].append('optimization_curve.png')
             if 'ROC fpr' in task_result_dict.keys():
@@ -558,7 +558,7 @@ def show_results(request):
                 fpr = np.array(task_result_dict['ROC fpr'])
                 tpr = np.array(task_result_dict['ROC tpr'])
                 roc_auc = auc(fpr, tpr)
-                plt.plot(fpr, tpr, lw=1, alpha=0.3, color='b',
+                plt.plot(fpr, tpr,
                         label='AUC = %0.2f' % (roc_auc))
                 plt.plot([0, 1], [0, 1], linestyle='--', lw=2, color='r',
                         label='Chance', alpha=.8)
@@ -568,7 +568,7 @@ def show_results(request):
                 plt.ylabel('True Positive Rate')
                 plt.title('Receiver Operating Characteristic')
                 plt.legend(loc="lower right")
-                plt.savefig('ROC_curve.png', dpi=300)
+                plt.savefig('tmp/ROC_curve.png', dpi=300)
                 plt.close()
                 response_content['img_list'].append('ROC_curve.png')
 
@@ -598,7 +598,7 @@ def show_img(request):
     img_name = request.GET.get('img_name')
 
     buf = io.BytesIO()
-    img = Image.open(img_name)
+    img = Image.open('tmp/' + img_name)
     img.save(buf, 'png')
 
     return HttpResponse(buf.getvalue(), 'image/png')
@@ -606,11 +606,11 @@ def show_img(request):
 @require_http_methods(["GET"])
 def download_feature_weights(request):
     task_id = request.GET.get('task_id')
-    feature_weights_file = open('feature_weights.csv', 'rb')
+    feature_weights_file = open('tmp/feature_weights.csv', 'rb')
     
     response = FileResponse(feature_weights_file)
     response['Content-Type']='application/octet-stream'
-    response['Content-Disposition']='attachment;filename=\"' + task_id + '/' + 'feature_weights.csv\"'
+    response['Content-Disposition']='attachment;filename=\"feature_weights.csv\"'
     return response
 
 @require_http_methods(["GET"])
