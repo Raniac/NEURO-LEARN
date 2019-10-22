@@ -2,7 +2,7 @@
 
 ---
 
-NEURO-LEARN is a decentralized solution for pattern analysis of neuroimaging data. Its decentralization scheme of data and workflow management consists of four parts: projects, data, analysis and reports. As data preparation workflows defined in projects reduce the high dimensionality of neuroimaging data by decentralized computation, collaborative sharing of data and analysis workflows along with visualization of generated reports on the Web enlarge the sample size and facilitate the validity, reliability, and reproducibility of pattern analyses. Incorporating this scheme, NEURO-LEARN provides an easy-to-use web platform for the decentralization of pattern analysis of neuroimaging data.
+NEURO-LEARN is a solution for collaborative pattern analysis of neuroimaging data. Its collaboration scheme of data and workflow management consists of four parts: projects, data, analysis and reports. As data preparation workflows defined in projects reduce the high dimensionality of neuroimaging data by collaborative computation, collaborative sharing of data and analysis workflows along with visualization of generated reports on the Web enlarge the sample size and facilitate the validity, reliability, and reproducibility of pattern analyses. Incorporating this scheme, NEURO-LEARN provides an easy-to-use web platform for the collaboration of pattern analysis of neuroimaging data.
 
 ![neuro-learn-ui](doc/img/UI.png?raw=true "neuro-learn-ui")
 
