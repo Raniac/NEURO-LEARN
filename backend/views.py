@@ -300,7 +300,7 @@ def download_data(request):
     return response
 
 @require_http_methods(["POST"])
-def new_proj(request):
+def new_project(request):
     response = HttpResponse()
     response_content = {}
     try:

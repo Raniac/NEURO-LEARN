@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'v0/join_project$', views.join_project, ),
     url(r'v0/quit_project$', views.quit_project, ),
     url(r'v0/overview_submissions$', views.overview_submissions, ),
-    url(r'v0/new_proj$', views.new_proj, ),
+    url(r'v0/new_project$', views.new_project, ),
     url(r'v0/new_task$', views.new_task, ),
     url(r'v0/show_submissions$', views.show_submissions, ),
     url(r'v0/upload_data$', views.upload_data, ),

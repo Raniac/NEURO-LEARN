@@ -81,7 +81,7 @@ export default {
     },
     newProj () {
       console.log(JSON.stringify(this.newform))
-      axios.post('/api/v0/new_proj', JSON.stringify(this.newform))
+      axios.post('/api/v0/new_project', JSON.stringify(this.newform))
         .then(response => {
           var res = response.data
           if (res.error_num === 0) {
