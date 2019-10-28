@@ -124,6 +124,7 @@ export default {
           var res = response.data
           var DjangoToken = res.sessionid
           var username = res.username
+          var userId = res.user_id
           console.log(DjangoToken)
           console.log(username)
           console.log(res)
@@ -131,6 +132,7 @@ export default {
             console.log(res.msg)
             sessionStorage.setItem('Authorization', DjangoToken)
             sessionStorage.setItem('Username', username)
+            sessionStorage.setItem('UserID', userId)
             this.$router.push('/home')
           } else {
             this.$message.error('Wrong password!')

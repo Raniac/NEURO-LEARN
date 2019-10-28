@@ -76,6 +76,7 @@ def user_login(request):
         if userobj:
             response_content['msg'] = 'Correct password!'
             response_content['username'] = username
+            response_content['user_id'] = userobj.user_id
 
             sessionid = str(uuid.uuid3(uuid.NAMESPACE_URL, username))
             response.set_cookie('sessionid', sessionid, expires=60000, path='/', httponly=False)
