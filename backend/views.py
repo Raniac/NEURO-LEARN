@@ -305,6 +305,7 @@ def new_project(request):
     response_content = {}
     try:
         postBody = json.loads(request.body.decode("utf-8"))
+        user_id = request.COOKIES.get('user_id')
         proj_id = 'PROJ' + time.strftime('%Y%m%d%H%M%S')
         label = postBody.get('label')
         title = postBody.get('title')
@@ -316,6 +317,7 @@ def new_project(request):
 
         proj = Projects(
             proj_id=proj_id,
+            admin_id=user_id,
             label=label,
             title=title,
             introduction=intro,
@@ -327,6 +329,27 @@ def new_project(request):
         proj.save()
 
         response_content['post_body'] = postBody
+        response_content['msg'] = 'success'
+        response_content['error_num'] = 0
+    except Exception as e:
+        response_content['msg'] = str(e)
+        response_content['error_num'] = 1
+
+    response.write(json.dumps(response_content))
+
+    return response
+
+@require_http_methods(["GET"])
+def delete_project(request):
+    response_content = {}
+    response = HttpResponse()
+    try:
+        proj_id = request.GET.get('proj_id')
+        user_id = request.COOKIES.get('user_id')
+        if len(Projects.objects.filter(proj_id=proj_id, admin_id=user_id)) == 0:
+            raise Exception('Oops! No access!')
+        Projects.objects.filter(proj_id=proj_id, admin_id=user_id).delete()
+
         response_content['msg'] = 'success'
         response_content['error_num'] = 0
     except Exception as e:
