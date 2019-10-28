@@ -18,7 +18,7 @@
     <div class="projects-area">
       <div>
         <h1 style="padding-left: 20px; font-family: Arial; font-weight: 150; font-size: 30px; color: #505050">
-          Joined Projects | <strong style="font-size: 20px; color: #505050">Logged in as <strong style="font-size: 30px; color: #00CCFF">{{ username }}</strong></strong>
+          Joined Projects | <strong style="font-size: 18px; color: #505050">Logged in as <strong style="font-size: 30px; color: #00CCFF">{{ username }}</strong> (User ID: {{ user_id }})</strong>
         </h1>
       </div>
       <div style="margin: 14px">
@@ -110,9 +110,11 @@
           <el-table-column
             fixed="right"
             label="Action"
-            width="80px">
+            width="100px">
             <template slot-scope="scope" style="font-size: 20px">
-              <el-button @click="handleJoin(scope.row)" type="primary" size="small">JOIN</el-button>
+              <!-- <el-button @click="handleJoin(scope.row)" type="primary" size="small">JOIN</el-button> -->
+              <el-button @click="handleJoin(scope.row)" size="small" icon="el-icon-plus" circle></el-button>
+              <el-button @click="handleDelete(scope.row)" type="danger" size="small" icon="el-icon-delete" circle></el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -137,6 +139,7 @@ import axios from 'axios'
 export default {
   mounted () {
     this.username = sessionStorage.getItem('Username')
+    this.user_id = sessionStorage.getItem('UserID')
     this.showJoinedProjects()
     this.showAllProjects()
   },
@@ -146,6 +149,7 @@ export default {
       pagesize: 4,
       currpage: 1,
       username: '',
+      user_id: '',
       projects_table: [],
       all_projects_table: []
     }
@@ -192,6 +196,26 @@ export default {
             console.log(res['msg'])
           }
         })
+    },
+    handleDelete (row) {
+      console.log(row.fields.proj_id)
+      this.$confirm('Are you sure?', 'Attention!', {
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+      }).then(() => {
+        axios.get('/api/v0/delete_project?proj_id=' + row.fields.proj_id)
+          .then(response => {
+            var res = response.data
+            if (res.error_num === 0) {
+              console.log(res)
+              this.showAllProjects()
+              this.showJoinedProjects()
+            } else {
+              this.$message.error(res['msg'])
+              console.log(res['msg'])
+            }
+          })
+      }).catch(() => {})
     },
     handleQuit (row) {
       axios.get('/api/v0/quit_project?proj_id=' + row.fields.proj_id)

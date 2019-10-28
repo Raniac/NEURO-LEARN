@@ -350,6 +350,7 @@ def delete_project(request):
         if len(Projects.objects.filter(proj_id=proj_id, admin_id=user_id)) == 0:
             raise Exception('Oops! No access!')
         Projects.objects.filter(proj_id=proj_id, admin_id=user_id).delete()
+        User_Proj_Auth.objects.filter(proj_id=proj_id).delete()
 
         response_content['msg'] = 'success'
         response_content['error_num'] = 0
