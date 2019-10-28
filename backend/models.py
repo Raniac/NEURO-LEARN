@@ -86,6 +86,7 @@ class Users(models.Model):
 
 class Projects(models.Model):
     proj_id = models.CharField(max_length=32, unique=True)
+    admin_id = models.CharField(max_length=32)
     label = models.CharField(max_length=32, unique=True)
     title = models.CharField(max_length=128)
     introduction = models.CharField(max_length=4096)
