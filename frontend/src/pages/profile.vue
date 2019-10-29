@@ -31,6 +31,9 @@
           <el-table-column type="expand">
             <template slot-scope="props">
               <el-form label-position="left" in-line class="projects-table-expand">
+                <el-form-item label="Project ID">
+                  <span>{{ props.row.fields.proj_id }}</span>
+                </el-form-item>
                 <el-form-item label="Introduction">
                   <span>{{ props.row.fields.introduction }}</span>
                 </el-form-item>
@@ -40,11 +43,11 @@
               </el-form>
             </template>
           </el-table-column>
-          <el-table-column
+          <!-- <el-table-column
           label="Project ID"
           prop="fields.proj_id"
           width="180px">
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column
           label="Project Title"
           prop="fields.title">
@@ -52,7 +55,7 @@
           <el-table-column
           label="Project Label"
           prop="fields.label"
-          width="120px">
+          width="150px">
           </el-table-column>
           <el-table-column
             fixed="right"
@@ -84,6 +87,9 @@
           <el-table-column type="expand">
             <template slot-scope="props">
               <el-form label-position="left" in-line class="projects-table-expand">
+                <el-form-item label="Project ID">
+                  <span>{{ props.row.fields.proj_id }}</span>
+                </el-form-item>
                 <el-form-item label="Introduction">
                   <span>{{ props.row.fields.introduction }}</span>
                 </el-form-item>
@@ -93,11 +99,11 @@
               </el-form>
             </template>
           </el-table-column>
-          <el-table-column
+          <!-- <el-table-column
           label="Project ID"
           prop="fields.proj_id"
           width="180px">
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column
           label="Project Title"
           prop="fields.title">
@@ -105,7 +111,7 @@
           <el-table-column
           label="Project Label"
           prop="fields.label"
-          width="120px">
+          width="150px">
           </el-table-column>
           <el-table-column
             fixed="right"
