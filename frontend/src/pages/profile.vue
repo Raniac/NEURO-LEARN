@@ -18,7 +18,7 @@
     <div class="projects-area">
       <div>
         <h1 style="padding-left: 20px; font-family: Arial; font-weight: 150; font-size: 30px; color: #505050">
-          Joined Projects | <strong style="font-size: 18px; color: #505050">Logged in as <strong style="font-size: 30px; color: #00CCFF">{{ username }}</strong> (User ID: {{ user_id }})</strong>
+          Joined Projects | <strong style="font-size: 24px; color: #505050">Logged in as <strong style="font-size: 24px; color: #00CCFF">{{ username }}</strong></strong>
         </h1>
       </div>
       <div style="margin: 14px">
