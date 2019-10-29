@@ -9,16 +9,16 @@
           <span style="padding-left: 20px; font-family: Arial; font-weight: 100; font-size: 20px; color: #505050">Interests:  Artificial Intelligence & Neuro-Informatics</span><br/>
         </div>
         <div style="margin-top: 16px; line-height: 28px">
-          <a class="github-link" href="https://github.com/Raniac/NEURO-LEARN" target="_blank">NEURO-LEARN</a><br/>
-          <a class="github-link" href="https://github.com/Raniac" target="_blank">GitHub/Raniac</a><br/>
-          <a class="github-link" href="mailto:leibingye@outlook.com">leibingye@outlook.com</a>
+          <a class="github-link" href="https://github.com/Raniac/NEURO-LEARN" target="_blank"><i class="el-icon-folder"></i> NEURO-LEARN</a><br/>
+          <a class="github-link" href="https://github.com/Raniac" target="_blank"><i class="el-icon-user"></i> GitHub/Raniac</a><br/>
+          <a class="github-link" href="mailto:leibingye@outlook.com"><i class="el-icon-message"></i> leibingye@outlook.com</a>
         </div>
       </div>
     </div>
     <div class="projects-area">
       <div>
         <h1 style="padding-left: 20px; font-family: Arial; font-weight: 150; font-size: 30px; color: #505050">
-          Joined Projects | <strong style="font-size: 24px; color: #505050">Logged in as <strong style="font-size: 24px; color: #00CCFF">{{ username }}</strong></strong>
+          <i class="el-icon-folder-checked"></i> Joined Projects | <strong style="font-size: 24px; color: #505050">Logged in as <strong style="font-size: 24px; color: #00CCFF">{{ username }}</strong></strong>
         </h1>
       </div>
       <div style="margin: 14px">
@@ -70,7 +70,9 @@
     </div>
     <div class="projects-area">
       <div>
-        <h1 style="float: left; padding-left: 20px; font-family: Arial; font-weight: 150; font-size: 30px; color: #505050">All Projects</h1>
+        <h1 style="float: left; padding-left: 20px; font-family: Arial; font-weight: 150; font-size: 30px; color: #505050">
+          <i class="el-icon-folder-opened"></i> All Projects
+        </h1>
       </div>
       <div style="margin: 14px">
         <el-input placeholder="Search projects by title or label" v-model="search_input" class="input-with-select" style="float: right; width: 50%">

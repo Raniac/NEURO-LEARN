@@ -2,7 +2,7 @@
   <div style="text-align: center">
     <div class="ml-task-form">
       <div style="text-align: left; width: 700px; margin: 0 auto; font-family: 'Arial', Times, serif; font-size: 18px; color: #505050">
-        <h2>New Machine Learning Task</h2>
+        <h2><i class="el-icon-edit-outline"></i> New Machine Learning Task</h2>
       </div>
       <el-form ref="form" :model="form" label-width="100px" label-position="middle">
         <el-form-item label="Task Name">
