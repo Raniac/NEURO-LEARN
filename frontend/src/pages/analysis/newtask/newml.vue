@@ -6,7 +6,7 @@
       </div>
       <el-form ref="form" :model="form" label-width="100px" label-position="middle">
         <el-form-item label="Task Name">
-          <el-input v-model="newform.task_name" placeholder="Specify Task Name. (e.g. 'Classify SZ with ANOVA SVM on 246-template sfMRI data')"></el-input>
+          <el-input v-model="newform.task_name" placeholder="Specify Task Name. (e.g. 'Classify SZ with ANOVA SVM')"></el-input>
         </el-form-item>
         <el-form-item label="Task Type">
           <el-radio-group v-model="newform.task_type" @change="onRadioChange">

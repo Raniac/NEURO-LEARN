@@ -66,7 +66,7 @@
                   prop="Value">
                 </el-table-column>
               </el-table>
-              <el-button type="primary" style="margin-top: 28px" round @click="handleDownloadFeatureWeights" v-if="showDownloadButton">Download Feature Weights</el-button>
+              <el-button type="primary" style="margin-top: 28px" round @click="handleDownloadFeatureWeights" v-if="showDownloadButton">Download Supplementary</el-button>
               <li v-for="(img_name, index) in resultImgList" :key="index" style="list-style: none; text-align: center">
                 <img class="result-image" :src="'/api/v0/show_img?&img_name=' + img_name">
               </li>

@@ -160,6 +160,13 @@ def integrated_clf_model(feat_sel, model, train_data, test_data, cv):
     optimal_model.probability = True
     predictions = optimal_model.predict(test_data.X)
     probas_ = optimal_model.predict_proba(test_data.X)
+    
+    predictions_list = pd.DataFrame({
+        'Original': test_data.y,
+        'Predicted': predictions,
+        'Proba: Group 0': probas_[:, 0],
+        'Proba: Group 1': probas_[:, 1]
+    })
 
     from sklearn.metrics import confusion_matrix
     tn, fp, fn, tp = confusion_matrix(test_data.y, predictions).ravel()
@@ -202,6 +209,7 @@ def integrated_clf_model(feat_sel, model, train_data, test_data, cv):
     result_dict['Run Time'] = runtime
     result_dict['ROC fpr'] = list(fpr)
     result_dict['ROC tpr'] = list(tpr)
+    result_dict['Predictions'] = predictions_list.to_dict('records')
     try:
         result_dict['Feature Weights'] = feature_weights_list.to_dict('records')
     except:

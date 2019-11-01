@@ -542,6 +542,8 @@ def show_results(request):
             task_result_json = task_info['task_result']
             task_result_dict = json.loads(task_result_json)
             result_table_dict = task_result_dict.copy()
+            if 'Predictions' in result_table_dict.keys():
+                del(result_table_dict['Predictions'])
             if 'Feature Weights' in result_table_dict.keys():
                 del(result_table_dict['Feature Weights'])
             if 'Optimization' in result_table_dict.keys():
@@ -556,11 +558,18 @@ def show_results(request):
                 result_table.append({'Item': list(result_table_dict.keys())[idx], 'Value': list(result_table_dict.values())[idx]})
             response_content['list'] = result_table
 
-            # response with feature weights list if exists
+            # response with supplementary including feature weights list if exists
             response_content['got_weights'] = 0
+            if 'Predictions' in task_result_dict.keys():
+                predictions_list = pd.DataFrame.from_records(task_result_dict['Predictions'])
+                predictions_list.to_csv(path_or_buf='tmp/supplementary.csv', index=False)
+                response_content['got_weights'] = 1
             if 'Feature Weights' in task_result_dict.keys():
                 feature_weights_list = pd.DataFrame.from_records(task_result_dict['Feature Weights'])
-                feature_weights_list.to_csv(path_or_buf='tmp/feature_weights.csv')
+                if 'Predictions' in task_result_dict.keys():
+                    feature_weights_list.to_csv(path_or_buf='tmp/supplementary.csv', index=False, mode='a+')
+                else:
+                    feature_weights_list.to_csv(path_or_buf='tmp/supplementary.csv', index=False)
                 response_content['got_weights'] = 1
 
             # response with image data if exists
@@ -631,11 +640,11 @@ def show_img(request):
 @require_http_methods(["GET"])
 def download_feature_weights(request):
     task_id = request.GET.get('task_id')
-    feature_weights_file = open('tmp/feature_weights.csv', 'rb')
+    feature_weights_file = open('tmp/supplementary.csv', 'rb')
     
     response = FileResponse(feature_weights_file)
     response['Content-Type']='application/octet-stream'
-    response['Content-Disposition']='attachment;filename=\"feature_weights.csv\"'
+    response['Content-Disposition']='attachment;filename=\"supplementary.csv\"'
     return response
 
 @require_http_methods(["GET"])
