@@ -380,6 +380,8 @@ def integrated_clf_model_notest(feat_sel, model, train_data, cv):
 
 def integrated_rgs_model(feat_sel, model, train_data, test_data, cv):
     starttime = time.time()
+
+    feature_list = train_data.list_features
     
     if feat_sel == None:
         pipe = Pipeline(steps=[
@@ -403,20 +405,26 @@ def integrated_rgs_model(feat_sel, model, train_data, test_data, cv):
     print('The best score is', search.best_score_)
     print('The corresponding parameter setting is', search.best_params_)
 
-    # weight_vector = optimal_model.coef_
-    # abs_weight_vector = np.abs(weight_vector)
-    # feature_weight_dataframe = pd.DataFrame({'Feature': data.list_features, 'Weight': abs_weight_vector[0]})
-    # feature_ranking = feature_weight_dataframe.sort_values('Weight', axis=0, ascending=False)
-    # print('The feature ranking sorted by weight is:')
-    # print(feature_ranking[:20])
-    
-    # from sklearn.model_selection import cross_val_predict
-    # predictions = cross_val_predict(optimal_model, data.X, data.y, cv=10)
-    # original_predicted = pd.DataFrame({'Original': data.y, 'Predicted': predictions})
+    # Optimization Curve and Selected Features (if possible) 
+    if feat_sel and feat_sel.name == 'anova':
+
+        results = pd.DataFrame(search.cv_results_)
+        components_col = 'param_anova__percentile'
+        best_clfs = results.groupby(components_col).apply(lambda g: g.nlargest(1, 'mean_test_score'))
+
+        selector = optimal_model.named_steps['anova'].get_support()
+        selected_feature_list = np.array(feature_list)[selector]
+        
+        selected_weight_list = optimal_model.named_steps[model.name].coef_[0]
+        feature_weights_list = pd.DataFrame({'Feature': selected_feature_list, 'Weight': selected_weight_list})
+
+    elif not feat_sel:
+        selected_weight_list = optimal_model.named_steps[model.name].coef_[0]
+        feature_weights_list = pd.DataFrame({'Feature': feature_list, 'Weight': selected_weight_list})
 
     predictions = optimal_model.predict(test_data.X)
     original = test_data.y
-    original_predicted = pd.DataFrame({'Original': original, 'Predicted': predictions})
+    predictions_list = pd.DataFrame({'Original': original, 'Predicted': predictions})
 
     import seaborn as sns
     import matplotlib.pyplot as plt
@@ -438,11 +446,20 @@ def integrated_rgs_model(feat_sel, model, train_data, test_data, cv):
     result_dict['Test Pearson r'] = pearson_r
     result_dict['Test Pearson p'] = pearson_p
     result_dict['Run Time'] = runtime
+    result_dict['Predictions'] = predictions_list.to_dict('records')
+    try:
+        result_dict['Feature Weights'] = feature_weights_list.to_dict('records')
+    except:
+        result_dict['Feature Weights'] = pd.DataFrame({"Error": ["This model doesn\'t support generating feature weights"]}).to_dict('records')
+    if feat_sel:
+        result_dict['Optimization'] = best_clfs.to_dict('records')
 
     return result_dict
 
 def integrated_rgs_model_notest(feat_sel, model, train_data, cv):
     starttime = time.time()
+
+    feature_list = train_data.list_features
     
     if feat_sel == None:
         pipe = Pipeline(steps=[
@@ -466,6 +483,23 @@ def integrated_rgs_model_notest(feat_sel, model, train_data, cv):
     print('The best score is', search.best_score_)
     print('The corresponding parameter setting is', search.best_params_)
 
+    # Optimization Curve and Selected Features (if possible) 
+    if feat_sel and feat_sel.name == 'anova':
+
+        results = pd.DataFrame(search.cv_results_)
+        components_col = 'param_anova__percentile'
+        best_clfs = results.groupby(components_col).apply(lambda g: g.nlargest(1, 'mean_test_score'))
+
+        selector = optimal_model.named_steps['anova'].get_support()
+        selected_feature_list = np.array(feature_list)[selector]
+        
+        selected_weight_list = optimal_model.named_steps[model.name].coef_[0]
+        feature_weights_list = pd.DataFrame({'Feature': selected_feature_list, 'Weight': selected_weight_list})
+
+    elif not feat_sel:
+        selected_weight_list = optimal_model.named_steps[model.name].coef_[0]
+        feature_weights_list = pd.DataFrame({'Feature': feature_list, 'Weight': selected_weight_list})
+
     endtime = time.time()
     runtime = str(endtime - starttime)
     runtime = str(decimal.Decimal(runtime).quantize(decimal.Decimal('0.00'))) + 's'
@@ -475,5 +509,11 @@ def integrated_rgs_model_notest(feat_sel, model, train_data, cv):
     result_dict['Optimal CV MAE'] = optimal_score
     result_dict['Optimal Parameters'] = optimal_params
     result_dict['Run Time'] = runtime
+    try:
+        result_dict['Feature Weights'] = feature_weights_list.to_dict('records')
+    except:
+        result_dict['Feature Weights'] = pd.DataFrame({"Error": ["This model doesn\'t support generating feature weights"]}).to_dict('records')
+    if feat_sel:
+        result_dict['Optimization'] = best_clfs.to_dict('records')
 
     return result_dict
