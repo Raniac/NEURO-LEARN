@@ -376,7 +376,26 @@ def new_task(request):
             postBody = json.loads(request.body.decode("utf-8"))
             task_id = 'TASK' + time.strftime('%Y%m%d%H%M%S')
             proj_id = postBody.get('proj_id')
-            task_name = postBody.get('task_name')
+            if not postBody.get('task_name'):
+                model_abbrs = {
+                    'Analysis of Variance': 'anova',
+                    'Principal Component Analysis': 'pca',
+                    'Recursive Feature Elimination': 'rfe',
+                    'None': '',
+                    'Support Vector Machine': 'svm',
+                    'Random Forest': 'rf',
+                    'Linear Discriminative Analysis': 'lda',
+                    'Logistic Regression': 'lr',
+                    'K Nearest Neighbor': 'knn',
+                    'Support Vector Regression': 'svr',
+                    'Elastic Net': 'en',
+                    'Ordinary Least Square': 'ols',
+                    'Lasso Regression': 'lasso',
+                    'Ridge Regression': 'ridge'
+                }
+                task_name = time.strftime('%y%m%d') + '_' + model_abbrs[postBody.get('feat_sel')] + '_' + model_abbrs[postBody.get('estimator')]
+            else:
+                task_name = postBody.get('task_name')
             task_type = postBody.get('task_type')
             if task_type[:2] == 'ml':
                 task_config = {}
