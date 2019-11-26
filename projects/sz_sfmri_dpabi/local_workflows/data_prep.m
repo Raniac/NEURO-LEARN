@@ -7,7 +7,7 @@ clear;
 input_dir={'H:\kly_data\task_191010\Resliced\Reslice_ALFF_FunImgARCWS',...
     'H:\kly_data\task_191010\Resliced\Reslice_ReHo_FunImgARCW',...
     'H:\kly_data\task_191010\Resliced\Reslice_mwc1'};
-FC_dir='H:\kly_data\task_191010\Analysis\Results\ROISignals_FunImgARCWSF'; % extract DC:用ARCWSF,文件要用ROICorrelation_FisherZ开头的
+FC_dir='H:\kly_data\task_191010\Analysis\Results\ROISignals_FunImgARCWSF'; % extract DC:锟斤拷ARCWSF,锟侥硷拷要锟斤拷ROICorrelation_FisherZ锟斤拷头锟斤拷
 ID_len = 10; % how many chars is the ID str
 save_name = 'H:\kly_data\task_191010\ARGD_90.csv';
 
@@ -105,13 +105,13 @@ for i = 1:ROI_num
     variable{2 + i} = ['ALFF_' int2str(i)];
 end
 for i = 1:ROI_num
-    variable{2 + ROI_num + i} = ['ReHo_' int2str(i)];
+    variable{2 + ROI_num + i} = ['DC_' int2str(i)];
 end
 for i = 1:ROI_num
     variable{2 + ROI_num*2 + i} = ['GMV_' int2str(i)];
 end
 for i = 1:ROI_num
-    variable{2 + ROI_num*3 + i} = ['DC_' int2str(i)];
+    variable{2 + ROI_num*3 + i} = ['ReHo_' int2str(i)];
 end
 Tfea = array2table(res,...
     'VariableNames',variable,...
