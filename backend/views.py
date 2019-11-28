@@ -599,8 +599,8 @@ def show_results(request):
                 print(best_clfs.columns.values.tolist())
                 components_col = best_clfs.columns.values.tolist()[3]
                 best_clfs.plot(x=components_col, y='mean_test_score', yerr='std_test_score')
-                plt.ylabel('Classification accuracy (val)')
-                plt.xlabel('n_features_to_select')
+                plt.ylabel('Classification Accuracy')
+                plt.xlabel('Features Selected')
                 plt.title('Optimization Curve')
                 plt.savefig('tmp/optimization_curve.png', dpi=300)
                 plt.close()
