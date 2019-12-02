@@ -30,12 +30,12 @@
           </el-select>
         </el-form-item>
         <el-form-item label="Feat. Sel.">
-          <el-select class="select-model" v-model="newform.feat_sel" placeholder="Select Model">
+          <el-select class="select-model" v-model="newform.feat_sel" placeholder="Select Model" filterable multiple>
             <el-option v-for="(feat_sel_option, key) in form.feat_sel_options" :label="feat_sel_option.name" :value="feat_sel_option.value" :key="key"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="Estimator">
-          <el-select class="select-model" v-model="newform.estimator" placeholder="Select Model">
+          <el-select class="select-model" v-model="newform.estimator" placeholder="Select Model" filterable multiple>
             <el-option v-for="(estimator_option, key) in form.estimator_options" :label="estimator_option.name" :value="estimator_option.value" :key="key"></el-option>
           </el-select>
         </el-form-item>
@@ -54,12 +54,6 @@
             <el-option v-for="(data_option, key) in data_table" :label="data_option.fields.data_name" :value="data_option.fields.data_name" :key="key"></el-option>
           </el-select>
         </el-form-item>
-        <!-- <el-form-item label="Note">
-          <el-input type="textarea" v-model="newform.note"></el-input>
-        </el-form-item> -->
-        <!-- <el-form-item label="Verbose">
-          <el-switch v-model="newform.verbose"></el-switch>
-        </el-form-item> -->
         <el-form-item>
           <el-button type="primary" @click="onSubmit">Submit</el-button>
           <el-button @click="onCancel">Cancel</el-button>
@@ -86,8 +80,8 @@ export default {
         enable_test: false,
         test_data: [],
         label: '',
-        feat_sel: '',
-        estimator: '',
+        feat_sel: [],
+        estimator: [],
         cv_type: ''
       },
       form: {
