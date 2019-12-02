@@ -377,40 +377,6 @@ def new_task(request):
             proj_id = postBody.get('proj_id')
             task_type = postBody.get('task_type')
             if task_type[:2] == 'ml':
-                # task_config = {}
-                # task_config['proj_name'] = postBody.get('proj_name')
-                # task_config['train_data'] = postBody.get('train_data')
-                # task_config['enable_test'] = postBody.get('enable_test')
-                # task_config['test_data'] = postBody.get('test_data')
-                # task_config['label'] = postBody.get('label')
-                # task_config['feat_sel'] = postBody.get('feat_sel')
-                # task_config['estimator'] = postBody.get('estimator')
-                # task_config['cv_type'] = postBody.get('cv_type')
-
-                # task = Submissions(
-                #     task_id=task_id,
-                #     proj_id=proj_id,
-                #     task_name=task_name,
-                #     task_type=task_type,
-                #     task_config=json.dumps(task_config),
-                #     task_status='Submitted',
-                #     task_result=''
-                # )
-                # task.save()
-
-                # # create new celery task
-                # new_ml_celery_task.delay(
-                #     taskid=task_id,
-                #     tasktype=task_type,
-                #     traindata=task_config['train_data'],
-                #     enabletest=task_config['enable_test'],
-                #     testdata=task_config['test_data'],
-                #     label=task_config['label'],
-                #     featsel=task_config['feat_sel'],
-                #     estimator=task_config['estimator'],
-                #     cv=task_config['cv_type']
-                # )
-
                 counter = 0
                 for trans in postBody.get('feat_sel'):
                     for estim in postBody.get('estimator'):
@@ -424,7 +390,7 @@ def new_task(request):
                         task_config['estimator'] = estim
                         task_config['cv_type'] = postBody.get('cv_type')
                         
-                        task_id = 'TASK' + time.strftime('%y%m%d%H%M%S') + "{:02d}".format(counter)
+                        task_id = 'TASK' + time.strftime('%y%m%d%H%M%S') + '{:02d}'.format(counter)
 
                         if not postBody.get('task_name'):
                             model_abbrs = {
