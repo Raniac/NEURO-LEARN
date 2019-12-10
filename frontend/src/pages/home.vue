@@ -1,7 +1,7 @@
 <template>
   <div style="text-align: center">
     <div style="margin: 14px auto">
-      <img style="width: 800px" src="@/assets/img/NL.png">
+      <img style="width: 800px" src="@/assets/img/logo.png">
     </div>
     <div class="home-content-area">
       <div style="padding: 20px">
@@ -62,7 +62,7 @@
         </div>
         <hr style="width: 750px" />
         <div style="text-align: left; width: 700px; margin: 0 auto; font-family: 'Times New Roman', Times, serif; font-size: 18px">
-          <p><a style="color: #00CCFF; font-weight: bold" href="https://github.com/Raniac/NEURO-LEARN/" target="_blank">NEURO-LEARN</a> is a solution for collaborative pattern analysis of neuroimaging data. Its collaboration scheme of data and workflow management consists of four parts: projects, data, analysis and reports. As data preparation workflows defined in projects reduce the high dimensionality of neuroimaging data by collaborative computation, collaborative sharing of data and analysis workflows along with visualization of generated reports on the Web enlarge the sample size and facilitate the validity, reliability, and reproducibility of pattern analyses. Incorporating this scheme, NEURO-LEARN provides an easy-to-use web platform for the collaboration of pattern analysis of neuroimaging data.</p>
+          <p><a style="color: #00CCFF; font-weight: bold" href="https://github.com/Raniac/NEURO-LEARN/" target="_blank">NEURO-LEARN</a> is a solution for collaborative pattern analysis of neuroimaging data. Its collaboration scheme consists of four parts: projects, data, analysis, and reports. While data preparation workflows defined in projects reduce the high dimensionality of neuroimaging data by collaborative computation, pooling of derived data and sharing of pattern analysis workflows along with generated reports on the Web enlarge the sample size and ensure the reliability and reproducibility of pattern analysis. Incorporating this scheme, NEURO-LEARN provides an easy-to-use Web application that allows users from different sites to share projects and processed data, perform pattern analysis, and obtain result reports.</p>
           <p>Main functionalities of NEURO-LEARN was coded by Bingye Lei, who also wrote the first version of wiki. Should you encouter any problems when using NEURO-LEARN, please feel free to file an issue or contact <a style="color: #00CCFF; font-weight: bold" href="mailto:leibingye@outlook.com">leibingye@outlook.com</a>.</p>
           <p>The code of NEURO-LEARN is distributed under Apache License 2.0. If you find our work useful and want to publish a study using NEURO-LEARN, we would appreciate it if you cited our paper.</p>
           <p>More information about NEURO-LEARN can be found in <a style="color: #00CCFF; font-weight: bold" href="https://github.com/Raniac/NEURO-LEARN/wiki/" target="_blank">NEURO-LEARN Documentation</a>.</p>
