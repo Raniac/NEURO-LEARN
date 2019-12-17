@@ -392,23 +392,23 @@ def new_task(request):
                         
                         task_id = 'TASK' + time.strftime('%y%m%d%H%M%S') + '{:02d}'.format(counter)
 
+                        model_abbrs = {
+                            'Analysis of Variance': 'anova',
+                            'Principal Component Analysis': 'pca',
+                            'Recursive Feature Elimination': 'rfe',
+                            'None': 'none',
+                            'Support Vector Machine': 'svm',
+                            'Random Forest': 'rf',
+                            'Linear Discriminative Analysis': 'lda',
+                            'Logistic Regression': 'lr',
+                            'K Nearest Neighbor': 'knn',
+                            'Support Vector Regression': 'svr',
+                            'Elastic Net': 'en',
+                            'Ordinary Least Square': 'ols',
+                            'Lasso Regression': 'lasso',
+                            'Ridge Regression': 'ridge'
+                        }
                         if not postBody.get('task_name'):
-                            model_abbrs = {
-                                'Analysis of Variance': 'anova',
-                                'Principal Component Analysis': 'pca',
-                                'Recursive Feature Elimination': 'rfe',
-                                'None': 'none',
-                                'Support Vector Machine': 'svm',
-                                'Random Forest': 'rf',
-                                'Linear Discriminative Analysis': 'lda',
-                                'Logistic Regression': 'lr',
-                                'K Nearest Neighbor': 'knn',
-                                'Support Vector Regression': 'svr',
-                                'Elastic Net': 'en',
-                                'Ordinary Least Square': 'ols',
-                                'Lasso Regression': 'lasso',
-                                'Ridge Regression': 'ridge'
-                            }
                             task_name = task_id + '_' + model_abbrs[trans] + '_' + model_abbrs[estim]
                         else:
                             task_name = postBody.get('task_name') + '_' + model_abbrs[trans] + '_' + model_abbrs[estim]
