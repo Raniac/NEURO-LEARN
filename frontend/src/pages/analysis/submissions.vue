@@ -104,7 +104,7 @@
           <div style="margin: 14px">
             <el-table
               class="submissions-table"
-              :data="submissions_table.filter(data => (!search_input || data.fields.task_name.toLowerCase().includes(search_input.toLowerCase())) && data.fields.task_status.includes(selected_status)).slice((currpage - 1) * pagesize, currpage * pagesize)"
+              :data="submissions_table.filter(data => (!search_input || data.fields.task_name.toLowerCase().includes(search_input.toLowerCase())) && data.fields.task_status.includes(selected_status))"
               stripe
               border
               @selection-change="onSelectionChange"
@@ -173,9 +173,8 @@
               background
               layout="prev, pager, next"
               :page-size="pagesize"
-              :total="submissions_table.length"
+              :total="totalsize"
               @current-change="handleCurrentChange"
-              @size-change="handleSizeChange"
               style="float: left">
             </el-pagination>
             <el-tooltip content="View the report(s) of selected task(s)" placement="top">
@@ -198,6 +197,7 @@ export default {
       submissions_table: [],
       pagesize: 10,
       currpage: 1,
+      totalsize: 0,
       multipleSelections: [],
       tabsValue: 'Machine Learning',
       analysisType: 'Machine Learning'
@@ -212,11 +212,13 @@ export default {
       this.showSubmissions()
     },
     showSubmissions () {
-      axios.get('/api/v0/show_submissions?analysis_type=' + this.analysisType)
+      axios.get('/api/v0/show_submissions?analysis_type=' + this.analysisType + '&page_num=' + this.currpage)
         .then(response => {
           var res = response.data
           if (res.error_num === 0) {
             console.log(res)
+            // this.totalnum = Math.ceil(res.total_size / this.pagesize)
+            this.totalsize = res.total_size
             this.parseSubmissionsTable(res['list'])
             console.log(this.submissions_table)
           } else {
@@ -275,9 +277,10 @@ export default {
     },
     handleCurrentChange (cpage) {
       this.currpage = cpage
-    },
-    handleSizeChange (psize) {
-      this.pagesize = psize
+      this.showSubmissions()
+    // },
+    // handleSizeChange (psize) {
+    //   this.pagesize = psize
     }
   }
 }

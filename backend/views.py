@@ -524,6 +524,8 @@ def show_submissions(request):
     response = HttpResponse()
     try:
         analysis_type = request.GET.get('analysis_type')
+        page_num = int(request.GET.get('page_num'))
+        page_size = 10
         user_id = request.COOKIES.get('user_id')
         proj_ids = User_Proj_Auth.objects.filter(user_id=user_id).values('proj_id')
         proj_id_list = []
@@ -531,7 +533,8 @@ def show_submissions(request):
             proj_id_list.append(itm['proj_id'])
         if analysis_type == 'Machine Learning':
             submissions = Submissions.objects.filter(task_type__in = ['ml_clf', 'ml_rgs'], proj_id__in = proj_id_list).order_by('-id')
-            response_content['list']  = json.loads(serializers.serialize("json", submissions))
+            response_content['list']  = json.loads(serializers.serialize("json", submissions[(page_num-1)*page_size:page_num*page_size]))
+            response_content['total_size'] = len(submissions)
         elif analysis_type == "Statistical Analysis":
             submissions = Submissions.objects.filter(task_type__in = ['sa_da_ttest', 'sa_da_anova', 'sa_ca_prson', 'sa_ca_spman'], proj_id__in = proj_id_list).order_by('-id')[:4]
             response_content['list']  = json.loads(serializers.serialize("json", submissions))
