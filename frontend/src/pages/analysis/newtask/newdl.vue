@@ -6,10 +6,10 @@
       </div>
       <el-form ref="form" :model="form" label-width="100px" label-position="middle">
         <el-form-item label="Task Name">
-          <el-input v-model="newform.task_name" placeholder="Specify Task Name, Date_Transformer_Estimator by Default."></el-input>
+          <el-input v-model="newform.task_name" placeholder="Specify Task Name, Date_Model by Default."></el-input>
         </el-form-item>
         <el-form-item label="Task Type">
-          <el-radio-group v-model="newform.task_type" @change="onRadioChange">
+          <el-radio-group v-model="newform.task_type">
             <el-radio label="ts">Train from Scratch</el-radio>
             <el-radio label="ft">Fine Tune</el-radio>
           </el-radio-group>
@@ -31,16 +31,17 @@
         </el-form-item>
         <el-form-item label="Model">
           <el-select class="select-model" v-model="newform.model" placeholder="Select Model" filterable multiple>
-            <el-option v-for="(estimator_option, key) in form.estimator_options" :label="estimator_option.name" :value="estimator_option.value" :key="key"></el-option>
+            <el-option v-for="(model_option, key) in form.model_options" :label="model_option.name" :value="model_option.value" :key="key"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="Param. Set." style="color: #505050">
           Batch Size <el-input-number class="input-param" controls-position="right" size="small" min="0" max="1000" step="10" v-model="newform.param_set.batch_size"></el-input-number>
           Learning Rate <el-input-number class="input-param" controls-position="right" size="small" min="0" max="1" v-model="newform.param_set.learning_rate"></el-input-number>
+          Epochs <el-input-number class="input-param" controls-position="right" size="small" min="0" max="1000" step="10" v-model="newform.param_set.epochs"></el-input-number>
           <br>
           Step Size <el-input-number class="input-param" controls-position="right" size="small" min="0" max="100" step="10" v-model="newform.param_set.step_size"></el-input-number>
           Gamma <el-input-number class="input-param" controls-position="right" size="small" min="0" max="1" v-model="newform.param_set.gamma"></el-input-number>
-          Epochs <el-input-number class="input-param" controls-position="right" size="small" min="0" max="1000" step="10" v-model="newform.param_set.epochs"></el-input-number>
+          <br>
           <a style="color: #00CCFF" href="https://github.com/Raniac/NEURO-LEARN/wiki/" target="_blank">What are these?</a>
         </el-form-item>
         <el-form-item label="Enable Test">
@@ -91,9 +92,7 @@ export default {
       },
       form: {
         proj_options: [],
-        label_options: [],
-        feat_sel_options: [],
-        estimator_options: []
+        model_options: []
       }
     }
   },
@@ -102,45 +101,6 @@ export default {
     // this.updateData()
   },
   methods: {
-    onRadioChange () {
-      if (this.newform.task_type === 'ml_clf') {
-        this.form.estimator_options = [
-          {name: 'Support Vector Machine', value: 'Support Vector Machine'},
-          {name: 'Random Forest', value: 'Random Forest'},
-          {name: 'Linear Discriminative Analysis', value: 'Linear Discriminative Analysis'},
-          {name: 'Logistic Regression', value: 'Logistic Regression'},
-          {name: 'K Nearest Neighbor', value: 'K Nearest Neighbor'}
-        ]
-        this.form.label_options = [
-          {name: 'GROUP', value: 'GROUP'}
-        ]
-        this.form.feat_sel_options = [
-          {name: 'Analysis of Variance', value: 'Analysis of Variance'},
-          {name: 'Principal Component Analysis', value: 'Principal Component Analysis'},
-          {name: 'Recursive Feature Elimination', value: 'Recursive Feature Elimination'},
-          {name: 'None', value: 'None'}
-        ]
-      } else if (this.newform.task_type === 'ml_rgs') {
-        this.form.estimator_options = [
-          {name: 'Support Vector Regression', value: 'Support Vector Regression'},
-          {name: 'Elastic Net', value: 'Elastic Net'},
-          {name: 'Ordinary Least Square', value: 'Ordinary Least Square'},
-          {name: 'Lasso Regression', value: 'Lasso Regression'},
-          {name: 'Ridge Regression', value: 'Ridge Regression'}
-        ]
-        this.form.label_options = [
-          // {name: 'PANSS_P', value: 'PANSS_P'},
-          // {name: 'PANSS_N', value: 'PANSS_N'},
-          // {name: 'PANSS_G', value: 'PANSS_G'},
-          // {name: 'PANSS_T', value: 'PANSS_T'}
-          {name: 'SCORE', value: 'SCORE'}
-        ]
-        this.form.feat_sel_options = [
-          {name: 'Analysis of Variance', value: 'Analysis of Variance'},
-          {name: 'None', value: 'None'}
-        ]
-      }
-    },
     onSubmit () {
       this.$confirm('Submit this task now?', 'Attention!', {
         confirmButtonText: 'Confirm',
@@ -237,7 +197,7 @@ export default {
     width: 200px;
   }
   .input-param {
-    width: 150px;
+    width: 100px;
   }
   .second-label {
     font-size: 10px;
