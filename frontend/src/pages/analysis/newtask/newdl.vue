@@ -29,20 +29,19 @@
             <el-option v-for="(data_option, key) in data_table" :label="data_option.fields.data_name" :value="data_option.fields.data_name" :key="key"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="Label">
-          <el-select class="select-label" v-model="newform.label" placeholder="Select Label">
-          <el-option v-for="(label_option, key) in form.label_options" :label="label_option.name" :value="label_option.value" :key="key"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="Feat. Sel.">
-          <el-select class="select-model" v-model="newform.feat_sel" placeholder="Select Model" filterable multiple>
-            <el-option v-for="(feat_sel_option, key) in form.feat_sel_options" :label="feat_sel_option.name" :value="feat_sel_option.value" :key="key"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="Estimator">
-          <el-select class="select-model" v-model="newform.estimator" placeholder="Select Model" filterable multiple>
+        <el-form-item label="Model">
+          <el-select class="select-model" v-model="newform.model" placeholder="Select Model" filterable multiple>
             <el-option v-for="(estimator_option, key) in form.estimator_options" :label="estimator_option.name" :value="estimator_option.value" :key="key"></el-option>
           </el-select>
+        </el-form-item>
+        <el-form-item label="Param. Set." style="color: #505050">
+          Batch Size <el-input-number class="input-param" controls-position="right" size="small" min="0" max="1000" step="10" v-model="newform.param_set.batch_size"></el-input-number>
+          Learning Rate <el-input-number class="input-param" controls-position="right" size="small" min="0" max="1" v-model="newform.param_set.learning_rate"></el-input-number>
+          <br>
+          Step Size <el-input-number class="input-param" controls-position="right" size="small" min="0" max="100" step="10" v-model="newform.param_set.step_size"></el-input-number>
+          Gamma <el-input-number class="input-param" controls-position="right" size="small" min="0" max="1" v-model="newform.param_set.gamma"></el-input-number>
+          Epochs <el-input-number class="input-param" controls-position="right" size="small" min="0" max="1000" step="10" v-model="newform.param_set.epochs"></el-input-number>
+          <a style="color: #00CCFF" href="https://github.com/Raniac/NEURO-LEARN/wiki/" target="_blank">What are these?</a>
         </el-form-item>
         <el-form-item label="Enable Test">
           <el-switch
@@ -80,9 +79,14 @@ export default {
         val_data: [],
         enable_test: false,
         test_data: [],
-        label: '',
-        feat_sel: [],
-        estimator: [],
+        model: [],
+        param_set: {
+          learning_rate: 5e-2,
+          batch_size: 10,
+          step_size: 60,
+          gamma: 0.2,
+          epochs: 200
+        },
         cv_type: ''
       },
       form: {
@@ -231,6 +235,13 @@ export default {
   }
   .select-cv-type {
     width: 200px;
+  }
+  .input-param {
+    width: 150px;
+  }
+  .second-label {
+    font-size: 10px;
+    padding: 0px 4px;
   }
 }
 </style>
