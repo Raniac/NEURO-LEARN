@@ -36,11 +36,11 @@
         </el-form-item>
         <el-form-item label="Param. Set." style="color: #505050">
           Batch Size <el-input-number class="input-param" controls-position="right" size="small" min="0" max="1000" step="10" v-model="newform.param_set.batch_size"></el-input-number>
-          Learning Rate <el-input-number class="input-param" controls-position="right" size="small" min="0" max="1" v-model="newform.param_set.learning_rate"></el-input-number>
-          Epochs <el-input-number class="input-param" controls-position="right" size="small" min="0" max="1000" step="10" v-model="newform.param_set.epochs"></el-input-number>
+          &emsp;Learning Rate <el-input-number class="input-param" controls-position="right" size="small" min="0" max="1" v-model="newform.param_set.learning_rate"></el-input-number>
+          &emsp;Epochs <el-input-number class="input-param" controls-position="right" size="small" min="0" max="1000" step="10" v-model="newform.param_set.epochs"></el-input-number>
           <br>
           Step Size <el-input-number class="input-param" controls-position="right" size="small" min="0" max="100" step="10" v-model="newform.param_set.step_size"></el-input-number>
-          Gamma <el-input-number class="input-param" controls-position="right" size="small" min="0" max="1" v-model="newform.param_set.gamma"></el-input-number>
+          &emsp;Gamma <el-input-number class="input-param" controls-position="right" size="small" min="0" max="1" v-model="newform.param_set.gamma"></el-input-number>
           <br>
           <a style="color: #00CCFF" href="https://github.com/Raniac/NEURO-LEARN/wiki/" target="_blank">What are these?</a>
         </el-form-item>

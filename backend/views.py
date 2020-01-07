@@ -129,7 +129,7 @@ def show_all_projects(request):
     response = HttpResponse()
     try:
         projects = Projects.objects.filter()
-        response_content['list']  = json.loads(serializers.serialize("json", projects))
+        response_content['list']  = json.loads(serializers.serialize("json", projects, fields=('title', 'label', 'proj_id', 'introduction', 'methods')))
         response_content['msg'] = 'success'
         response_content['error_num'] = 0
     except Exception as e:
