@@ -39,8 +39,8 @@
           &emsp;Learning Rate <el-input-number class="input-param" controls-position="right" size="small" min="0" max="1" v-model="newform.param_set.learning_rate"></el-input-number>
           &emsp;Epochs <el-input-number class="input-param" controls-position="right" size="small" min="0" max="1000" step="10" v-model="newform.param_set.epochs"></el-input-number>
           <br>
-          Step Size <el-input-number class="input-param" controls-position="right" size="small" min="0" max="100" step="10" v-model="newform.param_set.step_size"></el-input-number>
-          &emsp;Gamma <el-input-number class="input-param" controls-position="right" size="small" min="0" max="1" v-model="newform.param_set.gamma"></el-input-number>
+          LR Step Size <el-input-number class="input-param" controls-position="right" size="small" min="0" max="100" step="10" v-model="newform.param_set.lr_step_size"></el-input-number>
+          &emsp;LR Decay <el-input-number class="input-param" controls-position="right" size="small" min="0" max="1" v-model="newform.param_set.lr_decay"></el-input-number>
           <br>
           <a style="color: #00CCFF" href="https://github.com/Raniac/NEURO-LEARN/wiki/" target="_blank">What are these?</a>
         </el-form-item>
@@ -84,8 +84,8 @@ export default {
         param_set: {
           learning_rate: 5e-2,
           batch_size: 10,
-          step_size: 60,
-          gamma: 0.2,
+          lr_step_size: 60,
+          lr_decay: 0.2,
           epochs: 200
         },
         cv_type: ''
