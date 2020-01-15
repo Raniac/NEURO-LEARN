@@ -10,8 +10,8 @@
         </el-form-item>
         <el-form-item label="Task Type">
           <el-radio-group v-model="newform.task_type">
-            <el-radio label="ts">Train from Scratch</el-radio>
-            <el-radio label="ft">Fine Tune</el-radio>
+            <el-radio label="dl_ts">Train from Scratch</el-radio>
+            <el-radio label="dl_ft">Fine Tune</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="Proj. Name">
