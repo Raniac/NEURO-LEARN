@@ -22,7 +22,7 @@ cryptography==2.6.1
 cycler==0.10.0
 decorator==4.4.0
 dipy==0.16.0
-Django==2.1.7
+Django==2.2.13
 django-celery==3.2.2
 django-cors-headers==2.5.2
 django-redis==4.10.0
