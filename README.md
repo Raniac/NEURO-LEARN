@@ -2,6 +2,8 @@
 
 ---
 
+> NOTICE: Most of the code in this repository is no longer under development since we are focusing on [NEURO-LEARN-DOCKER](https://github.com/Raniac/NEURO-LEARN-DOCKER). Please check it out! :-)
+
 NEURO-LEARN is a solution for collaborative pattern analysis of neuroimaging data. Its collaboration scheme consists of four parts: projects, data, analysis, and reports. While data preparation workflows defined in projects reduce the high dimensionality of neuroimaging data by collaborative computation, pooling of derived data and sharing of pattern analysis workflows along with generated reports on the Web enlarge the sample size and ensure the reliability and reproducibility of pattern analysis. Incorporating this scheme, NEURO-LEARN provides an easy-to-use Web application that allows users from different sites to share projects and processed data, perform pattern analysis, and obtain result reports.
 
 ![neuro-learn-ui](doc/img/UI_rvs.png?raw=true "neuro-learn-ui")
