@@ -66,7 +66,7 @@ nipy==0.4.2
 nipype==1.1.9
 nitime==0.7
 num2words==0.5.9
-numpy==1.16.3
+numpy==1.22.0
 numpydoc==0.8.0
 optional-django==0.3.0
 packaging==19.0
