@@ -16,7 +16,7 @@ cffi==1.12.2
 chardet==3.0.4
 citeproc-py==0.4.0
 Click==7.0
-codecov==2.0.15
+codecov==2.0.16
 coverage==4.5.3
 cryptography==2.6.1
 cycler==0.10.0
