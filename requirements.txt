@@ -11,7 +11,7 @@ bids-validator==1.2.2
 billiard==3.3.0.23
 bz2file==0.98
 celery==3.1.26.post2
-certifi==2019.3.9
+certifi==2022.12.7
 cffi==1.12.2
 chardet==3.0.4
 citeproc-py==0.4.0
